@@ -15,8 +15,9 @@ void main(void){
 
 	while(1)
 	{
-		P1OUT ^= 0x01;				// toggle P1.0
-		for(i=50000; i>0; i--);     // delay
+		//P1OUT ^= 0x01;				// toggle P1.0
+	    GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
+		for(i=10000; i>0; i--);     // delay
 	}
 }
 
@@ -28,5 +29,5 @@ void initWatchdog(void) {
 // Configure GPIO ports/pins
 void initGPIO(void) {
 	//P1DIR |= 0x01;					// configure P1.0 as output
-	GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P1, GPIO_PIN0);
+    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
 }
