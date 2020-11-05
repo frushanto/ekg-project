@@ -50,7 +50,7 @@ void initWatchdog(void) {
 
 // Configure GPIO ports/pins
 void initGPIO(void) {
-    //GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
+    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
     //GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN7);
 
     // Set input and enable P1.1 as INT
@@ -80,7 +80,7 @@ void initClocks() {
 /* Interrupt Service Routines */
 #pragma vector = PORT1_VECTOR
 __interrupt void pushbutton_ISR(void) {
-    switch(__even_in_range(PORT1_VECTOR, 0x10)) {
+    switch(__even_in_range(P1IV, 0x10)) {
         case 0x00: break;   // None
         case 0x02: break;   // Pin 0
         case 0x04:          // Pin 1
