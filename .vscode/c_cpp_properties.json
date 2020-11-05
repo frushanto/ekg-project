@@ -3,7 +3,9 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.2.LTS/include",
+                "/Users/ivan/Workspace/Projects/ekg/msp430_driverlib_2_91_13_01/driverlib/MSP430F5xx_6xx"
             ],
             "defines": [],
             "macFrameworkPath": [

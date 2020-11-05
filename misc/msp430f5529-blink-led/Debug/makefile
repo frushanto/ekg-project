@@ -9,6 +9,47 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./blink.obj" \
+"./include_MSP430F5xx_6xx/adc10_a.obj" \
+"./include_MSP430F5xx_6xx/adc12_a.obj" \
+"./include_MSP430F5xx_6xx/aes.obj" \
+"./include_MSP430F5xx_6xx/battbak.obj" \
+"./include_MSP430F5xx_6xx/comp_b.obj" \
+"./include_MSP430F5xx_6xx/crc.obj" \
+"./include_MSP430F5xx_6xx/ctsd16.obj" \
+"./include_MSP430F5xx_6xx/dac12_a.obj" \
+"./include_MSP430F5xx_6xx/dma.obj" \
+"./include_MSP430F5xx_6xx/eusci_a_spi.obj" \
+"./include_MSP430F5xx_6xx/eusci_a_uart.obj" \
+"./include_MSP430F5xx_6xx/eusci_b_i2c.obj" \
+"./include_MSP430F5xx_6xx/eusci_b_spi.obj" \
+"./include_MSP430F5xx_6xx/flashctl.obj" \
+"./include_MSP430F5xx_6xx/gpio.obj" \
+"./include_MSP430F5xx_6xx/lcd_b.obj" \
+"./include_MSP430F5xx_6xx/lcd_c.obj" \
+"./include_MSP430F5xx_6xx/ldopwr.obj" \
+"./include_MSP430F5xx_6xx/mpy32.obj" \
+"./include_MSP430F5xx_6xx/oa.obj" \
+"./include_MSP430F5xx_6xx/pmap.obj" \
+"./include_MSP430F5xx_6xx/pmm.obj" \
+"./include_MSP430F5xx_6xx/ram.obj" \
+"./include_MSP430F5xx_6xx/ref.obj" \
+"./include_MSP430F5xx_6xx/rtc_a.obj" \
+"./include_MSP430F5xx_6xx/rtc_b.obj" \
+"./include_MSP430F5xx_6xx/rtc_c.obj" \
+"./include_MSP430F5xx_6xx/sd24_b.obj" \
+"./include_MSP430F5xx_6xx/sfr.obj" \
+"./include_MSP430F5xx_6xx/sysctl.obj" \
+"./include_MSP430F5xx_6xx/tec.obj" \
+"./include_MSP430F5xx_6xx/timer_a.obj" \
+"./include_MSP430F5xx_6xx/timer_b.obj" \
+"./include_MSP430F5xx_6xx/timer_d.obj" \
+"./include_MSP430F5xx_6xx/tlv.obj" \
+"./include_MSP430F5xx_6xx/ucs.obj" \
+"./include_MSP430F5xx_6xx/usci_a_spi.obj" \
+"./include_MSP430F5xx_6xx/usci_a_uart.obj" \
+"./include_MSP430F5xx_6xx/usci_b_i2c.obj" \
+"./include_MSP430F5xx_6xx/usci_b_spi.obj" \
+"./include_MSP430F5xx_6xx/wdt_a.obj" \
 "../lnk_msp430f5529.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -22,7 +63,9 @@ RMDIR := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include include_MSP430F5xx_6xx/subdir_vars.mk
 -include subdir_rules.mk
+-include include_MSP430F5xx_6xx/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -139,7 +182,7 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 msp430f5529-blink-led.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: MSP430 Linker'
-	"/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.2.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --advice:power=all --define=__MSP430F5529__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 -z -m"msp430f5529-blink-led.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"/Users/ivan/Workspace/Software/ccs/ccs_base/msp430/include" -i"/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.2.LTS/lib" -i"/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.2.LTS/include" -i"/Users/ivan/Workspace/Software/ccs/ccs_base/msp430/lib/5xx_6xx_FRxx" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="msp430f5529-blink-led_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "msp430f5529-blink-led.out" $(ORDERED_OBJS)
+	"/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.2.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --advice:power="all" --define=__MSP430F5529__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 -z -m"msp430f5529-blink-led.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"/Users/ivan/Workspace/Software/ccs/ccs_base/msp430/include" -i"/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.2.LTS/lib" -i"/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.2.LTS/include" -i"/Users/ivan/Workspace/Software/ccs/ccs_base/msp430/lib/5xx_6xx_FRxx" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="msp430f5529-blink-led_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "msp430f5529-blink-led.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
@@ -153,8 +196,10 @@ msp430f5529-blink-led.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "blink.obj" 
-	-$(RM) "blink.d" 
+	-$(RM) "blink.obj" "include_MSP430F5xx_6xx/adc10_a.obj" "include_MSP430F5xx_6xx/adc12_a.obj" "include_MSP430F5xx_6xx/aes.obj" "include_MSP430F5xx_6xx/battbak.obj" "include_MSP430F5xx_6xx/comp_b.obj" "include_MSP430F5xx_6xx/crc.obj" "include_MSP430F5xx_6xx/ctsd16.obj" "include_MSP430F5xx_6xx/dac12_a.obj" "include_MSP430F5xx_6xx/dma.obj" "include_MSP430F5xx_6xx/eusci_a_spi.obj" "include_MSP430F5xx_6xx/eusci_a_uart.obj" "include_MSP430F5xx_6xx/eusci_b_i2c.obj" "include_MSP430F5xx_6xx/eusci_b_spi.obj" "include_MSP430F5xx_6xx/flashctl.obj" "include_MSP430F5xx_6xx/gpio.obj" "include_MSP430F5xx_6xx/lcd_b.obj" "include_MSP430F5xx_6xx/lcd_c.obj" "include_MSP430F5xx_6xx/ldopwr.obj" "include_MSP430F5xx_6xx/mpy32.obj" "include_MSP430F5xx_6xx/oa.obj" "include_MSP430F5xx_6xx/pmap.obj" "include_MSP430F5xx_6xx/pmm.obj" "include_MSP430F5xx_6xx/ram.obj" "include_MSP430F5xx_6xx/ref.obj" "include_MSP430F5xx_6xx/rtc_a.obj" "include_MSP430F5xx_6xx/rtc_b.obj" "include_MSP430F5xx_6xx/rtc_c.obj" "include_MSP430F5xx_6xx/sd24_b.obj" 
+	-$(RM) "include_MSP430F5xx_6xx/sfr.obj" "include_MSP430F5xx_6xx/sysctl.obj" "include_MSP430F5xx_6xx/tec.obj" "include_MSP430F5xx_6xx/timer_a.obj" "include_MSP430F5xx_6xx/timer_b.obj" "include_MSP430F5xx_6xx/timer_d.obj" "include_MSP430F5xx_6xx/tlv.obj" "include_MSP430F5xx_6xx/ucs.obj" "include_MSP430F5xx_6xx/usci_a_spi.obj" "include_MSP430F5xx_6xx/usci_a_uart.obj" "include_MSP430F5xx_6xx/usci_b_i2c.obj" "include_MSP430F5xx_6xx/usci_b_spi.obj" "include_MSP430F5xx_6xx/wdt_a.obj" 
+	-$(RM) "blink.d" "include_MSP430F5xx_6xx/adc10_a.d" "include_MSP430F5xx_6xx/adc12_a.d" "include_MSP430F5xx_6xx/aes.d" "include_MSP430F5xx_6xx/battbak.d" "include_MSP430F5xx_6xx/comp_b.d" "include_MSP430F5xx_6xx/crc.d" "include_MSP430F5xx_6xx/ctsd16.d" "include_MSP430F5xx_6xx/dac12_a.d" "include_MSP430F5xx_6xx/dma.d" "include_MSP430F5xx_6xx/eusci_a_spi.d" "include_MSP430F5xx_6xx/eusci_a_uart.d" "include_MSP430F5xx_6xx/eusci_b_i2c.d" "include_MSP430F5xx_6xx/eusci_b_spi.d" "include_MSP430F5xx_6xx/flashctl.d" "include_MSP430F5xx_6xx/gpio.d" "include_MSP430F5xx_6xx/lcd_b.d" "include_MSP430F5xx_6xx/lcd_c.d" "include_MSP430F5xx_6xx/ldopwr.d" "include_MSP430F5xx_6xx/mpy32.d" "include_MSP430F5xx_6xx/oa.d" "include_MSP430F5xx_6xx/pmap.d" "include_MSP430F5xx_6xx/pmm.d" "include_MSP430F5xx_6xx/ram.d" "include_MSP430F5xx_6xx/ref.d" "include_MSP430F5xx_6xx/rtc_a.d" "include_MSP430F5xx_6xx/rtc_b.d" "include_MSP430F5xx_6xx/rtc_c.d" "include_MSP430F5xx_6xx/sd24_b.d" "include_MSP430F5xx_6xx/sfr.d" "include_MSP430F5xx_6xx/sysctl.d" 
+	-$(RM) "include_MSP430F5xx_6xx/tec.d" "include_MSP430F5xx_6xx/timer_a.d" "include_MSP430F5xx_6xx/timer_b.d" "include_MSP430F5xx_6xx/timer_d.d" "include_MSP430F5xx_6xx/tlv.d" "include_MSP430F5xx_6xx/ucs.d" "include_MSP430F5xx_6xx/usci_a_spi.d" "include_MSP430F5xx_6xx/usci_a_uart.d" "include_MSP430F5xx_6xx/usci_b_i2c.d" "include_MSP430F5xx_6xx/usci_b_spi.d" "include_MSP430F5xx_6xx/wdt_a.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

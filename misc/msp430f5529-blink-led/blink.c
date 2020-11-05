@@ -8,8 +8,8 @@ void initGPIO(void);
 /* Function definitions */
 void main(void){
     initWatchdog();
-    GPIO_
-	P1DIR |= 0x01;					// configure P1.0 as output
+    initGPIO();
+
 
 	volatile unsigned int i;		// volatile to prevent optimization
 
@@ -20,10 +20,13 @@ void main(void){
 	}
 }
 
+// Configure Watchdog Timer
 void initWatchdog(void) {
 	WDTCTL = WDTPW | WDTHOLD;		// stop watchdog timer
 }
 
+// Configure GPIO ports/pins
 void initGPIO(void) {
-
+	//P1DIR |= 0x01;					// configure P1.0 as output
+	GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P1, GPIO_PIN0);
 }
