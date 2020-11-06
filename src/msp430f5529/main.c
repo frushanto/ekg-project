@@ -17,7 +17,7 @@ void main(void){
     Init_GPIO();
     Init_Clocks();
     // TODO Timers
-    // TODO init peripherals - ADC, UART etc.
+    // TODO init peripherals - ADC etc.
     Init_UART();
     EnableGlobalInterrupt();
 
