@@ -43,10 +43,13 @@ void initGPIO(void) {
     // Set input and enable P1.1 as INT
 	// Configure pin as an input
     GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
-	// What edge transition will trigger an interrupt (low-to-high or high-to-low)
+
+    /*** LEAVE COMMENTED OUT BEGIN ***/
+    // What edge transition will trigger an interrupt (low-to-high or high-to-low)
 	//GPIO_interruptEdgeSelect(GPIO_PORT_P1, GPIO_PIN1, GPIO_LOW_TO_HIGH_TRANSITION);
 	// Clears the IFG bit associated with P1.1
 	//GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN1);
+    /*** LEAVE COMMENTED OUT END ***/
 
 	GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN1);
 }
