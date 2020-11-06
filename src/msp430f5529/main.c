@@ -15,24 +15,11 @@ void main(void){
     initWatchdog();
     initGPIO();
     initClocks();
-
-    /* Setup 2 LEDs */
-    //volatile unsigned int i = 0;
-    //for (i = 0; i < 3; i++) {
-        //GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN7);
-        //GPIO_setOutputHighOnPin(GPIO_PORT_P1, GPIO_PIN0);
-        //_delay_cycles(DELAY_500K);
-        //GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
-        //GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN7);
-        //_delay_cycles(DELAY_500K);
-    //}
-
-    //GPIO_setOutputHighOnPin(GPIO_PORT_P4, GPIO_PIN7);
-    //_delay_cycles(DELAY_500K);
+    // TODO Timers
+    // TODO init peripherals - ADC, UART etc.
 
 	/* Global Interrupt Enable */
 	__bis_SR_register(GIE);     // Enter interrupt
-	//__enable_interrupts();		// Compiler enables interrupts
 	__no_operation();     	    // For debugger
 
 	/* Toggle LEDs */
