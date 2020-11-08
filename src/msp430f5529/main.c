@@ -19,14 +19,13 @@ void main(void){
     Init_GPIO();
     Init_Clocks();
     // TODO Timers
-    // TODO init peripherals - ADC etc.
     Init_UART();
     Init_ADC();
     EnableGlobalInterrupt();
 
 	/* Toggle LEDs */
 	while(1) {
-        Test_UART();
+        //Test_UART();
         Test_ADC();
 	    //GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
         //GPIO_toggleOutputOnPin(GPIO_PORT_P4, GPIO_PIN7);
@@ -223,14 +222,13 @@ void Test_ADC() {
             ADC12_A_MEMORY_0,
             ADC12_A_SINGLECHANNEL);
 
-    //LPM0, ADC12_A_ISR will force exit
-    //__bis_SR_register(LPM0_bits + GIE);
-
+    /*** POLLING METHOD TO TEST ADC ***/
     //Poll for interrupt on memory buffer 0
-    while (!ADC12_A_getInterruptStatus(ADC12_A_BASE,
-               ADC12IFG0)) ;
+//    while (!ADC12_A_getInterruptStatus(ADC12_A_BASE,
+//               ADC12IFG0));
 
-    /*** SET BREAKPOINT HERE ***/
+    //LPM0, ADC12_A_ISR will force exit
+    __bis_SR_register(LPM0_bits + GIE);
     //for Debugger
     __no_operation();
 }
