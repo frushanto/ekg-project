@@ -17,7 +17,8 @@ void main(void){
     /* Init MSP430 END */
 
 	while(1) {
-        Test_ADC();
+        //Test_ADC();
+        Test_UART();
 	}
 }
 
@@ -33,7 +34,6 @@ void EnableGlobalInterrupt() {
     // For debugger
     __no_operation();
 }
-
 
 
 
