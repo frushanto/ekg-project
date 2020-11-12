@@ -10,7 +10,7 @@
 #define UART_BASE_A0    0
 #define UART_BASE_A1    1
 
-#define UART_BASE       UART_BASE_A1
+#define UART_BASE       UART_BASE_A0
 
 void Init_UART() {
 
@@ -60,12 +60,12 @@ void Init_UART() {
 #endif
 
 
-    // Init UART A1
-    USCI_A_UART_init(USCI_A1_BASE, &uart_cfg);
-    USCI_A_UART_enable(USCI_A1_BASE);
-    USCI_A_UART_clearInterrupt(USCI_A1_BASE,
+    // Init UART A0
+    USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
+    USCI_A_UART_enable(USCI_A0_BASE);
+    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT);
-    USCI_A_UART_enableInterrupt(USCI_A1_BASE,
+    USCI_A_UART_enableInterrupt(USCI_A0_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT);
 }
 
@@ -85,6 +85,23 @@ void Test_UART() {
     DELAY500K;
 }
 
+void Test_UART_With_Display() {
+    volatile uint8_t receive_data = 0;
+    uint8_t transmit_data = 1;
+    uint8_t * p_transmit_data;
+    p_transmit_data = &transmit_data;
+    volatile uint8_t i = 0;
+    for (i = 0; i < 8; i++) {
+        USCI_A_UART_transmitData(USCI_A0_BASE, *p_transmit_data);
+        /* Wait transmission is completed */
+        while(USCI_A_UART_queryStatusFlags(
+                USCI_A0_BASE, USCI_A_UART_BUSY)
+                == USCI_A_UART_BUSY);
+        transmit_data++;
+    }
+    DELAY500K;
+}
+
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module
  * is now ready for transmit and receive. It is recommended to
@@ -92,15 +109,15 @@ void Test_UART() {
  * the required interrupts and then enable EUSI_A_UART via
  * EUSCI_A_UART_enable().
  * */
-#pragma vector = USCI_A1_VECTOR
+#pragma vector = USCI_A0_VECTOR
 __interrupt void UART_ISR(void) {
     volatile uint8_t receive_data = 0;
     if(USCI_A_UART_getInterruptStatus(
-            USCI_A1_BASE,
+            USCI_A0_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT_FLAG)
             ==  USCI_A_UART_RECEIVE_INTERRUPT_FLAG) {
-        receive_data = USCI_A_UART_receiveData(USCI_A1_BASE);
-        USCI_A_UART_clearInterrupt(USCI_A1_BASE,
+        receive_data = USCI_A_UART_receiveData(USCI_A0_BASE);
+        USCI_A_UART_clearInterrupt(USCI_A0_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT_FLAG);
     }
 }

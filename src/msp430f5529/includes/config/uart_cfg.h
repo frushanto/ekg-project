@@ -15,5 +15,6 @@
 /* Function declarations */
 void Init_UART(void);
 void Test_UART(void);
+void Test_UART_With_Display(void);
 
 #endif /* INCLUDES_CONFIG_UART_CFG_H_ */
