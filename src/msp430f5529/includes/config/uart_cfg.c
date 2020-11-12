@@ -11,6 +11,11 @@
 #define UART_BASE_A1    1
 
 #define UART_BASE       UART_BASE_A0
+#define UART_MESSAGE_MAX_LENGTH 8
+
+uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {
+    0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
+uint8_t uart_char_number = 0;
 
 void Init_UART() {
 
@@ -110,15 +115,19 @@ void Test_UART_With_Display() {
  * EUSCI_A_UART_enable().
  * */
 #pragma vector = USCI_A0_VECTOR
-__interrupt void UART_ISR(void) {
-    volatile uint8_t receive_data = 0;
+__interrupt void UART_Receive_ISR(void) {
+    //volatile uint8_t receive_data[8] = {0};
     if(USCI_A_UART_getInterruptStatus(
             USCI_A0_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT_FLAG)
             ==  USCI_A_UART_RECEIVE_INTERRUPT_FLAG) {
-        receive_data = USCI_A_UART_receiveData(USCI_A0_BASE);
+        if(!(uart_char_number <= UART_MESSAGE_MAX_LENGTH-1)) {
+            uart_char_number == 0;
+        }
+        uart_received_data[uart_char_number] = USCI_A_UART_receiveData(USCI_A0_BASE);
         USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-            USCI_A_UART_RECEIVE_INTERRUPT_FLAG);
+                                   USCI_A_UART_RECEIVE_INTERRUPT_FLAG);
+        uart_char_number++;
     }
 }
 
