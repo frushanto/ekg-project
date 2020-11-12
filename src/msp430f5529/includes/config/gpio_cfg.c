@@ -9,11 +9,14 @@
 
 // Configure GPIO ports/pins
 void Init_GPIO(void) {
+    // Configure LED1 on DevKit
     GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
+    // Configure buzzer
+    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN6);
+    // Configure LED2 on DevKit
     //GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN7);
 
-    // Set input and enable P1.1 as INT
-    // Configure pin as an input
+    // Configure button on DevKit
     GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
 
     /*** LEAVE COMMENTED OUT BEGIN ***/
@@ -28,6 +31,17 @@ void Init_GPIO(void) {
     GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN1);
 }
 
+// Activate buzzer
+void GPIO_Buzzer_Single_Beep(void) {
+    // Buzzer on
+    GPIO_setOutputHighOnPin(GPIO_PORT_P1,
+                            GPIO_PIN6);
+    DELAY500K;
+    // Buzzer off
+    GPIO_setOutputLowOnPin(GPIO_PORT_P1,
+                            GPIO_PIN6);
+}
+
 /* Interrupt Service Routines */
 #pragma vector = PORT1_VECTOR
 __interrupt void pushbutton_ISR(void) {
@@ -38,6 +52,7 @@ __interrupt void pushbutton_ISR(void) {
             // Toggle LED
             GPIO_toggleOutputOnPin(GPIO_PORT_P1,
                                    GPIO_PIN0);
+            GPIO_Buzzer_Single_Beep();
             break;
         case 0x06: break;   // Pin 2
         case 0x08: break;   // Pin 3

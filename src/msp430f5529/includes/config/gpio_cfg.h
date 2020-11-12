@@ -14,5 +14,6 @@
 
 /* Function declarations */
 void Init_GPIO(void);
+void GPIO_Buzzer_Single_Beep(void);
 
 #endif /* INCLUDES_CONFIG_GPIO_CFG_H_ */
