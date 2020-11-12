@@ -22,7 +22,7 @@ void Init_UART() {
     USCI_A_UART_initParam uart_cfg;
 
     /* Baudrate = 9600, clock freq = ACKL = 32kHz
-     * UCBRx = 3, UCBRFx = 0, UCBRSx = 2, UCOS16 = 0
+     * UCBRx = 3, UCBRFx = 0, UCBRSx = 3, UCOS16 = 0
      *
      * From: Table 39-5. Recommended Settings for
      * Typical Crystals and Baud Rates at Page 1039/1189 User guide.
@@ -91,18 +91,38 @@ void Test_UART() {
 }
 
 void Test_UART_With_Display() {
-    volatile uint8_t receive_data = 0;
-    uint8_t transmit_data = 1;
-    uint8_t * p_transmit_data;
-    p_transmit_data = &transmit_data;
+    //volatile uint8_t receive_data = 0;
+//    uint8_t transmit_data[] = {
+//                               0x70, 0x61, 0x67, 0x65,
+//                               0x38, 0x2E,
+//                               0x6E, 0x30, 0x2E, 0x76,
+//                               0x61, 0x6C, 0x3D, 0x35,
+//                               0x37, 0xFF, 0xFF, 0xFF
+//    };
+    //uint8_t * p_transmit_data;
+    //p_transmit_data = &transmit_data;
+    uint8_t transmit_data[] = "n0.val=";
     volatile uint8_t i = 0;
-    for (i = 0; i < 8; i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, *p_transmit_data);
+    for (i = 0; i < strlen((char const*)transmit_data); i++) {
+    USCI_A_UART_transmitData(USCI_A0_BASE, *(transmit_data+i));
+    /* Wait transmission is completed */
+    while(USCI_A_UART_queryStatusFlags(
+            USCI_A0_BASE, USCI_A_UART_BUSY)
+            == USCI_A_UART_BUSY);
+    }
+    uint8_t transmit_cmd = 50;
+    USCI_A_UART_transmitData(USCI_A0_BASE, transmit_cmd);
+    /* Wait transmission is completed */
+    while(USCI_A_UART_queryStatusFlags(
+            USCI_A0_BASE, USCI_A_UART_BUSY)
+            == USCI_A_UART_BUSY);
+    uint8_t transmit_cmd_ff = 0xFF;
+    for (i = 0; i < 3; i++) {
+        USCI_A_UART_transmitData(USCI_A0_BASE, transmit_cmd_ff);
         /* Wait transmission is completed */
         while(USCI_A_UART_queryStatusFlags(
                 USCI_A0_BASE, USCI_A_UART_BUSY)
                 == USCI_A_UART_BUSY);
-        transmit_data++;
     }
     DELAY500K;
 }
@@ -116,18 +136,19 @@ void Test_UART_With_Display() {
  * */
 #pragma vector = USCI_A0_VECTOR
 __interrupt void UART_Receive_ISR(void) {
-    //volatile uint8_t receive_data[8] = {0};
+    volatile uint8_t receive_data = 0;
     if(USCI_A_UART_getInterruptStatus(
             USCI_A0_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT_FLAG)
             ==  USCI_A_UART_RECEIVE_INTERRUPT_FLAG) {
-        if(!(uart_char_number <= UART_MESSAGE_MAX_LENGTH-1)) {
-            uart_char_number == 0;
-        }
-        uart_received_data[uart_char_number] = USCI_A_UART_receiveData(USCI_A0_BASE);
+//        if(!(uart_char_number <= UART_MESSAGE_MAX_LENGTH-1)) {
+//            uart_char_number = 0;
+//        }
+//        uart_received_data[uart_char_number] = USCI_A_UART_receiveData(USCI_A0_BASE);
+        receive_data = USCI_A_UART_receiveData(USCI_A0_BASE);
         USCI_A_UART_clearInterrupt(USCI_A0_BASE,
                                    USCI_A_UART_RECEIVE_INTERRUPT_FLAG);
-        uart_char_number++;
+//        uart_char_number++;
     }
 }
 

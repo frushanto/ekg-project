@@ -47,7 +47,8 @@
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/includes/driverlib"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/includes"/>
-									<listOptionValue builtIn="false" value="/Users/ivan/Workspace/Projects/ekg-project/src/msp430f5529/includes/config"/>
+									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/includes/config"/>
+									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/includes/nextion"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}/inclues/driverlib/inc"/>
 									<listOptionValue builtIn="false" value="${CG_TOOL_ROOT}/include"/>
 								</option>
