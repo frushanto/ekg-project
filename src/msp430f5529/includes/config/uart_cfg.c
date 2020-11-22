@@ -13,6 +13,8 @@
 #define UART_BASE       UART_BASE_A0
 #define UART_MESSAGE_MAX_LENGTH 8
 
+uint8_t uart_val = 0;
+
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {
     0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
 uint8_t uart_char_number = 0;
@@ -76,18 +78,25 @@ void Init_UART() {
 
 void Test_UART() {
     volatile uint8_t receive_data = 0;
-    uint8_t transmit_data[] = "Hello World. I'm UART Module "
-            "of MSP430F5529 Microcontroller"
-            " !!!\r\n";
+    uint8_t transmit_data[] = "n0.val=20";
+    uart_val++;
     volatile uint8_t i = 0;
     for (i = 0; i < strlen((char const*)transmit_data); i++) {
-        USCI_A_UART_transmitData(USCI_A1_BASE,*(transmit_data+i));
+        USCI_A_UART_transmitData(USCI_A0_BASE,*(transmit_data+i));
         /* Wait transmission is completed */
         while(USCI_A_UART_queryStatusFlags(
-                USCI_A1_BASE, USCI_A_UART_BUSY)
+                USCI_A0_BASE, USCI_A_UART_BUSY)
                 == USCI_A_UART_BUSY);
     }
+    uint8_t transmit_cmd_ff = 0xFF;
+    for (i = 0; i < 3; i++) {
+        USCI_A_UART_transmitData(USCI_A0_BASE, transmit_cmd_ff);
+        /* Wait transmission is completed */
+        while(USCI_A_UART_queryStatusFlags(
+                USCI_A0_BASE, USCI_A_UART_BUSY)
+                == USCI_A_UART_BUSY);
     DELAY500K;
+    }
 }
 
 void Test_UART_With_Display() {
@@ -101,21 +110,22 @@ void Test_UART_With_Display() {
 //    };
     //uint8_t * p_transmit_data;
     //p_transmit_data = &transmit_data;
-    uint8_t transmit_data[] = "n0.val=";
+    uint8_t transmit_data[] = "get n0.val";
     volatile uint8_t i = 0;
     for (i = 0; i < strlen((char const*)transmit_data); i++) {
-    USCI_A_UART_transmitData(USCI_A0_BASE, *(transmit_data+i));
-    /* Wait transmission is completed */
-    while(USCI_A_UART_queryStatusFlags(
-            USCI_A0_BASE, USCI_A_UART_BUSY)
-            == USCI_A_UART_BUSY);
+        USCI_A_UART_transmitData(USCI_A0_BASE, *(transmit_data+i));
+        /* Wait transmission is completed */
+        while(USCI_A_UART_queryStatusFlags(
+                USCI_A0_BASE, USCI_A_UART_BUSY)
+                == USCI_A_UART_BUSY);
     }
-    uint8_t transmit_cmd = 50;
-    USCI_A_UART_transmitData(USCI_A0_BASE, transmit_cmd);
-    /* Wait transmission is completed */
-    while(USCI_A_UART_queryStatusFlags(
-            USCI_A0_BASE, USCI_A_UART_BUSY)
-            == USCI_A_UART_BUSY);
+    // uint8_t transmit_cmd = 50;
+    // USCI_A_UART_transmitData(USCI_A0_BASE, transmit_cmd);
+    // /* Wait transmission is completed */
+    // while(USCI_A_UART_queryStatusFlags(
+    //         USCI_A0_BASE, USCI_A_UART_BUSY)
+    //         == USCI_A_UART_BUSY);
+
     uint8_t transmit_cmd_ff = 0xFF;
     for (i = 0; i < 3; i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, transmit_cmd_ff);
@@ -137,19 +147,42 @@ void Test_UART_With_Display() {
 #pragma vector = USCI_A0_VECTOR
 __interrupt void UART_Receive_ISR(void) {
     volatile uint8_t receive_data = 0;
-    if(USCI_A_UART_getInterruptStatus(
-            USCI_A0_BASE,
-            USCI_A_UART_RECEIVE_INTERRUPT_FLAG)
-            ==  USCI_A_UART_RECEIVE_INTERRUPT_FLAG) {
+    switch (__even_in_range(UCA0IV, 4))
+        {
+        case 0:
+            break; // Vector 0 - no interrupt
+        case 2: // Vector 2 - RXIFG
+            while (!(UCA0IFG & UCTXIFG))
+                ; // USCI_A0 TX buffer ready?
+            //UCA1TXBUF = UCA1RXBUF; // TX -> RXed character
+            if(!(uart_char_number <= UART_MESSAGE_MAX_LENGTH-1)) {
+                        uart_char_number = 0;
+                    }
+                    uart_received_data[uart_char_number] = USCI_A_UART_receiveData(USCI_A0_BASE);
+                    receive_data = USCI_A_UART_receiveData(USCI_A0_BASE);
+//                    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+//                                               USCI_A_UART_RECEIVE_INTERRUPT_FLAG);
+                    uart_char_number++;
+            break;
+        case 4:
+            break; // Vector 4 - TXIFG
+        default:
+            break;
+        }
+//    volatile uint8_t receive_data = 0;
+//    if(USCI_A_UART_getInterruptStatus(
+//            USCI_A0_BASE,
+//            USCI_A_UART_RECEIVE_INTERRUPT_FLAG)
+//            ==  USCI_A_UART_RECEIVE_INTERRUPT_FLAG) {
 //        if(!(uart_char_number <= UART_MESSAGE_MAX_LENGTH-1)) {
 //            uart_char_number = 0;
 //        }
 //        uart_received_data[uart_char_number] = USCI_A_UART_receiveData(USCI_A0_BASE);
-        receive_data = USCI_A_UART_receiveData(USCI_A0_BASE);
-        USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-                                   USCI_A_UART_RECEIVE_INTERRUPT_FLAG);
+//        receive_data = USCI_A_UART_receiveData(USCI_A0_BASE);
+//        USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+//                                   USCI_A_UART_RECEIVE_INTERRUPT_FLAG);
 //        uart_char_number++;
-    }
+//    }
 }
 
 // Test UART Echo Interrupt
