@@ -79,15 +79,15 @@ void Init_UART() {
 }
 
 void Test_UART() {
-    uint8_t uart_transmit_set_val[] = "n0.val=10";
-    uint8_t uart_transmit_get_val[] = "get n0.val";
+    uint8_t uart_transmit_set_val[] = "n0.val=150";
+    //uint8_t uart_transmit_get_val[] = "get n0.val";
     uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
     volatile uint8_t fm_counter = 0;
     volatile uint8_t i = 0;
     uint8_t uart_transmit_length = strlen((char const*)uart_transmit_set_val);
     // Transmit array with data
     //for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
-    for (i = 0; i < 9; i++) {
+    for (i = 0; i < 10; i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_set_val[i]);
         uart_transmit_full_message[fm_counter] = uart_transmit_set_val[i];
         fm_counter++;
@@ -107,7 +107,7 @@ void Test_UART() {
                 USCI_A0_BASE, USCI_A_UART_BUSY)
                 == USCI_A_UART_BUSY);
     }
-    //DELAY500K;
+    DELAY500K;
 }
 
 /*
