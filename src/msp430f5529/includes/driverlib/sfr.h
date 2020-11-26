@@ -7,7 +7,7 @@
 #ifndef __MSP430WARE_SFR_H__
 #define __MSP430WARE_SFR_H__
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #ifdef __MSP430_HAS_SFR__
 

@@ -5,7 +5,7 @@
  *      Author: ivan
  */
 
-#include <gpio_cfg.h>
+#include <includes/config/gpio_cfg.h>
 
 // Configure GPIO ports/pins
 void Init_GPIO(void) {

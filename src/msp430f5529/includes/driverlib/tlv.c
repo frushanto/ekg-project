@@ -11,7 +11,7 @@
 //
 //*****************************************************************************
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #ifdef __MSP430_HAS_TLV__
 #include "tlv.h"

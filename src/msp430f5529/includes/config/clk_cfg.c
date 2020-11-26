@@ -5,7 +5,7 @@
  *      Author: ivan
  */
 
-#include <clk_cfg.h>
+#include <includes/config/clk_cfg.h>
 
 /*
  * Setup Clocking

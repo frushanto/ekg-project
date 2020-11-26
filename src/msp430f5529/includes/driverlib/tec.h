@@ -7,7 +7,7 @@
 #ifndef __MSP430WARE_TEC_H__
 #define __MSP430WARE_TEC_H__
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #ifdef __MSP430_HAS_TEV0__
 
@@ -22,7 +22,7 @@ extern "C"
 {
 #endif
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 //*****************************************************************************
 //
 //! \brief Used in the TEC_initExternalFaultInput() function as the param

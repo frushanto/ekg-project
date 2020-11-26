@@ -7,7 +7,7 @@
 #ifndef __MSP430WARE_DAC12_A_H__
 #define __MSP430WARE_DAC12_A_H__
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #ifdef __MSP430_HAS_DAC12_2__
 
@@ -22,7 +22,7 @@ extern "C"
 {
 #endif
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 //*****************************************************************************
 //
 //! \brief Used in the DAC12_A_init() function as the param parameter.

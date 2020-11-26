@@ -7,7 +7,7 @@
 #ifndef __MSP430WARE_DMA_H__
 #define __MSP430WARE_DMA_H__
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #if defined(__MSP430_HAS_DMAX_3__) || defined(__MSP430_HAS_DMAX_6__)
 
@@ -22,7 +22,7 @@ extern "C"
 {
 #endif
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 //*****************************************************************************
 //
 //! \brief Used in the DMA_init() function as the param parameter.

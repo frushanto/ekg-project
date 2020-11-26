@@ -5,7 +5,7 @@
  *      Author: ivan
  */
 
-#include <adc_cfg.h>
+#include <includes/config/adc_cfg.h>
 
 void Init_ADC() {
     //Enable A/D channel A0

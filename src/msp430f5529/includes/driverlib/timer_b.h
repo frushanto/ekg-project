@@ -7,7 +7,7 @@
 #ifndef __MSP430WARE_TIMER_B_H__
 #define __MSP430WARE_TIMER_B_H__
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #ifdef __MSP430_HAS_TxB7__
 
@@ -22,7 +22,7 @@ extern "C"
 {
 #endif
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 //*****************************************************************************
 //
 // The following is a parameter used for Timer_B_getCounterValue that
