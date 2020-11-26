@@ -79,7 +79,7 @@ void Init_UART() {
 }
 
 void Test_UART() {
-    uint8_t uart_transmit_set_val[] = "n0.val=10";
+    uint8_t uart_transmit_set_val[] = "page8.n0.val=10";
     //uint8_t uart_transmit_get_val[] = "get n0.val";
     uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
     volatile uint8_t fm_counter = 0;
