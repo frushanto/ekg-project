@@ -112,25 +112,40 @@ __interrupt void ADC12_A_ISR(void) {
                              ADC12_A_MEMORY_0)
                          >= 0x7ff) {
                      // TODO Toggle P1.0
-                     volatile uint8_t i = 0;
-                     for (i = 0; i < 3; i++) {
-                         GPIO_setOutputHighOnPin(
-                                 GPIO_PORT_P1,
-                                 GPIO_PIN0
-                                 );
-                         _delay_cycles(500000);
-                         GPIO_setOutputLowOnPin(
-                                 GPIO_PORT_P1,
-                                 GPIO_PIN0
-                                 );
-                         _delay_cycles(500000);
-                     }
+                     //GPIO_Buzzer_Single_Beep();
+                     GPIO_setOutputHighOnPin(
+                        GPIO_PORT_P1,
+                        GPIO_PIN0
+                        );
+                     GPIO_setOutputHighOnPin(
+                       GPIO_PORT_P1,
+                       GPIO_PIN6
+                       );
+                     _delay_cycles(10000);
+//                     volatile uint8_t i = 0;
+//                     for (i = 0; i < 3; i++) {
+//                         GPIO_setOutputHighOnPin(
+//                                 GPIO_PORT_P1,
+//                                 GPIO_PIN0
+//                                 );
+//                         _delay_cycles(500000);
+//                         GPIO_setOutputLowOnPin(
+//                                 GPIO_PORT_P1,
+//                                 GPIO_PIN0
+//                                 );
+//                         _delay_cycles(500000);
+//                     }
                  } else {
                      //Clear P1.0 LED off
                      GPIO_setOutputLowOnPin(
                              GPIO_PORT_P1,
                              GPIO_PIN0
                              );
+                     GPIO_setOutputLowOnPin(
+                             GPIO_PORT_P1,
+                             GPIO_PIN6
+                             );
+                     _delay_cycles(10000);
                  }
 
                  //Exit active CPU
