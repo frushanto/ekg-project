@@ -97,11 +97,11 @@ void Test_UART() {
                 == USCI_A_UART_BUSY);
     }
 
+    // Transmit int 35 as string
     int test_val = 35;
     uint8_t buffer[50];
     sprintf( buffer, "%d", test_val );
     for (i = 0; i < strlen((char const*)buffer); i++) {
-    //for (i = 0; i < 10; i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, buffer[i]);
         uart_transmit_full_message[fm_counter] = buffer[i];
         fm_counter++;
