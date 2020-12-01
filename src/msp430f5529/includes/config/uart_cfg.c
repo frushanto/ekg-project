@@ -97,17 +97,21 @@ void Test_UART() {
                 == USCI_A_UART_BUSY);
     }
 
-    // not working.
-    uint8_t test_val[] = "35";
-    for(i = 0; i < strlen((char const*)test_val); i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, test_val[i]);
-        uart_transmit_full_message[fm_counter] = test_val[i];
+    int test_val = 35;
+    uint8_t buffer[50];
+    sprintf( buffer, "%d", test_val );
+    for (i = 0; i < strlen((char const*)buffer); i++) {
+    //for (i = 0; i < 10; i++) {
+        USCI_A_UART_transmitData(USCI_A0_BASE, buffer[i]);
+        uart_transmit_full_message[fm_counter] = buffer[i];
         fm_counter++;
         /* Wait transmission is completed */
         while(USCI_A_UART_queryStatusFlags(
                 USCI_A0_BASE, USCI_A_UART_BUSY)
                 == USCI_A_UART_BUSY);
     }
+
+
 
     // Transmit 0x31 3 times. 31 31 31 - working
     //uint8_t test_val = 0x31;
