@@ -26,9 +26,9 @@ void Init_UART() {
      * P3.3/UCA0TXD/UCA0SIMO
      * */
    GPIO_setAsPeripheralModuleFunctionInputPin(
-           GPIO_PORT_P3, GPIO_PIN4); // UART Rx Pin
+           GPIO_PORT_P3, GPIO_PIN4); // UART Rx Pin - P3.4
    GPIO_setAsPeripheralModuleFunctionOutputPin(
-           GPIO_PORT_P3,GPIO_PIN3); // UART Tx Pin
+           GPIO_PORT_P3,GPIO_PIN3); // UART Tx Pin - P3.3
 
 #elif UART_BASE == UART_BASE_A1
 
@@ -79,7 +79,7 @@ void Init_UART() {
 }
 
 void Test_UART() {
-    uint8_t uart_transmit_set_val[] = "page8.n0.val=10";
+    uint8_t uart_transmit_set_val[] = "page8.n0.val=";
     //uint8_t uart_transmit_get_val[] = "get n0.val";
     uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
     volatile uint8_t fm_counter = 0;
@@ -96,6 +96,29 @@ void Test_UART() {
                 USCI_A0_BASE, USCI_A_UART_BUSY)
                 == USCI_A_UART_BUSY);
     }
+
+    uint8_t test_val = 31;
+        USCI_A_UART_transmitData(USCI_A0_BASE, test_val);
+        uart_transmit_full_message[fm_counter] = test_val;
+        fm_counter++;
+        /* Wait transmission is completed */
+        while(USCI_A_UART_queryStatusFlags(
+                USCI_A0_BASE, USCI_A_UART_BUSY)
+                == USCI_A_UART_BUSY);
+
+
+    // Transmit 0x31 3 times. 31 32 33 means 123 in Nextion - working
+    //uint8_t test_val = 0x31;
+    //for (i = 0; i < 3; i++) {
+    //     USCI_A_UART_transmitData(USCI_A0_BASE, test_val);
+    //    uart_transmit_full_message[fm_counter] = test_val;
+    //     fm_counter++;
+    //     /* Wait transmission is completed */
+    //         while(USCI_A_UART_queryStatusFlags(
+    //             USCI_A0_BASE, USCI_A_UART_BUSY)
+    //             == USCI_A_UART_BUSY);
+    // }
+
     // Transmit 0xFF 3 times. Required to define end of the message
     uint8_t uart_transmit_cmd_ff = 0xFF;
     for (i = 0; i < 3; i++) {
