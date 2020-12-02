@@ -4,6 +4,8 @@
 void Init_Watchdog(void);
 void EnableGlobalInterrupt(void);
 
+uint16_t adc_result = 0;
+
 /* Function definitions */
 void main(void){
     /* Init MSP430 BEGIN */
@@ -17,7 +19,9 @@ void main(void){
     /* Init MSP430 END */
 
 	while(1) {
-        Test_ADC();
+	    //Test_ADC();
+	    uint16_t tmp_val = 100;
+	    Test_UART(tmp_val);
 	}
 }
 

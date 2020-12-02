@@ -106,11 +106,10 @@ __interrupt void ADC12_A_ISR(void) {
         case  0: break;   //Vector  0:  No interrupt
         case  2: break;   //Vector  2:  ADC overflow
         case  4: break;   //Vector  4:  ADC timing overflow
-        case  6:          //Vector  6:  ADC12IFG0
+        case  6:;          //Vector  6:  ADC12IFG0
          //Is Memory Buffer 0 = A0 > 0.5AVcc?
-         if (ADC12_A_getResults(ADC12_A_BASE,
-                     ADC12_A_MEMORY_0)
-                 >= 0x7ff) {
+            uint16_t adc_result = 0;
+         if ((adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0)) >= 0x7ff) {
              //GPIO_Buzzer_Single_Beep();
              GPIO_setOutputHighOnPin(
                 GPIO_PORT_P1,
@@ -121,19 +120,6 @@ __interrupt void ADC12_A_ISR(void) {
                GPIO_PIN6
                );
              _delay_cycles(100);
-//                     volatile uint8_t i = 0;
-//                     for (i = 0; i < 3; i++) {
-//                         GPIO_setOutputHighOnPin(
-//                                 GPIO_PORT_P1,
-//                                 GPIO_PIN0
-//                                 );
-//                         _delay_cycles(500000);
-//                         GPIO_setOutputLowOnPin(
-//                                 GPIO_PORT_P1,
-//                                 GPIO_PIN0
-//                                 );
-//                         _delay_cycles(500000);
-//                     }
          } else {
              //Clear P1.0 LED off
              GPIO_setOutputLowOnPin(
@@ -146,9 +132,10 @@ __interrupt void ADC12_A_ISR(void) {
                      );
              _delay_cycles(100);
          }
-
+         Test_UART(adc_result);
          //Exit active CPU
          __bic_SR_register_on_exit(LPM0_bits);
+         break;
         case  8: break;   //Vector  8:  ADC12IFG1
         case 10: break;   //Vector 10:  ADC12IFG2
         case 12: break;   //Vector 12:  ADC12IFG3

@@ -1,27 +1,44 @@
-/*
- * uart_cfg.c
- *
- *  Created on: 8 Nov 2020
- *      Author: ivan
- */
-
-#include <uart_cfg.h>
+#include <includes/config/uart_cfg.h>
 
 #define UART_BASE_A0    0
 #define UART_BASE_A1    1
 
 #define UART_BASE       UART_BASE_A0
-#define UART_MESSAGE_MAX_LENGTH 8
+#define UART_MESSAGE_MAX_LENGTH 12
 
-uint8_t uart_val = 0;
+#define RECEIVE_DATA_COUNT                      0x02
 
-uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {
-    0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
-uint8_t uart_char_number = 0;
+uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
+uint8_t uart_received_data_counter = 0;
 
 void Init_UART() {
 
-    USCI_A_UART_initParam uart_cfg;
+    #if UART_BASE == UART_BASE_A0
+    /* Configure GPIO pins for UART A0 BASE
+     * P3.4/UCA0RXD/UCA0SOMI
+     * P3.3/UCA0TXD/UCA0SIMO
+     * */
+   GPIO_setAsPeripheralModuleFunctionInputPin(
+           GPIO_PORT_P3, GPIO_PIN4); // UART Rx Pin - P3.4
+   GPIO_setAsPeripheralModuleFunctionOutputPin(
+           GPIO_PORT_P3,GPIO_PIN3); // UART Tx Pin - P3.3
+
+#elif UART_BASE == UART_BASE_A1
+
+    /* Configure GPIO pins for UART A1 BASE
+     * P4.5/UCA1RXD
+     * P4.4/UCA1TXD
+     * */
+    GPIO_setAsPeripheralModuleFunctionInputPin(
+                GPIO_PORT_P4, GPIO_PIN5); // UART Rx Pin
+    GPIO_setAsPeripheralModuleFunctionOutputPin(
+                GPIO_PORT_P4,GPIO_PIN4); // UART Tx Pin
+
+#else 
+    # error "Please specify UART BASE"
+#endif
+
+    USCI_A_UART_initParam uart_cfg = {0};
 
     /* Baudrate = 9600, clock freq = ACKL = 32kHz
      * UCBRx = 3, UCBRFx = 0, UCBRSx = 3, UCOS16 = 0
@@ -41,34 +58,12 @@ void Init_UART() {
     uart_cfg.uartMode = USCI_A_UART_MODE;
     uart_cfg.overSampling = USCI_A_UART_LOW_FREQUENCY_BAUDRATE_GENERATION;
 
-#if UART_BASE == UART_BASE_A0
-    /* Configure GPIO pins for UART A0 BASE
-     * P3.4/UCA0RXD/UCA0SOMI
-     * P3.3/UCA0TXD/UCA0SIMO
-     * */
-   GPIO_setAsPeripheralModuleFunctionInputPin(
-           GPIO_PORT_P3, GPIO_PIN4); // UART Rx Pin
-   GPIO_setAsPeripheralModuleFunctionOutputPin(
-           GPIO_PORT_P3,GPIO_PIN3); // UART Tx Pin
-
-#elif UART_BASE == UART_BASE_A1
-
-    /* Configure GPIO pins for UART A1 BASE
-     * P4.5/UCA1RXD
-     * P4.4/UCA1TXD
-     * */
-    GPIO_setAsPeripheralModuleFunctionInputPin(
-                GPIO_PORT_P4, GPIO_PIN5); // UART Rx Pin
-    GPIO_setAsPeripheralModuleFunctionOutputPin(
-                GPIO_PORT_P4,GPIO_PIN4); // UART Tx Pin
-
-#else 
-    # error "Please specify UART BASE"
-#endif
-
 
     // Init UART A0
-    USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
+    //USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
+    if (STATUS_FAIL == USCI_A_UART_init(USCI_A0_BASE, &uart_cfg)){
+        return;
+    }
     USCI_A_UART_enable(USCI_A0_BASE);
     USCI_A_UART_clearInterrupt(USCI_A0_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT);
@@ -76,59 +71,46 @@ void Init_UART() {
             USCI_A_UART_RECEIVE_INTERRUPT);
 }
 
-void Test_UART() {
-    volatile uint8_t receive_data = 0;
-    uint8_t transmit_data[] = "n0.val=20";
-    uart_val++;
+void Test_UART(uint16_t adc_value) {
+    uint8_t uart_transmit_set_val[] = "page8.n0.val=";
+    //uint8_t uart_transmit_get_val[] = "get n0.val";
+    uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+    volatile uint8_t fm_counter = 0;
     volatile uint8_t i = 0;
-    for (i = 0; i < strlen((char const*)transmit_data); i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE,*(transmit_data+i));
+    uint8_t uart_transmit_length = strlen((char const*)uart_transmit_set_val);
+    // Transmit array with data
+    for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
+    //for (i = 0; i < 10; i++) {
+        USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_set_val[i]);
+        uart_transmit_full_message[fm_counter] = uart_transmit_set_val[i];
+        fm_counter++;
         /* Wait transmission is completed */
         while(USCI_A_UART_queryStatusFlags(
                 USCI_A0_BASE, USCI_A_UART_BUSY)
                 == USCI_A_UART_BUSY);
     }
-    uint8_t transmit_cmd_ff = 0xFF;
-    for (i = 0; i < 3; i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, transmit_cmd_ff);
-        /* Wait transmission is completed */
-        while(USCI_A_UART_queryStatusFlags(
-                USCI_A0_BASE, USCI_A_UART_BUSY)
-                == USCI_A_UART_BUSY);
-    DELAY500K;
-    }
-}
 
-void Test_UART_With_Display() {
-    //volatile uint8_t receive_data = 0;
-//    uint8_t transmit_data[] = {
-//                               0x70, 0x61, 0x67, 0x65,
-//                               0x38, 0x2E,
-//                               0x6E, 0x30, 0x2E, 0x76,
-//                               0x61, 0x6C, 0x3D, 0x35,
-//                               0x37, 0xFF, 0xFF, 0xFF
-//    };
-    //uint8_t * p_transmit_data;
-    //p_transmit_data = &transmit_data;
-    uint8_t transmit_data[] = "get n0.val";
-    volatile uint8_t i = 0;
-    for (i = 0; i < strlen((char const*)transmit_data); i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, *(transmit_data+i));
+    // Transmit int 35 as string
+    int test_val = 35;
+    uint8_t buffer[50];
+    sprintf( buffer, "%d", test_val );
+    for (i = 0; i < strlen((char const*)buffer); i++) {
+        USCI_A_UART_transmitData(USCI_A0_BASE, buffer[i]);
+        uart_transmit_full_message[fm_counter] = buffer[i];
+        fm_counter++;
         /* Wait transmission is completed */
         while(USCI_A_UART_queryStatusFlags(
                 USCI_A0_BASE, USCI_A_UART_BUSY)
                 == USCI_A_UART_BUSY);
     }
-    // uint8_t transmit_cmd = 50;
-    // USCI_A_UART_transmitData(USCI_A0_BASE, transmit_cmd);
-    // /* Wait transmission is completed */
-    // while(USCI_A_UART_queryStatusFlags(
-    //         USCI_A0_BASE, USCI_A_UART_BUSY)
-    //         == USCI_A_UART_BUSY);
 
-    uint8_t transmit_cmd_ff = 0xFF;
+
+    // Transmit 0xFF 3 times. Required to define end of the message
+    uint8_t uart_transmit_cmd_ff = 0xFF;
     for (i = 0; i < 3; i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, transmit_cmd_ff);
+        USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_cmd_ff);
+        uart_transmit_full_message[fm_counter] = uart_transmit_cmd_ff;
+        fm_counter++;
         /* Wait transmission is completed */
         while(USCI_A_UART_queryStatusFlags(
                 USCI_A0_BASE, USCI_A_UART_BUSY)
@@ -145,71 +127,25 @@ void Test_UART_With_Display() {
  * EUSCI_A_UART_enable().
  * */
 #pragma vector = USCI_A0_VECTOR
-__interrupt void UART_Receive_ISR(void) {
-    volatile uint8_t receive_data = 0;
+__interrupt void UART_A0_ISR(void) {
     switch (__even_in_range(UCA0IV, 4))
         {
         case 0:
             break; // Vector 0 - no interrupt
         case 2: // Vector 2 - RXIFG
-            while (!(UCA0IFG & UCTXIFG))
-                ; // USCI_A0 TX buffer ready?
-            //UCA1TXBUF = UCA1RXBUF; // TX -> RXed character
-            if(!(uart_char_number <= UART_MESSAGE_MAX_LENGTH-1)) {
-                        uart_char_number = 0;
-                    }
-                    uart_received_data[uart_char_number] = USCI_A_UART_receiveData(USCI_A0_BASE);
-                    receive_data = USCI_A_UART_receiveData(USCI_A0_BASE);
-//                    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-//                                               USCI_A_UART_RECEIVE_INTERRUPT_FLAG);
-                    uart_char_number++;
+            if (uart_received_data_counter < UART_MESSAGE_MAX_LENGTH) {
+                uart_received_data[uart_received_data_counter] =
+                    USCI_A_UART_receiveData(USCI_A0_BASE);
+                uart_received_data_counter++;
+            } else {
+                uart_received_data_counter = 0;
+            }
+            USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+                    USCI_A_UART_RECEIVE_INTERRUPT);
             break;
         case 4:
             break; // Vector 4 - TXIFG
         default:
             break;
         }
-//    volatile uint8_t receive_data = 0;
-//    if(USCI_A_UART_getInterruptStatus(
-//            USCI_A0_BASE,
-//            USCI_A_UART_RECEIVE_INTERRUPT_FLAG)
-//            ==  USCI_A_UART_RECEIVE_INTERRUPT_FLAG) {
-//        if(!(uart_char_number <= UART_MESSAGE_MAX_LENGTH-1)) {
-//            uart_char_number = 0;
-//        }
-//        uart_received_data[uart_char_number] = USCI_A_UART_receiveData(USCI_A0_BASE);
-//        receive_data = USCI_A_UART_receiveData(USCI_A0_BASE);
-//        USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-//                                   USCI_A_UART_RECEIVE_INTERRUPT_FLAG);
-//        uart_char_number++;
-//    }
 }
-
-// Test UART Echo Interrupt
-//#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
-//#pragma vector=USCI_A0_VECTOR
-//__interrupt void USCI_A0_ISR(void)
-//#elif defined(__GNUC__)
-//void __attribute__ ((interrupt(USCI_A0_VECTOR))) USCI_A0_ISR (void)
-//#else
-//#error Compiler not supported!
-//#endif
-//{
-//    switch (__even_in_range(UCA1IV, 4))
-//    {
-//    case 0:
-//        break; // Vector 0 - no interrupt
-//    case 2: // Vector 2 - RXIFG
-//        while (!(UCA1IFG & UCTXIFG))
-//            ; // USCI_A0 TX buffer ready?
-//        UCA1TXBUF = UCA1RXBUF; // TX -> RXed character
-//        break;
-//    case 4:
-//        break; // Vector 4 - TXIFG
-//    default:
-//        break;
-//    }
-//}
-
-
-
