@@ -112,19 +112,6 @@ void Test_UART() {
     }
 
 
-
-    // Transmit 0x31 3 times. 31 31 31 - working
-    //uint8_t test_val = 0x31;
-    //for (i = 0; i < 3; i++) {
-    //     USCI_A_UART_transmitData(USCI_A0_BASE, test_val);
-    //    uart_transmit_full_message[fm_counter] = test_val;
-    //     fm_counter++;
-    //     /* Wait transmission is completed */
-    //         while(USCI_A_UART_queryStatusFlags(
-    //             USCI_A0_BASE, USCI_A_UART_BUSY)
-    //             == USCI_A_UART_BUSY);
-    // }
-
     // Transmit 0xFF 3 times. Required to define end of the message
     uint8_t uart_transmit_cmd_ff = 0xFF;
     for (i = 0; i < 3; i++) {
