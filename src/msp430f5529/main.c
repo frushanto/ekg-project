@@ -18,6 +18,7 @@ void main(void){
 
 	while(1) {
 //	    Test_UART();
+	    Test_ADC();
 	}
 }
 

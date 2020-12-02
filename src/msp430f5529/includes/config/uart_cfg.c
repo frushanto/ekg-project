@@ -78,8 +78,8 @@ void Init_UART() {
             USCI_A_UART_RECEIVE_INTERRUPT);
 }
 
-void Test_UART() {
-    uint8_t uart_transmit_set_val[] = "page8.n0.val=";
+void Test_UART(uint16_t adc_value) {
+    uint8_t uart_transmit_set_val[] = "add 5,0,";//page8.n0.val=
     //uint8_t uart_transmit_get_val[] = "get n0.val";
     uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
     volatile uint8_t fm_counter = 0;
@@ -97,8 +97,7 @@ void Test_UART() {
                 == USCI_A_UART_BUSY);
     }
 
-    // Transmit int 35 as string
-    int test_val = 35;
+    int test_val = (adc_value / 16) - 30;
     uint8_t buffer[50];
     sprintf( buffer, "%d", test_val );
     for (i = 0; i < strlen((char const*)buffer); i++) {
@@ -123,7 +122,7 @@ void Test_UART() {
                 USCI_A0_BASE, USCI_A_UART_BUSY)
                 == USCI_A_UART_BUSY);
     }
-    DELAY500K;
+    _delay_cycles(10);
 }
 
 /*
