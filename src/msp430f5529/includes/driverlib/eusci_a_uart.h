@@ -7,7 +7,7 @@
 #ifndef __MSP430WARE_EUSCI_A_UART_H__
 #define __MSP430WARE_EUSCI_A_UART_H__
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #ifdef __MSP430_HAS_EUSCI_Ax__
 
@@ -22,7 +22,7 @@ extern "C"
 {
 #endif
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 //*****************************************************************************
 //
 // The following values are the sync characters possible.

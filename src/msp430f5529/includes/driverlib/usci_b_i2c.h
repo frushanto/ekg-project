@@ -7,7 +7,7 @@
 #ifndef __MSP430WARE_USCI_B_I2C_H__
 #define __MSP430WARE_USCI_B_I2C_H__
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #ifdef __MSP430_HAS_USCI_Bx__
 
@@ -22,7 +22,7 @@ extern "C"
 {
 #endif
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 //*****************************************************************************
 //
 //! \brief Used in the USCI_B_I2C_initMaster() function as the param parameter.

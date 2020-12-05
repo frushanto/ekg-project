@@ -11,7 +11,7 @@
 //
 //*****************************************************************************
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #ifdef __MSP430_HAS_USCI_Ax__
 #include "usci_a_spi.h"

@@ -1,4 +1,4 @@
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #include "eusci_b_i2c.h"
 #include "ctsd16.h"

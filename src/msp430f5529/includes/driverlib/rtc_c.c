@@ -11,7 +11,7 @@
 //
 //*****************************************************************************
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #if defined(__MSP430_HAS_RTC_C__) || defined(__MSP430_HAS_RTC_CE__)
 #include "rtc_c.h"

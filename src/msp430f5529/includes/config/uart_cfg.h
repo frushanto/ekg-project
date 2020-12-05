@@ -9,12 +9,13 @@
 #define INCLUDES_CONFIG_UART_CFG_H_
 
 #include <msp430.h>
-#include <driverlib.h>
-#include <std_types.h>
+#include <includes/driverlib/driverlib.h>
+#include <includes/driverlib/std_types.h>
+#include <stdio.h>
 
 /* Function declarations */
 void Init_UART(void);
-void Test_UART(void);
+void Test_UART(uint16_t adc_value);
 void Test_UART_With_Display(void);
 
 #endif /* INCLUDES_CONFIG_UART_CFG_H_ */

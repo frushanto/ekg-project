@@ -7,7 +7,7 @@
 #ifndef __MSP430WARE_UCS_H__
 #define __MSP430WARE_UCS_H__
 
-#include "inc/hw_memmap.h"
+#include "hw_memmap.h"
 
 #if defined(__MSP430_HAS_UCS__) || defined(__MSP430_HAS_UCS_RF__)
 

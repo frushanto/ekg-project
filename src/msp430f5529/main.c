@@ -17,9 +17,8 @@ void main(void){
     /* Init MSP430 END */
 
 	while(1) {
-        //Test_ADC();
-	    Test_UART();
-        //Test_UART_With_Display();
+//	    Test_UART();
+	    Test_ADC();
 	}
 }
 
