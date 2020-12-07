@@ -52,6 +52,8 @@
 									<listOptionValue builtIn="false" value="${CCS_BASE_ROOT}/msp430/include"/>
 									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/includes/config}"/>
 									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/includes/driverlib}"/>
+									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/includes/config}"/>
+									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/includes/driverlib}"/>
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}"/>
 									<listOptionValue builtIn="false" value="${CG_TOOL_ROOT}/include"/>
 								</option>
