@@ -15,6 +15,9 @@
 
 #define RECEIVE_DATA_COUNT                      0x02
 
+#define UpperThreshold 150  // bpm
+#define LowerThreshold 120  // bpm
+
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
 
@@ -37,8 +40,8 @@ void uart_transmit_data_array(uint8_t nextion_command[]){
     }
 }
 
-void uart_transmit_integer_value(uint16_t transmit_value){
-    int value = transmit_value;
+void uart_transmit_data_value(uint16_t transmit_value){
+    uint16_t value = transmit_value;
     uint8_t buffer[50];
     sprintf( buffer, "%d", value);
     for (i = 0; i < strlen((char const*)buffer); i++) {
@@ -52,7 +55,7 @@ void uart_transmit_integer_value(uint16_t transmit_value){
     }
 }
 
-void uart_transmit_end_command(){
+void uart_transmit_data_end(){
     uint8_t uart_transmit_cmd_ff = 0xFF;
     for (i = 0; i < 3; i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_cmd_ff);
@@ -174,11 +177,40 @@ void Test_UART(uint16_t adc_value) {
     _delay_cycles(10);
 }
 
-void Test_UART_PULS(){
-    uint8_t puls = 80;
-    uart_transmit_data_array("page2.puls.val=");
-    uart_transmit_integer_value(puls);
-    uart_transmit_end_command();
+void Test_UART_BPM(){
+    uint16_t adc_value = 0; // ADC income
+
+    uint16_t LastTime = 0;
+    uint16_t BPM = 0;
+    bool BPMTiming = false;
+    bool BeatComplete = false;
+
+    int c = 0;
+
+    if (adc_value > UpperThreshold) {
+          if (BeatComplete) {
+            BPM = (clock() * 1000) - LastTime;
+            BPM = (60 / (BPM / 1000));
+            BPMTiming = false;
+            BeatComplete = false;
+          }
+          if (BPMTiming == false) {
+            LastTime = (clock() * 1000);
+            BPMTiming = true;
+          }
+        }
+        if ((adc_value < LowerThreshold) & (BPMTiming))
+          BeatComplete = true;
+
+        c++;
+
+        if(c > 100) {
+          uart_transmit_data_array("page2.puls.val=");
+          uart_transmit_data_value(BPM);
+          uart_transmit_data_end();
+
+          c = 0;
+        }
 }
 
 /*

@@ -19,7 +19,7 @@ void main(void){
 	while(1) {
 //	    Test_UART();
 //	    Test_ADC();
-	    Test_UART_PULS();
+	    Test_UART_BPM();
 	}
 }
 
