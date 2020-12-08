@@ -1,7 +1,7 @@
 /*****************************************\
 Author: Erik Thüry    Date: 05.12.2020
 
-Für den FIR-Filter wurden mit Matlab 101 Koeffizienten berechnet
+Für den FIR-Filter wurden mit Matlab 201 Koeffizienten berechnet
 Die Nyquistfrequenz beträgt 500Hz (Samplingfrequenz 1000Hz / 2)
 Die untere Grenzfrequenz des Stopbandes liegt bei 0,085*Nyquistfrequenz (42,5Hz)
 Die obere Grenzfrequenz liegt bei 0,115*Nyquistfrequenz (57,5Hz)
@@ -9,7 +9,8 @@ Die obere Grenzfrequenz liegt bei 0,115*Nyquistfrequenz (57,5Hz)
 
 #include <fir_filter.h>
 
-static double b[filter_coef], circular_buffer[nc];
+static double b[filter_coef];
+static double circular_buffer[nc];
 
 void fir_filter_init()
 {
@@ -135,18 +136,18 @@ void fir_filter_init()
 double fir_filter(int new_sample)
 {
     static int index = 0;
-    double y = 0;
+    double output = 0;
     int i;
 
     circular_buffer[index] = new_sample;
 
     for (i = 0; i < filter_coef - 1; i++)
     {
-        y += b[i] * (circular_buffer[(index + i) % nc] + circular_buffer[(index + nc - i - 1) % nc]);
+        output += b[i] * (circular_buffer[(index + i) % nc] + circular_buffer[(index + nc - i - 1) % nc]);
     }
-    y += b[100] * circular_buffer[(100 + index) % nc];
+    output += b[100] * circular_buffer[(100 + index) % nc];
 
     index = (++index) % nc;  // index läuft von 0 bis 200
 
-    return y;
+    return output;
 }
