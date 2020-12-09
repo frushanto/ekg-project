@@ -13,11 +13,11 @@ void main(void){
     // TODO Timers
     Init_UART();
     Init_ADC();
+    Init_SPI();
     EnableGlobalInterrupt();
     /* Init MSP430 END */
 
 	while(1) {
-//	    Test_UART();
 	    Test_ADC();
 	}
 }
