@@ -61,7 +61,7 @@
 //*****************************************************************************
 #include "driverlib.h"
 
-#define COMPARE_VALUE 50000
+#define COMPARE_VALUE 500
 
 void main (void)
 {
