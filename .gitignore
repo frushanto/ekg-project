@@ -54,3 +54,4 @@ Module.symvers
 Mkfile.old
 dkms.conf
 .DS_Store
+src/msp430f5529/Debug/
