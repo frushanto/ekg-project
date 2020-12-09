@@ -204,8 +204,8 @@ void Test_UART_BPM(){
 
         c++;
 
-        if(c > 100) {
-          uart_transmit_data_array("page2.puls.val=");
+        if(c > 5) {
+          uart_transmit_data_array("page8.n0.val=");
           uart_transmit_data_value(BPM);
           uart_transmit_data_end();
 
