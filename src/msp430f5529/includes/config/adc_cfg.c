@@ -133,6 +133,7 @@ __interrupt void ADC12_A_ISR(void) {
              _delay_cycles(100);
          }
          Test_UART(adc_result);
+         Test_UART_BPM(adc_result);
          //Exit active CPU
          __bic_SR_register_on_exit(LPM0_bits);
          break;

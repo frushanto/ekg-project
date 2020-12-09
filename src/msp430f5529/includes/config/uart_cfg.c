@@ -15,8 +15,8 @@
 
 #define RECEIVE_DATA_COUNT                      0x02
 
-#define UpperThreshold 150  // bpm
-#define LowerThreshold 120  // bpm
+#define UpperThreshold 155  // bpm
+#define LowerThreshold 145  // bpm
 
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
@@ -25,6 +25,13 @@ uint8_t uart_transmit_set_val[] = "0";
 uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 volatile uint8_t fm_counter = 0;
 volatile uint8_t i = 0;
+
+/* BPM TEST VARs */
+uint16_t bpm_counter = 0;
+bool BPMTiming = false;
+bool BeatComplete = false;
+uint16_t LastTime = 0;
+uint16_t BPM = 17;
 
 // Transmit array with data
 void uart_transmit_data_array(uint8_t nextion_command[]){
@@ -177,40 +184,38 @@ void Test_UART(uint16_t adc_value) {
     _delay_cycles(10);
 }
 
-void Test_UART_BPM(){
-    uint16_t adc_value = 0; // ADC input
+void Test_UART_BPM(uint16_t adc_value){
+    //uint16_t adc_value = 0; // ADC input
+    uint16_t test_val = (adc_value / 16) - 30;
 
-    uint16_t LastTime = 0;
-    uint16_t BPM = 0;
-    bool BPMTiming = false;
-    bool BeatComplete = false;
+    if (test_val > UpperThreshold) {
 
-    int c = 0;
-
-    if (adc_value > UpperThreshold) {
           if (BeatComplete) {
             BPM = (clock() * 1000) - LastTime;
             BPM = (60 / (BPM / 1000));
             BPMTiming = false;
             BeatComplete = false;
           }
+
           if (BPMTiming == false) {
             LastTime = (clock() * 1000);
             BPMTiming = true;
           }
-        }
-        if ((adc_value < LowerThreshold) & (BPMTiming))
-          BeatComplete = true;
+    }
 
-        c++;
+    if ((test_val < LowerThreshold) && (BPMTiming)) {
+      BeatComplete = true;
+    }
 
-        if(c > 5) {
-          uart_transmit_data_array("page8.n0.val=");
-          uart_transmit_data_value(BPM);
-          uart_transmit_data_end();
+    bpm_counter++;
 
-          c = 0;
-        }
+    if(bpm_counter > 5) {
+      uart_transmit_data_array("page8.n0.val=");
+      uart_transmit_data_value(BPM);
+      uart_transmit_data_end();
+
+      bpm_counter = 0;
+    }
 }
 
 /*
