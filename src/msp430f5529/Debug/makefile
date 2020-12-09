@@ -2,7 +2,7 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-CG_TOOL_ROOT := /Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.1.LTS
+CG_TOOL_ROOT := /Applications/ti/ccs1011/ccs/tools/compiler/ti-cgt-msp430_20.2.1.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
@@ -190,14 +190,14 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 msp430f5529.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: MSP430 Linker'
-	"/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --advice:power=all --define=__MSP430F5529__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 -z -m"msp430f5529.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"/Users/ivan/Workspace/Software/ccs/ccs_base/msp430/include" -i"/Users/ivan/Workspace/Software/ccs/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.1.LTS/lib" -i"/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="msp430f5529_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "msp430f5529.out" $(ORDERED_OBJS)
+	"/Applications/ti/ccs1011/ccs/tools/compiler/ti-cgt-msp430_20.2.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --advice:power=all --define=__MSP430F5529__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU23 --silicon_errata=CPU40 -z -m"msp430f5529.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"/Applications/ti/ccs1011/ccs/ccs_base/msp430/include" -i"/Applications/ti/ccs1011/ccs/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"/Applications/ti/ccs1011/ccs/tools/compiler/ti-cgt-msp430_20.2.1.LTS/lib" -i"/Applications/ti/ccs1011/ccs/tools/compiler/ti-cgt-msp430_20.2.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="msp430f5529_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "msp430f5529.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 msp430f5529.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: MSP430 Hex Utility'
-	"/Users/ivan/Workspace/Software/ccs/tools/compiler/ti-cgt-msp430_20.2.1.LTS/bin/hex430" --memwidth=8 --romwidth=8 -o "msp430f5529.hex" $(EXE_OUTPUTS__QUOTED)
+	"/Applications/ti/ccs1011/ccs/tools/compiler/ti-cgt-msp430_20.2.1.LTS/bin/hex430" --memwidth=8 --romwidth=8 -o "msp430f5529.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 

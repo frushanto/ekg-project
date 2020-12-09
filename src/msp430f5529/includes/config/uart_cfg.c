@@ -123,6 +123,8 @@ void Test_UART(uint16_t adc_value) {
                 == USCI_A_UART_BUSY);
     }
     _delay_cycles(10);
+
+
 }
 
 /*
