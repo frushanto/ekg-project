@@ -16,15 +16,8 @@ void main(void){
     EnableGlobalInterrupt();
     /* Init MSP430 END */
 
-    P1DIR |= BIT0;                            // P1.0 set as output
-
-    unsigned int i, j;
-      while(1)                                  // continuous loop
-      {
-        P1OUT ^= BIT0;                          // XOR P1.0
-        for(i=65000;i>0;i--)                    // Delay
-            for(j=2;j>0;j--);
-      }
+    /* IIR Test */
+    iir_filter_init();
 
 	while(1) {
 //	    Test_UART();
