@@ -43,7 +43,7 @@ void uart_transmit_data_array(uint8_t nextion_command[]){
 void uart_transmit_data_value(uint16_t transmit_value){
     uint16_t value = transmit_value;
     uint8_t buffer[50];
-    sprintf( buffer, "%d", value);
+    sprintf(buffer, "%d", value);
     for (i = 0; i < strlen((char const*)buffer); i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, buffer[i]);
         uart_transmit_full_message[fm_counter] = buffer[i];
@@ -149,9 +149,9 @@ void Test_UART(uint16_t adc_value) {
                 == USCI_A_UART_BUSY);
     }
 
-    int test_val = (adc_value / 16) - 30;
+    uint16_t test_val = (adc_value / 16) - 30;
     uint8_t buffer[50];
-    sprintf( buffer, "%d", test_val );
+    sprintf(buffer, "%d", test_val);
     for (i = 0; i < strlen((char const*)buffer); i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, buffer[i]);
         uart_transmit_full_message[fm_counter] = buffer[i];
@@ -178,7 +178,7 @@ void Test_UART(uint16_t adc_value) {
 }
 
 void Test_UART_BPM(){
-    uint16_t adc_value = 0; // ADC income
+    uint16_t adc_value = 0; // ADC input
 
     uint16_t LastTime = 0;
     uint16_t BPM = 0;
