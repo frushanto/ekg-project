@@ -29,6 +29,26 @@ void Init_Timer(void) {
                 );
 }
 
+//void Timer_one_sec(void) {
+//    Timer_A_startCounter( TIMER_A1_BASE,
+//                          TIMER_A_STOP_MODE
+//                 );
+//
+//    Timer_A_initCompareModeParam initCompParam = {0};
+//    initCompParam.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_0;
+//    initCompParam.compareInterruptEnable = TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
+//    initCompParam.compareOutputMode = TIMER_A_OUTPUTMODE_OUTBITVALUE;
+//    initCompParam.compareValue = COMPARE_VALUE;
+//    Timer_A_initCompareMode(TIMER_A1_BASE, &initCompParam);
+//
+//    Timer_A_startCounter( TIMER_A1_BASE,
+//            TIMER_A_CONTINUOUS_MODE
+//                );
+//    // ACLK = 32768 Hz
+//    uint16_t timerIdleCycles = (timer_delay_ms * 32768) / 1000;
+//
+//}
+
 //******************************************************************************
 //
 //This is the TIMER1_A3 interrupt vector service routine.
