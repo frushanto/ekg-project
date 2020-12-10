@@ -21,6 +21,7 @@ void Init_Timer() {
     initCompParam.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_0;
     initCompParam.compareInterruptEnable = TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
     initCompParam.compareOutputMode = TIMER_A_OUTPUTMODE_OUTBITVALUE;
+    // Define CLK cycles for CCR0 Interrupt
     initCompParam.compareValue = COMPARE_VALUE;
     Timer_A_initCompareMode(TIMER_A1_BASE, &initCompParam);
 
@@ -66,13 +67,9 @@ void TIMER1_A0_ISR (void)
     		TIMER_A_CAPTURECOMPARE_REGISTER_0)
     		+ COMPARE_VALUE;
 
-    //Toggle P1.0
-    GPIO_toggleOutputOnPin(
-        GPIO_PORT_P1,
-        GPIO_PIN0
-        );
+    // TODO send UART to display
 
-    //Add Offset to CCR0
+    // Add Offset to CCR0
     Timer_A_setCompareValue(TIMER_A1_BASE,
         TIMER_A_CAPTURECOMPARE_REGISTER_0,
         compVal
