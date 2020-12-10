@@ -10,7 +10,7 @@ void main(void){
     Init_Watchdog();
     Init_GPIO();
     Init_CLK();
-    // TODO Timers
+    Init_Timer();
     Init_UART();
     Init_ADC();
     EnableGlobalInterrupt();
@@ -21,9 +21,9 @@ void main(void){
 
 	while(1) {
 //	    Test_UART();
-	    Test_ADC();
-	    UART_Upper_T();
-	    UART_Lower_T();
+//	    Test_ADC();
+//	    UART_Upper_T();
+//	    UART_Lower_T();
 	}
 }
 
