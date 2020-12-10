@@ -15,6 +15,9 @@
 
 #define RECEIVE_DATA_COUNT                      0x02
 
+#define UpperThreshold 155  // for BPM
+#define LowerThreshold 145  // for BPM
+
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
 
@@ -104,6 +107,7 @@ void Init_UART() {
      * For more information about baudrate setting see 39.3.10
      * Setting a Baud Rate at page 1036 User Guide
      */
+
     uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_ACLK;
     uart_cfg.clockPrescalar = 3; // Table 36-4, p.952 User's Guide
     uart_cfg.firstModReg = 0;
@@ -116,7 +120,7 @@ void Init_UART() {
 
 
     // Init UART A0
-    //USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
+    // USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
     if (STATUS_FAIL == USCI_A_UART_init(USCI_A0_BASE, &uart_cfg)){
         return;
     }
@@ -128,15 +132,15 @@ void Init_UART() {
 }
 
 void Test_UART(uint16_t adc_value) {
-    uart_transmit_data_start("add 5,0,");
     uint8_t test_val = (adc_value / 16) - 30;
+    uart_transmit_data_start("add 5,0,");
     uart_transmit_data_value(test_val);
     uart_transmit_data_end();
     _delay_cycles(10);
 }
 
 void UART_Upper_T(){
-    uint8_t upper_t = 140;
+    uint8_t upper_t = UpperThreshold;
     uart_transmit_data_start("add 5,1,");
     uart_transmit_data_value(upper_t);
     uart_transmit_data_end();
@@ -144,11 +148,44 @@ void UART_Upper_T(){
 }
 
 void  UART_Lower_T(){
-    uint8_t lower_t = 150;
+    uint8_t lower_t = LowerThreshold;
     uart_transmit_data_start("add 5,2,");
     uart_transmit_data_value(lower_t);
     uart_transmit_data_end();
     _delay_cycles(10);
+}
+
+void Test_UART_BPM(uint16_t adc_value){
+    uint16_t test_val = (adc_value / 16) - 30;
+
+    if (test_val > UpperThreshold) {
+
+          if (BeatComplete) {
+            BPM = (clock() * 1000) - LastTime;
+            BPM = (60 / (BPM / 1000));
+            BPMTiming = false;
+            BeatComplete = false;
+          }
+
+          if (BPMTiming == false) {
+            LastTime = (clock() * 1000);
+            BPMTiming = true;
+          }
+    }
+
+    if ((test_val < LowerThreshold) && (BPMTiming)) {
+      BeatComplete = true;
+    }
+
+    bpm_counter++;
+
+    if(bpm_counter > 5) {
+      uart_transmit_data_array("page8.n0.val=");
+      uart_transmit_data_value(BPM);
+      uart_transmit_data_end();
+
+      bpm_counter = 0;
+    }
 }
 
 /*
