@@ -23,8 +23,8 @@ uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0
 volatile uint8_t fm_counter = 0;
 volatile uint8_t i = 0;
 
-// Transmit array with data
-void uart_transmit_data_array(uint8_t nextion_command[]){
+/* Transmit array with nextion command */
+void uart_transmit_data_start(uint8_t nextion_command[]){
     strcpy(uart_transmit_set_val, nextion_command);
     for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_set_val[i]);
@@ -36,8 +36,8 @@ void uart_transmit_data_array(uint8_t nextion_command[]){
                 == USCI_A_UART_BUSY);
     }
 }
-
-void uart_transmit_integer_value(uint16_t transmit_value){
+/* Transmit array with value */
+void uart_transmit_data_value(uint16_t transmit_value){
     int value = transmit_value;
     uint8_t buffer[50];
     sprintf( buffer, "%d", value);
@@ -51,8 +51,8 @@ void uart_transmit_integer_value(uint16_t transmit_value){
                 == USCI_A_UART_BUSY);
     }
 }
-
-void uart_transmit_end_command(){
+/* Transmit 3 times 0xFF to send command to display */
+void uart_transmit_data_end(){
     uint8_t uart_transmit_cmd_ff = 0xFF;
     for (i = 0; i < 3; i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_cmd_ff);
@@ -128,57 +128,27 @@ void Init_UART() {
 }
 
 void Test_UART(uint16_t adc_value) {
-    uint8_t uart_transmit_set_val[] = "add 5,0,";//page8.n0.val=
-    //uint8_t uart_transmit_get_val[] = "get n0.val";
-    uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-    volatile uint8_t fm_counter = 0;
-    volatile uint8_t i = 0;
-    uint8_t uart_transmit_length = strlen((char const*)uart_transmit_set_val);
-    // Transmit array with data
-    for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
-    //for (i = 0; i < 10; i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_set_val[i]);
-        uart_transmit_full_message[fm_counter] = uart_transmit_set_val[i];
-        fm_counter++;
-        /* Wait transmission is completed */
-        while(USCI_A_UART_queryStatusFlags(
-                USCI_A0_BASE, USCI_A_UART_BUSY)
-                == USCI_A_UART_BUSY);
-    }
-
-    int test_val = (adc_value / 16) - 30;
-    uint8_t buffer[50];
-    sprintf( buffer, "%d", test_val );
-    for (i = 0; i < strlen((char const*)buffer); i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, buffer[i]);
-        uart_transmit_full_message[fm_counter] = buffer[i];
-        fm_counter++;
-        /* Wait transmission is completed */
-        while(USCI_A_UART_queryStatusFlags(
-                USCI_A0_BASE, USCI_A_UART_BUSY)
-                == USCI_A_UART_BUSY);
-    }
-
-
-    // Transmit 0xFF 3 times. Required to define end of the message
-    uint8_t uart_transmit_cmd_ff = 0xFF;
-    for (i = 0; i < 3; i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_cmd_ff);
-        uart_transmit_full_message[fm_counter] = uart_transmit_cmd_ff;
-        fm_counter++;
-        /* Wait transmission is completed */
-        while(USCI_A_UART_queryStatusFlags(
-                USCI_A0_BASE, USCI_A_UART_BUSY)
-                == USCI_A_UART_BUSY);
-    }
+    uart_transmit_data_start("add 5,0,");
+    uint8_t test_val = (adc_value / 16) - 30;
+    uart_transmit_data_value(test_val);
+    uart_transmit_data_end();
     _delay_cycles(10);
 }
 
-void Test_UART_PULS(){
-    uint8_t puls = 80;
-    uart_transmit_data_array("page2.puls.val=");
-    uart_transmit_integer_value(puls);
-    uart_transmit_end_command();
+void UART_Upper_T(){
+    uint8_t upper_t = 140;
+    uart_transmit_data_start("add 5,1,");
+    uart_transmit_data_value(upper_t);
+    uart_transmit_data_end();
+    _delay_cycles(10);
+}
+
+void  UART_Lower_T(){
+    uint8_t lower_t = 150;
+    uart_transmit_data_start("add 5,2,");
+    uart_transmit_data_value(lower_t);
+    uart_transmit_data_end();
+    _delay_cycles(10);
 }
 
 /*
