@@ -16,9 +16,14 @@ void main(void) {
     EnableGlobalInterrupt();
     /* Init MSP430 END */
 
+    /* IIR Test */
+    iir_filter_init();
+
 	while(1) {
 //	    Test_UART();
-	    //Test_ADC();
+//	    Test_ADC();
+//	    UART_Upper_T();
+//	    UART_Lower_T();
 	}
 }
 

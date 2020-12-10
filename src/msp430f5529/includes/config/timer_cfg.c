@@ -13,9 +13,9 @@ void Init_Timer() {
     Timer_A_initContinuousMode(TIMER_A1_BASE, &initContParam);
 
     //Initiaze compare mode
-	Timer_A_clearCaptureCompareInterrupt(TIMER_A1_BASE,
-		TIMER_A_CAPTURECOMPARE_REGISTER_0
-		);
+    Timer_A_clearCaptureCompareInterrupt(TIMER_A1_BASE,
+        TIMER_A_CAPTURECOMPARE_REGISTER_0
+        );
 
     Timer_A_initCompareModeParam initCompParam = {0};
     initCompParam.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_0;

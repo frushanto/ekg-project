@@ -159,10 +159,11 @@ void  UART_Lower_T(){
 }
 
 void  UART_Timer_One_Sec(){
+    
     uart_transmit_data_start("page8.n0.val=");
     uart_transmit_data_value(uart_timer_one_sec++);
     uart_transmit_data_end();
-    //_delay_cycles(10);
+    _delay_cycles(10);
 }
 
 //void Test_UART_BPM(uint16_t adc_value){

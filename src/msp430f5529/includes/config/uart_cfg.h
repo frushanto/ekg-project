@@ -12,6 +12,7 @@
 #include <includes/driverlib/driverlib.h>
 #include <includes/driverlib/std_types.h>
 #include <stdio.h>
+#include <time.h>
 
 /* Function declarations */
 void Init_UART(void);

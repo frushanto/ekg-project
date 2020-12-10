@@ -132,7 +132,21 @@ __interrupt void ADC12_A_ISR(void) {
                      );
              _delay_cycles(100);
          }
-         Test_UART(adc_result);
+
+         /* ADC test with iir-filter */
+//         uint16_t adc_after_iir_test = iir_filter(adc_result);
+//         Test_UART(adc_after_iir_test);
+
+         /* ADC test with fir-filter */
+//         uint16_t adc_after_fir_test = fir_filter(adc_result);
+//         Test_UART(adc_after_fir_test);
+
+         /* ADC test working - Test_UART means: ECG Signal as waveform */
+             Test_UART(adc_result);
+
+         /* Test BPM */
+//          Test_UART_BPM(adc_result);
+
          //Exit active CPU
          __bic_SR_register_on_exit(LPM0_bits);
          break;
