@@ -71,3 +71,5 @@ src/msp430f5529/Debug/ccsObjs.opt
 src/msp430f5529/Debug/includes/config/subdir_vars.mk
 src/msp430f5529/Debug/makefile
 src/msp430f5529/Debug/msp430f5529_linkInfo.xml
+src/msp430f5529/.launches/msp430f5529.launch
+src/msp430f5529/Debug/msp430f5529_linkInfo.xml

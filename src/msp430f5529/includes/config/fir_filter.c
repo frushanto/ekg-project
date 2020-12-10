@@ -11,9 +11,12 @@ Die obere Grenzfrequenz liegt bei 0,115*Nyquistfrequenz (57,5Hz)
 static double b[filter_coef];
 static double circular_buffer[nc];
 
+static uint16_t index = 0;
+double output = 0;
+
 void fir_filter_init()
 {
-    uint8_t i;
+    uint16_t m;
 
     //filter coefficients
     b[0] = 0.000509081586485681;
@@ -122,9 +125,9 @@ void fir_filter_init()
     // circular buffer stores the last 201 ADC values
     // at the beginning of the measurement the buffer has to be initialised with 0
 
-    for(i = 0; i < nc; i++)    //   (i = nc; i >= 0; i--)
+    for(m = 0; m < nc; m++)    //   (i = nc; i >= 0; i--)
     {
-        circular_buffer[i] = 0;
+        circular_buffer[m] = 0;
     }
 }
 
@@ -132,13 +135,12 @@ void fir_filter_init()
 // Im circular_buffer stehen die letzten 201 Samplewerte, diese werden mit
 // den Filterkoeffizienten multipliziert und aufsummiert und ergeben den neuen gefilterten Signalwert
 
-double fir_filter(int new_sample)
+uint16_t fir_filter(uint16_t new_sample)
 {
-    static int index = 0;
-    double output = 0;
-    int i;
+    uint16_t i;
+    uint16_t value = new_sample;
 
-    circular_buffer[index] = new_sample;
+    circular_buffer[index] = value;
 
     for (i = 0; i < filter_coef - 1; i++)
     {
@@ -148,5 +150,7 @@ double fir_filter(int new_sample)
 
     index = (++index) % nc;  // index läuft von 0 bis 200
 
-    return output;
+    uint16_t output_int = (uint16_t)output;
+
+    return output_int;
 }

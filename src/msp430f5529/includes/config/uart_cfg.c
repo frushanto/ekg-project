@@ -18,16 +18,21 @@
 #define UpperThreshold 155  // for BPM
 #define LowerThreshold 145  // for BPM
 
+// Receive Data VARs
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
 
+// Transmit Data VARs
 uint8_t uart_transmit_set_val[] = "0";
 uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 volatile uint8_t fm_counter = 0;
 volatile uint8_t i = 0;
 
-// Timer vars
+// Timer VARs
 uint8_t uart_timer_one_sec = 0;
+
+// BPM TEST VARs
+// TODO
 
 /* Transmit array with nextion command */
 void uart_transmit_data_start(uint8_t nextion_command[]){
@@ -71,7 +76,6 @@ void uart_transmit_data_end(){
     }
     _delay_cycles(10);
 }
-
 
 void Init_UART() {
 
@@ -135,15 +139,21 @@ void Init_UART() {
 }
 
 void Test_UART(uint16_t adc_value) {
-    uint8_t test_val = (adc_value / 16) - 30;
+//    uint16_t test_val = (adc_value / 16) - 30;
+    uint16_t test_val = adc_value/16;
     uart_transmit_data_start("add 5,0,");
+    uart_transmit_data_value(test_val);
+    uart_transmit_data_end();
+    _delay_cycles(10);
+
+    uart_transmit_data_start("page8.n0.val=");
     uart_transmit_data_value(test_val);
     uart_transmit_data_end();
     _delay_cycles(10);
 }
 
 void UART_Upper_T(){
-    uint8_t upper_t = UpperThreshold;
+    uint16_t upper_t = UpperThreshold;
     uart_transmit_data_start("add 5,1,");
     uart_transmit_data_value(upper_t);
     uart_transmit_data_end();
@@ -151,7 +161,7 @@ void UART_Upper_T(){
 }
 
 void  UART_Lower_T(){
-    uint8_t lower_t = LowerThreshold;
+    uint16_t lower_t = LowerThreshold;
     uart_transmit_data_start("add 5,2,");
     uart_transmit_data_value(lower_t);
     uart_transmit_data_end();
@@ -165,39 +175,6 @@ void  UART_Timer_One_Sec(){
     uart_transmit_data_end();
     _delay_cycles(10);
 }
-
-//void Test_UART_BPM(uint16_t adc_value){
-//    uint16_t test_val = (adc_value / 16) - 30;
-//
-//    if (test_val > UpperThreshold) {
-//
-//          if (BeatComplete) {
-//            BPM = (clock() * 1000) - LastTime;
-//            BPM = (60 / (BPM / 1000));
-//            BPMTiming = false;
-//            BeatComplete = false;
-//          }
-//
-//          if (BPMTiming == false) {
-//            LastTime = (clock() * 1000);
-//            BPMTiming = true;
-//          }
-//    }
-//
-//    if ((test_val < LowerThreshold) && (BPMTiming)) {
-//      BeatComplete = true;
-//    }
-//
-//    bpm_counter++;
-//
-//    if(bpm_counter > 5) {
-//      uart_transmit_data_array("page8.n0.val=");
-//      uart_transmit_data_value(BPM);
-//      uart_transmit_data_end();
-//
-//      bpm_counter = 0;
-//    }
-//}
 
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module
