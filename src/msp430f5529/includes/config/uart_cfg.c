@@ -111,10 +111,11 @@ void Init_UART() {
      * Setting a Baud Rate at page 1036 User Guide
      */
 
-    uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_ACLK;
-    uart_cfg.clockPrescalar = 3; // Table 36-4, p.952 User's Guide
+    //uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_ACLK;
+    uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_SMCLK; // -> 11993088 Hz
+    uart_cfg.clockPrescalar = 104; //3; // Table 36-4, p.952 User's Guide
     uart_cfg.firstModReg = 0;
-    uart_cfg.secondModReg = 3;
+    uart_cfg.secondModReg = 1; //3;
     uart_cfg.parity = USCI_A_UART_NO_PARITY;
     uart_cfg.msborLsbFirst = USCI_A_UART_LSB_FIRST;
     uart_cfg.numberofStopBits = USCI_A_UART_ONE_STOP_BIT;
