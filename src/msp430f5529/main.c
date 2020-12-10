@@ -13,6 +13,7 @@ void main(void) {
     Init_Timer();
     Init_UART();
     Init_ADC();
+    Init_SPI();
     EnableGlobalInterrupt();
     /* Init MSP430 END */
 
