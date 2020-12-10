@@ -176,6 +176,14 @@ void  UART_Timer_One_Sec(){
     _delay_cycles(10);
 }
 
+void Test_UART_Receive(){       /* Page2 Start Button sends: 0x65 0x02 0x06 0x00 0xFF 0xFF 0xFF */
+
+    uart_transmit_data_start("page2.puls.val=");
+    uart_transmit_data_value(88);
+    uart_transmit_data_end();
+
+}
+
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module
  * is now ready for transmit and receive. It is recommended to

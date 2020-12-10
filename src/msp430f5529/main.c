@@ -29,6 +29,7 @@ void main(void){
     int i = 0;
 
 	while(1) {
+	    Test_UART_Receive();
 //	    Test_UART();
 //	    Test_ADC();
 //	    UART_Upper_T();
