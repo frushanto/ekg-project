@@ -15,8 +15,63 @@
 
 #define RECEIVE_DATA_COUNT                      0x02
 
+#define UpperThreshold 155  // for BPM
+#define LowerThreshold 145  // for BPM
+
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
+
+uint8_t uart_transmit_set_val[] = "0";
+uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+volatile uint8_t fm_counter = 0;
+volatile uint8_t i = 0;
+
+// Timer vars
+uint8_t uart_timer_one_sec = 0;
+
+/* Transmit array with nextion command */
+void uart_transmit_data_start(uint8_t nextion_command[]){
+    strcpy(uart_transmit_set_val, nextion_command);
+    for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
+        USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_set_val[i]);
+        uart_transmit_full_message[fm_counter] = uart_transmit_set_val[i];
+        fm_counter++;
+        /* Wait transmission is completed */
+        while(USCI_A_UART_queryStatusFlags(
+                USCI_A0_BASE, USCI_A_UART_BUSY)
+                == USCI_A_UART_BUSY);
+    }
+}
+/* Transmit array with value */
+void uart_transmit_data_value(uint16_t transmit_value){
+    int value = transmit_value;
+    uint8_t buffer[50];
+    sprintf( buffer, "%d", value);
+    for (i = 0; i < strlen((char const*)buffer); i++) {
+        USCI_A_UART_transmitData(USCI_A0_BASE, buffer[i]);
+        uart_transmit_full_message[fm_counter] = buffer[i];
+        fm_counter++;
+        /* Wait transmission is completed */
+        while(USCI_A_UART_queryStatusFlags(
+                USCI_A0_BASE, USCI_A_UART_BUSY)
+                == USCI_A_UART_BUSY);
+    }
+}
+/* Transmit 3 times 0xFF to send command to display */
+void uart_transmit_data_end(){
+    uint8_t uart_transmit_cmd_ff = 0xFF;
+    for (i = 0; i < 3; i++) {
+        USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_cmd_ff);
+        uart_transmit_full_message[fm_counter] = uart_transmit_cmd_ff;
+        fm_counter++;
+        /* Wait transmission is completed */
+        while(USCI_A_UART_queryStatusFlags(
+                USCI_A0_BASE, USCI_A_UART_BUSY)
+                == USCI_A_UART_BUSY);
+    }
+    _delay_cycles(10);
+}
+
 
 void Init_UART() {
 
@@ -55,6 +110,7 @@ void Init_UART() {
      * For more information about baudrate setting see 39.3.10
      * Setting a Baud Rate at page 1036 User Guide
      */
+
     uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_ACLK;
     uart_cfg.clockPrescalar = 3; // Table 36-4, p.952 User's Guide
     uart_cfg.firstModReg = 0;
@@ -67,7 +123,7 @@ void Init_UART() {
 
 
     // Init UART A0
-    //USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
+    // USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
     if (STATUS_FAIL == USCI_A_UART_init(USCI_A0_BASE, &uart_cfg)){
         return;
     }
@@ -79,51 +135,68 @@ void Init_UART() {
 }
 
 void Test_UART(uint16_t adc_value) {
-    uint8_t uart_transmit_set_val[] = "add 5,0,";//page8.n0.val=
-    //uint8_t uart_transmit_get_val[] = "get n0.val";
-    uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-    volatile uint8_t fm_counter = 0;
-    volatile uint8_t i = 0;
-    uint8_t uart_transmit_length = strlen((char const*)uart_transmit_set_val);
-    // Transmit array with data
-    for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
-    //for (i = 0; i < 10; i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_set_val[i]);
-        uart_transmit_full_message[fm_counter] = uart_transmit_set_val[i];
-        fm_counter++;
-        /* Wait transmission is completed */
-        while(USCI_A_UART_queryStatusFlags(
-                USCI_A0_BASE, USCI_A_UART_BUSY)
-                == USCI_A_UART_BUSY);
-    }
-
-    int test_val = (adc_value / 16) - 30;
-    uint8_t buffer[50];
-    sprintf( buffer, "%d", test_val );
-    for (i = 0; i < strlen((char const*)buffer); i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, buffer[i]);
-        uart_transmit_full_message[fm_counter] = buffer[i];
-        fm_counter++;
-        /* Wait transmission is completed */
-        while(USCI_A_UART_queryStatusFlags(
-                USCI_A0_BASE, USCI_A_UART_BUSY)
-                == USCI_A_UART_BUSY);
-    }
-
-
-    // Transmit 0xFF 3 times. Required to define end of the message
-    uint8_t uart_transmit_cmd_ff = 0xFF;
-    for (i = 0; i < 3; i++) {
-        USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_cmd_ff);
-        uart_transmit_full_message[fm_counter] = uart_transmit_cmd_ff;
-        fm_counter++;
-        /* Wait transmission is completed */
-        while(USCI_A_UART_queryStatusFlags(
-                USCI_A0_BASE, USCI_A_UART_BUSY)
-                == USCI_A_UART_BUSY);
-    }
+    uint8_t test_val = (adc_value / 16) - 30;
+    uart_transmit_data_start("add 5,0,");
+    uart_transmit_data_value(test_val);
+    uart_transmit_data_end();
     _delay_cycles(10);
 }
+
+void UART_Upper_T(){
+    uint8_t upper_t = UpperThreshold;
+    uart_transmit_data_start("add 5,1,");
+    uart_transmit_data_value(upper_t);
+    uart_transmit_data_end();
+    _delay_cycles(10);
+}
+
+void  UART_Lower_T(){
+    uint8_t lower_t = LowerThreshold;
+    uart_transmit_data_start("add 5,2,");
+    uart_transmit_data_value(lower_t);
+    uart_transmit_data_end();
+    _delay_cycles(10);
+}
+
+void  UART_Timer_One_Sec(){
+    uart_transmit_data_start("page8.n0.val=");
+    uart_transmit_data_value(uart_timer_one_sec++);
+    uart_transmit_data_end();
+    //_delay_cycles(10);
+}
+
+//void Test_UART_BPM(uint16_t adc_value){
+//    uint16_t test_val = (adc_value / 16) - 30;
+//
+//    if (test_val > UpperThreshold) {
+//
+//          if (BeatComplete) {
+//            BPM = (clock() * 1000) - LastTime;
+//            BPM = (60 / (BPM / 1000));
+//            BPMTiming = false;
+//            BeatComplete = false;
+//          }
+//
+//          if (BPMTiming == false) {
+//            LastTime = (clock() * 1000);
+//            BPMTiming = true;
+//          }
+//    }
+//
+//    if ((test_val < LowerThreshold) && (BPMTiming)) {
+//      BeatComplete = true;
+//    }
+//
+//    bpm_counter++;
+//
+//    if(bpm_counter > 5) {
+//      uart_transmit_data_array("page8.n0.val=");
+//      uart_transmit_data_value(BPM);
+//      uart_transmit_data_end();
+//
+//      bpm_counter = 0;
+//    }
+//}
 
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module
@@ -155,6 +228,3 @@ __interrupt void UART_A0_ISR(void) {
             break;
         }
 }
-
-
-

@@ -1,6 +1,6 @@
 #include <includes/config/timer_cfg.h>
 
-#define COMPARE_VALUE 32000
+#define COMPARE_VALUE 32768
 
 void Init_Timer() {
     //Start timer in continuous mode sourced by ACLK
@@ -68,6 +68,7 @@ void TIMER1_A0_ISR (void)
     		+ COMPARE_VALUE;
 
     // TODO send UART to display
+    UART_Timer_One_Sec();
 
     // Add Offset to CCR0
     Timer_A_setCompareValue(TIMER_A1_BASE,
