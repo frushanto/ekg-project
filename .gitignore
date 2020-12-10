@@ -55,6 +55,4 @@ Mkfile.old
 dkms.conf
 .DS_Store
 src/msp430f5529/Debug/
-src/msp430f5529/Debug/msp430f5529_linkInfo.xml
-src/msp430f5529/Debug/msp430f5529_linkInfo.xml
-src/msp430f5529/Debug/msp430f5529_linkInfo.xml
+.src/msp430f5529/Debug/
