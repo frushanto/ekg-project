@@ -2,7 +2,7 @@
 
 #define COMPARE_VALUE 32000
 
-void Init_Timer(void) {
+void Init_Timer() {
     //Start timer in continuous mode sourced by ACLK
     Timer_A_initContinuousModeParam initContParam = {0};
     initContParam.clockSource = TIMER_A_CLOCKSOURCE_ACLK;

@@ -5,13 +5,12 @@ void Init_Watchdog(void);
 void EnableGlobalInterrupt(void);
 
 /* Function definitions */
-void main(void){
+void main(void) {
     /* Init MSP430 BEGIN */
     Init_Watchdog();
     Init_GPIO();
     Init_CLK();
     Init_Timer();
-    // TODO Timers
     Init_UART();
     Init_ADC();
     EnableGlobalInterrupt();
