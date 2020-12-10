@@ -33,11 +33,17 @@ uint32_t uart_timer_one_sec = 0;
 
 /* Transmit array with nextion command */
 void uart_transmit_data_start(uint8_t nextion_command[]){
+
     for (i = 0; i < strlen((char const*)uart_transmit_full_message); i++) {
         uart_transmit_full_message[i] = 0x00;
     }
+
     fm_counter = 0;
-    uint8_t uart_transmit_set_val[] = "0";
+
+    for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
+        uart_transmit_set_val[i] = 0x00;
+    }
+    
     strcpy(uart_transmit_set_val, nextion_command);
     for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_set_val[i]);
