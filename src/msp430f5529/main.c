@@ -22,7 +22,8 @@ void main(void){
 	while(1) {
 //	    Test_UART();
 //	    Test_ADC();
-	    UART_Upper_T();
+//	    UART_Upper_T();
+	    Test_UART_PULS();
 	}
 }
 
