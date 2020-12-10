@@ -64,9 +64,7 @@ void Init_CLK() {
         UCS_MCLK_FLLREF_RATIO
         );
 
-    // Enable global oscillator fault flag
-	SFR_clearInterrupt(SFR_OSCILLATOR_FAULT_INTERRUPT);
-    SFR_enableInterrupt(SFR_OSCILLATOR_FAULT_INTERRUPT);
+
 
     //Verify if the Clock settings are as expected
     clockValue = UCS_getSMCLK();    // clockValue = 11993088d

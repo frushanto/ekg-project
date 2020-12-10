@@ -17,7 +17,7 @@ void main(void) {
     /* Init MSP430 END */
 
     /* IIR Test */
-    iir_filter_init();
+    //iir_filter_init();
 
 	while(1) {
 //	    Test_UART();
@@ -34,6 +34,9 @@ void Init_Watchdog(void) {
 
 /*** Global Interrupt Enable ***/
 void EnableGlobalInterrupt() {
+    // Enable global oscillator fault flag
+    SFR_clearInterrupt(SFR_OSCILLATOR_FAULT_INTERRUPT);
+    SFR_enableInterrupt(SFR_OSCILLATOR_FAULT_INTERRUPT);
     // Enter interrupt
     __bis_SR_register(GIE);
     // For debugger

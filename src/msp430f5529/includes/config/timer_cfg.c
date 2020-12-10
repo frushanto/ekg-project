@@ -1,7 +1,7 @@
 #include <includes/config/timer_cfg.h>
 
 #define COMPARE_VALUE_ONE_SEC   32768
-#define COMPARE_VALUE_10_MS     COMPARE_VALUE_ONE_SEC / 100
+#define COMPARE_VALUE_10_MS     COMPARE_VALUE_ONE_SEC / 2
 
 void Init_Timer() {
 
@@ -82,7 +82,7 @@ void TIMER1_A0_ISR (void)
     /*** BEGIN will be executed every 1 second ***/
     GPIO_toggleOutputOnPin(GPIO_PORT_P4,
                                    GPIO_PIN7);
-    //UART_Timer_One_Sec();
+    UART_Timer_One_Sec();
     //Test_ADC();
     /*** BEGIN will be executed every 1 second ***/
 
@@ -113,7 +113,7 @@ void TIMER2_A0_ISR (void)
     /*** BEGIN will be executed every 10 milliseconds ***/
     GPIO_toggleOutputOnPin(GPIO_PORT_P1,
                                    GPIO_PIN0);
-    UART_Timer_One_Sec();
+    //UART_Timer_One_Sec();
     //Test_ADC();
     /*** END will be executed every 10 milliseconds ***/
 
