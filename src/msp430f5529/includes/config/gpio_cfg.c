@@ -14,7 +14,7 @@ void Init_GPIO(void) {
     // Configure buzzer
     GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN6);
     // Configure LED2 on DevKit
-    //GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN7);
+    GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN7);
 
     // Configure button on DevKit
     GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);

@@ -110,7 +110,6 @@ __interrupt void ADC12_A_ISR(void) {
          //Is Memory Buffer 0 = A0 > 0.5AVcc?
             uint16_t adc_result = 0;
          if ((adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0)) >= 0x7ff) {
-             //GPIO_Buzzer_Single_Beep();
              GPIO_setOutputHighOnPin(
                 GPIO_PORT_P1,
                 GPIO_PIN0
@@ -119,7 +118,7 @@ __interrupt void ADC12_A_ISR(void) {
                GPIO_PORT_P1,
                GPIO_PIN6
                );
-             _delay_cycles(100);
+             //_delay_cycles(100);
          } else {
              //Clear P1.0 LED off
              GPIO_setOutputLowOnPin(
@@ -130,7 +129,7 @@ __interrupt void ADC12_A_ISR(void) {
                      GPIO_PORT_P1,
                      GPIO_PIN6
                      );
-             _delay_cycles(100);
+             //_delay_cycles(100);
          }
 
          /* ADC test with iir-filter */

@@ -69,7 +69,7 @@ void uart_transmit_data_end(){
                 USCI_A0_BASE, USCI_A_UART_BUSY)
                 == USCI_A_UART_BUSY);
     }
-    _delay_cycles(10);
+    //_delay_cycles(10);
 }
 
 
@@ -139,7 +139,7 @@ void Test_UART(uint16_t adc_value) {
     uart_transmit_data_start("add 5,0,");
     uart_transmit_data_value(test_val);
     uart_transmit_data_end();
-    _delay_cycles(10);
+//    _delay_cycles(10);
 }
 
 void UART_Upper_T(){
@@ -163,7 +163,6 @@ void  UART_Timer_One_Sec(){
     uart_transmit_data_start("page8.n0.val=");
     uart_transmit_data_value(uart_timer_one_sec++);
     uart_transmit_data_end();
-    _delay_cycles(10);
 }
 
 //void Test_UART_BPM(uint16_t adc_value){
