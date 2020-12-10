@@ -76,7 +76,6 @@ void uart_transmit_data_end(){
     _delay_cycles(10);
 }
 
-
 void Init_UART() {
 
     #if UART_BASE == UART_BASE_A0
@@ -214,6 +213,7 @@ void UART_Upper_T(){
     }
     uart_transmit_data_value(UpperThreshold);
     uart_transmit_data_end();
+    _delay_cycles(10);
 }
 
 /*
