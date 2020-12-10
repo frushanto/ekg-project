@@ -26,6 +26,9 @@ uint8_t uart_transmit_full_message[12] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0
 volatile uint8_t fm_counter = 0;
 volatile uint8_t i = 0;
 
+// Timer vars
+uint8_t uart_timer_one_sec = 0;
+
 /* Transmit array with nextion command */
 void uart_transmit_data_start(uint8_t nextion_command[]){
     strcpy(uart_transmit_set_val, nextion_command);
@@ -155,38 +158,46 @@ void  UART_Lower_T(){
     _delay_cycles(10);
 }
 
-void Test_UART_BPM(uint16_t adc_value){
-    uint16_t test_val = (adc_value / 16) - 30;
-
-    if (test_val > UpperThreshold) {
-
-          if (BeatComplete) {
-            BPM = (clock() * 1000) - LastTime;
-            BPM = (60 / (BPM / 1000));
-            BPMTiming = false;
-            BeatComplete = false;
-          }
-
-          if (BPMTiming == false) {
-            LastTime = (clock() * 1000);
-            BPMTiming = true;
-          }
-    }
-
-    if ((test_val < LowerThreshold) && (BPMTiming)) {
-      BeatComplete = true;
-    }
-
-    bpm_counter++;
-
-    if(bpm_counter > 5) {
-      uart_transmit_data_array("page8.n0.val=");
-      uart_transmit_data_value(BPM);
-      uart_transmit_data_end();
-
-      bpm_counter = 0;
-    }
+void  UART_Timer_One_Sec(){
+    
+    uart_transmit_data_start("page8.n0.val=");
+    uart_transmit_data_value(uart_timer_one_sec++);
+    uart_transmit_data_end();
+    _delay_cycles(10);
 }
+
+//void Test_UART_BPM(uint16_t adc_value){
+//    uint16_t test_val = (adc_value / 16) - 30;
+//
+//    if (test_val > UpperThreshold) {
+//
+//          if (BeatComplete) {
+//            BPM = (clock() * 1000) - LastTime;
+//            BPM = (60 / (BPM / 1000));
+//            BPMTiming = false;
+//            BeatComplete = false;
+//          }
+//
+//          if (BPMTiming == false) {
+//            LastTime = (clock() * 1000);
+//            BPMTiming = true;
+//          }
+//    }
+//
+//    if ((test_val < LowerThreshold) && (BPMTiming)) {
+//      BeatComplete = true;
+//    }
+//
+//    bpm_counter++;
+//
+//    if(bpm_counter > 5) {
+//      uart_transmit_data_array("page8.n0.val=");
+//      uart_transmit_data_value(BPM);
+//      uart_transmit_data_end();
+//
+//      bpm_counter = 0;
+//    }
+//}
 
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module
