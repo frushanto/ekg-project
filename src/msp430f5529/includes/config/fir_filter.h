@@ -12,12 +12,9 @@
 #include <driverlib.h>
 #include <std_types.h>
 
-#define filter_coef 101
-#define nc (filter_coef * 2) - 1
-
 /*function declaration*/
 void fir_filter_init();
-double fir_filter(int new_sample);
+uint16_t fir_filter(uint16_t new_sample);
 
 
 #endif /* INCLUDES_CONFIG_FIR_FILTER_H_ */

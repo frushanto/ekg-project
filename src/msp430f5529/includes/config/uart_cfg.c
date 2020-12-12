@@ -78,6 +78,14 @@ void Init_UART() {
             USCI_A_UART_RECEIVE_INTERRUPT);
 }
 
+void Test_UART_Erik(uint8_t test_value)
+{
+    USCI_A_UART_transmitData(USCI_A0_BASE, test_value);
+    /* Wait transmission is completed */
+    while(USCI_A_UART_queryStatusFlags(USCI_A0_BASE, USCI_A_UART_BUSY)== USCI_A_UART_BUSY);
+}
+
+
 void Test_UART(uint16_t adc_value) {
     uint8_t uart_transmit_set_val[] = "add 5,0,";//page8.n0.val=
     //uint8_t uart_transmit_get_val[] = "get n0.val";

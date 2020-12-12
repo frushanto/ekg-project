@@ -10,8 +10,11 @@ Die obere Grenzfrequenz liegt bei 0,115*Nyquistfrequenz (57,5Hz)
 
 #include <iir_filter.h>
 
-static double w_pres[iir_filter_coef - 1] = {0}, w_past[iir_filter_coef - 1] = {0};
-static double a_iir[iir_filter_coef], b_iir[iir_filter_coef];
+#define iir_filter_coef 7
+
+float w_pres[iir_filter_coef - 1] = {0}, w_past[iir_filter_coef - 1] = {0};
+float a_iir[iir_filter_coef], b_iir[iir_filter_coef];
+float output = 0;
 
 
 void iir_filter_init()
@@ -42,12 +45,10 @@ void iir_filter_init()
 
 
 
-double iir_filter(int new_sample)
+uint16_t iir_filter(float new_sample)
 {
-//    extern double w_pres, w_past;
-//    extern double b_iir, a_iir;
 
-    double output = b_iir[1] * new_sample + w_past[0];
+    output = b_iir[0] * new_sample + w_past[0];
 
     w_pres[5] = b_iir[6] * new_sample - a_iir[6] * output;
     w_pres[4] = b_iir[5] * new_sample - a_iir[5] * output + w_past[5];
@@ -63,7 +64,7 @@ double iir_filter(int new_sample)
     w_past[1] = w_pres[1];
     w_past[0] = w_pres[0];
 
-    return output;
+    return (uint16_t)output;
 }
 
 

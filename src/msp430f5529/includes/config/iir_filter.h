@@ -12,11 +12,9 @@
 #include <driverlib.h>
 #include <std_types.h>
 
-#define iir_filter_coef 7
-
 /*function declaration*/
 void iir_filter_init();
-double iir_filter(int new_sample);
+uint16_t iir_filter(float new_sample);
 
 
 #endif /* INCLUDES_CONFIG_IIR_FILTER_H_ */

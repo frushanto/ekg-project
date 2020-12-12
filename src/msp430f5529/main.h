@@ -15,5 +15,7 @@
 #include "includes/config/uart_cfg.h"
 #include "includes/config/gpio_cfg.h"
 #include "includes/config/clk_cfg.h"
+#include "fir_filter.h"
+#include "iir_filter.h"
 
 #endif /* MAIN_H_ */
