@@ -18,6 +18,7 @@ void main(void){
     EnableGlobalInterrupt();
     /* Init MSP430 END */
 
+
 //    P1DIR |= BIT0;
 //    unsigned int i =  0;
 

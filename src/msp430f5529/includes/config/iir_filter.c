@@ -1,8 +1,8 @@
 /*****************************************\
-Author: Erik Thüry    Date: 05.12.2020
+Author: Erik Thï¿½ry    Date: 05.12.2020
 
-Für den IIR-Butterworth-Filter wurden mit Matlab 14 Koeffizienten berechnet
-Die Nyquistfrequenz beträgt 500Hz (Samplingfrequenz 1000Hz / 2)
+Fï¿½r den IIR-Butterworth-Filter wurden mit Matlab 14 Koeffizienten berechnet
+Die Nyquistfrequenz betrï¿½gt 500Hz (Samplingfrequenz 1000Hz / 2)
 Die untere Grenzfrequenz des Stopbandes liegt bei 0,085*Nyquistfrequenz (42,5Hz)
 Die obere Grenzfrequenz liegt bei 0,115*Nyquistfrequenz (57,5Hz)
 \*****************************************/
@@ -45,10 +45,10 @@ void iir_filter_init()
 
 
 
-uint16_t iir_filter(float new_sample)
+uint16_t iir_filter(uint16_t new_sample)
 {
 
-    output = b_iir[0] * new_sample + w_past[0];
+    output = b_iir[0] * (float)new_sample + w_past[0];
 
     w_pres[5] = b_iir[6] * new_sample - a_iir[6] * output;
     w_pres[4] = b_iir[5] * new_sample - a_iir[5] * output + w_past[5];
@@ -65,6 +65,7 @@ uint16_t iir_filter(float new_sample)
     w_past[0] = w_pres[0];
 
     return (uint16_t)output;
+
 }
 
 

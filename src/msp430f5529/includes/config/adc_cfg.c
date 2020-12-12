@@ -119,7 +119,7 @@ __interrupt void ADC12_A_ISR(void) {
                GPIO_PORT_P1,
                GPIO_PIN6
                );
-             _delay_cycles(100);
+             _delay_cycles(10);
          } else {
              //Clear P1.0 LED off
              GPIO_setOutputLowOnPin(
@@ -130,9 +130,10 @@ __interrupt void ADC12_A_ISR(void) {
                      GPIO_PORT_P1,
                      GPIO_PIN6
                      );
-             _delay_cycles(100);
+             _delay_cycles(10);
          }
-         Test_UART(adc_result);
+         uint16_t adc_after_iir_test = iir_filter(adc_result);
+         Test_UART(adc_after_iir_test);
          //Exit active CPU
          __bic_SR_register_on_exit(LPM0_bits);
          break;

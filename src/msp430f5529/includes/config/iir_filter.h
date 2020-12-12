@@ -14,7 +14,7 @@
 
 /*function declaration*/
 void iir_filter_init();
-uint16_t iir_filter(float new_sample);
+uint16_t iir_filter(uint16_t new_sample);
 
 
 #endif /* INCLUDES_CONFIG_IIR_FILTER_H_ */
