@@ -17,19 +17,21 @@ void main(void) {
     /* Init MSP430 END */
 
     /* IIR Test */
-    //iir_filter_init();
+    iir_filter_init();
+    /* FIR Test */
+    fir_filter_init();
 
-	while(1) {
-//	    Test_UART();
-//	    Test_ADC();
-//	    UART_Upper_T();
-//	    UART_Lower_T();
-	}
+    while(1) {
+//      Test_UART();
+//      Test_ADC();
+//      UART_Upper_T();
+//      UART_Lower_T();
+    }
 }
 
 /*** Configure Watchdog Timer ***/
 void Init_Watchdog(void) {
-	WDT_A_hold(WDT_A_BASE);
+    WDT_A_hold(WDT_A_BASE);
 }
 
 /*** Global Interrupt Enable ***/
@@ -42,11 +44,3 @@ void EnableGlobalInterrupt() {
     // For debugger
     __no_operation();
 }
-
-
-
-
-
-
-
-

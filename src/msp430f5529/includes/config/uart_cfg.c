@@ -15,8 +15,8 @@
 
 #define RECEIVE_DATA_COUNT                      0x02
 
-#define UpperThreshold 155  // for BPM
-#define LowerThreshold 145  // for BPM
+#define UpperThreshold 110  // for BPM
+#define LowerThreshold 105  // for BPM
 
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
@@ -156,7 +156,8 @@ void Init_UART() {
 }
 
 void Test_UART(uint16_t adc_value) {
-    uint8_t test_val = (adc_value / 16) - 30;
+//    uint8_t test_val = (adc_value / 16) - 30;
+    uint8_t test_val = adc_value / 16;
     uart_transmit_data_start("add 5,0,");
     uart_transmit_data_value(test_val);
     uart_transmit_data_end();
@@ -186,38 +187,48 @@ void  UART_Timer_One_Sec(){
     uart_transmit_data_end();
 }
 
-//void Test_UART_BPM(uint16_t adc_value){
-//    uint16_t test_val = (adc_value / 16) - 30;
-//
-//    if (test_val > UpperThreshold) {
-//
-//          if (BeatComplete) {
-//            BPM = (clock() * 1000) - LastTime;
-//            BPM = (60 / (BPM / 1000));
-//            BPMTiming = false;
-//            BeatComplete = false;
-//          }
-//
-//          if (BPMTiming == false) {
-//            LastTime = (clock() * 1000);
-//            BPMTiming = true;
-//          }
-//    }
-//
-//    if ((test_val < LowerThreshold) && (BPMTiming)) {
-//      BeatComplete = true;
-//    }
-//
-//    bpm_counter++;
-//
-//    if(bpm_counter > 5) {
-//      uart_transmit_data_array("page8.n0.val=");
-//      uart_transmit_data_value(BPM);
-//      uart_transmit_data_end();
-//
-//      bpm_counter = 0;
-//    }
-//}
+void UART_Dreieck(uint16_t receive_value){
+    int i;
+    uint16_t value = (receive_value / 32) + 50;
+    for(i = 0; i<= 50; i++){
+        value += 1;
+        uart_transmit_data_start("add 5,0,");
+        uart_transmit_data_value(value);
+        uart_transmit_data_end();
+
+        if(value > 100){
+            value = 50;
+        }
+
+    }
+}
+
+bool BPMTiming = false;
+bool BeatComplete = false;
+uint16_t BPM = 0;
+uint16_t bpm_i = 0;
+
+void Test_UART_BPM(uint16_t adc_val){
+//    bool BPMTiming = false;
+//    bool BeatComplete = false;
+//    uint16_t bpm_counter = 0;
+//    uint16_t BPM = 0;
+    uint16_t test_val = (adc_val / 32) + 50;
+    if ((test_val < UpperThreshold) && (test_val > LowerThreshold)) {
+        BPM += 1;
+        bpm_i++;
+        if(bpm_i = 100){
+            BPM = BPM * 6;
+            uart_transmit_data_array("page8.n0.val=");
+            uart_transmit_data_value(BPM);
+            uart_transmit_data_end();
+            bpm_i = 0;
+            BPM = 0;
+        }
+    }
+}
+
+    /* Page2 Start Button sends: 0x65 0x02 0x06 0x00 0xFF 0xFF 0xFF */
 
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module

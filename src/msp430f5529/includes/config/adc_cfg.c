@@ -134,18 +134,20 @@ __interrupt void ADC12_A_ISR(void) {
 //         }
 
          /* ADC test with iir-filter */
-//         uint16_t adc_after_iir_test = iir_filter(adc_result);
-//         Test_UART(adc_after_iir_test);
+          uint16_t adc_after_iir_test = iir_filter(adc_result);
+          UART_Dreieck(adc_after_iir_test); //Dreieck: test BPM
+//          Test_UART(adc_after_iir_test);
 
          /* ADC test with fir-filter */
-//         uint16_t adc_after_fir_test = fir_filter(adc_result);
-//         Test_UART(adc_after_fir_test);
+//          uint16_t adc_after_fir_test = fir_filter(adc_result);
+//          Test_UART(adc_after_fir_test);
 
          /* ADC test working - Test_UART means: ECG Signal as waveform */
-             Test_UART(adc_result);
+//          Test_UART(adc_result);
 
          /* Test BPM */
-//          Test_UART_BPM(adc_result);
+//          Test_UART_BPM(adc_after_iir_test);
+
 
          //Exit active CPU
          __bic_SR_register_on_exit(LPM0_bits);
