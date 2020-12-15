@@ -1,7 +1,7 @@
 #include <includes/config/timer_cfg.h>
 
-#define COMPARE_VALUE_ONE_SEC   32768
-#define COMPARE_VALUE_10_MS     COMPARE_VALUE_ONE_SEC / 10 //100
+#define COMPARE_VALUE_ONE_SEC   32768   // One second
+#define COMPARE_VALUE_10_MS     COMPARE_VALUE_ONE_SEC / 100 // 10ms = 100
 
 void Init_Timer() {
 

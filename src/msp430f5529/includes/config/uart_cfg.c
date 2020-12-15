@@ -15,8 +15,8 @@
 
 #define RECEIVE_DATA_COUNT                      0x02
 
-#define UpperThreshold 110  // for BPM
-#define LowerThreshold 105  // for BPM
+#define UpperThreshold 170  // for BPM
+#define LowerThreshold 160  // for BPM
 
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
@@ -28,7 +28,7 @@ uint8_t uart_transmit_full_message[24] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0
 volatile uint8_t i = 0;
 volatile uint8_t fm_counter = 0;
 
-// Timer vars
+/* Timer Vars */
 uint32_t uart_timer_one_sec = 0;
 
 /* Transmit array with nextion command */
@@ -189,43 +189,35 @@ void  UART_Timer_One_Sec(){
 
 void UART_Dreieck(uint16_t receive_value){
     int i;
-    uint16_t value = (receive_value / 32) + 50;
-    for(i = 0; i<= 50; i++){
-        value += 1;
-        uart_transmit_data_start("add 5,0,");
-        uart_transmit_data_value(value);
-        uart_transmit_data_end();
-
-        if(value > 100){
-            value = 50;
-        }
-
-    }
+    uint16_t value = (receive_value / 8) - 100;
+    uart_transmit_data_start("add 5,0,");
+    uart_transmit_data_value(value);
+    uart_transmit_data_end();
 }
 
-bool BPMTiming = false;
-bool BeatComplete = false;
-uint16_t BPM = 0;
-uint16_t bpm_i = 0;
+/* BPM Vars */
+    uint8_t beats = 0;
+    uint16_t Dataout_pulse, pulseperiod = 0, counter = 0, heartrate;
 
-void Test_UART_BPM(uint16_t adc_val){
-//    bool BPMTiming = false;
-//    bool BeatComplete = false;
-//    uint16_t bpm_counter = 0;
-//    uint16_t BPM = 0;
-    uint16_t test_val = (adc_val / 32) + 50;
-    if ((test_val < UpperThreshold) && (test_val > LowerThreshold)) {
-        BPM += 1;
-        bpm_i++;
-        if(bpm_i = 100){
-            BPM = BPM * 6;
-            uart_transmit_data_array("page8.n0.val=");
-            uart_transmit_data_value(BPM);
+void Test_UART_BPM(uint16_t adc_value){
+    // BPM = 1 / [pulse_period / (3 × 512 × 60)] = 92160 / pulse_period
+    Dataout_pulse = (adc_value / 8) - 100;
+    counter++;                                                   // Debounce counter
+    pulseperiod++;                                               // Pulse period counter
+    if (Dataout_pulse > LowerThreshold){                         // Check if above threshold
+        counter = 0;
+    }                                                            // Reset debounce counter
+    if (counter == 128){                                         // Allow 128 sample debounce time
+        beats++;
+        if (beats == 3){
+            beats = 0;
+            heartrate = (92160/pulseperiod);                      // Calculate 3 beat average heart rate per min
+            pulseperiod = 0;                                      // Reset pulse period for next measurement
+            uart_transmit_data_start("page8.n0.val=");
+            uart_transmit_data_value(heartrate);
             uart_transmit_data_end();
-            bpm_i = 0;
-            BPM = 0;
         }
-    }
+     }
 }
 
     /* Page2 Start Button sends: 0x65 0x02 0x06 0x00 0xFF 0xFF 0xFF */

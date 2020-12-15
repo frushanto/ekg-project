@@ -18,6 +18,5 @@
 void Init_UART(void);
 void Test_UART(uint16_t adc_value);
 void Test_UART_With_Display(void);
-void Test_UART_BPM(uint16_t adc_val);
 
 #endif /* INCLUDES_CONFIG_UART_CFG_H_ */
