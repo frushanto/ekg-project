@@ -15,8 +15,17 @@
 
 #define RECEIVE_DATA_COUNT                      0x02
 
-#define UpperThreshold 170  // for BPM
-#define LowerThreshold 160  // for BPM
+#define UPPER_THRESHOLD 170  // for BPM
+#define LOWER_THRESHOLD 160  // for BPM
+
+// VAR
+uint16_t sec = 0;
+
+/* BPM Vars */
+uint16_t beats = 0;
+uint16_t Dataout_pulse, pulseperiod = 0, counter = 0, heartrate;
+uint16_t number_beats = 0;
+uint16_t BPM = 0;
 
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
@@ -29,7 +38,7 @@ volatile uint8_t i = 0;
 volatile uint8_t fm_counter = 0;
 
 /* Timer Vars */
-uint32_t uart_timer_one_sec = 0;
+uint16_t uart_timer_one_sec = 0;
 
 /* Transmit array with Nextion command */
 void uart_transmit_data_start(uint8_t nextion_command[]){
@@ -160,7 +169,7 @@ void Test_UART(uint16_t adc_value) {
 }
 
 void UART_Upper_T(){
-    uint8_t upper_t = UpperThreshold;
+    uint8_t upper_t = UPPER_THRESHOLD;
     uart_transmit_data_start("add 5,1,");
     uart_transmit_data_value(upper_t);
     uart_transmit_data_end();
@@ -168,22 +177,13 @@ void UART_Upper_T(){
 }
 
 void  UART_Lower_T(){
-    uint8_t lower_t = LowerThreshold;
+    uint8_t lower_t = LOWER_THRESHOLD;
     uart_transmit_data_start("add 5,2,");
     uart_transmit_data_value(lower_t);
     uart_transmit_data_end();
     _delay_cycles(10);
 }
 
-void  UART_Timer_One_Sec(){
-
-    uart_transmit_data_start("page8.n0.val=");
-    uart_transmit_data_value(uart_timer_one_sec++);
-    uart_transmit_data_end();
-}
-
-// VAR
-uint16_t sec = 0;
 void  UART_Timer_Page_Two_Sec(){
     uart_transmit_data_start("page2.seconds.val=");
     uart_transmit_data_value(sec);
@@ -191,17 +191,6 @@ void  UART_Timer_Page_Two_Sec(){
     sec++;
     if(sec == 59)
         sec = 0;
-}
-
-// VAR
-uint16_t test_rx = 0;
-void UART_Test_RX(){
-    uart_transmit_data_start("page2.puls.val=");
-    uart_transmit_data_value(test_rx);
-    uart_transmit_data_end();
-    test_rx++;
-    if(test_rx == 99)
-        test_rx = 0;
 }
 
 void UART_Dreieck(uint16_t receive_value){
@@ -212,29 +201,36 @@ void UART_Dreieck(uint16_t receive_value){
     uart_transmit_data_end();
 }
 
-/* BPM Vars */
-uint8_t beats = 0;
-uint16_t Dataout_pulse, pulseperiod = 0, counter = 0, heartrate;
-
 void Test_UART_BPM(uint16_t adc_value){
-    // BPM = 1 / [pulse_period / (3 × 512 × 60)] = 92160 / pulse_period
     Dataout_pulse = (adc_value / 8) - 100;
-    counter++;                                                    // Debounce counter
-    pulseperiod++;                                                // Pulse period counter
-    if (Dataout_pulse > LowerThreshold){                          // Check if above threshold
+    if(counter > 2){
         counter = 0;
-    }                                                             // Reset debounce counter
-    if (counter == 128){                                          // Allow 128 sample debounce time
-        beats++;
-        if (beats == 3){
-            beats = 0;
-            heartrate = (92160 / pulseperiod);                    // Calculate 3 beat average heart rate per min
-            pulseperiod = 0;                                      // Reset pulse period for next measurement
-            uart_transmit_data_start("page8.n0.val=");
-            uart_transmit_data_value(heartrate);
-            uart_transmit_data_end();
-        }
-     }
+    }
+    if (Dataout_pulse > LOWER_THRESHOLD){
+        counter ++;
+        if (counter == 2){
+            beats++;
+//            UART_Timer_One_Sec(beats);
+            counter = 0;
+         }
+    }
+}
+
+void  UART_Timer_One_Sec(){
+    uart_timer_one_sec ++;
+    if(uart_timer_one_sec == 10){
+        number_beats = beats;
+        BPM = number_beats * 6;
+        uart_transmit_data_start("page8.n0.val=");
+        uart_transmit_data_value(BPM);
+        uart_transmit_data_end();
+        uart_timer_one_sec = 0;
+        beats = 0;
+    }
+
+//    uart_transmit_data_start("page8.n0.val=");
+//    uart_transmit_data_value(uart_timer_one_sec++);
+//    uart_transmit_data_end();
 }
 
 /*
@@ -257,11 +253,6 @@ __interrupt void UART_A0_ISR(void) {
             if (uart_received_data_counter < UART_MESSAGE_MAX_LENGTH) {
                 uart_received_data[uart_received_data_counter] =
                     USCI_A_UART_receiveData(USCI_A0_BASE);
-//                for(i=0; i<6; i++){
-//                    uart_received_data[i] = UCA0RXBUF; //USCI_A_UART_receiveData(USCI_A0_BASE);
-//
-//                UART_Test_RX();
-//                }
                 uart_received_data_counter++;
             } else {
                 uart_received_data_counter = 0;

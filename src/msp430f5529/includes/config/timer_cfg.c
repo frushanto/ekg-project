@@ -82,9 +82,9 @@ void TIMER1_A0_ISR (void)
     /*** BEGIN will be executed every 1 second ***/
     GPIO_toggleOutputOnPin(GPIO_PORT_P4,
                                    GPIO_PIN7);
-//    UART_Timer_One_Sec();
+    UART_Timer_One_Sec();
 //    UART_Timer_Page_Two_Sec();
-    UART_Upper_T();
+//    UART_Upper_T();
     UART_Lower_T();
 //    Test_ADC();
     /*** END will be executed every 1 second ***/
