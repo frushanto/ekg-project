@@ -10,7 +10,7 @@
 #define UART_BASE_A0    0
 #define UART_BASE_A1    1
 
-#define UART_BASE       UART_BASE_A0
+#define UART_BASE       UART_BASE_A1
 #define UART_MESSAGE_MAX_LENGTH 12
 
 #define RECEIVE_DATA_COUNT                      0x02
@@ -65,24 +65,25 @@ void Init_UART() {
     uart_cfg.uartMode = USCI_A_UART_MODE;
     uart_cfg.overSampling = USCI_A_UART_LOW_FREQUENCY_BAUDRATE_GENERATION;
 
+    USCI_A_UART_init(USCI_A1_BASE, &uart_cfg);
 
     // Init UART A0
     //USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
-    if (STATUS_FAIL == USCI_A_UART_init(USCI_A0_BASE, &uart_cfg)){
-        return;
-    }
-    USCI_A_UART_enable(USCI_A0_BASE);
-    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-            USCI_A_UART_RECEIVE_INTERRUPT);
-    USCI_A_UART_enableInterrupt(USCI_A0_BASE,
-            USCI_A_UART_RECEIVE_INTERRUPT);
+//    if (STATUS_FAIL == USCI_A_UART_init(USCI_A0_BASE, &uart_cfg)){
+//        return;
+//    }
+//    USCI_A_UART_enable(USCI_A0_BASE);
+//    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+//            USCI_A_UART_RECEIVE_INTERRUPT);
+//    USCI_A_UART_enableInterrupt(USCI_A0_BASE,
+//            USCI_A_UART_RECEIVE_INTERRUPT);
 }
 
 void Test_UART_Erik(uint8_t test_value)
 {
-    USCI_A_UART_transmitData(USCI_A0_BASE, test_value);
+    USCI_A_UART_transmitData(USCI_A1_BASE, test_value);
     /* Wait transmission is completed */
-    while(USCI_A_UART_queryStatusFlags(USCI_A0_BASE, USCI_A_UART_BUSY)== USCI_A_UART_BUSY);
+    while(USCI_A_UART_queryStatusFlags(USCI_A1_BASE, USCI_A_UART_BUSY)== USCI_A_UART_BUSY);
 }
 
 

@@ -24,24 +24,25 @@ void main(void){
 
 //    fir_filter_init();
 
-    iir_filter_init();
+//    iir_filter_init();
+//
+//    while(1)
+//    {
+//        ergebnis = iir_filter(1);
+//
+//    }
+
+    uint16_t i, j;
 
     while(1)
     {
-        ergebnis = iir_filter(1);
+        Test_UART_Erik(1);
+//        Test_UART(1);
+        P1OUT ^= BIT0;
+        for(i=65000;i>0;i--)
+            for(j=10;j>0;j--);
 
     }
-
-
-//    while(1)
-//    {
-//        Test_UART_Erik(1);
-//        Test_UART(1);
-//        P1OUT ^= BIT0;
-//        for(i=65000;i>0;i--)
-//            for(j=10;j>0;j--);
-//
-//    }
 
 
 //    P1DIR |= BIT0;                            // P1.0 set as output
