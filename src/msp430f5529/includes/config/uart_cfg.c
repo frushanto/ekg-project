@@ -31,19 +31,15 @@ volatile uint8_t fm_counter = 0;
 /* Timer Vars */
 uint32_t uart_timer_one_sec = 0;
 
-/* Transmit array with nextion command */
+/* Transmit array with Nextion command */
 void uart_transmit_data_start(uint8_t nextion_command[]){
-
     for (i = 0; i < strlen((char const*)uart_transmit_full_message); i++) {
         uart_transmit_full_message[i] = 0x00;
     }
-
     fm_counter = 0;
-
     for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
         uart_transmit_set_val[i] = 0x00;
     }
-    
     strcpy(uart_transmit_set_val, nextion_command);
     for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_set_val[i]);
@@ -85,7 +81,6 @@ void uart_transmit_data_end(){
     //_delay_cycles(10);
 }
 
-
 void Init_UART() {
 
     #if UART_BASE == UART_BASE_A0
@@ -109,7 +104,7 @@ void Init_UART() {
     GPIO_setAsPeripheralModuleFunctionOutputPin(
                 GPIO_PORT_P4,GPIO_PIN4); // UART Tx Pin
 
-#else 
+#else
     # error "Please specify UART BASE"
 #endif
 
@@ -133,9 +128,9 @@ void Init_UART() {
 
     //uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_ACLK;
     uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_SMCLK; // -> 11993088 Hz
-    uart_cfg.clockPrescalar = 104; //3; // Table 36-4, p.952 User's Guide
+    uart_cfg.clockPrescalar = 104; //104 //3; // Table 36-4, p.952 User's Guide
     uart_cfg.firstModReg = 0;
-    uart_cfg.secondModReg = 1; //3;
+    uart_cfg.secondModReg = 1; //1 //3;
     uart_cfg.parity = USCI_A_UART_NO_PARITY;
     uart_cfg.msborLsbFirst = USCI_A_UART_LSB_FIRST;
     uart_cfg.numberofStopBits = USCI_A_UART_ONE_STOP_BIT;
@@ -181,10 +176,32 @@ void  UART_Lower_T(){
 }
 
 void  UART_Timer_One_Sec(){
-    
+
     uart_transmit_data_start("page8.n0.val=");
     uart_transmit_data_value(uart_timer_one_sec++);
     uart_transmit_data_end();
+}
+
+// VAR
+uint16_t sec = 0;
+void  UART_Timer_Page_Two_Sec(){
+    uart_transmit_data_start("page2.seconds.val=");
+    uart_transmit_data_value(sec);
+    uart_transmit_data_end();
+    sec++;
+    if(sec == 59)
+        sec = 0;
+}
+
+// VAR
+uint16_t test_rx = 0;
+void UART_Test_RX(){
+    uart_transmit_data_start("page2.puls.val=");
+    uart_transmit_data_value(test_rx);
+    uart_transmit_data_end();
+    test_rx++;
+    if(test_rx == 99)
+        test_rx = 0;
 }
 
 void UART_Dreieck(uint16_t receive_value){
@@ -196,22 +213,22 @@ void UART_Dreieck(uint16_t receive_value){
 }
 
 /* BPM Vars */
-    uint8_t beats = 0;
-    uint16_t Dataout_pulse, pulseperiod = 0, counter = 0, heartrate;
+uint8_t beats = 0;
+uint16_t Dataout_pulse, pulseperiod = 0, counter = 0, heartrate;
 
 void Test_UART_BPM(uint16_t adc_value){
     // BPM = 1 / [pulse_period / (3 × 512 × 60)] = 92160 / pulse_period
     Dataout_pulse = (adc_value / 8) - 100;
-    counter++;                                                   // Debounce counter
-    pulseperiod++;                                               // Pulse period counter
-    if (Dataout_pulse > LowerThreshold){                         // Check if above threshold
+    counter++;                                                    // Debounce counter
+    pulseperiod++;                                                // Pulse period counter
+    if (Dataout_pulse > LowerThreshold){                          // Check if above threshold
         counter = 0;
-    }                                                            // Reset debounce counter
-    if (counter == 128){                                         // Allow 128 sample debounce time
+    }                                                             // Reset debounce counter
+    if (counter == 128){                                          // Allow 128 sample debounce time
         beats++;
         if (beats == 3){
             beats = 0;
-            heartrate = (92160/pulseperiod);                      // Calculate 3 beat average heart rate per min
+            heartrate = (92160 / pulseperiod);                    // Calculate 3 beat average heart rate per min
             pulseperiod = 0;                                      // Reset pulse period for next measurement
             uart_transmit_data_start("page8.n0.val=");
             uart_transmit_data_value(heartrate);
@@ -220,8 +237,6 @@ void Test_UART_BPM(uint16_t adc_value){
      }
 }
 
-    /* Page2 Start Button sends: 0x65 0x02 0x06 0x00 0xFF 0xFF 0xFF */
-
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module
  * is now ready for transmit and receive. It is recommended to
@@ -229,6 +244,9 @@ void Test_UART_BPM(uint16_t adc_value){
  * the required interrupts and then enable EUSI_A_UART via
  * EUSCI_A_UART_enable().
  * */
+
+/* Page2 Start Button sends: 0x65 0x02 0x06 0x00 0xFF 0xFF 0xFF */ /* e\x02\x06\x00ÿÿÿ */
+
 #pragma vector = USCI_A0_VECTOR
 __interrupt void UART_A0_ISR(void) {
     switch (__even_in_range(UCA0IV, 4))
@@ -239,6 +257,11 @@ __interrupt void UART_A0_ISR(void) {
             if (uart_received_data_counter < UART_MESSAGE_MAX_LENGTH) {
                 uart_received_data[uart_received_data_counter] =
                     USCI_A_UART_receiveData(USCI_A0_BASE);
+//                for(i=0; i<6; i++){
+//                    uart_received_data[i] = UCA0RXBUF; //USCI_A_UART_receiveData(USCI_A0_BASE);
+//
+//                UART_Test_RX();
+//                }
                 uart_received_data_counter++;
             } else {
                 uart_received_data_counter = 0;
