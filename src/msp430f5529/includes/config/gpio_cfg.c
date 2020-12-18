@@ -19,6 +19,17 @@ void Init_GPIO(void) {
     // Configure button on DevKit
     GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
 
+    /*** BEGIN SPI BLOCK ***/
+    // SPI_MOSI_SDCARD - P3.0
+    GPIO_setAsOutputPin(GPIO_PORT_P3, GPIO_PIN0);
+    // SPI_MISO_SDCARD - P3.1
+    //GPI_setAsInputPin(GPIO_PORT_P3, GPIO_PIN1);
+    // SPI_CLK_SDCARD - P3.2
+    GPIO_setAsOutputPin(GPIO_PORT_P3, GPIO_PIN2);
+    // SPI_CS_SDCARD - P2.7
+    GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN7);
+    /*** END SPI BLOCK ***/
+
     /*** LEAVE COMMENTED OUT BEGIN ***/
     // What edge transition will trigger an interrupt
     //(low-to-high or high-to-low)
