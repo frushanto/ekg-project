@@ -1,0 +1,24 @@
+/*
+ * iir_filter.h
+ *
+ *  Created on: 08.12.2020
+ *      Author: Erik
+ */
+
+#ifndef INCLUDES_CONFIG_IIR_FILTER_H_
+#define INCLUDES_CONFIG_IIR_FILTER_H_
+
+#include <msp430.h>
+#include <driverlib.h>
+#include <std_types.h>
+
+/*function declaration*/
+void iir_filter_init();
+<<<<<<< HEAD
+uint16_t iir_filter(float new_sample);
+=======
+uint16_t iir_filter(uint16_t new_sample);
+>>>>>>> 7dc2fcc3d140c233b38a312b17534cb22f26ee9e
+
+
+#endif /* INCLUDES_CONFIG_IIR_FILTER_H_ */

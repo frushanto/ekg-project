@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;MSP430_EKG/includes/config/fir_filter&apos; to &apos;fir_filter.c&apos;" description="Rename resource &apos;fir_filter&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="includes/config/fir_filter" name="fir_filter.c" stamp="1607195046509" updateReferences="true"/>
+</session>

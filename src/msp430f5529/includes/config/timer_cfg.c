@@ -1,21 +1,26 @@
 #include <includes/config/timer_cfg.h>
 
-#define COMPARE_VALUE_ONE_SEC   32768   // One second
-#define COMPARE_VALUE_10_MS     COMPARE_VALUE_ONE_SEC / 100 // 10ms = 100
+#define CLOCK_DIVIDER           64
+#define ONE_KHZ                 1000
+#define COMPARE_VALUE_ONE_SEC   11993088
+#define COMPARE_VALUE_10_MS     COMPARE_VALUE_ONE_SEC / 100
+#define COMPARE_VALUE_1KHZ      COMPARE_VALUE_ONE_SEC / (CLOCK_DIVIDER * ONE_KHZ)
+
+uint16_t compare_value_one_khz = 187;
 
 void Init_Timer() {
 
     /*** BEGIN Init TIMER_A1 in continuous mode sourced by ACLK ***/
     Timer_A_initContinuousModeParam initContParamTimerA1 = {0};
-    initContParamTimerA1.clockSource = TIMER_A_CLOCKSOURCE_ACLK;
-    initContParamTimerA1.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_1;
+    initContParamTimerA1.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;
+    initContParamTimerA1.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64;
     initContParamTimerA1.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
     initContParamTimerA1.timerClear = TIMER_A_DO_CLEAR;
     initContParamTimerA1.startTimer = false;
     Timer_A_initContinuousMode(TIMER_A1_BASE, &initContParamTimerA1);
     /*** END Init TIMER_A1 in continuous mode sourced by ACLK ***/
 
-    /*** BEGIN Init COMPARE MODE by TIMER_A1 - ONE SECOND ***/
+    /*** BEGIN Init COMPARE MODE by TIMER_A1 - ONE KHZ ***/
     Timer_A_clearCaptureCompareInterrupt(TIMER_A1_BASE,
         TIMER_A_CAPTURECOMPARE_REGISTER_0
         );
@@ -25,17 +30,17 @@ void Init_Timer() {
     initCompParamOneSec.compareInterruptEnable = TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
     initCompParamOneSec.compareOutputMode = TIMER_A_OUTPUTMODE_OUTBITVALUE;
     // Define CLK cycles for CCR0 Interrupt
-    initCompParamOneSec.compareValue = COMPARE_VALUE_ONE_SEC;
+    initCompParamOneSec.compareValue = compare_value_one_khz;
     Timer_A_initCompareMode(TIMER_A1_BASE, &initCompParamOneSec);
 
     Timer_A_startCounter( TIMER_A1_BASE,
-    		TIMER_A_CONTINUOUS_MODE
+            TIMER_A_CONTINUOUS_MODE
                 );
-    /*** END Initialize compare mode ONE SECOND ***/
+    /*** END Initialize compare mode ONE KHZ ***/
 
     /*** BEGIN Init TIMER_A2 in continuous mode sourced by ACLK ***/
     Timer_A_initContinuousModeParam initContParamTimerA2 = {0};
-    initContParamTimerA2.clockSource = TIMER_A_CLOCKSOURCE_ACLK;
+    initContParamTimerA2.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;
     initContParamTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_1;
     initContParamTimerA2.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
     initContParamTimerA2.timerClear = TIMER_A_DO_CLEAR;
@@ -57,7 +62,7 @@ void Init_Timer() {
     Timer_A_initCompareMode(TIMER_A2_BASE, &initCompParam10ms);
 
     Timer_A_startCounter( TIMER_A2_BASE,
-    		TIMER_A_CONTINUOUS_MODE
+            TIMER_A_CONTINUOUS_MODE
                 );
     /*** END Init COMPARE MODE by TIMER_A2 - 10 MS ***/
 }
@@ -76,18 +81,15 @@ __attribute__((interrupt(TIMER1_A0_VECTOR)))
 void TIMER1_A0_ISR (void)
 {
     uint16_t compVal = Timer_A_getCaptureCompareCount(TIMER_A1_BASE,
-    		TIMER_A_CAPTURECOMPARE_REGISTER_0)
-    		+ COMPARE_VALUE_ONE_SEC;
+            TIMER_A_CAPTURECOMPARE_REGISTER_0)
+            + compare_value_one_khz;
 
-    /*** BEGIN will be executed every 1 second ***/
+    /*** BEGIN will be executed every 1 KHz ***/
     GPIO_toggleOutputOnPin(GPIO_PORT_P4,
                                    GPIO_PIN7);
-//    UART_Timer_One_Sec();
-//    UART_Timer_Page_Two_Sec();
-    UART_Upper_T();
-    UART_Lower_T();
-//    Test_ADC();
-    /*** END will be executed every 1 second ***/
+    //UART_Timer_One_Sec();
+    //Test_ADC();
+    /*** BEGIN will be executed every 1 KHz ***/
 
     // Add Offset to CCR0
     Timer_A_setCompareValue(TIMER_A1_BASE,
@@ -110,15 +112,14 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 void TIMER2_A0_ISR (void)
 {
     uint16_t compVal = Timer_A_getCaptureCompareCount(TIMER_A2_BASE,
-    		TIMER_A_CAPTURECOMPARE_REGISTER_0)
-    		+ COMPARE_VALUE_10_MS;
+            TIMER_A_CAPTURECOMPARE_REGISTER_0)
+            + COMPARE_VALUE_10_MS;
 
     /*** BEGIN will be executed every 10 milliseconds ***/
     GPIO_toggleOutputOnPin(GPIO_PORT_P1,
                                    GPIO_PIN0);
-//    UART_Timer_One_Sec();
-    Test_ADC();
-//    UART_Dreieck();
+    //UART_Timer_One_Sec();
+   // Test_ADC();
     /*** END will be executed every 10 milliseconds ***/
 
     // Add Offset to CCR0

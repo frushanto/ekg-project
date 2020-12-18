@@ -10,7 +10,7 @@
 #define UART_BASE_A0    0
 #define UART_BASE_A1    1
 
-#define UART_BASE       UART_BASE_A0
+#define UART_BASE       UART_BASE_A1
 #define UART_MESSAGE_MAX_LENGTH 12
 
 #define RECEIVE_DATA_COUNT                      0x02
@@ -27,6 +27,12 @@ uint8_t uart_transmit_full_message[24] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0
                                           0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 volatile uint8_t i = 0;
 volatile uint8_t fm_counter = 0;
+
+uint8_t beats = 0;
+uint16_t Dataout_pulse, pulseperiod = 0, counter = 0, heartrate;
+uint16_t number_beats = 0;
+uint16_t BPM = 0;
+
 
 /* Timer Vars */
 uint32_t uart_timer_one_sec = 0;
@@ -66,6 +72,8 @@ void uart_transmit_data_value(uint16_t transmit_value){
                 == USCI_A_UART_BUSY);
     }
 }
+
+
 /* Transmit 3 times 0xFF to send command to display */
 void uart_transmit_data_end(){
     uint8_t uart_transmit_cmd_ff = 0xFF;
@@ -127,7 +135,7 @@ void Init_UART() {
     /**************************************************************/
 
     //uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_ACLK;
-    uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_SMCLK; // -> 11993088 Hz
+    uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_SMCLK; // -> 11993088 Hz (~12MHz)
     uart_cfg.clockPrescalar = 104; //104 //3; // Table 36-4, p.952 User's Guide
     uart_cfg.firstModReg = 0;
     uart_cfg.secondModReg = 1; //1 //3;
@@ -140,13 +148,13 @@ void Init_UART() {
 
     // Init UART A0
     // USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
-    if (STATUS_FAIL == USCI_A_UART_init(USCI_A0_BASE, &uart_cfg)){
+    if (STATUS_FAIL == USCI_A_UART_init(USCI_A1_BASE, &uart_cfg)){
         return;
     }
-    USCI_A_UART_enable(USCI_A0_BASE);
-    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+    USCI_A_UART_enable(USCI_A1_BASE);
+    USCI_A_UART_clearInterrupt(USCI_A1_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT);
-    USCI_A_UART_enableInterrupt(USCI_A0_BASE,
+    USCI_A_UART_enableInterrupt(USCI_A1_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT);
 }
 
@@ -169,17 +177,11 @@ void UART_Upper_T(){
 
 void  UART_Lower_T(){
     uint8_t lower_t = LowerThreshold;
-    uart_transmit_data_start("add 5,2,");
-    uart_transmit_data_value(lower_t);
-    uart_transmit_data_end();
-    _delay_cycles(10);
-}
 
-void  UART_Timer_One_Sec(){
-
-    uart_transmit_data_start("page8.n0.val=");
-    uart_transmit_data_value(uart_timer_one_sec++);
-    uart_transmit_data_end();
+//    uart_transmit_data_start("add 5,2,");
+//    uart_transmit_data_value(lower_t);
+//    uart_transmit_data_end();
+//    _delay_cycles(10);
 }
 
 // VAR
@@ -206,35 +208,73 @@ void UART_Test_RX(){
 
 void UART_Dreieck(uint16_t receive_value){
     int i;
-    uint16_t value = (receive_value / 8) - 100;
-    uart_transmit_data_start("add 5,0,");
-    uart_transmit_data_value(value);
-    uart_transmit_data_end();
+    uint8_t value = (receive_value / 8) - 100;
+    uint8_t lower_t = heartrate;
+
+//    uint8_t buffer[30];
+
+    sprintf(uart_transmit_set_val, "%d,%d\r\n", value, lower_t);
+
+    uint8_t length = strlen((char const*)uart_transmit_set_val);
+
+    for(i = 0; i < length; i++)
+    {
+     USCI_A_UART_transmitData(USCI_A1_BASE, uart_transmit_set_val[i]);
+
+
+
+     /* Wait transmission is completed */
+
+     while(USCI_A_UART_queryStatusFlags(
+
+     USCI_A1_BASE, USCI_A_UART_BUSY)
+
+     == USCI_A_UART_BUSY);
+
+     }
+
+//    uart_transmit_data_start("add 5,0,");
+//    uart_transmit_data_value(value);
+//    uart_transmit_data_end();
 }
 
 /* BPM Vars */
-uint8_t beats = 0;
-uint16_t Dataout_pulse, pulseperiod = 0, counter = 0, heartrate;
 
 void Test_UART_BPM(uint16_t adc_value){
-    // BPM = 1 / [pulse_period / (3 × 512 × 60)] = 92160 / pulse_period
-    Dataout_pulse = (adc_value / 8) - 100;
-    counter++;                                                    // Debounce counter
-    pulseperiod++;                                                // Pulse period counter
-    if (Dataout_pulse > LowerThreshold){                          // Check if above threshold
+    if(counter > 2){
         counter = 0;
-    }                                                             // Reset debounce counter
-    if (counter == 128){                                          // Allow 128 sample debounce time
-        beats++;
-        if (beats == 3){
-            beats = 0;
-            heartrate = (92160 / pulseperiod);                    // Calculate 3 beat average heart rate per min
-            pulseperiod = 0;                                      // Reset pulse period for next measurement
-            uart_transmit_data_start("page8.n0.val=");
-            uart_transmit_data_value(heartrate);
-            uart_transmit_data_end();
+    }
+    Dataout_pulse = (adc_value / 8) - 100;
+    if (Dataout_pulse > LowerThreshold){                          // Check if above threshold
+        counter ++;
+        if (counter == 2){                                          // Allow 128 sample debounce time
+            beats++;
+            counter = 0;
         }
      }
+}
+
+void  UART_Timer_One_Sec(){
+    uart_timer_one_sec ++;
+    if(uart_timer_one_sec == 10){
+        number_beats = beats;
+        BPM = number_beats * 6;
+        int i;
+        sprintf(uart_transmit_set_val,"%d\r\n",BPM);
+        uint8_t length = strlen((char const*)uart_transmit_set_val);
+        for(i = 0; i < length; i++){
+            USCI_A_UART_transmitData(USCI_A1_BASE, uart_transmit_set_val[i]);
+                 /* Wait transmission is completed */
+                 while(USCI_A_UART_queryStatusFlags(
+                 USCI_A1_BASE, USCI_A_UART_BUSY)
+                 == USCI_A_UART_BUSY);
+                 }
+        uart_timer_one_sec = 0;
+        beats = 0;
+}
+//    uart_transmit_data_start("page8.n0.val=");
+//    uart_transmit_data_value(uart_timer_one_sec++);
+//    uart_transmit_data_end();
 }
 
 /*
@@ -245,18 +285,18 @@ void Test_UART_BPM(uint16_t adc_value){
  * EUSCI_A_UART_enable().
  * */
 
-/* Page2 Start Button sends: 0x65 0x02 0x06 0x00 0xFF 0xFF 0xFF */ /* e\x02\x06\x00ÿÿÿ */
+/* Page2 Start Button sends: 0x65 0x02 0x06 0x00 0xFF 0xFF 0xFF */ /* e\x02\x06\x00Ã¿Ã¿Ã¿ */
 
-#pragma vector = USCI_A0_VECTOR
-__interrupt void UART_A0_ISR(void) {
-    switch (__even_in_range(UCA0IV, 4))
+#pragma vector = USCI_A1_VECTOR
+__interrupt void UART_A1_ISR(void) {
+    switch (__even_in_range(UCA1IV, 4))
         {
         case 0:
             break; // Vector 0 - no interrupt
         case 2: // Vector 2 - RXIFG
             if (uart_received_data_counter < UART_MESSAGE_MAX_LENGTH) {
                 uart_received_data[uart_received_data_counter] =
-                    USCI_A_UART_receiveData(USCI_A0_BASE);
+                    USCI_A_UART_receiveData(USCI_A1_BASE);
 //                for(i=0; i<6; i++){
 //                    uart_received_data[i] = UCA0RXBUF; //USCI_A_UART_receiveData(USCI_A0_BASE);
 //
@@ -266,7 +306,7 @@ __interrupt void UART_A0_ISR(void) {
             } else {
                 uart_received_data_counter = 0;
             }
-            USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+            USCI_A_UART_clearInterrupt(USCI_A1_BASE,
                     USCI_A_UART_RECEIVE_INTERRUPT);
             break;
         case 4:

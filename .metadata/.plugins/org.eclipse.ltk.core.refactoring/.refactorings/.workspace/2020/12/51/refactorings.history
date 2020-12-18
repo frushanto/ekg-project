@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;MSP430F55xx_uscia0_uart_01.c/MSPMATHLIB_CCS_msp430_small_code_small_data.lib&apos;" deleteContents="false" description="Delete resource &apos;MSP430F55xx_uscia0_uart_01.c/MSPMATHLIB_CCS_msp430_small_code_small_data.lib&apos;" element1="/MSP430F55xx_uscia0_uart_01.c/MSPMATHLIB_CCS_msp430_small_code_small_data.lib" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1608125726941"/>
+</session>
