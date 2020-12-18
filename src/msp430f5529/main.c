@@ -13,12 +13,9 @@ void main(void) {
     Init_Timers();
     Init_UART();
     Init_ADC();
-//    Init_SPI();
+    Init_SPI();
     EnableGlobalInterrupt();
     /* Init MSP430 END */
-
-    /* IIR Test */
-    //iir_filter_init();
 
 	while(1) {
 

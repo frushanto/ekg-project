@@ -126,8 +126,8 @@ void TIMER1_A0_ISR (void)
     /*** BEGIN will be executed every 1 KHz ***/
 
 
-    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
-                                   GPIO_PIN0);
+//    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
+//                                   GPIO_PIN0);
 
 
     /*** END will be executed every 1 KHz ***/
@@ -159,8 +159,8 @@ void TIMER2_A0_ISR (void)
     /*** BEGIN will be executed every 100 HZ ***/
 
 
-    GPIO_toggleOutputOnPin(GPIO_PORT_P4,
-                                   GPIO_PIN7);
+//    GPIO_toggleOutputOnPin(GPIO_PORT_P4,
+//                                   GPIO_PIN7);
 
 
     /*** END will be executed every 100 HZ ***/

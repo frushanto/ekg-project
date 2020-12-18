@@ -18,5 +18,6 @@
 #include "includes/config/timer_cfg.h"
 #include "includes/config/fir_filter.h"
 #include "includes/config/iir_filter.h"
+#include "includes/config/spi_cfg.h"
 
 #endif /* MAIN_H_ */
