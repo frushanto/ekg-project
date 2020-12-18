@@ -134,8 +134,8 @@ __interrupt void ADC12_A_ISR(void) {
 //         }
 
          /* ADC test with iir-filter */
-          uint16_t adc_after_iir_test = iir_filter(adc_result);
-          UART_Dreieck(adc_after_iir_test); //Dreieck: test BPM
+//          uint16_t adc_after_iir_test = iir_filter(adc_result);
+          UART_Dreieck(adc_result); //Dreieck: test BPM
 //          Test_UART(adc_after_iir_test);
 
          /* ADC test with fir-filter */
@@ -146,7 +146,7 @@ __interrupt void ADC12_A_ISR(void) {
 //          Test_UART(adc_result);
 
          /* Test BPM */
-          Test_UART_BPM(adc_after_iir_test);
+          Test_UART_BPM(adc_result);
 
 
          //Exit active CPU

@@ -1,6 +1,6 @@
 #include <includes/config/timer_cfg.h>
 
-#define COMPARE_VALUE_ONE_SEC   32768   // One second
+#define COMPARE_VALUE_ONE_SEC 32768 //SM 11993088 //A 32768   // One second
 #define COMPARE_VALUE_10_MS     COMPARE_VALUE_ONE_SEC / 100 // 10ms = 100
 
 void Init_Timer() {
@@ -85,7 +85,7 @@ void TIMER1_A0_ISR (void)
     UART_Timer_One_Sec();
 //    UART_Timer_Page_Two_Sec();
 //    UART_Upper_T();
-    UART_Lower_T();
+//    UART_Lower_T();
 //    Test_ADC();
     /*** END will be executed every 1 second ***/
 
