@@ -9,7 +9,7 @@
 
 
 //Target frequency for MCLK in kHz
-#define UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ   24000
+#define UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ   20000
 #define FLLREF_KHZ                          32
 //MCLK/FLLRef Ratio
 #define UCS_MCLK_FLLREF_RATIO       UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ/FLLREF_KHZ
@@ -35,8 +35,8 @@ uint16_t status;
  * */
 void Init_CLK() {
 
-    //Set VCore = 1 for 12MHz clock
-    PMM_setVCore(PMM_CORE_LEVEL_3);
+    //Set VCore = 1
+    PMM_setVCore(PMM_CORE_LEVEL_1);
 
     UCS_initClockSignal (
         UCS_ACLK,               // Configure ACLK
