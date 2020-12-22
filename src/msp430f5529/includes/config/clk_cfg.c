@@ -7,19 +7,12 @@
 
 #include <includes/config/clk_cfg.h>
 
-//*****************************************************************************
-//
-//Target frequency for MCLK in kHz
-//
-//*****************************************************************************
-#define UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ   12000
 
-//*****************************************************************************
-//
+//Target frequency for MCLK in kHz
+#define UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ   24000
+#define FLLREF_KHZ                          32
 //MCLK/FLLRef Ratio
-//
-//*****************************************************************************
-#define UCS_MCLK_FLLREF_RATIO   366
+#define UCS_MCLK_FLLREF_RATIO       UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ/FLLREF_KHZ
 
 //*****************************************************************************
 //
@@ -43,7 +36,7 @@ uint16_t status;
 void Init_CLK() {
 
     //Set VCore = 1 for 12MHz clock
-    PMM_setVCore(PMM_CORE_LEVEL_1);
+    PMM_setVCore(PMM_CORE_LEVEL_3);
 
     UCS_initClockSignal (
         UCS_ACLK,               // Configure ACLK
@@ -58,7 +51,7 @@ void Init_CLK() {
         UCS_CLOCK_DIVIDER_1
         );
 
-    //Set Ratio and Desired MCLK Frequency  and initialize DCO
+    //Set Ratio and Desired MCLK Frequency and initialize DCO
     UCS_initFLLSettle(
         UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ,
         UCS_MCLK_FLLREF_RATIO
