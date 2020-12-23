@@ -74,6 +74,22 @@ void Init_SPI() {
     USCI_B_SPI_transmitData(USCI_B0_BASE, transmitData);
 }
 
+void SPI_Send_Data(uint8_t spiSendData) {
+    //USCI_B0 TX buffer ready?
+    while (!USCI_B_SPI_getInterruptStatus(USCI_B0_BASE,
+                USCI_B_SPI_TRANSMIT_INTERRUPT)) ;
+
+    receiveData = USCI_B_SPI_receiveData(USCI_B0_BASE);
+
+    //Increment data
+    spiSendData++;
+
+    //Send next value
+    USCI_B_SPI_transmitData(USCI_B0_BASE,
+    spiSendData
+    );
+}
+
 //******************************************************************************
 //
 //This is the USCI_B0 interrupt vector service routine.
@@ -90,22 +106,22 @@ void USCI_B0_ISR (void)
     switch (__even_in_range(UCB0IV,4)){
         //Vector 2 - RXIFG
         case 2:
-            //USCI_B0 TX buffer ready?
-            while (!USCI_B_SPI_getInterruptStatus(USCI_B0_BASE,
-                       USCI_B_SPI_TRANSMIT_INTERRUPT)) ;
+            // //USCI_B0 TX buffer ready?
+            // while (!USCI_B_SPI_getInterruptStatus(USCI_B0_BASE,
+            //            USCI_B_SPI_TRANSMIT_INTERRUPT)) ;
 
-            receiveData = USCI_B_SPI_receiveData(USCI_B0_BASE);
+            // receiveData = USCI_B_SPI_receiveData(USCI_B0_BASE);
 
-            //Increment data
-            transmitData++;
+            // //Increment data
+            // transmitData++;
 
-            //Send next value
-            USCI_B_SPI_transmitData(USCI_B0_BASE,
-            transmitData
-            );
+            // //Send next value
+            // USCI_B_SPI_transmitData(USCI_B0_BASE,
+            // transmitData
+            // );
 
-            //Delay between transmissions for slave to process information
-            __delay_cycles(40);
+            // //Delay between transmissions for slave to process information
+            // __delay_cycles(40);
 
             break;
         default: break;

@@ -178,9 +178,9 @@ void TIMER0_B0_ISR (void)
     uint16_t compVal = Timer_B_getCaptureCompareCount(TIMER_B0_BASE,
     		TIMER_B_CAPTURECOMPARE_REGISTER_0)
     		+ COMPARE_VALUE_1HZ_ACLK;
-
     /*** BEGIN will be executed every 1 HZ ***/
-
+    uint8_t dummyByte = 0x55;
+    SPI_Send_Data(dummyByte);
     /*** END will be executed every 1 HZ ***/
     // Add Offset to CCR0
     Timer_B_setCompareValue(TIMER_B0_BASE,
