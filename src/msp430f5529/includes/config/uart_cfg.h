@@ -12,6 +12,8 @@
 #include <includes/driverlib/driverlib.h>
 #include <includes/driverlib/std_types.h>
 #include <stdio.h>
+#include <stdlib.h> // Used for:
+#include <string.h> // dynamic array
 #include <time.h>
 
 /* Function declarations */

@@ -233,6 +233,22 @@ void  UART_Timer_One_Sec(){
 //    uart_transmit_data_end();
 }
 
+uint16_t puls_val = 80;
+
+void PULS_PLUS(){
+        puls_val = puls_val + 1;
+        uart_transmit_data_start("page2.puls.val=");
+        uart_transmit_data_value(puls_val);
+        uart_transmit_data_end();
+}
+
+void PULS_MINUS(){
+    puls_val = puls_val - 1;
+        uart_transmit_data_start("page2.puls.val=");
+        uart_transmit_data_value(puls_val);
+        uart_transmit_data_end();
+}
+
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module
  * is now ready for transmit and receive. It is recommended to
@@ -242,27 +258,81 @@ void  UART_Timer_One_Sec(){
  * */
 
 /* Page2 Start Button sends: 0x65 0x02 0x06 0x00 0xFF 0xFF 0xFF */ /* e\x02\x06\x00ÿÿÿ */
+/* Bluetooth: e 09 04 00 ff ff ff */
+/* Tap to wake: h 00 xc9 (201) 00 f 01 ff ff ff */
+/* Aus: 3 02 02 00 ff ff ff */
 
-#pragma vector = USCI_A0_VECTOR
-__interrupt void UART_A0_ISR(void) {
-    switch (__even_in_range(UCA0IV, 4))
-        {
-        case 0:
-            break; // Vector 0 - no interrupt
-        case 2: // Vector 2 - RXIFG
-            if (uart_received_data_counter < UART_MESSAGE_MAX_LENGTH) {
-                uart_received_data[uart_received_data_counter] =
-                    USCI_A_UART_receiveData(USCI_A0_BASE);
-                uart_received_data_counter++;
-            } else {
-                uart_received_data_counter = 0;
-            }
-            USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-                    USCI_A_UART_RECEIVE_INTERRUPT);
-            break;
-        case 4:
-            break; // Vector 4 - TXIFG
-        default:
-            break;
-        }
-}
+
+ #pragma vector = USCI_A0_VECTOR
+ __interrupt void UART_A0_ISR(void) {
+     switch (__even_in_range(UCA0IV, 4))
+         {
+         case 0:
+             break; // Vector 0 - no interrupt
+         case 2: // Vector 2 - RXIFG
+             if (uart_received_data_counter < UART_MESSAGE_MAX_LENGTH) {
+                 uart_received_data[uart_received_data_counter] =
+                     USCI_A_UART_receiveData(USCI_A0_BASE);
+                 uart_received_data_counter++;
+             }
+             else {
+                 uart_received_data_counter = 0;
+             }
+             if(uart_received_data[0] == 'e' && uart_received_data[1] == '\x02' && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00) {
+                 PULS_PLUS();
+                 uart_received_data_counter = 0;
+                 USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+                         USCI_A_UART_RECEIVE_INTERRUPT);
+                              for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
+                                  uart_received_data[i] = 0x00;
+                              }
+             }
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00) {
+                 PULS_MINUS();
+                 uart_received_data_counter = 0;
+                 USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+                         USCI_A_UART_RECEIVE_INTERRUPT);
+                 for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
+                     uart_received_data[i] = 0x00;
+                 }
+             }
+             if(uart_received_data[0] == 'e' && uart_received_data[1] == '\x09' && uart_received_data[2] == '\x04' && uart_received_data[3] == 0x00) {
+                 USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+                         USCI_A_UART_RECEIVE_INTERRUPT);
+                 for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
+                     uart_received_data[i] = 0x00;
+                 }
+             }
+             /* Tap to wake: h 00 xc9 (201) 00 f 01 ff ff ff */
+
+             if(uart_received_data[0] == 'h' && uart_received_data[1] == '\x00' && uart_received_data[2] == '\xc9' && uart_received_data[3] == 0x00
+                     && uart_received_data[4] == 'f' && uart_received_data[5] == 0x01) {
+                              USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+                                      USCI_A_UART_RECEIVE_INTERRUPT);
+                              for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
+                                  uart_received_data[i] = 0x00;
+                              }
+                          }
+//             for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
+//                 uart_received_data[i] = 0x00;
+//             }
+             USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+                     USCI_A_UART_RECEIVE_INTERRUPT);
+             break;
+         case 4:
+             break; // Vector 4 - TXIFG
+         default:
+             break;
+         }
+ }
+
+ //             if (uart_received_data_counter < UART_MESSAGE_MAX_LENGTH) {
+ //                 uart_received_data[uart_received_data_counter] =
+ //                     USCI_A_UART_receiveData(USCI_A0_BASE);
+ //                 uart_received_data_counter++;
+ //             }
+ //             else {
+ //                 uart_received_data_counter = 0;
+ //             }
+ //             USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+ //                     USCI_A_UART_RECEIVE_INTERRUPT);

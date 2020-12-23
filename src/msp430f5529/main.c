@@ -10,7 +10,7 @@ void main(void) {
     Init_Watchdog();
     Init_GPIO();
     Init_CLK();
-    Init_Timer();
+    Init_Timers();
     Init_UART();
     Init_ADC();
     EnableGlobalInterrupt();
