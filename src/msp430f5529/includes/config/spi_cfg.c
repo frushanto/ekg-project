@@ -31,16 +31,21 @@ void Init_SPI() {
     returnValue =  USCI_B_SPI_initMaster(USCI_B0_BASE, &param);
 
     if (STATUS_FAIL == returnValue){
+        //LED On
+        GPIO_setOutputHighOnPin(
+            GPIO_PORT_P1,
+            GPIO_PIN0
+            );
         return;
     }
 
     //Enable SPI module
-    USCI_A_SPI_enable(USCI_B0_BASE);
+    USCI_B_SPI_enable(USCI_B0_BASE);
 
     //Enable Receive interrupt
-	USCI_A_SPI_clearInterrupt(USCI_B0_BASE,
+	USCI_B_SPI_clearInterrupt(USCI_B0_BASE,
 		USCI_B_SPI_RECEIVE_INTERRUPT);
-    USCI_A_SPI_enableInterrupt(USCI_B0_BASE,
+    USCI_B_SPI_enableInterrupt(USCI_B0_BASE,
 		USCI_B_SPI_RECEIVE_INTERRUPT);
 
     //Now with SPI signals initialized, reset slave
@@ -51,8 +56,8 @@ void Init_SPI() {
 
     //LED On
     GPIO_setOutputHighOnPin(
-        GPIO_PORT_P1,
-        GPIO_PIN0
+        GPIO_PORT_P4,
+        GPIO_PIN7
         );
 
     //Wait for slave to initialize
@@ -85,7 +90,7 @@ void USCI_B0_ISR (void)
     switch (__even_in_range(UCB0IV,4)){
         //Vector 2 - RXIFG
         case 2:
-            //USCI_A0 TX buffer ready?
+            //USCI_B0 TX buffer ready?
             while (!USCI_B_SPI_getInterruptStatus(USCI_B0_BASE,
                        USCI_B_SPI_TRANSMIT_INTERRUPT)) ;
 

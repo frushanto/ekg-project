@@ -125,11 +125,6 @@ void TIMER1_A0_ISR (void)
 
     /*** BEGIN will be executed every 1 KHz ***/
 
-
-//    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
-//                                   GPIO_PIN0);
-
-
     /*** END will be executed every 1 KHz ***/
 
     // Add Offset to CCR0
@@ -158,11 +153,6 @@ void TIMER2_A0_ISR (void)
 
     /*** BEGIN will be executed every 100 HZ ***/
 
-
-//    GPIO_toggleOutputOnPin(GPIO_PORT_P4,
-//                                   GPIO_PIN7);
-
-
     /*** END will be executed every 100 HZ ***/
 
     // Add Offset to CCR0
@@ -190,11 +180,6 @@ void TIMER0_B0_ISR (void)
     		+ COMPARE_VALUE_1HZ_ACLK;
 
     /*** BEGIN will be executed every 1 HZ ***/
-
-
-//    GPIO_toggleOutputOnPin(GPIO_PORT_P4,
-//                                   GPIO_PIN7);
-
 
     /*** END will be executed every 1 HZ ***/
     // Add Offset to CCR0
