@@ -13,7 +13,7 @@
 //Specify desired frequency of SPI communication
 //
 //*****************************************************************************
-#define SPICLK                          500000
+#define SPICLK                          1000
 
 uint8_t transmitData = 0x00, receiveData = 0x00;
 uint8_t returnValue = 0x00;
@@ -27,7 +27,7 @@ void Init_SPI() {
     param.desiredSpiClock = SPICLK;
     param.msbFirst = USCI_B_SPI_MSB_FIRST;
     param.clockPhase = USCI_B_SPI_PHASE_DATA_CHANGED_ONFIRST_CAPTURED_ON_NEXT;
-    param.clockPolarity = USCI_B_SPI_CLOCKPOLARITY_INACTIVITY_HIGH;
+    param.clockPolarity = USCI_B_SPI_CLOCKPOLARITY_INACTIVITY_LOW;
     returnValue =  USCI_B_SPI_initMaster(USCI_B0_BASE, &param);
 
     if (STATUS_FAIL == returnValue){

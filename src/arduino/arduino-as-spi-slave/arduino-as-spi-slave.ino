@@ -5,11 +5,13 @@ byte myArray[2];
 void setup()
 {
   Serial.begin(115200);
+  Serial.print("Setup begin\n");
   pinMode(SS, INPUT_PULLUP);
   pinMode(MOSI, OUTPUT);
   pinMode(SCK, INPUT);
   SPCR |= _BV(SPE);
   SPI.attachInterrupt();  //allows SPI interrupt
+  Serial.print("Setup end\n");
 }
 
 void loop(void)
@@ -26,6 +28,7 @@ void loop(void)
 
 ISR (SPI_STC_vect)   //Inerrrput routine function
 {
+  //Serial.print("ISR\n");
   myArray[i] = SPDR;
   i++;
 }
