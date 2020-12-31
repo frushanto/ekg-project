@@ -40,6 +40,9 @@ volatile uint8_t fm_counter = 0;
 /* Timer Vars */
 uint16_t uart_timer_one_sec = 0;
 
+//******************************//
+//*UART TRANSMIT DATA FUNCTIONS*//
+//******************************//
 /* Transmit array with Nextion command */
 void uart_transmit_data_start(uint8_t nextion_command[]){
     for (i = 0; i < strlen((char const*)uart_transmit_full_message); i++) {
@@ -89,6 +92,24 @@ void uart_transmit_data_end(){
     }
     //_delay_cycles(10);
 }
+//******************************//
+//*UART TRANSMIT DATA FUNCTIONS*//
+//*END**************************//
+
+//******************************//
+//*UART RECEIVED DATA FUNCTIONS*//
+//*END**************************//
+void uart_receive_data_end(){
+    uart_received_data_counter = 0;
+    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+            USCI_A_UART_RECEIVE_INTERRUPT);
+    for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
+        uart_received_data[i] = 0x00;
+    }
+}
+//******************************//
+//*UART RECEIVED DATA FUNCTIONS*//
+//*END**************************//
 
 void Init_UART() {
 
@@ -257,12 +278,6 @@ void PULS_MINUS(){
  * EUSCI_A_UART_enable().
  * */
 
-/* Page2 Start Button sends: 0x65 0x02 0x06 0x00 0xFF 0xFF 0xFF */ /* e\x02\x06\x00ÿÿÿ */
-/* Bluetooth: e 09 04 00 ff ff ff */
-/* Tap to wake: h 00 xc9 (201) 00 f 01 ff ff ff */
-/* Aus: 3 02 02 00 ff ff ff */
-
-
  #pragma vector = USCI_A0_VECTOR
  __interrupt void UART_A0_ISR(void) {
      switch (__even_in_range(UCA0IV, 4))
@@ -278,41 +293,29 @@ void PULS_MINUS(){
              else {
                  uart_received_data_counter = 0;
              }
-             if(uart_received_data[0] == 'e' && uart_received_data[1] == '\x02' && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00) {
+             /* Display turn off: 65 00 06 00 FF FF FF */
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x00 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+             /* Display turn on: 0='h' 1=0x01||0x00 2=? 3=0x00 4=? 5=0x01 6=0xFF 7=0xFF 8=0xFF */
+             if(uart_received_data[0] == 'h' && uart_received_data[3] == 0x00 && uart_received_data[5] == 0x01 && uart_received_data[6] == 0xFF &&
+                     uart_received_data[7] == 0xFF && uart_received_data[8] == 0xFF) {
+                 uart_receive_data_end();
+             }
+             /* Display page2 'kurzzeit' ECG ***START***: 65 02 06 00 FF FF FF */
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
                  PULS_PLUS();
-                 uart_received_data_counter = 0;
-                 USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-                         USCI_A_UART_RECEIVE_INTERRUPT);
-                              for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
-                                  uart_received_data[i] = 0x00;
-                              }
+                 uart_receive_data_end();
              }
-             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00) {
-                 PULS_MINUS();
-                 uart_received_data_counter = 0;
-                 USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-                         USCI_A_UART_RECEIVE_INTERRUPT);
-                 for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
-                     uart_received_data[i] = 0x00;
-                 }
-             }
-             if(uart_received_data[0] == 'e' && uart_received_data[1] == '\x09' && uart_received_data[2] == '\x04' && uart_received_data[3] == 0x00) {
-                 USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-                         USCI_A_UART_RECEIVE_INTERRUPT);
-                 for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
-                     uart_received_data[i] = 0x00;
-                 }
-             }
-             /* Tap to wake: h 00 xc9 (201) 00 f 01 ff ff ff */
+             /* Display page2 'kurzzeit' ECG ***STOP***: 65 02 07 00 FF FF FF */
 
-             if(uart_received_data[0] == 'h' && uart_received_data[1] == '\x00' && uart_received_data[2] == '\xc9' && uart_received_data[3] == 0x00
-                     && uart_received_data[4] == 'f' && uart_received_data[5] == 0x01) {
-                              USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-                                      USCI_A_UART_RECEIVE_INTERRUPT);
-                              for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
-                                  uart_received_data[i] = 0x00;
-                              }
-                          }
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 PULS_MINUS();
+                 uart_receive_data_end();
+             }
 //             for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
 //                 uart_received_data[i] = 0x00;
 //             }
