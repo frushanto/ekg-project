@@ -293,32 +293,69 @@ void PULS_MINUS(){
              else {
                  uart_received_data_counter = 0;
              }
+
              /* Display turn off: 65 00 06 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x00 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
                  uart_receive_data_end();
              }
+
              /* Display turn on: 0='h' 1=0x01||0x00 2=? 3=0x00 4=? 5=0x01 6=0xFF 7=0xFF 8=0xFF */
              if(uart_received_data[0] == 'h' && uart_received_data[3] == 0x00 && uart_received_data[5] == 0x01 && uart_received_data[6] == 0xFF &&
                      uart_received_data[7] == 0xFF && uart_received_data[8] == 0xFF) {
                  uart_receive_data_end();
              }
+
              /* Display page2 'kurzzeit' ECG ***START***: 65 02 06 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
                  PULS_PLUS();
                  uart_receive_data_end();
              }
-             /* Display page2 'kurzzeit' ECG ***STOP***: 65 02 07 00 FF FF FF */
 
+             /* Display page2 'kurzzeit' ECG ***STOP***: 65 02 07 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
                  PULS_MINUS();
                  uart_receive_data_end();
              }
-//             for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
-//                 uart_received_data[i] = 0x00;
-//             }
+
+             /* Display page3 'langzeit' ECG ***START***: 65 03 06 00 FF FF FF */
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
+             /* Display page3 'langzeit' ECG ***STOP***: 65 03 07 00 FF FF FF */
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
+             /* Display select USER ONE: 65 04 03 00 FF FF FF */
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x03 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
+             /* Display select USER TWO: 65 04 04 00 FF FF FF */
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x04 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
+             /* Display select USER THREE: 65 04 05 00 FF FF FF */
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x05 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
+             /* Display toggle BLUETOOTH: 65 09 04 00 FF FF FF */
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x09 && uart_received_data[2] == 0x04 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
              USCI_A_UART_clearInterrupt(USCI_A0_BASE,
                      USCI_A_UART_RECEIVE_INTERRUPT);
              break;
