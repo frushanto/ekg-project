@@ -42,6 +42,8 @@ void Init_GPIO(void) {
     // SPI_CS_SDCARD - P2.7
     GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN7);
     GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN7);
+    // !!!TEMPORARY!!! SPI_CD_SDCARD - P2.5 (GPIO, Card Select Pin)
+    GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P2, GPIO_PIN5);
     /********************************************/
     /********* END Configure SPI BLOCK **********/
     /********************************************/
