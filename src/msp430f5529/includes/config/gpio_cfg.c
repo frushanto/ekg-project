@@ -33,7 +33,6 @@ void Init_GPIO(void) {
     // SPI_MOSI_SDCARD - P3.0
     // SPI_MISO_SDCARD - P3.1
     // SPI_CLK_SDCARD - P3.2
-    // SPI_CS_SDCARD - P2.7
     GPIO_setAsPeripheralModuleFunctionInputPin(
         GPIO_PORT_P3,
         GPIO_PIN0 + GPIO_PIN1 + GPIO_PIN2
@@ -43,6 +42,7 @@ void Init_GPIO(void) {
     GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN7);
     GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN7);
     // !!!TEMPORARY!!! SPI_CD_SDCARD - P2.5 (GPIO, Card Select Pin)
+    // TO BE TESTED
     GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P2, GPIO_PIN5);
     /********************************************/
     /********* END Configure SPI BLOCK **********/
