@@ -17,12 +17,12 @@ void Init_ADC() {
      * Base address of ADC12_A Module
      * Use internal ADC12_A bit as sample/hold signal
      * to start conversion
-     * USE ACLK 32kHz as clock source
+     * USE ACLK 32kHz as clock source / EDIT SMCLK
      * Use default clock divider of 1
      */
     ADC12_A_init(ADC12_A_BASE,
                  ADC12_A_SAMPLEHOLDSOURCE_SC,
-                 ADC12_A_CLOCKSOURCE_ACLK,
+                 ADC12_A_CLOCKSOURCE_SMCLK,
                  ADC12_A_CLOCKDIVIDER_1);
 
     ADC12_A_enable(ADC12_A_BASE);
@@ -100,6 +100,8 @@ void Test_ADC() {
     __no_operation();
 }
 
+//uint8_t oversampling_counter = 0;
+
 #pragma vector = ADC12_VECTOR
 __interrupt void ADC12_A_ISR(void) {
     switch (__even_in_range(ADC12IV,34)) {
@@ -108,7 +110,14 @@ __interrupt void ADC12_A_ISR(void) {
         case  4: break;   //Vector  4:  ADC timing overflow
         case  6:;          //Vector  6:  ADC12IFG0
          //Is Memory Buffer 0 = A0 > 0.5AVcc?
-            uint16_t adc_result = 0;
+
+//        for (oversampling_counter = 0; oversampling_counter < 5; oversampling_counter++)
+//        {
+//            adc_result += ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
+//        }
+//
+//        adc_result = adc_result / 5;
+
             adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
         //  if ((adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0)) >= 0x7ff) {
         //      GPIO_setOutputHighOnPin(
@@ -134,19 +143,19 @@ __interrupt void ADC12_A_ISR(void) {
 //         }
 
          /* ADC test with iir-filter */
-          uint16_t adc_after_iir_test = iir_filter(adc_result);
-          UART_Dreieck(adc_after_iir_test); //Dreieck: test BPM
+//          uint16_t adc_after_iir_test = iir_filter(adc_result);
+//          UART_Dreieck(adc_result); //Dreieck: test BPM
 //          Test_UART(adc_after_iir_test);
 
          /* ADC test with fir-filter */
 //          uint16_t adc_after_fir_test = fir_filter(adc_result);
-//          Test_UART(adc_after_fir_test);
+//          UART_Dreieck(adc_after_fir_test);
 
          /* ADC test working - Test_UART means: ECG Signal as waveform */
 //          Test_UART(adc_result);
 
          /* Test BPM */
-          Test_UART_BPM(adc_after_iir_test);
+//          Test_UART_BPM(adc_result);
 
 
          //Exit active CPU

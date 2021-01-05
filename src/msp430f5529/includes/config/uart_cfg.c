@@ -10,13 +10,13 @@
 #define UART_BASE_A0    0
 #define UART_BASE_A1    1
 
-#define UART_BASE       UART_BASE_A0
+#define UART_BASE       UART_BASE_A1
 #define UART_MESSAGE_MAX_LENGTH 12
 
 #define RECEIVE_DATA_COUNT                      0x02
 
 #define UPPER_THRESHOLD 170  // for BPM
-#define LOWER_THRESHOLD 160  // for BPM
+#define LOWER_THRESHOLD 165  // for BPM
 
 // VAR
 uint16_t sec = 0;
@@ -137,9 +137,9 @@ void Init_UART() {
 
     //uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_ACLK;
     uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_SMCLK; // -> 11993088 Hz
-    uart_cfg.clockPrescalar = 104; //104 //3; // Table 36-4, p.952 User's Guide
+    uart_cfg.clockPrescalar = 173; //104; //104 //3; // Table 36-4, p.952 User's Guide
     uart_cfg.firstModReg = 0;
-    uart_cfg.secondModReg = 1; //1 //3;
+    uart_cfg.secondModReg = 5;//1; //1 //3;
     uart_cfg.parity = USCI_A_UART_NO_PARITY;
     uart_cfg.msborLsbFirst = USCI_A_UART_LSB_FIRST;
     uart_cfg.numberofStopBits = USCI_A_UART_ONE_STOP_BIT;
@@ -149,13 +149,13 @@ void Init_UART() {
 
     // Init UART A0
     // USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
-    if (STATUS_FAIL == USCI_A_UART_init(USCI_A0_BASE, &uart_cfg)){
+    if (STATUS_FAIL == USCI_A_UART_init(USCI_A1_BASE, &uart_cfg)){
         return;
     }
-    USCI_A_UART_enable(USCI_A0_BASE);
-    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+    USCI_A_UART_enable(USCI_A1_BASE);
+    USCI_A_UART_clearInterrupt(USCI_A1_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT);
-    USCI_A_UART_enableInterrupt(USCI_A0_BASE,
+    USCI_A_UART_enableInterrupt(USCI_A1_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT);
 }
 
@@ -193,12 +193,30 @@ void  UART_Timer_Page_Two_Sec(){
         sec = 0;
 }
 
+
 void UART_Dreieck(uint16_t receive_value){
     int i;
-    uint16_t value = (receive_value / 8) - 100;
-    uart_transmit_data_start("add 5,0,");
-    uart_transmit_data_value(value);
-    uart_transmit_data_end();
+    uint16_t value_after_iir_filter;
+
+    uint16_t value = (receive_value / 8);
+    value_after_iir_filter = iir_filter(value);
+
+    sprintf(uart_transmit_set_val,"%d\r\n", value);//_after_iir_filter);
+    uint8_t length = strlen((char const*)uart_transmit_set_val);
+
+    for(i = 0; i < length; i++){
+        USCI_A_UART_transmitData(USCI_A1_BASE, uart_transmit_set_val[i]);
+
+        /* Wait transmission is completed */
+
+        while(USCI_A_UART_queryStatusFlags(
+                USCI_A1_BASE, USCI_A_UART_BUSY)
+                == USCI_A_UART_BUSY);
+    }
+
+//    uart_transmit_data_start("add 5,0,");
+//    uart_transmit_data_value(value);
+//    uart_transmit_data_end();
 }
 
 void Test_UART_BPM(uint16_t adc_value){
@@ -207,26 +225,45 @@ void Test_UART_BPM(uint16_t adc_value){
         counter = 0;
     }
     if (Dataout_pulse > LOWER_THRESHOLD){
-        counter ++;
-        if (counter == 2){
-            beats++;
-//            UART_Timer_One_Sec(beats);
-            counter = 0;
-         }
+        beats++;
+        //        counter ++;
+//        if (counter == 2){
+//            beats++;
+////            UART_Timer_One_Sec(beats);
+//            counter = 0;
+//        }
+        __delay_cycles(115200);
     }
 }
 
 void  UART_Timer_One_Sec(){
     uart_timer_one_sec ++;
+    int i;
+
     if(uart_timer_one_sec == 10){
         number_beats = beats;
         BPM = number_beats * 6;
-        uart_transmit_data_start("page8.n0.val=");
-        uart_transmit_data_value(BPM);
-        uart_transmit_data_end();
+
+        sprintf(uart_transmit_set_val,"%d\r\n",BPM);
+        uint8_t length = strlen((char const*)uart_transmit_set_val);
+
+        for(i = 0; i < length; i++){
+            USCI_A_UART_transmitData(USCI_A1_BASE, uart_transmit_set_val[i]);
+
+            /* Wait transmission is completed */
+
+            while(USCI_A_UART_queryStatusFlags(
+                    USCI_A1_BASE, USCI_A_UART_BUSY)
+                    == USCI_A_UART_BUSY);
+        }
+//        uart_transmit_data_start("page8.n0.val=");
+//        uart_transmit_data_value(BPM);
+//        uart_transmit_data_end();
         uart_timer_one_sec = 0;
         beats = 0;
     }
+
+
 
 //    uart_transmit_data_start("page8.n0.val=");
 //    uart_transmit_data_value(uart_timer_one_sec++);

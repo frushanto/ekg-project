@@ -10,7 +10,7 @@ void main(void) {
     Init_Watchdog();
     Init_GPIO();
     Init_CLK();
-    Init_Timer();
+    Init_Timers();
     Init_UART();
     Init_ADC();
     EnableGlobalInterrupt();
@@ -22,10 +22,7 @@ void main(void) {
     fir_filter_init();
 
     while(1) {
-//      Test_UART();
-//      Test_ADC();
-//      UART_Upper_T();
-//      UART_Lower_T();
+
     }
 }
 
