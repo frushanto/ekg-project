@@ -41,9 +41,23 @@ void Init_GPIO(void) {
     // SPI_CS_SDCARD - P2.7
     GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN7);
     GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN7);
+    
+    // TODO CARD DETECTION TO BE TESTED
+    
     // !!!TEMPORARY!!! SPI_CD_SDCARD - P2.5 (GPIO, Card Select Pin)
-    // TO BE TESTED
-    GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P2, GPIO_PIN5);
+    
+    /* CD pin shorts to the ground when a card in NOT inserted.
+     * Connect a pull up resistor (10K or so) and wire this to another
+     * pin if you want to detect a card is inserted */
+
+    /********* !!! IMPORTANT NOTE !!! ********/
+    /* TEST WITH INTERNAL PULL UP RESISTOR ONLY 
+     * WITHOUT EXTERNAL PULL UP RESISTOR CIRCUIT!
+     * OTHERWISE CHANGE TO GPIO_setAsInputPin(..)
+     * OR CALCULATE TOTAL RESISTANCE OF BOTH PULL 
+     * UPS TO AVOID VOLTAGE DROP */
+    /*****************************************/
+    GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P2, GPIO_PIN5);
     /********************************************/
     /********* END Configure SPI BLOCK **********/
     /********************************************/
