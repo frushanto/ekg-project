@@ -74,8 +74,8 @@
 //
 //---------------------------------------------------------------
 #include "mmc_cfg.h"
-#include "hal_SPI.h"
-#include "hal_hardware_board.h"
+//#include "hal_SPI.h"
+//#include "hal_hardware_board.h"
 
 //#define withDMA
 
@@ -104,30 +104,31 @@ char mmcInit(void)
   //         Clk           Out       -                 -> init in SPI_Init
   //         mmcCD         In        0 - card inserted
 
-  // Init Port for MMC (default high)
-  MMC_PxOUT |= MMC_SIMO + MMC_UCLK;
-  MMC_PxDIR |= MMC_SIMO + MMC_UCLK;
+  // // Init Port for MMC (default high)
+  // MMC_PxOUT |= MMC_SIMO + MMC_UCLK;
+  // MMC_PxDIR |= MMC_SIMO + MMC_UCLK;
 
 
-  // Chip Select
-  MMC_CS_PxOUT |= MMC_CS;
-  MMC_CS_PxDIR |= MMC_CS;
+  // // Chip Select
+  // MMC_CS_PxOUT |= MMC_CS;
+  // MMC_CS_PxDIR |= MMC_CS;
 
-  // Card Detect
-  MMC_CD_PxDIR &=  ~MMC_CD;
+  // // Card Detect
+  // MMC_CD_PxDIR &=  ~MMC_CD;
   
-  // Init SPI Module
-  halSPISetup();
+  // // Init SPI Module
+  // halSPISetup();
 
   // Enable secondary function
-#if SPI_SER_INTF != SER_INTF_BITBANG
-  MMC_PxSEL |= MMC_SIMO + MMC_SOMI + MMC_UCLK;
-#endif  
+// #if SPI_SER_INTF != SER_INTF_BITBANG
+//   MMC_PxSEL |= MMC_SIMO + MMC_SOMI + MMC_UCLK;
+// #endif  
   
   //initialization sequence on PowerUp
   CS_HIGH();
+
   for(i=0;i<=9;i++)
-    spiSendByte(DUMMY_CHAR);
+  spiSendByte(DUMMY_CHAR);
 
   return (mmcGoIdle());
 }
@@ -137,7 +138,10 @@ char mmcInit(void)
 char mmcGoIdle()
 {
   char response=0x01;
-  CS_LOW();
+  /*
+   * CS_LOW();
+   * #define CS_LOW()    MMC_CS_PxOUT &= ~MMC_CS               // Card Select
+   */
 
   //Send Command 0 to put MMC in SPI mode
   mmcSendCmd(MMC_GO_IDLE_STATE,0,0x95);

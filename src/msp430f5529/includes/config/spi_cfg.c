@@ -68,7 +68,7 @@ void Init_SPI() {
 
     //USCI_A0 TX buffer ready?
     while (!USCI_B_SPI_getInterruptStatus(USCI_B0_BASE,
-               USCI_B_SPI_TRANSMIT_INTERRUPT)) ;
+               USCI_B_SPI_TRANSMIT_INTERRUPT));
 
     //Transmit Data to slave
     USCI_B_SPI_transmitData(USCI_B0_BASE, transmitData);
