@@ -156,7 +156,9 @@ void TIMER2_A0_ISR (void)
     /*** BEGIN will be executed every 10 milliseconds ***/
     GPIO_toggleOutputOnPin(GPIO_PORT_P1,
                                    GPIO_PIN0);
+
 //    Test_ADC();
+
     /*** END will be executed every 10 milliseconds ***/
 
     // Add Offset to CCR0
@@ -186,6 +188,11 @@ void TIMER0_B0_ISR (void)
     /*** BEGIN will be executed every 1 SEC ***/
     GPIO_toggleOutputOnPin(GPIO_PORT_P4,
                                    GPIO_PIN7);
+    Test_ADC();
+//    UART_Timer_One_Sec();
+//    UART_Timer_Two_Sec();
+//    UART_Timer_Three_Sec();
+
     /*** END will be executed every 1 SEC ***/
     // Add Offset to CCR0
     Timer_B_setCompareValue(TIMER_B0_BASE,

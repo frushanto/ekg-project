@@ -108,7 +108,7 @@ __interrupt void ADC12_A_ISR(void) {
         case  4: break;   //Vector  4:  ADC timing overflow
         case  6:;          //Vector  6:  ADC12IFG0
          //Is Memory Buffer 0 = A0 > 0.5AVcc?
-            uint16_t adc_result = 0;
+//            uint16_t adc_result = 0;
             adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
         //  if ((adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0)) >= 0x7ff) {
         //      GPIO_setOutputHighOnPin(
@@ -133,21 +133,11 @@ __interrupt void ADC12_A_ISR(void) {
              //_delay_cycles(100);
 //         }
 
-         /* ADC test with iir-filter */
-          uint16_t adc_after_iir_test = iir_filter(adc_result);
-          UART_Dreieck(adc_after_iir_test); //Dreieck: test BPM
-//          Test_UART(adc_after_iir_test);
-
-         /* ADC test with fir-filter */
-//          uint16_t adc_after_fir_test = fir_filter(adc_result);
-//          Test_UART(adc_after_fir_test);
-
-         /* ADC test working - Test_UART means: ECG Signal as waveform */
-//          Test_UART(adc_result);
+         /* ADC ECG Signal as waveform */
+            UART_ECG(adc_result);
 
          /* Test BPM */
-//          Test_UART_BPM(adc_after_iir_test);
-
+//          Test_UART_BPM(adc_result);
 
          //Exit active CPU
          __bic_SR_register_on_exit(LPM0_bits);

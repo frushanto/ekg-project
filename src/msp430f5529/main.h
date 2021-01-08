@@ -19,4 +19,13 @@
 #include "includes/config/fir_filter.h"
 #include "includes/config/iir_filter.h"
 
+
+/***** GLOBALE VARS *****/
+
+uint8_t uart_puls_counter = 0;
+uint8_t adc_start_stop = 0;
+uint8_t timer_start_stop = 0;
+
+uint16_t adc_result = 0;
+
 #endif /* MAIN_H_ */

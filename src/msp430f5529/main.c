@@ -10,22 +10,29 @@ void main(void) {
     Init_Watchdog();
     Init_GPIO();
     Init_CLK();
-    Init_Timers();
+//    Init_Timers();
     Init_UART();
     Init_ADC();
     EnableGlobalInterrupt();
     /* Init MSP430 END */
 
-    /* IIR Test */
-    iir_filter_init();
-    /* FIR Test */
-    fir_filter_init();
-
     while(1) {
-//      Test_UART();
-//      Test_ADC();
-//      UART_Upper_T();
-//      UART_Lower_T();
+        if(timer_start_stop == 2) {
+            Init_Timers();
+        }
+        if(timer_start_stop == 1) {
+            timer_start_stop = 0;
+        }
+
+
+        if(uart_puls_counter == 1) {
+            PULS_PLUS();
+            uart_puls_counter = 0;
+        }
+        if(uart_puls_counter == 2) {
+            PULS_MINUS();
+            uart_puls_counter = 0;
+        }
     }
 }
 
