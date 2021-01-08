@@ -7,7 +7,7 @@ typedef struct
 	unsigned long int timeout_write;
 	unsigned long int timeout_read;
 	char busyflag;
-} sd_context_t;
+} mmc_context_t;
 
 #define R1 1
 #define R1B 2

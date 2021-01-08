@@ -3,6 +3,7 @@
 #include "mmc_spi_cfg.h"
 
 /* Initialize and enable the SPI module */
+/*
 void spi_initialize()
 {
 	P3SEL |= BIT0+BIT1;                       // SPI SDI -- P3.0 -- MOSI, SPI SDO -- P3.1 -- MISO
@@ -21,10 +22,12 @@ void spi_initialize()
 	UCB0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
 	UCB0IE |= UCRXIE;                         // Enable USCI_A0 RX interrupt
 }
+*/
 
 /* Set the baud-rate divisor. The correct value is computed by dividing
 the clock rate by the desired baud rate. The minimum divisor allowed
 is 2. */
+/*
 void spi_set_divisor(unsigned int divisor)
 {
 	UCB0CTL1 |= UCSWRST;; // Temporarily disable the SPI module
@@ -32,57 +35,60 @@ void spi_set_divisor(unsigned int divisor)
 	UCB0BR0 = divisor;
 	UCB0CTL1 &= ~UCSWRST; // SPI enable // Re-enable SPI
 }
+*/
 
 /* Assert the CS signal, active low (CS=0) */
-void spi_cs_assert()
+void MMC_CS_Assert()
 {
-	// Pin 3.7
-	P3OUT &= ~BIT7;
+	// Pin 2.7
+	P2OUT &= ~BIT7;
 }
 /* Deassert the CS signal (CS=1) */
-void spi_cs_deassert()
+void MMC_CS_Deassert()
 {
-	// Pin 3.7
-	P3OUT |= BIT7;
+	// Pin 2.7
+	P2OUT |= BIT7;
 }
 
 /* Send a single byte over the SPI port */
-void spi_send_byte(unsigned char input)
+void MMC_Send_Byte(unsigned char input)
 {
 	char i;
 	UCB0IFG &= ~UCRXIFG;
-	while (!(UCA0IFG&UCTXIFG));
+	while (!(UCB0IFG&UCTXIFG));
 	/* Send the byte */
 	UCB0TXBUF = input;
 	/* Wait for the byte to be sent */
-	//while ((UCB0IFG & UCRXIFG) == 0) { }
-	for(i=0; i< 50; i++);
+	// TODO Test the line below
+	while ((UCB0IFG & UCRXIFG) == 0) { }
+	for (i = 0; i < 50; i++);
 }
 /* Receive a byte. Output an 0xFF (the bus idles high) to receive the byte */
-unsigned char spi_rcv_byte()
+unsigned char MMC_Receive_Byte()
 {
 	char i;
 	unsigned char tmp;
 	UCB0IFG &= ~UCRXIFG;
-	while (!(UCA0IFG&UCTXIFG));
+	while (!(UCB0IFG&UCTXIFG));
 	/* Send the byte */
 	UCB0TXBUF = 0xFF;
 	/* Wait for the byte to be received */
-	//while ((UCB0IFG & UCRXIFG) == 0) { }
+	// TODO Test the line below
+	while ((UCB0IFG & UCRXIFG) == 0) { }
 	tmp = UCB0RXBUF;
-	for(i=0; i< 50; i++);
+	for (i = 0; i < 50; i++);
 	return tmp;
 }
 
-/* Disable the SPI module. This function assumes the module had
+/* Disable the SPI MMC module. This function assumes the module had
 * already been initialized. */
-void spi_disable()
+void MMC_Disable()
 {
-	/* Put the SPI module in reset mode */
+	/* Put the SPI MMC module in reset mode */
 	UCB0CTL1 |= UCSWRST;
 }
-void spi_enable()
+void MMC_Enable()
 {
-    /* Take the SPI module out of reset mode */
+    /* Take the SPI MMC module out of reset mode */
 	UCB0CTL1 &= ~UCSWRST;
 }

@@ -113,5 +113,6 @@ PDE_DEPS__QUOTED :=
 SUBDIRS := \
 . \
 includes/config \
+includes/config/mmc-module-cfg \
 includes/driverlib \
 
