@@ -21,7 +21,11 @@ void main(void) {
             timer_start_stop = 0;
             Test_ADC();
             if(adc_start_stop == 1) {
+                adc_start_stop = 0;
                 UART_ECG(adc_result);
+                if(page_two_start_stop == 0) {
+                    Clear_Waveform();
+                }
             }
         }
     }
