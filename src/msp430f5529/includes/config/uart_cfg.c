@@ -102,8 +102,8 @@ void uart_transmit_data_end(){
 //*END**************************//
 void uart_receive_data_end(){
     uart_received_data_counter = 0;
-    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-            USCI_A_UART_RECEIVE_INTERRUPT);
+//    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+//            USCI_A_UART_RECEIVE_INTERRUPT);
     for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
         uart_received_data[i] = 0x00;
     }
@@ -294,21 +294,25 @@ void PULS_MINUS(){
              }
 
              /* Display turn off: 65 00 06 00 FF FF FF */
-             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x00 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
-                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+//             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x00 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
+//                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+//                 uart_receive_data_end();
+//             }
+
+             /* Display turn on: 0=0x87 1=0xFF 2=0xFF 3=0xFF */
+             if(uart_received_data[0] == 0x87 && uart_received_data[1] == 0xFF && uart_received_data[2] == 0xFF && uart_received_data[3] == 0xFF) {
                  uart_receive_data_end();
              }
 
-             /* Display turn on: 0='h' 1=0x01||0x00 2=? 3=0x00 4=? 5=0x01 6=0xFF 7=0xFF 8=0xFF */
-             if(uart_received_data[0] == 'h' && uart_received_data[3] == 0x00 && uart_received_data[5] == 0x01 && uart_received_data[6] == 0xFF &&
-                     uart_received_data[7] == 0xFF && uart_received_data[8] == 0xFF) {
+             /* Display Sleep X,Y: 0=0x68 6=0xFF 7=0xFF 8=0xFF */
+             if(uart_received_data[0] == 0x68 && uart_received_data[6] == 0xFF && uart_received_data[7] == 0xFF && uart_received_data[8] == 0xFF) {
                  uart_receive_data_end();
              }
 
              /* Display page2 'kurzzeit' ECG ***START***: 65 02 06 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 uart_puls_counter = 1;
+                 uart_puls_counter = 1;
                  timer_start_stop = 1;
                  uart_receive_data_end();
              }
@@ -316,7 +320,7 @@ void PULS_MINUS(){
              /* Display page2 'kurzzeit' ECG ***STOP***: 65 02 07 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 uart_puls_counter = 2;
+                 uart_puls_counter = 2;
                  timer_start_stop = 2;
                  uart_receive_data_end();
              }
@@ -363,6 +367,9 @@ void PULS_MINUS(){
          case 4:
              break; // Vector 4 - TXIFG
          default:
+//             if(uart_received_data_counter == 7) {
+//                 uart_receive_data_end();
+//             }
              break;
          }
  }
