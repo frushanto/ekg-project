@@ -125,6 +125,9 @@ void TIMER1_A0_ISR (void)
 //    GPIO_toggleOutputOnPin(GPIO_PORT_P4,
 //                                   GPIO_PIN7);
 
+    timer_start_stop = 1;
+
+
 //    Test_ADC();
 
     /*** END will be executed every 1 KHz ***/
@@ -157,7 +160,7 @@ void TIMER2_A0_ISR (void)
     GPIO_toggleOutputOnPin(GPIO_PORT_P1,
                                    GPIO_PIN0);
 
-//    Test_ADC();
+//    timer_start_stop = 1;
 
     /*** END will be executed every 10 milliseconds ***/
 
@@ -188,7 +191,9 @@ void TIMER0_B0_ISR (void)
     /*** BEGIN will be executed every 1 SEC ***/
     GPIO_toggleOutputOnPin(GPIO_PORT_P4,
                                    GPIO_PIN7);
-    Test_ADC();
+//    timer_start_stop = 1;
+
+//    Test_ADC();
 //    UART_Timer_One_Sec();
 //    UART_Timer_Two_Sec();
 //    UART_Timer_Three_Sec();

@@ -23,7 +23,7 @@ void Test_UART_With_Display(void);
 
 /***** GLOBALE VARS *****/
 
-extern uint8_t uart_puls_counter;
+extern uint8_t page_two_start_stop;
 extern uint8_t adc_start_stop;
 extern uint8_t timer_start_stop;
 

@@ -22,7 +22,7 @@
 
 /***** GLOBALE VARS *****/
 
-uint8_t uart_puls_counter = 0;
+uint8_t page_two_start_stop = 0;
 uint8_t adc_start_stop = 0;
 uint8_t timer_start_stop = 0;
 

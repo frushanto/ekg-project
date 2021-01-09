@@ -10,30 +10,24 @@ void main(void) {
     Init_Watchdog();
     Init_GPIO();
     Init_CLK();
-//    Init_Timers();
+    Init_Timers();
     Init_UART();
     Init_ADC();
     EnableGlobalInterrupt();
     /* Init MSP430 END */
 
     while(1) {
-        if(timer_start_stop == 2) {
-            Init_Timers();
-        }
-        if(timer_start_stop == 1) {
+        if(timer_start_stop == 1 && page_two_start_stop == 1) {
             timer_start_stop = 0;
-        }
-
-
-        if(uart_puls_counter == 1) {
-            PULS_PLUS();
-            uart_puls_counter = 0;
-        }
-        if(uart_puls_counter == 2) {
-            PULS_MINUS();
-            uart_puls_counter = 0;
+            Test_ADC();
+            if(adc_start_stop == 1) {
+                UART_ECG(adc_result);
+            }
         }
     }
+
+
+
 }
 
 /*** Configure Watchdog Timer ***/

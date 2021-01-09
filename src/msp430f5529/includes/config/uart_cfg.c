@@ -26,7 +26,6 @@ uint16_t sec = 0;
 
 /* BPM Vars */
 uint16_t beats = 0;
-uint16_t Dataout_pulse;
 uint16_t BPM = 0;
 
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
@@ -182,9 +181,9 @@ void Init_UART() {
 }
 
 void Test_UART(uint16_t adc_value) {
-    uint8_t test_val = adc_value / 16;
+    adc_value = adc_value / 16;
     uart_transmit_data_start("add 5,0,");
-    uart_transmit_data_value(test_val);
+    uart_transmit_data_value(adc_value);
     uart_transmit_data_end();
 }
 
@@ -204,18 +203,17 @@ void  UART_Timer_Page_Two_Sec(){
 }
 
 void UART_ECG(uint16_t adc_value){
-    uint16_t value = (adc_value / 8) - 100;
+    adc_value = (adc_value / 8) - 100;
     uart_transmit_data_start("add 1,0,");
-    uart_transmit_data_value(value);
+    uart_transmit_data_value(adc_value);
     uart_transmit_data_end();
 }
 
 void Test_UART_BPM(uint16_t adc_value){
-    Dataout_pulse = (adc_value / 8) - 100;
-    if (Dataout_pulse > THRESHOLD){
+    adc_value = (adc_value / 8) - 100;
+    if (adc_value > THRESHOLD){
         beats ++;
     }
-//    __delay_cycles(50000);
 }
 
 void  UART_Timer_One_Sec(){
@@ -230,7 +228,6 @@ void  UART_Timer_One_Sec(){
 //        beats = 0;
     }
 }
-
 void  UART_Timer_Two_Sec(){
     if(uart_timer_one_sec == 20){
         BPM = beats * 3;
@@ -242,7 +239,6 @@ void  UART_Timer_Two_Sec(){
 //        beats = 0;
     }
 }
-
 void  UART_Timer_Three_Sec(){
     if(uart_timer_one_sec == 30){
         BPM = beats * 2;
@@ -255,18 +251,23 @@ void  UART_Timer_Three_Sec(){
     }
 }
 
-void PULS_PLUS(){
-        puls_val = puls_val + 1;
-        uart_transmit_data_start("page2.puls.val=");
-        uart_transmit_data_value(puls_val);
-        uart_transmit_data_end();
+void Test_Plus_Eins(){
+    puls_val = puls_val + 1;
+    uart_transmit_data_start("puls.val=");
+    uart_transmit_data_value(puls_val);
+    uart_transmit_data_end();
 }
 
-void PULS_MINUS(){
+void Test_Minus_Eins(){
     puls_val = puls_val - 1;
-        uart_transmit_data_start("page2.puls.val=");
-        uart_transmit_data_value(puls_val);
-        uart_transmit_data_end();
+    uart_transmit_data_start("puls.val=");
+    uart_transmit_data_value(puls_val);
+    uart_transmit_data_end();
+}
+
+void Clear_Waveform(){
+    uart_transmit_data_start("cle 1,0");
+    uart_transmit_data_end();
 }
 
 /*
@@ -312,28 +313,28 @@ void PULS_MINUS(){
              /* Display page2 'kurzzeit' ECG ***START***: 65 02 06 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 uart_puls_counter = 1;
-                 timer_start_stop = 1;
+                 page_two_start_stop = 1;
                  uart_receive_data_end();
              }
 
              /* Display page2 'kurzzeit' ECG ***STOP***: 65 02 07 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 uart_puls_counter = 2;
-                 timer_start_stop = 2;
+                 page_two_start_stop = 0;
                  uart_receive_data_end();
              }
 
              /* Display page3 'langzeit' ECG ***START***: 65 03 06 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 Test_Plus_Eins();
                  uart_receive_data_end();
              }
 
              /* Display page3 'langzeit' ECG ***STOP***: 65 03 07 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 Test_Minus_Eins();
                  uart_receive_data_end();
              }
 
