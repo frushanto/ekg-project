@@ -9,7 +9,8 @@
 #define SD_BLOCKSIZE_NBITS 9
 #define PERIPH_CLOCKRATE 8000000
 
-int MMC_Init(mmc_context_t *sdc);
+void MMC_Init(void);
+int MMC_Init_Card(mmc_context_t *sdc);
 int MMC_Read_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data);
 int MMC_Write_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data);
 

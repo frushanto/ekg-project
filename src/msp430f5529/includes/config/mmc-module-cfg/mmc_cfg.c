@@ -4,8 +4,80 @@
 
 static unsigned char argument[4];
 
+static unsigned char mmc_buffer[SD_BLOCKSIZE];
+static mmc_context_t sdc;
+uint8_t mmc_ok;
+uint8_t mmc_counter, mmc_wait;
+
+void Init_MMC(void) {
+	MMC_Init();
+}
+
+void MMC_Init(void) {
+	ok = 0;
+	mmc_buffer[0] = 0xAA;
+	mmc_buffer[1] = 0xFF;
+	mmc_buffer[2] = 0x00;
+
+	// Lat
+	mmc_buffer[3] = 4;
+	mmc_buffer[4] = 4;
+	mmc_buffer[5] = 2;
+	mmc_buffer[6] = 0;
+	mmc_buffer[7] = '.';
+	mmc_buffer[8] = 8;
+	mmc_buffer[9] = 8;
+	mmc_buffer[10] = 2;
+	mmc_buffer[11] = 3;
+	mmc_buffer[12] = 'N';
+
+	// Lat
+	mmc_buffer[13] = 0;
+	mmc_buffer[14] = 7;
+	mmc_buffer[15] = 1;
+	mmc_buffer[16] = 0;
+	mmc_buffer[17] = 6;
+	mmc_buffer[18] = '.';
+	mmc_buffer[19] = 3;
+	mmc_buffer[20] = 4;
+	mmc_buffer[21] = 3;
+	mmc_buffer[22] = 1;
+	mmc_buffer[23] = 'W';
+
+	// Configure trigger bits.
+	/*
+	P8OUT &= ~BIT2;
+	P8DIR |= BIT2;
+	*/
+
+	// Initialize MMC
+	sdc.busyflag = 0;							// Busy Flag
+	sdc.timeout_write = PERIPH_CLOCKRATE/8;		// Set Write Clock Rate
+	sdc.timeout_read = PERIPH_CLOCKRATE/20;		// Set Read Clock Rate
+	mmc_ok = MMC_Init_Card(&sdc);					// Initialize SD
+	//spi_set_divisor(4);							// Speed up clock
+
+	/* Read in the first block on the SD Card */
+	if (mmc_ok == 1) {
+		MMC_Read_Block(&sdc, 0x00, mmc_buffer);
+		mmc_buffer[0] = 0x05;
+		MMC_Read_Block(&sdc, 0x00, mmc_buffer);
+		for (mmc_counter = 0; mmc_counter < 50; mmc_counter++) {
+			MMC_Send_Byte(mmc_buffer[mmc_counter]);
+			for (mmc_wait = 0; mmc_wait < 200; mmc_wait++);
+			mmc_counter++;
+		}
+		MMC_Read_Block(&sdc, 0x01, mmc_buffer);
+		MMC_Read_Block(&sdc, 0x02, mmc_buffer);
+		MMC_Read_Block(&sdc, 0x03, mmc_buffer);
+		MMC_Read_Block(&sdc, 0x04, mmc_buffer);
+		MMC_Read_Block(&sdc, 0x04, mmc_buffer);
+	}
+
+}
+
 /* This function initializes the SD card -- forces it into SPI mode */
-int MMC_Init(mmc_context_t *sdc) {
+int MMC_Init_Card(mmc_context_t *sdc) {
 
 	char i;										// Looping Variables
 	unsigned char temp[1];						// Received Byte
