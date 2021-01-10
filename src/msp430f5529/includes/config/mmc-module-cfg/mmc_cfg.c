@@ -14,7 +14,7 @@ void Init_MMC(void) {
 }
 
 void MMC_Init(void) {
-	ok = 0;
+	mmc_ok = 0;
 	mmc_buffer[0] = 0xAA;
 	mmc_buffer[1] = 0xFF;
 	mmc_buffer[2] = 0x00;

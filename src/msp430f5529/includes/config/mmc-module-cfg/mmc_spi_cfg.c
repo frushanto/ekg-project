@@ -60,7 +60,7 @@ void MMC_Send_Byte(unsigned char input)
 	UCB0TXBUF = input;
 	/* Wait for the byte to be sent */
 	// TODO Test the line below
-	while ((UCB0IFG & UCRXIFG) == 0) { }
+	//while ((UCB0IFG & UCRXIFG) == 0) { }
 	for (i = 0; i < 50; i++);
 }
 /* Receive a byte. Output an 0xFF (the bus idles high) to receive the byte */
@@ -74,7 +74,7 @@ unsigned char MMC_Receive_Byte()
 	UCB0TXBUF = 0xFF;
 	/* Wait for the byte to be received */
 	// TODO Test the line below
-	while ((UCB0IFG & UCRXIFG) == 0) { }
+	//while ((UCB0IFG & UCRXIFG) == 0) { }
 	tmp = UCB0RXBUF;
 	for (i = 0; i < 50; i++);
 	return tmp;

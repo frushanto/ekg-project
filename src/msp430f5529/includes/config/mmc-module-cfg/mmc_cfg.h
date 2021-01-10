@@ -4,6 +4,9 @@
 #include <msp430f5529.h>
 #include "mmc_spi_cfg.h"
 #include "mmc_comm_spi_cfg.h"
+#include <std_types.h>
+#include <msp430.h>
+#include <driverlib.h>
 
 #define SD_BLOCKSIZE 512
 #define SD_BLOCKSIZE_NBITS 9
