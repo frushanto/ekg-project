@@ -125,7 +125,7 @@ void TIMER1_A0_ISR (void)
 //    GPIO_toggleOutputOnPin(GPIO_PORT_P4,
 //                                   GPIO_PIN7);
 
-    timer_start_stop = 1;
+    timer_1hz_flag = 1;
 
 
 //    Test_ADC();
@@ -162,6 +162,8 @@ void TIMER2_A0_ISR (void)
 
 //    timer_start_stop = 1;
 
+//    Test_ADC();                         /***********/
+
     /*** END will be executed every 10 milliseconds ***/
 
     // Add Offset to CCR0
@@ -192,6 +194,7 @@ void TIMER0_B0_ISR (void)
     GPIO_toggleOutputOnPin(GPIO_PORT_P4,
                                    GPIO_PIN7);
 //    timer_start_stop = 1;
+    timer_1sek_flag = 1;
 
 //    Test_ADC();
 //    UART_Timer_One_Sec();

@@ -134,8 +134,9 @@ __interrupt void ADC12_A_ISR(void) {
 //         }
 
          /* ADC ECG Signal as waveform */
-            adc_start_stop = 1;
-//            UART_ECG(adc_result);
+            adc_flag = 1;
+
+//            UART_ECG(adc_result);                           /***********/
 
          /* Test BPM */
 //          Test_UART_BPM(adc_result);
