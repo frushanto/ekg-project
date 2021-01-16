@@ -38,9 +38,6 @@ void main(void) {
                 UART_Timer_Page_Two_Sec();
                 UART_Timer_Page_Two_Min();
             }
-            if(page_two_start_stop == 0) {
-                UART_Timer_Reset();
-            }
 
             help_var = (adc_result / 8) - 100;
             /* TEST BPM */
@@ -53,6 +50,9 @@ void main(void) {
                 millisecs = 0;
             }
             new_bpm(test_puls);
+        }
+        if(page_two_start_stop == 0) {
+            UART_Timer_Reset();
         }
     }
 

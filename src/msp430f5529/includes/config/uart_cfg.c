@@ -241,41 +241,6 @@ void Test_UART_BPM(uint16_t adc_value){
     }
 }
 
-void  UART_Timer_One_Sec(){
-    uart_timer_one_sec ++;
-    if(uart_timer_one_sec == 10){
-        BPM = beats * 6;
-        uart_transmit_data_start("page2.puls.val=");
-        uart_transmit_data_value(BPM);
-        uart_transmit_data_end();
-
-//        uart_timer_one_sec = 0;
-//        beats = 0;
-    }
-}
-void  UART_Timer_Two_Sec(){
-    if(uart_timer_one_sec == 20){
-        BPM = beats * 3;
-        uart_transmit_data_start("page2.puls.val=");
-        uart_transmit_data_value(BPM);
-        uart_transmit_data_end();
-
-//        uart_timer_one_sec = 0;
-//        beats = 0;
-    }
-}
-void  UART_Timer_Three_Sec(){
-    if(uart_timer_one_sec == 30){
-        BPM = beats * 2;
-        uart_transmit_data_start("page2.puls.val=");
-        uart_transmit_data_value(BPM);
-        uart_transmit_data_end();
-
-        uart_timer_one_sec = 0;
-        beats = 0;
-    }
-}
-
 void Test_Plus_Eins(){
     puls_val = puls_val + 1;
     uart_transmit_data_start("puls.val=");

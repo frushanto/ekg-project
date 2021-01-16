@@ -197,9 +197,6 @@ void TIMER0_B0_ISR (void)
     timer_1sek_flag = 1;
 
 //    Test_ADC();
-//    UART_Timer_One_Sec();
-//    UART_Timer_Two_Sec();
-//    UART_Timer_Three_Sec();
 
     /*** END will be executed every 1 SEC ***/
     // Add Offset to CCR0
