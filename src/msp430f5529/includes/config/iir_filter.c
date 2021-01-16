@@ -9,7 +9,11 @@ Die obere Grenzfrequenz liegt bei 0,115*Nyquistfrequenz (57,5Hz)
 
 #include <iir_filter.h>
 
-#define iir_filter_coef 7   // für 7 filterkoeffizienten
+//#define iir_filter_coef 3 // für 3 filterkoeffizienten  Das Grenzfrequenzintervall ist [45 - 55]
+
+#define iir_filter_coef 5 // für 5 filterkoeffizienten  Das Grenzfrequenzintervall ist [45 - 55]
+
+//#define iir_filter_coef 7   // für 7 filterkoeffizienten
 
 //#define iir_filter_coef 9   // für 9 filterkoeffizienten
 
@@ -17,6 +21,79 @@ float w_pres[iir_filter_coef - 1] = {0}, w_past[iir_filter_coef - 1] = {0};
 float a_iir[iir_filter_coef], b_iir[iir_filter_coef];
 float output = 0;
 
+
+/*
+// 3 filterkoeffizienten
+
+void iir_filter_init()
+{
+    a_iir[0] = 1;
+    a_iir[1] = -1.74558586310929;
+    a_iir[2] = 0.827271945972476;
+
+    b_iir[0] = 0.913635972986238;
+    b_iir[1] = -1.74558586310929;
+    b_iir[2] = 0.913635972986238;
+}
+
+uint16_t iir_filter(uint16_t new_sample)
+{
+    output = b_iir[0] * (float)new_sample + w_past[0];
+
+    w_pres[1] = b_iir[2] * new_sample - a_iir[2] * output;
+    w_pres[0] = b_iir[1] * new_sample - a_iir[1] * output + w_past[1];
+
+
+    w_past[1] = w_pres[1];
+    w_past[0] = w_pres[0];
+
+    return (uint16_t)output;
+}
+*/
+
+
+
+
+
+// 5 filterkoeffizienten
+
+void iir_filter_init()
+{
+    a_iir[0] = 1;
+    a_iir[1] = -3.72160584531727;
+    a_iir[2] = 5.37542089639922;
+    a_iir[3] = -3.55980043140370;
+    a_iir[4] = 0.914975834801435;
+
+    b_iir[0] = 0.956543225556914;
+    b_iir[1] = -3.64070313836062;
+    b_iir[2] = 5.37731028008711;
+    b_iir[3] = -3.64070313836062;
+    b_iir[4] = 0.956543225556914;
+}
+
+uint16_t iir_filter(uint16_t new_sample)
+{
+
+    output = b_iir[0] * (float)new_sample + w_past[0];
+
+    w_pres[3] = b_iir[4] * new_sample - a_iir[4] * output;
+    w_pres[2] = b_iir[3] * new_sample - a_iir[3] * output + w_past[3];
+    w_pres[1] = b_iir[2] * new_sample - a_iir[2] * output + w_past[2];
+    w_pres[0] = b_iir[1] * new_sample - a_iir[1] * output + w_past[1];
+
+    w_past[3] = w_pres[3];
+    w_past[2] = w_pres[2];
+    w_past[1] = w_pres[1];
+    w_past[0] = w_pres[0];
+
+    return (uint16_t)output;
+}
+
+
+
+
+/*
 // 7 filterkoeffizienten
 
 void iir_filter_init()
@@ -85,8 +162,12 @@ uint16_t iir_filter(uint16_t new_sample)
     return (uint16_t)output;
 }
 
+*/
+
 
 /*
+// 9 Filterkoeffizienten
+
 void iir_filter_init()
 {
     a_iir[0] = 1;

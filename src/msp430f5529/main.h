@@ -19,4 +19,13 @@
 #include "includes/config/fir_filter.h"
 #include "includes/config/iir_filter.h"
 
+
+//uint16_t uart_timer_one_sec = 0;
+uint8_t adc_ready = 0;
+//uint8_t flag = 0;
+uint16_t adc_result;
+//uint8_t centisecond = 0;
+bool enable_functionality = false;
+
 #endif /* MAIN_H_ */
+

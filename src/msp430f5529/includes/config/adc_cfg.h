@@ -12,11 +12,15 @@
 #include <driverlib.h>
 #include <std_types.h>
 
-uint16_t adc_result;
+
 
 /* Function declarations */
 void Init_ADC(void);
-void Test_ADC(void);
+void Start_ADC(void);
+
+
+
+extern uint16_t adc_result;
 
 
 #endif /* INCLUDES_CONFIG_ADC_CFG_H_ */

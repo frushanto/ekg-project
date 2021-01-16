@@ -52,8 +52,10 @@ __interrupt void pushbutton_ISR(void) {
             // Toggle LED
             GPIO_toggleOutputOnPin(GPIO_PORT_P1,
                                    GPIO_PIN0);
-            GPIO_Buzzer_Single_Beep();
-            Test_UART();
+            enable_functionality = !enable_functionality;
+
+//            GPIO_Buzzer_Single_Beep();
+//            Test_UART();
             break;
         case 0x06: break;   // Pin 2
         case 0x08: break;   // Pin 3

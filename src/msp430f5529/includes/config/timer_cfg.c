@@ -1,11 +1,13 @@
 #include <includes/config/timer_cfg.h>
-#include "adc_cfg.h"
+//#include "adc_cfg.h"
+//#include "main.h"
+
 
 #define CLOCK_DIVIDER           64
 #define ONE_KHZ                 1000
 #define COMPARE_VALUE_ONE_SEC_ACLK      32768
 #define COMPARE_VALUE_ONE_SEC   20447232   //24576000
-#define COMPARE_VALUE_10_MS     COMPARE_VALUE_ONE_SEC / 100
+#define COMPARE_VALUE_10_MS     COMPARE_VALUE_ONE_SEC / 100  //
 #define COMPARE_VALUE_1KHZ      COMPARE_VALUE_ONE_SEC / (CLOCK_DIVIDER * ONE_KHZ)
 
 uint16_t compare_value_one_khz = 320; //187;
@@ -128,9 +130,9 @@ void TIMER1_A0_ISR (void)
 
     */
 
-
-    Test_ADC();
-    UART_Dreieck(adc_result);
+    adc_ready = 1;
+//    Test_ADC();
+//    UART_Dreieck(adc_result);
 
 
 
@@ -162,6 +164,9 @@ void TIMER2_A0_ISR (void)
 
     /*** BEGIN will be executed every 10 milliseconds ***/
 //    GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
+
+//    centisecond = 1;
+//    flag = 1;
     /*** END will be executed every 10 milliseconds ***/
 
     // Add Offset to CCR0
@@ -189,8 +194,15 @@ void TIMER0_B0_ISR (void)
             + COMPARE_VALUE_ONE_SEC_ACLK;
 
     /*** BEGIN will be executed every 1 SEC ***/
-//    GPIO_toggleOutputOnPin(GPIO_PORT_P4, GPIO_PIN7);
+
+
+    GPIO_toggleOutputOnPin(GPIO_PORT_P4, GPIO_PIN7);
+
+//    uart_timer_one_sec ++;
+
 //    UART_Timer_One_Sec();
+//    UART_Timer_Two_Sec();
+//    UART_Timer_Three_Sec();
 
 //    Test_ADC();
 //    UART_Dreieck(adc_result);

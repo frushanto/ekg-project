@@ -6,6 +6,8 @@
  */
 
 #include <adc_cfg.h>
+//#include "main.h"
+
 
 void Init_ADC() {
     //Enable A/D channel A0
@@ -77,7 +79,7 @@ void Init_ADC() {
             ADC12IE0);
 }
 
-void Test_ADC() {
+void Start_ADC() {
     //Enable/Start sampling and conversion
     /*
      * Base address of ADC12_A Module
@@ -99,6 +101,7 @@ void Test_ADC() {
     //for Debugger
     __no_operation();
 }
+
 
 //uint8_t oversampling_counter = 0;
 

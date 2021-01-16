@@ -12,7 +12,7 @@
 #include <driverlib.h>
 #include <std_types.h>
 
-#define iir_filter_coef 7
+//#define iir_filter_coef 7
 
 /*function declaration*/
 void iir_filter_init();

@@ -10,4 +10,10 @@ void Init_Timers(void);
 void Init_Timer_A(void);
 void Init_Timer_B(void);
 
+
+//extern uint8_t flag;
+//extern uint16_t uart_timer_one_sec;
+extern uint8_t adc_ready;
+//extern uint8_t centisecond;
+
 #endif /* INCLUDES_CONFIG_TIMER_CFG_H_ */

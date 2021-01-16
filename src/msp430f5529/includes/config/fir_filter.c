@@ -216,6 +216,79 @@ return (int)y;
 }*/
 
 
+#define filter_coef 41
+
+int32_t b[filter_coef];
+uint16_t circular_buffer[filter_coef];
+
+void fir_filter_init()
+{
+
+    b[0] = -41;
+    b[1] = -45;
+    b[2] = -50;
+    b[3] = -49;
+    b[4] = -35;
+    b[5] = 0;
+    b[6] = 62;
+    b[7] = 153;
+    b[8] = 263;
+    b[9] = 377;
+    b[10] = 473;
+    b[11] = 525;
+    b[12] = 511;
+    b[13] = 417;
+    b[14] = 242;
+    b[15] = 0;
+    b[16] = -281;
+    b[17] = -562;
+    b[18] = -803;
+    b[19] = -964;
+    b[20] = 15993;
+    b[21] = -964;
+    b[22] = -803;
+    b[23] = -562;
+    b[24] = -281;
+    b[25] = 0;
+    b[26] = 242;
+    b[27] = 417;
+    b[28] = 511;
+    b[29] = 525;
+    b[30] = 473;
+    b[31] = 377;
+    b[32] = 263;
+    b[33] = 153;
+    b[34] = 62;
+    b[35] = 0;
+    b[36] = -35;
+    b[37] = -49;
+    b[38] = -50;
+    b[39] = -45;
+    b[40] = -41;
+
+}
+
+
+uint16_t fir_filter(uint16_t new_sample)
+{
+    static uint8_t index = 0;
+    int32_t sum = 0;
+    uint8_t i;
+
+    circular_buffer[index] = new_sample;
+
+    index = (index + 1) % filter_coef;
+
+    for(i = 0; i < filter_coef; i++)
+    {
+        sum += b[i] * circular_buffer[(index + i) % filter_coef];
+    }
+
+    return (uint16_t)(sum);
+}
+
+/*
+
 #define filter_coef 101
 
 static float b[filter_coef];
@@ -343,3 +416,5 @@ uint16_t fir_filter(uint16_t new_sample)
 
     return (uint16_t)sum;
 }
+*/
+

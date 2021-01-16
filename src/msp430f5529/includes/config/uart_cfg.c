@@ -6,6 +6,8 @@
  */
 
 #include <includes/config/uart_cfg.h>
+//#include "main.h"
+
 
 #define UART_BASE_A0    0
 #define UART_BASE_A1    1
@@ -15,8 +17,7 @@
 
 #define RECEIVE_DATA_COUNT                      0x02
 
-#define UPPER_THRESHOLD 170  // for BPM
-#define LOWER_THRESHOLD 165  // for BPM
+#define THRESHOLD 2500  // for BPM
 
 // VAR
 uint16_t sec = 0;
@@ -38,7 +39,7 @@ volatile uint8_t i = 0;
 volatile uint8_t fm_counter = 0;
 
 /* Timer Vars */
-uint16_t uart_timer_one_sec = 0;
+
 
 /* Transmit array with Nextion command */
 void uart_transmit_data_start(uint8_t nextion_command[]){
@@ -167,7 +168,7 @@ void Test_UART(uint16_t adc_value) {
     uart_transmit_data_end();
 //    _delay_cycles(10);
 }
-
+/*
 void UART_Upper_T(){
     uint8_t upper_t = UPPER_THRESHOLD;
     uart_transmit_data_start("add 5,1,");
@@ -182,7 +183,7 @@ void  UART_Lower_T(){
     uart_transmit_data_value(lower_t);
     uart_transmit_data_end();
     _delay_cycles(10);
-}
+}*/
 
 void  UART_Timer_Page_Two_Sec(){
     uart_transmit_data_start("page2.seconds.val=");
@@ -193,15 +194,33 @@ void  UART_Timer_Page_Two_Sec(){
         sec = 0;
 }
 
+void UART_serialplot(uint16_t trx_value, uint16_t puls)
+{
+    uint8_t i, length;
+    uint16_t save_trx_value = trx_value;
+
+    sprintf(uart_transmit_set_val,"%d,%d\r\n", save_trx_value, puls); // Länge des Strings überprüfen
+    length = strlen((char const*)uart_transmit_set_val);
+
+    for(i = 0; i < length; i++){
+        USCI_A_UART_transmitData(USCI_A1_BASE, uart_transmit_set_val[i]);
+
+        /* Wait transmission is completed */
+
+        while(USCI_A_UART_queryStatusFlags(USCI_A1_BASE, USCI_A_UART_BUSY) == USCI_A_UART_BUSY);
+    }
+}
+
 
 void UART_Dreieck(uint16_t receive_value){
     int i;
     uint16_t value_after_iir_filter;
 
-    uint16_t value = (receive_value / 8);
-    value_after_iir_filter = iir_filter(value);
+//    uint16_t value = (receive_value / 8);
+//    value_after_iir_filter = iir_filter(receive_value);
 
-    sprintf(uart_transmit_set_val,"%d\r\n", value);//_after_iir_filter);
+//    sprintf(uart_transmit_set_val,"%d\r\n", value_after_iir_filter);
+    sprintf(uart_transmit_set_val,"%d\r\n", receive_value);
     uint8_t length = strlen((char const*)uart_transmit_set_val);
 
     for(i = 0; i < length; i++){
@@ -219,6 +238,81 @@ void UART_Dreieck(uint16_t receive_value){
 //    uart_transmit_data_end();
 }
 
+// Code vom 08.01
+
+void Test_UART_BPM(uint16_t adc_value){
+//    Dataout_pulse = (adc_value / 8) - 100;
+    if ((adc_value > THRESHOLD) && (flag == 1)){
+        beats ++;
+        flag = 0;
+    }
+//    __delay_cycles(50000);
+}
+
+void  UART_Timer_One_Sec(){
+    if(uart_timer_one_sec == 10){
+        BPM = beats * 6;
+
+        sprintf(uart_transmit_set_val,"%d\r\n",BPM);
+        uint8_t length = strlen((char const*)uart_transmit_set_val);
+
+        for(i = 0; i < length; i++){
+            USCI_A_UART_transmitData(USCI_A1_BASE, uart_transmit_set_val[i]);
+
+                    /* Wait transmission is completed */
+
+            while(USCI_A_UART_queryStatusFlags(
+                  USCI_A1_BASE, USCI_A_UART_BUSY)== USCI_A_UART_BUSY);
+        }
+
+        uart_timer_one_sec = 0;
+        beats = 0;
+    }
+}
+
+void  UART_Timer_Two_Sec(){
+    if(uart_timer_one_sec == 20){
+        BPM = beats * 3;
+
+        sprintf(uart_transmit_set_val,"%d\r\n",BPM);
+        uint8_t length = strlen((char const*)uart_transmit_set_val);
+
+        for(i = 0; i < length; i++){
+            USCI_A_UART_transmitData(USCI_A1_BASE, uart_transmit_set_val[i]);
+
+                    /* Wait transmission is completed */
+
+            while(USCI_A_UART_queryStatusFlags(
+                  USCI_A1_BASE, USCI_A_UART_BUSY)== USCI_A_UART_BUSY);
+        }
+//        uart_timer_one_sec = 0;
+//        beats = 0;
+    }
+}
+
+void  UART_Timer_Three_Sec(){
+    if(uart_timer_one_sec == 30){
+        BPM = beats * 2;
+
+        sprintf(uart_transmit_set_val,"%d\r\n",BPM);
+        uint8_t length = strlen((char const*)uart_transmit_set_val);
+
+        for(i = 0; i < length; i++){
+            USCI_A_UART_transmitData(USCI_A1_BASE, uart_transmit_set_val[i]);
+
+                    /* Wait transmission is completed */
+
+            while(USCI_A_UART_queryStatusFlags(
+                  USCI_A1_BASE, USCI_A_UART_BUSY)== USCI_A_UART_BUSY);
+        }
+
+        uart_timer_one_sec = 0;
+        beats = 0;
+    }
+}
+// Code vom 08.01
+
+/*
 void Test_UART_BPM(uint16_t adc_value){
     Dataout_pulse = (adc_value / 8) - 100;
     if(counter > 2){
@@ -235,7 +329,9 @@ void Test_UART_BPM(uint16_t adc_value){
         __delay_cycles(115200);
     }
 }
+*/
 
+/*
 void  UART_Timer_One_Sec(){
     uart_timer_one_sec ++;
     int i;
@@ -250,7 +346,7 @@ void  UART_Timer_One_Sec(){
         for(i = 0; i < length; i++){
             USCI_A_UART_transmitData(USCI_A1_BASE, uart_transmit_set_val[i]);
 
-            /* Wait transmission is completed */
+            // Wait transmission is completed
 
             while(USCI_A_UART_queryStatusFlags(
                     USCI_A1_BASE, USCI_A_UART_BUSY)
@@ -269,6 +365,7 @@ void  UART_Timer_One_Sec(){
 //    uart_transmit_data_value(uart_timer_one_sec++);
 //    uart_transmit_data_end();
 }
+*/
 
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module

@@ -4,6 +4,20 @@
 void Init_Watchdog(void);
 void EnableGlobalInterrupt(void);
 
+
+#define R_THRESHOLD 2200
+
+uint8_t bpm = 60;
+uint16_t millisecs = 0;
+uint16_t adc_value = 0;
+//uint16_t maximum = 0;
+//uint16_t period = 0;
+uint16_t threshold = 2200;
+uint16_t max = 0;
+uint16_t min = 4095;
+uint16_t watchdog_var = 0;
+
+
 /* Function definitions */
 void main(void) {
     /* Init MSP430 BEGIN */
@@ -17,11 +31,64 @@ void main(void) {
     /* Init MSP430 END */
 
     /* IIR Test */
-    iir_filter_init();
+//    iir_filter_init();
     /* FIR Test */
-    fir_filter_init();
+//    fir_filter_init();
+
+
 
     while(1) {
+
+        if(adc_ready && enable_functionality)
+        {
+            adc_ready = 0;
+            watchdog_var++;
+            Start_ADC();
+            adc_value = adc_result;
+            UART_serialplot(adc_value, 0);  // nach UART_serialplot ist die Variable adc_result nicht mehr gültig. Warum auch immer
+                                               // außerdem stürzt die MCU ab wenn bpm den Wert 100 erreicht ?!?!?!?!
+                                               // beim Wert 99 ist die MCU nach etwa 5 min auch hängen geblieben
+
+
+            if(adc_value <= threshold)
+            {
+                millisecs++;
+            }
+
+            else if((adc_value > threshold) && millisecs)
+            {
+                bpm = (uint16_t) (60000 / millisecs);
+                if((bpm < 121) && (bpm > 39))
+                {
+                    UART_serialplot(adc_value, bpm);
+                }
+                threshold = max - 0.2 * (max - min);
+
+                watchdog_var = 0;
+                millisecs = 0;
+                max = 0;
+                min = 4095;
+            }
+
+            if(adc_value < min)
+            {
+                min = adc_value;
+            }
+
+            if(adc_value > max)
+            {
+                max = adc_value;
+            }
+
+            if(watchdog_var > 2000)
+            {
+                watchdog_var = 1000;
+                threshold = max - 0.2 * (max - min);
+                max = 0;
+                min = 4095;
+            }
+
+        }
 
     }
 }
