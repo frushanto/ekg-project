@@ -9,15 +9,9 @@
 
 uint16_t compare_value_one_khz = 187*10;
 
-void Init_Timers() {
-    Init_Timer_A();
-    Init_Timer_B();
-}
-
-void Init_Timer_A() {
-
 uint16_t const compare_value_1khz_smclk = 187;
 uint16_t const compare_value_100hz_smclk = 1874;
+
 
 void Init_Timers() {
     Init_Timer_A();

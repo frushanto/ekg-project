@@ -14,7 +14,8 @@ void main(void) {
     Init_UART();
     Init_ADC();
     Init_SPI();
-    Init_MMC();
+    /* !!! For test purposes leave Init_MMC() line commented out!!! */
+    //Init_MMC();
     EnableGlobalInterrupt();
     /* Init MSP430 END */
 
