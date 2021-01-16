@@ -20,4 +20,16 @@
 #include "includes/config/iir_filter.h"
 #include "includes/config/spi_cfg.h"
 
+
+/***** GLOBALE VARS *****/
+
+uint8_t page_two_start_stop = 0;
+uint8_t adc_flag = 0;
+uint8_t timer_1hz_flag = 0;
+uint8_t timer_1sek_flag = 0;
+uint16_t sec = 0;
+uint16_t min = 0;
+
+uint16_t adc_result = 0;
+
 #endif /* MAIN_H_ */
