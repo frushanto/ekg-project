@@ -10,21 +10,16 @@ void main(void) {
     Init_Watchdog();
     Init_GPIO();
     Init_CLK();
-    Init_Timer();
+    Init_Timers();
     Init_UART();
     Init_ADC();
     Init_SPI();
+    Init_MMC();
     EnableGlobalInterrupt();
     /* Init MSP430 END */
 
-    /* IIR Test */
-    //iir_filter_init();
-
 	while(1) {
-//	    Test_UART();
-//	    Test_ADC();
-//	    UART_Upper_T();
-//	    UART_Lower_T();
+
 	}
 }
 

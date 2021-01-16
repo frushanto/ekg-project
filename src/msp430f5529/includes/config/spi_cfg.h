@@ -14,5 +14,6 @@
 
 /* Function declarations */
 void Init_SPI(void);
+void SPI_Send_Data(uint8_t spiSendData);
 
 #endif /* INCLUDES_CONFIG_SPI_CFG_H_ */

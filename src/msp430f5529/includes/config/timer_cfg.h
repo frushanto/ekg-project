@@ -6,6 +6,8 @@
 #include <includes/driverlib/std_types.h>
 
 /* Function declarations */
-void Init_Timer(void);
+void Init_Timers(void);
+void Init_Timer_A(void);
+void Init_Timer_B(void);
 
 #endif /* INCLUDES_CONFIG_TIMER_CFG_H_ */
