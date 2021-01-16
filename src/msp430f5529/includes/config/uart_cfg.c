@@ -25,10 +25,6 @@ uint16_t puls_val = 80;
 //uint16_t sec = 0;         // Global now
 //uint16_t min = 0;         // Global now
 
-/* BPM Vars */
-uint16_t beats = 0;
-uint16_t BPM = 0;
-
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
 
@@ -194,25 +190,29 @@ void UART_THRESHOLD(){
     uart_transmit_data_end();
 }
 
-void  UART_Timer_Page_Two_Sec(){
-    uart_transmit_data_start("page2.seconds.val=");
-    uart_transmit_data_value(sec);
-    uart_transmit_data_end();
-    sec++;
-}
-
-void UART_Timer_Page_Two_Min(){
-    if(sec == 59){
-        sec = 0;
-        min++;
-        uart_transmit_data_start("page2.minutes.val=");
-        uart_transmit_data_value(min);
-        uart_transmit_data_end();
-    }
-    if(min == 59){
-        min = 0;
-    }
-}
+//void UART_Timer_Page_Two()
+//{
+//    uart_transmit_data_start("page2.seconds.val=");
+//    uart_transmit_data_value(sec);
+//    uart_transmit_data_end();
+//    sec++;
+//}
+//
+//void UART_Timer_Page_Two_M()
+//{
+//    if (sec == 10)
+//        {
+//            min++;
+//            uart_transmit_data_start("page2.minutes.val=");
+//            uart_transmit_data_value(min);
+//            uart_transmit_data_end();
+//            sec = 0;
+//        }
+//        if (min == 59)
+//        {
+//            min = 0;
+//        }
+//}
 
 void UART_Timer_Reset(){
     sec = 0;
@@ -234,13 +234,6 @@ void UART_ECG(uint16_t adc_value){
     uart_transmit_data_end();
 }
 
-void Test_UART_BPM(uint16_t adc_value){
-    adc_value = (adc_value / 8) - 100;
-    if (adc_value > THRESHOLD){
-        beats ++;
-    }
-}
-
 void Test_Plus_Eins(){
     puls_val = puls_val + 1;
     uart_transmit_data_start("puls.val=");
@@ -257,12 +250,6 @@ void Test_Minus_Eins(){
 
 void Clear_Waveform(){
     uart_transmit_data_start("cle 1,0");
-    uart_transmit_data_end();
-}
-
-void new_bpm(uint16_t value){
-    uart_transmit_data_start("page2.puls.val=");
-    uart_transmit_data_value(value);
     uart_transmit_data_end();
 }
 
