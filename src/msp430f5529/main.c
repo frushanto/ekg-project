@@ -13,7 +13,7 @@ void main(void) {
     Init_Timers();
     Init_UART();
     Init_ADC();
-    Init_SPI();
+//    Init_SPI();
     /* !!! For test purposes leave Init_MMC() line commented out!!! */
     //Init_MMC();
     EnableGlobalInterrupt();
@@ -54,9 +54,9 @@ void main(void) {
             }
             new_bpm(test_puls);
         }
-        if(page_two_start_stop == 0) {
-            UART_Timer_Reset();
-        }
+//        if(page_two_start_stop == 0) {
+//            UART_Timer_Reset();
+//        }
     }
 
 
