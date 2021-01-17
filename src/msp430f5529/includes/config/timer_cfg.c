@@ -127,13 +127,10 @@ void TIMER1_A0_ISR (void)
 
     /*** BEGIN will be executed every 1 KHz ***/
 
-//    GPIO_toggleOutputOnPin(GPIO_PORT_P4,
-//                                   GPIO_PIN7);
+//    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
+//                                   GPIO_PIN0);
 
-    timer_1hz_flag = 1;
-
-
-//    Test_ADC();
+    g_timer_1hz_flag = 1;
 
     /*** END will be executed every 1 KHz ***/
 
@@ -162,12 +159,9 @@ void TIMER2_A0_ISR (void)
             + COMPARE_VALUE_10_MS;
 
     /*** BEGIN will be executed every 10 milliseconds ***/
-    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
-                                   GPIO_PIN0);
 
-//    timer_start_stop = 1;
-
-//    Test_ADC();                         /***********/
+//    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
+//                                   GPIO_PIN0);
 
     /*** END will be executed every 10 milliseconds ***/
 
@@ -198,10 +192,8 @@ void TIMER0_B0_ISR (void)
     /*** BEGIN will be executed every 1 SEC ***/
     GPIO_toggleOutputOnPin(GPIO_PORT_P4,
                                    GPIO_PIN7);
-//    timer_start_stop = 1;
-    timer_1sek_flag = 1;
 
-//    Test_ADC();
+    g_timer_1sek_flag = 1;
 
     /*** END will be executed every 1 SEC ***/
     // Add Offset to CCR0

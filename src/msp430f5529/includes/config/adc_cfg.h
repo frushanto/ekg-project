@@ -17,11 +17,6 @@ void Init_ADC(void);
 void Test_ADC(void);
 
 /***** GLOBALE VARS *****/
-
-extern uint8_t page_two_start_stop;
-extern uint8_t adc_flag;
-extern uint8_t timer_1hz_flag;
-
-extern uint16_t adc_result;
+extern uint16_t g_adc_result;
 
 #endif /* INCLUDES_CONFIG_ADC_CFG_H_ */

@@ -19,18 +19,17 @@
 #include "includes/config/fir_filter.h"
 #include "includes/config/iir_filter.h"
 #include "includes/config/spi_cfg.h"
-//#include "bpm_function.h"
+
+
+/* cant include funcions.h ?! */
+#include "includes/functions/uart_functions.h"
+#include "includes/functions/bpm_function.h"
 
 
 /***** GLOBALE VARS *****/
-
-uint8_t page_two_start_stop = 0;
-uint8_t adc_flag = 0;
-uint8_t timer_1hz_flag = 0;
-uint8_t timer_1sek_flag = 0;
-uint16_t sec = 0;
-uint16_t min = 0;
-
-uint16_t adc_result = 0;
+uint8_t g_page_two_start_stop = 0;
+uint8_t g_timer_1hz_flag = 0;
+uint8_t g_timer_1sek_flag = 0;
+uint16_t g_adc_result = 0;
 
 #endif /* MAIN_H_ */
