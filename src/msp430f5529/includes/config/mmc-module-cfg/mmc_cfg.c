@@ -214,15 +214,6 @@ int MMC_Init_Card(mmc_context_t *sdc) {
 		MMC_CS_Assert();						// CS -> Low
 		MMC_Send_Byte(0xFF);					// Dummy Byte
 		for (i = 0; i < 10; i++);
-		// MMC_Send_Command(sdc, ACMD41, argument);	// Send ACMD41
-		/*
-		 * SPI(0x69);    // CMD41
-		 * SPI(0x40);    // HCS=1
-		 * SPI(0x00);
-		 * SPI(0x00);
-		 * SPI(0x00);
-		 * SPI(0xFF);
-		*/
 		MMC_Send_Byte(0x69);					// CMD41
 		for (i = 0; i < 10; i++);
 		MMC_Send_Byte(0x40);					// HCS=1
@@ -391,16 +382,16 @@ int MMC_Write_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data) {
 	} while (temp[0] != 0xFE);
 	*/
 
-	for (i=0; i< SD_BLOCKSIZE; i++) {
+	for (i = 0; i < SD_BLOCKSIZE; i++) {
 		MMC_Send_Byte(data[i]);
 	}
 
 	do {
-		temp[0] = MMC_Receive_Byte();				// Receive and store
+	temp[0] = MMC_Receive_Byte();				// Receive and store
 	} while (temp[0] == 0xFF);					// Try until I get 0x00
 
 	do {
-		temp[0] = MMC_Receive_Byte();				// Receive and store
+		temp[0] = MMC_Receive_Byte();			// Receive and store
 	} while (temp[0] != 0xFF);					// Try until I get 0x00
 
 	MMC_Send_Byte(0xFF);						// Dummy Byte
