@@ -136,4 +136,7 @@ typedef struct
 /* Get the SD configuration register */
 #define ACMD51 42
 #define ACMD51_R R1
+
+/* User's defines */
+#define CMD8 8
 #endif

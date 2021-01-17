@@ -8,6 +8,8 @@ static unsigned char mmc_buffer[SD_BLOCKSIZE];
 static mmc_context_t sdc;
 uint8_t mmc_ok;
 uint8_t mmc_counter, mmc_wait;
+uint16_t tmp_cnt = 0;
+char mmc_write_buffer[SD_BLOCKSIZE];
 
 void Init_MMC(void) {
 	MMC_Init();
@@ -72,8 +74,17 @@ void MMC_Init(void) {
 		MMC_Read_Block(&sdc, 0x03, mmc_buffer);
 		MMC_Read_Block(&sdc, 0x04, mmc_buffer);
 		MMC_Read_Block(&sdc, 0x04, mmc_buffer);
+		
+		/* !!! IMPORTANT !!! 
+		 * Check available block addresses. Writing in 0x10 makes
+		 * SD Card not readable and it must be erased.
+		 */
+		// for (tmp_cnt = 0; tmp_cnt < SD_BLOCKSIZE; tmp_cnt++) {
+		// 	mmc_write_buffer[tmp_cnt] = 5; // char to hex
+		// }
+		// MMC_Write_Block(&sdc, 0x10, mmc_write_buffer);
+		// MMC_Read_Block(&sdc, 0x10, mmc_buffer);
 	}
-
 }
 
 /* This function initializes the SD card -- forces it into SPI mode */
@@ -94,7 +105,29 @@ int MMC_Init_Card(mmc_context_t *sdc) {
 
 	MMC_CS_Assert();							// CS -> Low
 
-	/* CMD 0 sequence -- This forces the MMC card into SPI mode.
+	/* 
+	 * To initialize the card in SPI mode:
+	 * 
+	 * 1. CMD0 arg: 0x0, CRC: 0x95 (response: 0x01) - note that in case of 
+	 * 0xFF or garbled response you should simply repeat this step.
+	 * 
+	 * 2. CMD8 arg: 0x000001AA, CRC: 0x87 (response: 0x01, followed by echo 
+	 * of arg, in this case 0x000001AA) - while it may seem that this 
+	 * command is optional, it's completely mandatory for newer cards. While 
+	 * 0x1AA is a common arg value here, you may actually pass other values 
+	 * as well.
+	 * 
+	 * 3a. CMD55 arg: 0x0, CRC: any, 0x65 actually (response: 0x01; CMD55 
+	 * being the prefix to every ACMD; if the response is 0x05, you've got an 
+	 * old card - repeat CMD1 with arg 0x0 [CRC 0xF9] instead of CMD55/ACMD41).
+	 * 
+	 * 3b. ACMD41, arg: 0x40000000, CRC: any, 0x77 actually (note that this 
+	 * argument assumes the card is a HCS one, which is usually the case; use 
+	 * 0x0 arg [CRC 0xE5] for older cards). If response is 0x0, you're OK; if 
+	 * it's 0x01, goto 3a; if it's 0x05, see note on it above (in 3a.).
+	 */
+
+	/* CMD 0 sequence -- This forces the SD card into SPI mode.
 	 * Needs to be sent very slow */
 	MMC_Send_Byte(0xFF);					// Dummy Byte
 	MMC_Send_Byte(0x40);					// Send CMD0
@@ -113,6 +146,7 @@ int MMC_Init_Card(mmc_context_t *sdc) {
 	do {
 		temp[0] = MMC_Receive_Byte();		// Receive and store
 	} while (temp[0] != 0x01);				// Repeat until Idle Byte, 0x01, is received
+	temp[0] = 0xFF;							// Reset temp[0]
 
 	MMC_Send_Byte(0xFF);					// Dummy Byte
 	MMC_CS_Deassert();						// CS -> High
@@ -122,7 +156,58 @@ int MMC_Init_Card(mmc_context_t *sdc) {
 	// Declare empty argument
 	for (i = 0; i < 4; i++) {
 		argument[i] = 0;
-	}						
+	}
+
+	/* CMD8 sequence */
+	/* CMD8 arg: 0x000001AA, CRC: 0x87 (response: 0x01, 
+	 * followed by echo of arg, in this case 0x000001AA)
+	 * */
+	// MMC_CS_Assert();						// CS -> Low
+	// MMC_Send_Byte(0xFF);					// Dummy Byte
+	// for (i = 0; i < 10; i++);
+	// MMC_Send_Byte(0x00);					// Send CMD8
+	// for (i = 0; i < 10; i++);
+	// MMC_Send_Byte(0x00);					// Send CMD8
+	// for (i = 0; i < 10; i++);
+	// MMC_Send_Byte(0x01);					// Send CMD8
+	// for (i = 0; i < 10; i++);
+	// MMC_Send_Byte(0xAA);					// Send CMD8
+	// for (i = 0; i < 10; i++);
+	// // MMC_Send_Byte(0x87);					// Send CRC
+	// do {
+	// 	temp[0] = MMC_Receive_Byte();		// Receive and store
+	// } while (temp[0] != 0x01);
+
+	do {
+		/* CMD8 sequence */
+		MMC_CS_Assert();						// CS -> Low
+		// MMC_Send_Command(sdc, CMD8, argument);	// Send CMD8
+		// MMC_Send_Byte(0x87);					// Send CRC
+
+		MMC_Send_Byte(0xFF);					// Dummy Byte
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0x48);					// Dummy Byte
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0x00);					// Send CMD8
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0x00);					// Send CMD8
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0x01);					// Send CMD8
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0xAA);					// Send CMD8
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0x87);					// Send CRC
+		do {
+			temp[0] = MMC_Receive_Byte();		// Receive and store
+		} while (temp[0] != 0xAA);				// Try until I get something not 0xFF, want 0x01 or 0xAA
+		MMC_Send_Byte(0xFF);					// Dummy Byte
+		MMC_CS_Deassert();						// CS -> High
+		MMC_Delay(10);							// Small Delay
+	} while (temp[0] != 0xAA);
+
+	// MMC_Send_Byte(0xFF);						// Dummy Byte
+	// MMC_CS_Deassert();						// CS -> High
+	// MMC_Delay(80);							// Delay
 
 	do {
 		/* CMD55 sequence */
@@ -139,14 +224,26 @@ int MMC_Init_Card(mmc_context_t *sdc) {
 
 		/* CMD41 sequence */
 		MMC_CS_Assert();						// CS -> Low
-		MMC_Send_Command(sdc, ACMD41, argument);	// Send ACMD41
+		MMC_Send_Byte(0xFF);					// Dummy Byte
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0x69);					// CMD41
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0x40);					// HCS=1
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0x00);
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0x00);
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0x00);
+		for (i = 0; i < 10; i++);
+		MMC_Send_Byte(0xFF);					// Dummy Byte
+		for (i = 0; i < 10; i++);
 		do {
 			temp[0] = MMC_Receive_Byte();		// Receive and store
 		} while (temp[0] == 0xFF);				// Try until I get something not 0xFF, want 0x00
+		MMC_CS_Deassert();						// CS -> High
+		MMC_Delay(10);							// Small Delay
 	} while (temp[0] != 0x00);
-
-	MMC_Send_Byte(0xFF);						// Dummy Byte
-	MMC_CS_Deassert();							// CS -> High
 
 	MMC_Delay(80);								// Delay
 	for (i = 0; i < 10; i++);
@@ -223,7 +320,7 @@ int MMC_Read_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data) {
 
 	/* Need to add size checking -- CMD 17 */
 	MMC_CS_Assert();							// CS -> Low
-	MMC_Send_Command(sdc, CMD17, argument);		// Send CMD16
+	MMC_Send_Command(sdc, CMD17, argument);		// Send CMD17
 	do {
 		temp[0] = MMC_Receive_Byte();				// Receive and store
 	} while (temp[0] != 0x00);					// Try until I get 0x00
@@ -297,7 +394,7 @@ int MMC_Write_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data) {
 	} while (temp[0] != 0xFE);
 	*/
 
-	for (i=0; i< SD_BLOCKSIZE; i++) {
+	for (i = 0; i < SD_BLOCKSIZE; i++) {
 		MMC_Send_Byte(data[i]);
 	}
 
@@ -306,7 +403,7 @@ int MMC_Write_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data) {
 	} while (temp[0] == 0xFF);					// Try until I get 0x00
 
 	do {
-		temp[0] = MMC_Receive_Byte();				// Receive and store
+		temp[0] = MMC_Receive_Byte();			// Receive and store
 	} while (temp[0] != 0xFF);					// Try until I get 0x00
 
 	MMC_Send_Byte(0xFF);						// Dummy Byte
