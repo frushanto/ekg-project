@@ -8,6 +8,8 @@ static unsigned char mmc_buffer[SD_BLOCKSIZE];
 static mmc_context_t sdc;
 uint8_t mmc_ok;
 uint8_t mmc_counter, mmc_wait;
+uint16_t tmp_cnt = 0;
+char mmc_write_buffer[SD_BLOCKSIZE];
 
 void Init_MMC(void) {
 	MMC_Init();
@@ -72,6 +74,12 @@ void MMC_Init(void) {
 		MMC_Read_Block(&sdc, 0x03, mmc_buffer);
 		MMC_Read_Block(&sdc, 0x04, mmc_buffer);
 		MMC_Read_Block(&sdc, 0x04, mmc_buffer);
+		
+		for (tmp_cnt = 0; tmp_cnt < SD_BLOCKSIZE; tmp_cnt++) {
+			mmc_write_buffer[tmp_cnt] = 5; // char to hex
+		}
+		MMC_Write_Block(&sdc, 0x10, mmc_write_buffer);
+		MMC_Read_Block(&sdc, 0x10, mmc_buffer);
 	}
 }
 
@@ -308,7 +316,7 @@ int MMC_Read_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data) {
 
 	/* Need to add size checking -- CMD 17 */
 	MMC_CS_Assert();							// CS -> Low
-	MMC_Send_Command(sdc, CMD17, argument);		// Send CMD16
+	MMC_Send_Command(sdc, CMD17, argument);		// Send CMD17
 	do {
 		temp[0] = MMC_Receive_Byte();				// Receive and store
 	} while (temp[0] != 0x00);					// Try until I get 0x00
@@ -387,7 +395,7 @@ int MMC_Write_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data) {
 	}
 
 	do {
-	temp[0] = MMC_Receive_Byte();				// Receive and store
+		temp[0] = MMC_Receive_Byte();				// Receive and store
 	} while (temp[0] == 0xFF);					// Try until I get 0x00
 
 	do {
