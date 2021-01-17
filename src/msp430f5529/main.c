@@ -21,15 +21,43 @@ void main(void) {
 
     while (1)
     {
-        if (g_timer_1hz_flag == 1 && g_page_two_start_stop == 1)
+        if (g_timer_1hz_flag == 1 && g_kz_start_stop == 1) // Kurzzeit EKG
         {
             g_timer_1hz_flag = 0;
             Test_ADC();
             Uart_EKG_Kurve_KZ(g_adc_result);
             calculate_bpm_KZ();
-            if (g_page_two_start_stop == 0)
+
+            if (g_lz_start_stop == 1)
+            {
+                g_lz_start_stop = 0;
+                Uart_Page_One();
+            }
+
+            if (g_kz_start_stop == 0)
             {
                 Clear_Waveform_KZ();   // Clear läuft auch am Display bei "Stop"
+            }
+            /* Timer Display */
+            /// TODO
+        }
+
+        if (g_timer_1hz_flag == 1 && g_lz_start_stop == 1) // Langzeit EKG
+        {
+            g_timer_1hz_flag = 0;
+            Test_ADC();
+            Uart_EKG_Kurve_LZ(g_adc_result);
+            calculate_bpm_LZ();
+
+            if (g_kz_start_stop == 1)
+            {
+                g_kz_start_stop = 0;
+                Uart_Page_One();
+            }
+
+            if (g_lz_start_stop == 0)
+            {
+                Clear_Waveform_LZ();   // Clear läuft auch am Display bei "Stop"
             }
             /* Timer Display */
             /// TODO

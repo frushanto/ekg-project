@@ -45,3 +45,8 @@ void Clear_Waveform_LZ(){
     uart_transmit_data_start("cle 13,0");
     uart_transmit_data_end();
 }
+
+void Uart_Page_One(){
+    uart_transmit_data_start("page 1");
+    uart_transmit_data_end();
+}

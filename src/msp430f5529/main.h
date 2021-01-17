@@ -27,7 +27,8 @@
 
 
 /***** GLOBALE VARS *****/
-uint8_t g_page_two_start_stop = 0;
+uint8_t g_kz_start_stop = 0;
+uint8_t g_lz_start_stop = 0;
 uint8_t g_timer_1hz_flag = 0;
 uint8_t g_timer_1sek_flag = 0;
 uint16_t g_adc_result = 0;

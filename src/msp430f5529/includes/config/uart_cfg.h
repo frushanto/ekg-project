@@ -23,6 +23,7 @@ void uart_transmit_data_end();
 void uart_receive_data_end();
 
 /***** GLOBALE VARS *****/
-extern uint8_t g_page_two_start_stop;
+extern uint8_t g_kz_start_stop;
+extern uint8_t g_lz_start_stop;
 
 #endif /* INCLUDES_CONFIG_UART_CFG_H_ */

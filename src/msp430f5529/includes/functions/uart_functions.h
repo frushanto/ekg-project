@@ -20,5 +20,6 @@ void Test_Plus_Eins();
 void Test_Minus_Eins();
 void Clear_Waveform_KZ();
 void Clear_Waveform_LZ();
+void Uart_Page_One();
 
 #endif /* INCLUDES_FUNCTIONS_UART_FUNCTIONS_H_ */
