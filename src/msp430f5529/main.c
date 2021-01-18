@@ -15,9 +15,6 @@ typedef enum {
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 
-/* Global variables */
-
-
 /* Function declarations */
 void Init_Watchdog(void);
 void EnableGlobalInterrupt(void);
@@ -40,14 +37,12 @@ void main(void) {
             /* Init MSP430 END */
 
             g_sys_state = SET_VARS;        // Change state
-            break;
 
         case SET_VARS:;
             uint16_t g_help_var = 0;
             uint16_t g_millisecs = 0;
             uint16_t g_test_puls = 0;
             g_sys_state = ECG_SHORT;       // Change state
-        break;
 
         case ECG_SHORT:
             while(1) {
@@ -86,27 +81,23 @@ void main(void) {
                 // }
             }
             g_sys_state = IDLE_STATE;      // Change state
-        break;
 
         case IDLE_STATE:
 
             while(1) {
                 // Endless loop
             }
-        break;
 
         case SYS_BAD_KEY:
             // Something went wrong
             while(1) {
                 // Endless loop
             }
-        break;
 
         default:
             while(1) {
                 // Endless loop
             }
-        break;
     }
 }
 
