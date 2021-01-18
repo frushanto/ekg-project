@@ -21,7 +21,7 @@
 #include "includes/config/spi_cfg.h"
 
 
-/* cant include funcions.h ?! */
+/* can't include funcions.h ?! */
 #include "includes/functions/uart_functions.h"
 #include "includes/functions/bpm_function.h"
 
@@ -29,7 +29,7 @@
 /***** GLOBALE VARS *****/
 uint8_t g_kz_start_stop = 0;
 uint8_t g_lz_start_stop = 0;
-uint8_t g_timer_1hz_flag = 0;
+uint8_t g_timer_1khz_flag = 0;
 uint8_t g_timer_1sek_flag = 0;
 uint16_t g_adc_result = 0;
 

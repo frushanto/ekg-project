@@ -19,7 +19,7 @@
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
 
-uint8_t uart_transmit_set_val[] = "0";
+char uart_transmit_set_val[] = "0";
 uint8_t uart_transmit_full_message[24] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
                                           0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
                                           0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
@@ -30,7 +30,7 @@ volatile uint8_t fm_counter = 0;
 //*UART TRANSMIT DATA FUNCTIONS*//
 //******************************//
 /* Transmit array with Nextion command */
-void uart_transmit_data_start(uint8_t nextion_command[]){
+void uart_transmit_data_start(char nextion_command[]){
     for (i = 0; i < strlen((char const*)uart_transmit_full_message); i++) {
         uart_transmit_full_message[i] = 0x00;
     }
@@ -51,8 +51,8 @@ void uart_transmit_data_start(uint8_t nextion_command[]){
 }
 /* Transmit array with value */
 void uart_transmit_data_value(uint16_t transmit_value){
-    uint8_t value = transmit_value;
-    uint8_t buffer[50];
+    uint16_t value = transmit_value;
+    char buffer[50];
     sprintf( buffer, "%d", value);
     for (i = 0; i < strlen((char const*)buffer); i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, buffer[i]);

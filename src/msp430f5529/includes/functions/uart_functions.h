@@ -21,5 +21,9 @@ void Test_Minus_Eins();
 void Clear_Waveform_KZ();
 void Clear_Waveform_LZ();
 void Uart_Page_One();
+void KZ_EKG();
+void LZ_EKG();
+
+extern uint16_t g_adc_result;
 
 #endif /* INCLUDES_FUNCTIONS_UART_FUNCTIONS_H_ */

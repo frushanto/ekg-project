@@ -17,7 +17,7 @@
 
 /* Function declarations */
 void Init_UART(void);
-void uart_transmit_data_start(uint8_t nextion_command[]);
+void uart_transmit_data_start(char nextion_command[]);
 void uart_transmit_data_value(uint16_t transmit_value);
 void uart_transmit_data_end();
 void uart_receive_data_end();

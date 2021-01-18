@@ -130,7 +130,7 @@ void TIMER1_A0_ISR (void)
 //    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
 //                                   GPIO_PIN0);
 
-    g_timer_1hz_flag = 1;
+    g_timer_1khz_flag = 1;
 
     /*** END will be executed every 1 KHz ***/
 
