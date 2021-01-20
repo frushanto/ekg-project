@@ -86,7 +86,7 @@ void Init_Timer_B() {
     initContParamTimerB0.timerClear = TIMER_B_DO_CLEAR;
     initContParamTimerB0.startTimer = false;
     // If doesn't work, try Timer_B_initC..
-    Timer_A_initContinuousMode(TIMER_B0_BASE, &initContParamTimerB0);
+    Timer_B_initContinuousMode(TIMER_B0_BASE, &initContParamTimerB0);
     /*** END Init TIMER_B0 in continuous mode sourced by ACLK ***/
 
     /*** BEGIN Init COMPARE MODE by TIMER_B0 - ONE SEC ***/
@@ -127,8 +127,8 @@ void TIMER1_A0_ISR (void)
 
     /*** BEGIN will be executed every 1 KHz ***/
 
-//    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
-//                                   GPIO_PIN0);
+    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
+                                   GPIO_PIN0);
 
     g_timer_1khz_flag = 1;
 
@@ -193,7 +193,7 @@ void TIMER0_B0_ISR (void)
     GPIO_toggleOutputOnPin(GPIO_PORT_P4,
                                    GPIO_PIN7);
 
-    g_timer_1sek_flag = 1;
+    g_timer_1sec_flag = 1;
 
     /*** END will be executed every 1 SEC ***/
     // Add Offset to CCR0

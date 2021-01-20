@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "main.h"
 
 /* Function declarations */
 void Init_UART(void);
@@ -23,7 +24,9 @@ void uart_transmit_data_end();
 void uart_receive_data_end();
 
 /***** GLOBALE VARS *****/
-extern uint8_t g_kz_start_stop;
-extern uint8_t g_lz_start_stop;
+// extern uint8_t g_kz_start_stop;
+// extern uint8_t g_lz_start_stop;
+
+// extern STATE_MACHINE_e g_sys_state;
 
 #endif /* INCLUDES_CONFIG_UART_CFG_H_ */

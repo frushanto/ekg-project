@@ -11,12 +11,10 @@
 #include <msp430.h>
 #include <driverlib.h>
 #include <std_types.h>
+#include "main.h"
 
 /* Function declarations */
 void Init_ADC(void);
 void Test_ADC(void);
-
-/***** GLOBALE VARS *****/
-extern uint16_t g_adc_result;
 
 #endif /* INCLUDES_CONFIG_ADC_CFG_H_ */

@@ -7,7 +7,6 @@
 
 #include <includes/config/uart_cfg.h>
 
-
 #define UART_BASE_A0    0
 #define UART_BASE_A1    1
 
@@ -200,30 +199,28 @@ void Init_UART() {
              /* Display page2 'kurzzeit' ECG ***START***: 65 02 06 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 g_kz_start_stop = 1;
+                 g_short_ECG_flag = 1;
                  uart_receive_data_end();
              }
 
              /* Display page2 'kurzzeit' ECG ***STOP***: 65 02 07 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 g_kz_start_stop = 0;
+                 g_short_ECG_flag = 0;
                  uart_receive_data_end();
              }
 
              /* Display page3 'langzeit' ECG ***START***: 65 03 05 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x05 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 g_lz_start_stop = 1;
-//                 Test_Plus_Eins();
+                 g_long_ECG_flag = 1;
                  uart_receive_data_end();
              }
 
              /* Display page3 'langzeit' ECG ***STOP***: 65 03 06 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 g_lz_start_stop = 0;
-//                 Test_Minus_Eins();
+                 g_long_ECG_flag = 0;
                  uart_receive_data_end();
              }
 

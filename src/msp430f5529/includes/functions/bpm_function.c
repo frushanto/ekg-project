@@ -6,7 +6,7 @@
  */
 #include "includes/functions/bpm_function.h"
 
-void calculate_bpm_KZ()
+void calculate_bpm_ST()
 {
     uint8_t bpm = 60;
     static uint16_t millisecs = 0;
@@ -57,7 +57,7 @@ void calculate_bpm_KZ()
     }
 }
 
-void calculate_bpm_LZ()
+void calculate_bpm_LT()
 {
     uint8_t bpm = 60;
     static uint16_t millisecs = 0;
