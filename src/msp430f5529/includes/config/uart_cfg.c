@@ -7,7 +7,6 @@
 
 #include <includes/config/uart_cfg.h>
 
-
 #define UART_BASE_A0    0
 #define UART_BASE_A1    1
 
@@ -16,37 +15,21 @@
 
 #define RECEIVE_DATA_COUNT                      0x02
 
-#define THRESHOLD 160  // for BPM
-
-/* Test VARs */
-uint16_t puls_val = 80;
-
-// Timer VAR
-//uint16_t sec = 0;         // Global now
-//uint16_t min = 0;         // Global now
-
-/* BPM Vars */
-uint16_t beats = 0;
-uint16_t BPM = 0;
-
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
 
-uint8_t uart_transmit_set_val[] = "0";
+char uart_transmit_set_val[] = "0";
 uint8_t uart_transmit_full_message[24] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
                                           0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
                                           0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 volatile uint8_t i = 0;
 volatile uint8_t fm_counter = 0;
 
-/* Timer Vars */
-uint16_t uart_timer_one_sec = 0;
-
 //******************************//
 //*UART TRANSMIT DATA FUNCTIONS*//
 //******************************//
 /* Transmit array with Nextion command */
-void uart_transmit_data_start(uint8_t nextion_command[]){
+void uart_transmit_data_start(char nextion_command[]){
     for (i = 0; i < strlen((char const*)uart_transmit_full_message); i++) {
         uart_transmit_full_message[i] = 0x00;
     }
@@ -67,8 +50,8 @@ void uart_transmit_data_start(uint8_t nextion_command[]){
 }
 /* Transmit array with value */
 void uart_transmit_data_value(uint16_t transmit_value){
-    uint8_t value = transmit_value;
-    uint8_t buffer[50];
+    uint16_t value = transmit_value;
+    char buffer[50];
     sprintf( buffer, "%d", value);
     for (i = 0; i < strlen((char const*)buffer); i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, buffer[i]);
@@ -102,8 +85,6 @@ void uart_transmit_data_end(){
 //*END**************************//
 void uart_receive_data_end(){
     uart_received_data_counter = 0;
-//    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-//            USCI_A_UART_RECEIVE_INTERRUPT);
     for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
         uart_received_data[i] = 0x00;
     }
@@ -181,91 +162,6 @@ void Init_UART() {
             USCI_A_UART_RECEIVE_INTERRUPT);
 }
 
-void Test_UART(uint16_t adc_value) {
-    adc_value = adc_value / 16;
-    uart_transmit_data_start("add 5,0,");
-    uart_transmit_data_value(adc_value);
-    uart_transmit_data_end();
-}
-
-void UART_THRESHOLD(){
-    uart_transmit_data_start("add 1,1,");       //add 5,1,
-    uart_transmit_data_value(THRESHOLD);
-    uart_transmit_data_end();
-}
-
-void  UART_Timer_Page_Two_Sec(){
-    uart_transmit_data_start("page2.seconds.val=");
-    uart_transmit_data_value(sec);
-    uart_transmit_data_end();
-    sec++;
-}
-
-void UART_Timer_Page_Two_Min(){
-    if(sec == 59){
-        sec = 0;
-        min++;
-        uart_transmit_data_start("page2.minutes.val=");
-        uart_transmit_data_value(min);
-        uart_transmit_data_end();
-    }
-    if(min == 59){
-        min = 0;
-    }
-}
-
-void UART_Timer_Reset(){
-    sec = 0;
-    min = 0;
-
-    uart_transmit_data_start("page2.seconds.val=");
-    uart_transmit_data_value(sec);
-    uart_transmit_data_end();
-
-    uart_transmit_data_start("page2.minutes.val=");
-    uart_transmit_data_value(min);
-    uart_transmit_data_end();
-}
-
-void UART_ECG(uint16_t adc_value){
-    adc_value = (adc_value / 8) - 100;
-    uart_transmit_data_start("add 1,0,");
-    uart_transmit_data_value(adc_value);
-    uart_transmit_data_end();
-}
-
-void Test_UART_BPM(uint16_t adc_value){
-    adc_value = (adc_value / 8) - 100;
-    if (adc_value > THRESHOLD){
-        beats ++;
-    }
-}
-
-void Test_Plus_Eins(){
-    puls_val = puls_val + 1;
-    uart_transmit_data_start("puls.val=");
-    uart_transmit_data_value(puls_val);
-    uart_transmit_data_end();
-}
-
-void Test_Minus_Eins(){
-    puls_val = puls_val - 1;
-    uart_transmit_data_start("puls.val=");
-    uart_transmit_data_value(puls_val);
-    uart_transmit_data_end();
-}
-
-void Clear_Waveform(){
-    uart_transmit_data_start("cle 1,0");
-    uart_transmit_data_end();
-}
-
-void new_bpm(uint16_t value){
-    uart_transmit_data_start("page2.puls.val=");
-    uart_transmit_data_value(value);
-    uart_transmit_data_end();
-}
-
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module
  * is now ready for transmit and receive. It is recommended to
@@ -290,12 +186,6 @@ void new_bpm(uint16_t value){
                  uart_received_data_counter = 0;
              }
 
-             /* Display turn off: 65 00 06 00 FF FF FF */
-//             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x00 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
-//                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 uart_receive_data_end();
-//             }
-
              /* Display turn on: 0=0x87 1=0xFF 2=0xFF 3=0xFF */
              if(uart_received_data[0] == 0x87 && uart_received_data[1] == 0xFF && uart_received_data[2] == 0xFF && uart_received_data[3] == 0xFF) {
                  uart_receive_data_end();
@@ -309,28 +199,28 @@ void new_bpm(uint16_t value){
              /* Display page2 'kurzzeit' ECG ***START***: 65 02 06 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 page_two_start_stop = 1;
+                 g_short_ECG_flag = 1;
                  uart_receive_data_end();
              }
 
              /* Display page2 'kurzzeit' ECG ***STOP***: 65 02 07 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 page_two_start_stop = 0;
+                 g_short_ECG_flag = 0;
                  uart_receive_data_end();
              }
 
-             /* Display page3 'langzeit' ECG ***START***: 65 03 06 00 FF FF FF */
+             /* Display page3 'langzeit' ECG ***START***: 65 03 05 00 FF FF FF */
+             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x05 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 g_long_ECG_flag = 1;
+                 uart_receive_data_end();
+             }
+
+             /* Display page3 'langzeit' ECG ***STOP***: 65 03 06 00 FF FF FF */
              if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 Test_Plus_Eins();
-                 uart_receive_data_end();
-             }
-
-             /* Display page3 'langzeit' ECG ***STOP***: 65 03 07 00 FF FF FF */
-             if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x07 && uart_received_data[3] == 0x00 &&
-                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 Test_Minus_Eins();
+                 g_long_ECG_flag = 0;
                  uart_receive_data_end();
              }
 
@@ -364,20 +254,6 @@ void new_bpm(uint16_t value){
          case 4:
              break; // Vector 4 - TXIFG
          default:
-//             if(uart_received_data_counter == 7) {
-//                 uart_receive_data_end();
-//             }
              break;
          }
  }
-
- //             if (uart_received_data_counter < UART_MESSAGE_MAX_LENGTH) {
- //                 uart_received_data[uart_received_data_counter] =
- //                     USCI_A_UART_receiveData(USCI_A0_BASE);
- //                 uart_received_data_counter++;
- //             }
- //             else {
- //                 uart_received_data_counter = 0;
- //             }
- //             USCI_A_UART_clearInterrupt(USCI_A0_BASE,
- //                     USCI_A_UART_RECEIVE_INTERRUPT);

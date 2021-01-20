@@ -12,22 +12,21 @@
 #include <includes/driverlib/driverlib.h>
 #include <includes/driverlib/std_types.h>
 #include <stdio.h>
-#include <stdlib.h> // Used for:
-#include <string.h> // dynamic array
-#include <time.h>
+#include <stdlib.h>
+#include <string.h>
+#include "main.h"
 
 /* Function declarations */
 void Init_UART(void);
-void Test_UART(uint16_t adc_value);
+void uart_transmit_data_start(char nextion_command[]);
+void uart_transmit_data_value(uint16_t transmit_value);
+void uart_transmit_data_end();
+void uart_receive_data_end();
 
 /***** GLOBALE VARS *****/
+// extern uint8_t g_kz_start_stop;
+// extern uint8_t g_lz_start_stop;
 
-extern uint8_t page_two_start_stop;
-extern uint8_t adc_flag;
-extern uint8_t timer_1hz_flag;
-extern uint16_t sec;
-extern uint16_t min;
-
-extern uint16_t adc_result;
+// extern STATE_MACHINE_e g_sys_state;
 
 #endif /* INCLUDES_CONFIG_UART_CFG_H_ */

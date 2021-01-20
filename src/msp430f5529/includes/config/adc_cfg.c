@@ -89,11 +89,6 @@ void Test_ADC() {
             ADC12_A_MEMORY_0,
             ADC12_A_SINGLECHANNEL);
 
-    /*** POLLING METHOD TO TEST ADC ***/
-    //Poll for interrupt on memory buffer 0
-//    while (!ADC12_A_getInterruptStatus(ADC12_A_BASE,
-//               ADC12IFG0));
-
     //LPM0, ADC12_A_ISR will force exit
     __bis_SR_register(LPM0_bits + GIE);
     //for Debugger
@@ -108,39 +103,7 @@ __interrupt void ADC12_A_ISR(void) {
         case  4: break;   //Vector  4:  ADC timing overflow
         case  6:;          //Vector  6:  ADC12IFG0
          //Is Memory Buffer 0 = A0 > 0.5AVcc?
-//            uint16_t adc_result = 0;
-            adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
-        //  if ((adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0)) >= 0x7ff) {
-        //      GPIO_setOutputHighOnPin(
-        //         GPIO_PORT_P1,
-        //         GPIO_PIN0
-        //         );
-        //      GPIO_setOutputHighOnPin(
-        //        GPIO_PORT_P1,
-        //        GPIO_PIN6
-        //        );
-        //      //_delay_cycles(100);
-        //  } else {
-        //      //Clear P1.0 LED off
-        //      GPIO_setOutputLowOnPin(
-        //              GPIO_PORT_P1,
-        //              GPIO_PIN0
-        //              );
-        //      GPIO_setOutputLowOnPin(
-        //              GPIO_PORT_P1,
-        //              GPIO_PIN6
-        //              );
-             //_delay_cycles(100);
-//         }
-
-         /* ADC ECG Signal as waveform */
-            adc_flag = 1;
-
-//            UART_ECG(adc_result);                           /***********/
-
-         /* Test BPM */
-//          Test_UART_BPM(adc_result);
-
+        g_adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
          //Exit active CPU
          __bic_SR_register_on_exit(LPM0_bits);
          break;

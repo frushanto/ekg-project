@@ -19,17 +19,28 @@
 #include "includes/config/fir_filter.h"
 #include "includes/config/iir_filter.h"
 #include "includes/config/spi_cfg.h"
+#include "includes/functions/uart_functions.h"
+#include "includes/functions/bpm_function.h"
 
+typedef enum
+{
+    SYS_INIT,
+    SYS_NO_ACTION,  // "Leerlauf" - ohne Funktion
+    ECG_SHORT,
+    ECG_LONG,
+    ENERGY_SAVING_MODE,
+    IDLE_STATE,
+    SYS_ERROR,
+    SYS_DIRTY_START,
+    SYS_BAD_KEY
+} STATE_MACHINE_e;
 
 /***** GLOBALE VARS *****/
-
-uint8_t page_two_start_stop = 0;
-uint8_t adc_flag = 0;
-uint8_t timer_1hz_flag = 0;
-uint8_t timer_1sek_flag = 0;
-uint16_t sec = 0;
-uint16_t min = 0;
-
-uint16_t adc_result = 0;
+extern uint8_t g_short_ECG_flag;
+extern uint8_t g_long_ECG_flag;
+extern uint8_t g_timer_1khz_flag;
+extern uint8_t g_timer_1sec_flag;
+extern uint16_t g_adc_result;
+extern STATE_MACHINE_e g_sys_state;
 
 #endif /* MAIN_H_ */
