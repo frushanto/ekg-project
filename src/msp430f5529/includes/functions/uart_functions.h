@@ -22,7 +22,8 @@ void Test_Plus_Eins();
 void Test_Minus_Eins();
 void Clear_Wave_ST();
 void Clear_Wave_LT();
-void Uart_ECG_Error();
+void Short_ECG_Error();
+void Long_ECG_Error();
 void ST_ECG();
 void LT_ECG();
 

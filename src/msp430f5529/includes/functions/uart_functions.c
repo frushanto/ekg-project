@@ -52,9 +52,15 @@ void Clear_Wave_LT()
     uart_transmit_data_end();
 }
 
-void Uart_ECG_Error()
+void Short_ECG_Error()
 {
-    uart_transmit_data_start("page 1");
+    uart_transmit_data_start("page 5");
+    uart_transmit_data_end();
+}
+
+void Long_ECG_Error()
+{
+    uart_transmit_data_start("page 6");
     uart_transmit_data_end();
 }
 
