@@ -53,14 +53,20 @@ void MMC_Init(void) {
 	*/
 
 	// Initialize MMC
-	sdc.busyflag = 0;							// Busy Flag
-	sdc.timeout_write = PERIPH_CLOCKRATE/8;		// Set Write Clock Rate
-	sdc.timeout_read = PERIPH_CLOCKRATE/20;		// Set Read Clock Rate
+	sdc.busyflag = 0;								// Busy Flag
+	sdc.timeout_write = PERIPH_CLOCKRATE / 8;		// Set Write Clock Rate
+	sdc.timeout_read = PERIPH_CLOCKRATE / 20;		// Set Read Clock Rate
 	mmc_ok = MMC_Init_Card(&sdc);					// Initialize SD
 	//spi_set_divisor(4);							// Speed up clock
 
+
 	/* Read in the first block on the SD Card */
 	if (mmc_ok == 1) {
+        // Test change clockrate
+	    sdc.busyflag = 0;                           // Busy Flag
+        sdc.timeout_write = PERIPH_CLOCKRATE;       // Set Write Clock Rate
+        sdc.timeout_read = PERIPH_CLOCKRATE;        // Set Read Clock Rate
+
 		MMC_Read_Block(&sdc, 0x00, mmc_buffer);
 		mmc_buffer[0] = 0x05;
 		MMC_Read_Block(&sdc, 0x00, mmc_buffer);

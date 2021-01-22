@@ -19,6 +19,9 @@
 #include "includes/config/fir_filter.h"
 #include "includes/config/iir_filter.h"
 #include "includes/config/spi_cfg.h"
+#include "includes/config/mmc-module-cfg/mmc_cfg.h"
+#include "includes/config/mmc-module-cfg/mmc_comm_spi_cfg.h"
+#include "includes/config/mmc-module-cfg/mmc_spi_cfg.h"
 #include "includes/functions/uart_functions.h"
 #include "includes/functions/bpm_function.h"
 

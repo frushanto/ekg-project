@@ -8,9 +8,9 @@
 #include <msp430.h>
 #include <driverlib.h>
 
-#define SD_BLOCKSIZE 512
-#define SD_BLOCKSIZE_NBITS 9
-#define PERIPH_CLOCKRATE 8000000
+#define SD_BLOCKSIZE                512
+#define SD_BLOCKSIZE_NBITS          9
+#define PERIPH_CLOCKRATE            1000000     // 1MHz
 
 void MMC_Init(void);
 int MMC_Init_Card(mmc_context_t *sdc);

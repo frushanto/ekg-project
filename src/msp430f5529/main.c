@@ -29,9 +29,8 @@ void main(void)
             Init_Timers();
             Init_UART();
             Init_ADC();
-            //    Init_SPI();
-            /* !!! For test purposes leave Init_MMC() line commented out!!! */
-            //Init_MMC();
+            Init_SPI();
+            Init_MMC();
             EnableGlobalInterrupt();
             /* Init MSP430 END */
             g_sys_state = IDLE_STATE; // Change state
