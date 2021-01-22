@@ -64,7 +64,7 @@ void main(void)
             if (g_short_ECG_flag)
             {
                 g_short_ECG_flag = 0;
-                Short_ECG_Error();
+                Long_ECG_Error();
             }
             if (!g_long_ECG_flag)
             {
