@@ -21,11 +21,12 @@
 
 
 //uint16_t uart_timer_one_sec = 0;
-uint8_t adc_ready = 0;
+extern uint8_t adc_ready;
 //uint8_t flag = 0;
 uint16_t adc_result;
 //uint8_t centisecond = 0;
-bool enable_functionality = false;
+extern bool enable_functionality;
+extern uint8_t one_sec;
 
 #endif /* MAIN_H_ */
 

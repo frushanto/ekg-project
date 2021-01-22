@@ -11,12 +11,12 @@
 #include <msp430.h>
 #include <includes/driverlib/driverlib.h>
 #include <includes/driverlib/std_types.h>
+#include "main.h"
 
 /* Function declarations */
 void Init_GPIO(void);
 void GPIO_Buzzer_Single_Beep(void);
 
-extern bool enable_functionality;
 
 
 #endif /* INCLUDES_CONFIG_GPIO_CFG_H_ */

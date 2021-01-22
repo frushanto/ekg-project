@@ -6,6 +6,7 @@ void EnableGlobalInterrupt(void);
 
 
 #define R_THRESHOLD 2200
+#define puls_buffer 5
 
 uint8_t bpm = 60;
 uint16_t millisecs = 0;
@@ -16,7 +17,13 @@ uint16_t threshold = 2200;
 uint16_t max = 0;
 uint16_t min = 4095;
 uint16_t watchdog_var = 0;
-
+uint8_t one_sec = 0;
+uint8_t adc_ready = 0;
+bool enable_functionality = false;
+uint8_t puls[puls_buffer] = { 70, 70, 70, 70, 70 };
+uint8_t index = 0;
+uint16_t puls_value_trx = 70;
+uint8_t j = 0;
 
 /* Function definitions */
 void main(void) {
@@ -58,10 +65,10 @@ void main(void) {
             else if((adc_value > threshold) && millisecs)
             {
                 bpm = (uint16_t) (60000 / millisecs);
-                if((bpm < 121) && (bpm > 39))
-                {
-                    UART_serialplot(adc_value, bpm);
-                }
+//                if((bpm < 121) && (bpm > 39))
+//                {
+//                    UART_serialplot(adc_value, bpm); // Hier bpm ans Display senden
+//                }
                 threshold = max - 0.2 * (max - min);
 
                 watchdog_var = 0;
@@ -86,6 +93,30 @@ void main(void) {
                 threshold = max - 0.2 * (max - min);
                 max = 0;
                 min = 4095;
+            }
+
+            if(one_sec)
+            {
+                one_sec = 0;
+
+
+                if((bpm > 0.8 * puls_value_trx) && (bpm < 1.2 * puls_value_trx))
+                {
+                    puls_value_trx = 0;
+                    puls[index] = bpm;
+                    index++;
+                    if(index >= puls_buffer)
+                        index = 0;
+                }
+
+                for(j = 0; j < puls_buffer; j++)
+                {
+                    puls_value_trx = puls_value_trx + puls[j];
+                }
+                puls_value_trx = puls_value_trx / puls_buffer;
+
+                UART_serialplot(adc_value, puls_value_trx);
+
             }
 
         }
