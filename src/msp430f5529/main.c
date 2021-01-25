@@ -17,7 +17,7 @@ void EnableGlobalInterrupt(void);
 /* Function definitions */
 void main(void)
 {
-    while (1)
+    while (1)       // while(1) better in case "IDLE_STATE", ...
     {
         switch (g_sys_state)
         {
@@ -46,11 +46,11 @@ void main(void)
             if (g_long_ECG_flag)
             {
                 g_long_ECG_flag = 0;
-                Uart_ECG_Error();
+                Short_ECG_Error();
             }
             if (!g_short_ECG_flag)
             {
-                Clear_Wave_LT(); // Clear läuft auch am Display bei "Stop"
+                Clear_Wave_ST();
                 g_sys_state = IDLE_STATE;
             }
             break;
@@ -64,11 +64,11 @@ void main(void)
             if (g_short_ECG_flag)
             {
                 g_short_ECG_flag = 0;
-                Uart_ECG_Error();
+                Long_ECG_Error();
             }
             if (!g_long_ECG_flag)
             {
-                Clear_Wave_LT(); // Clear läuft auch am Display bei "Stop"
+                Clear_Wave_LT();
                 g_sys_state = IDLE_STATE;
             }
             break;
@@ -77,6 +77,9 @@ void main(void)
             break;
 
         case IDLE_STATE:
+//        while (1)
+//        {
+
             if (g_short_ECG_flag)
             {
                 g_sys_state = ECG_SHORT;
@@ -85,6 +88,7 @@ void main(void)
             {
                 g_sys_state = ECG_LONG;
             }
+//        }
             break;
 
         case SYS_ERROR:
@@ -98,7 +102,7 @@ void main(void)
 
         default:
             break;
-        }
+        }     // while(1)
     }
 }
 
