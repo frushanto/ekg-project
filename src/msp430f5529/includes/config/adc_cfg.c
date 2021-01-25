@@ -10,42 +10,26 @@
 
 
 void Init_ADC() {
+
+
+    //Configure internal reference
+    //If ref generator busy, WAIT
+    while (REF_ACTIVE == Ref_isRefGenBusy(REF_BASE));
+    //Select internal ref = 1.5V
+    Ref_setReferenceVoltage(REF_BASE,
+        REF_VREF1_5V);
+    //Internal Reference ON
+    Ref_enableReferenceVoltage(REF_BASE);
+
+    //Delay (~75us) for Ref to settle
+    __delay_cycles(75);
+
     //Enable A/D channel A0
     GPIO_setAsPeripheralModuleFunctionInputPin(
             GPIO_PORT_P6, GPIO_PIN4);
 
     GPIO_setAsPeripheralModuleFunctionInputPin(   // battery surveillance
     		GPIO_PORT_P6, GPIO_PIN5);
-
-
-    //Init the ADC12_A Module
-    /*
-     * Base address of ADC12_A Module
-     * Use internal ADC12_A bit as sample/hold signal
-     * to start conversion
-     * USE ACLK 32kHz as clock source / EDIT SMCLK
-     * Use default clock divider of 1
-     */
-    ADC12_A_init(ADC12_A_BASE,
-                 ADC12_A_SAMPLEHOLDSOURCE_SC,
-                 ADC12_A_CLOCKSOURCE_SMCLK,
-                 ADC12_A_CLOCKDIVIDER_1);
-
-    ADC12_A_enable(ADC12_A_BASE);
-
-    /*
-     * Base address of ADC12_A Module
-     * For memory buffers 0-7 sample/hold for 64
-     * clock cycles
-     * For memory buffers 8-15 sample/hold for 4
-     * clock cycles (default)
-     * Disable Multiple Sampling
-     */
-    ADC12_A_setupSamplingTimer(ADC12_A_BASE,
-        ADC12_A_CYCLEHOLD_64_CYCLES,
-        ADC12_A_CYCLEHOLD_4_CYCLES,
-        ADC12_A_MULTIPLESAMPLESDISABLE);   // multisampling enabled
-
 
 
     //Configure Memory Buffer
@@ -63,39 +47,54 @@ void Init_ADC() {
     adc_cfg.positiveRefVoltageSourceSelect = ADC12_A_VREFPOS_AVCC;//ADC12_A_VREFPOS_INT;
     adc_cfg.negativeRefVoltageSourceSelect = ADC12_A_VREFNEG_AVSS;
     adc_cfg.endOfSequence = ADC12_A_NOTENDOFSEQUENCE;
-    ADC12_A_configureMemory(ADC12_A_BASE ,&adc_cfg);
 
     ADC12_A_configureMemoryParam adc_akku_cfg = {0};    // configuration for 2nd Channel for battery surveillance
-    adc_cfg.memoryBufferControlIndex = ADC12_A_MEMORY_1;
-    adc_cfg.inputSourceSelect = ADC12_A_INPUT_A5;
-	adc_cfg.positiveRefVoltageSourceSelect = ADC12_A_VREFPOS_AVCC; //ADC12_A_VREFPOS_INT;
-	adc_cfg.negativeRefVoltageSourceSelect = ADC12_A_VREFNEG_AVSS;
-	adc_cfg.endOfSequence = ADC12_A_ENDOFSEQUENCE;
+    adc_akku_cfg.memoryBufferControlIndex = ADC12_A_MEMORY_1;
+    adc_akku_cfg.inputSourceSelect = ADC12_A_INPUT_A5;
+	adc_akku_cfg.positiveRefVoltageSourceSelect = ADC12_A_VREFPOS_AVCC; //ADC12_A_VREFPOS_INT;
+	adc_akku_cfg.negativeRefVoltageSourceSelect = ADC12_A_VREFNEG_AVSS;
+	adc_akku_cfg.endOfSequence = ADC12_A_ENDOFSEQUENCE;
+
+    //Init the ADC12_A Module
+    /*
+     * Base address of ADC12_A Module
+     * Use internal ADC12_A bit as sample/hold signal
+     * to start conversion
+     * USE ACLK 32kHz as clock source / EDIT SMCLK
+     * Use default clock divider of 1
+     */
+    ADC12_A_init(ADC12_A_BASE,
+                 ADC12_A_SAMPLEHOLDSOURCE_SC,
+                 ADC12_A_CLOCKSOURCE_SMCLK,
+                 ADC12_A_CLOCKDIVIDER_1);
+
+    /*
+     * Base address of ADC12_A Module
+     * For memory buffers 0-7 sample/hold for 64
+     * clock cycles
+     * For memory buffers 8-15 sample/hold for 4
+     * clock cycles (default)
+     * Disable Multiple Sampling
+     */
+    ADC12_A_setupSamplingTimer(ADC12_A_BASE,
+        ADC12_A_CYCLEHOLD_16_CYCLES,
+        ADC12_A_CYCLEHOLD_4_CYCLES,
+        ADC12_A_MULTIPLESAMPLESENABLE);   // multisampling enabled
+
+    ADC12_A_configureMemory(ADC12_A_BASE ,&adc_cfg);
+
 	ADC12_A_configureMemory(ADC12_A_BASE, &adc_akku_cfg);
-
-
-    //Configure internal reference
-    //If ref generator busy, WAIT
-    while (REF_ACTIVE == Ref_isRefGenBusy(REF_BASE));
-    //Select internal ref = 1.5V
-    Ref_setReferenceVoltage(REF_BASE,
-        REF_VREF1_5V);
-    //Internal Reference ON
-    Ref_enableReferenceVoltage(REF_BASE);
-
-    //Delay (~75us) for Ref to settle
-    __delay_cycles(75);
-
 
     //Enable memory buffer 0 interrupt
     ADC12_A_clearInterrupt(ADC12_A_BASE,
             ADC12IFG0);
     ADC12_A_enableInterrupt(ADC12_A_BASE,
             ADC12IE0);
-	ADC12_A_clearInterrupt(ADC12_A_BASE,
-			ADC12IFG1);
-	ADC12_A_enableInterrupt(ADC12_A_BASE,
-			ADC12IE1);
+
+	__enable_interrupt();
+
+    ADC12_A_enable(ADC12_A_BASE);
+
 }
 
 void Start_ADC() {
@@ -116,10 +115,6 @@ void Start_ADC() {
             ADC12_A_MEMORY_0,
             ADC12_A_SEQOFCHANNELS);
 
-    /*** POLLING METHOD TO TEST ADC ***/
-    //Poll for interrupt on memory buffer 0
-//    while (!ADC12_A_getInterruptStatus(ADC12_A_BASE,
-//               ADC12IFG0));
 
     //LPM0, ADC12_A_ISR will force exit
     __bis_SR_register(LPM0_bits + GIE);
@@ -142,72 +137,17 @@ __interrupt void ADC12_A_ISR(void) {
 
             adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
 
-//            ADC12_A_clearInterrupt(ADC12_A_BASE,
-//            			ADC12IFG0);
-
-        //  if ((adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0)) >= 0x7ff) {
-        //      GPIO_setOutputHighOnPin(
-        //         GPIO_PORT_P1,
-        //         GPIO_PIN0
-        //         );
-        //      GPIO_setOutputHighOnPin(
-        //        GPIO_PORT_P1,
-        //        GPIO_PIN6
-        //        );
-        //      //_delay_cycles(100);
-        //  } else {
-        //      //Clear P1.0 LED off
-        //      GPIO_setOutputLowOnPin(
-        //              GPIO_PORT_P1,
-        //              GPIO_PIN0
-        //              );
-        //      GPIO_setOutputLowOnPin(
-        //              GPIO_PORT_P1,
-        //              GPIO_PIN6
-        //              );
-             //_delay_cycles(100);
-//         }
-
-         /* ADC test with iir-filter */
-//          uint16_t adc_after_iir_test = iir_filter(adc_result);
-//          UART_Dreieck(adc_result); //Dreieck: test BPM
-//          Test_UART(adc_after_iir_test);
-
-         /* ADC test with fir-filter */
-//          uint16_t adc_after_fir_test = fir_filter(adc_result);
-//          UART_Dreieck(adc_after_fir_test);
-
-         /* ADC test working - Test_UART means: ECG Signal as waveform */
-//          Test_UART(adc_result);
-
-         /* Test BPM */
-//          Test_UART_BPM(adc_result);
+            akku_vol = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_1);
 
 
          //Exit active CPU
          __bic_SR_register_on_exit(LPM0_bits);
          break;
-        case  8:
-            akku_vol = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_1);
-
-//            ADC12_A_clearInterrupt(ADC12_A_BASE,
-//            			ADC12IFG1);
-            //Exit active CPU
-            __bic_SR_register_on_exit(LPM0_bits);
-
-        	break;   //Vector  8:  ADC12IFG1
+        case  8: break;   //Vector  8:  ADC12IFG1
         case 10: break;   //Vector 10:  ADC12IFG2
         case 12: break;   //Vector 12:  ADC12IFG3
-        case 14:
-//            adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_4);
-
-            //Exit active CPU
-//            __bic_SR_register_on_exit(LPM0_bits);
-
-        	break;   //Vector 14:  ADC12IFG4
-        case 16:
-
-        	break;   //Vector 16:  ADC12IFG5
+        case 14: break;   //Vector 14:  ADC12IFG4
+        case 16: break;   //Vector 16:  ADC12IFG5
         case 18: break;   //Vector 18:  ADC12IFG6
         case 20: break;   //Vector 20:  ADC12IFG7
         case 22: break;   //Vector 22:  ADC12IFG8

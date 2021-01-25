@@ -49,7 +49,7 @@ void main(void) {
 
     while(1) {
 
-        if(adc_ready) //&& enable_functionality)
+        if(adc_ready && enable_functionality)
         {
             adc_ready = 0;
             watchdog_var++;
