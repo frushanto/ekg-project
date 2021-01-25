@@ -77,6 +77,9 @@ void main(void)
             break;
 
         case IDLE_STATE:
+//        while (1)
+//        {
+
             if (g_short_ECG_flag)
             {
                 g_sys_state = ECG_SHORT;
@@ -85,6 +88,7 @@ void main(void)
             {
                 g_sys_state = ECG_LONG;
             }
+//        }
             break;
 
         case SYS_ERROR:
@@ -98,7 +102,7 @@ void main(void)
 
         default:
             break;
-        }
+        }     // while(1)
     }
 }
 
