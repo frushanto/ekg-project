@@ -52,7 +52,6 @@ void Init_ADC() {
     ADC12_A_configureMemoryParam adc_cfg = {0};
     adc_cfg.memoryBufferControlIndex = ADC12_A_MEMORY_0;
     adc_cfg.inputSourceSelect = ADC12_A_INPUT_A0;
-    // TODO Ask about voltage references
     adc_cfg.positiveRefVoltageSourceSelect = ADC12_A_VREFPOS_AVCC;//ADC12_A_VREFPOS_INT;
     adc_cfg.negativeRefVoltageSourceSelect = ADC12_A_VREFNEG_AVSS;
     adc_cfg.endOfSequence = ADC12_A_NOTENDOFSEQUENCE;

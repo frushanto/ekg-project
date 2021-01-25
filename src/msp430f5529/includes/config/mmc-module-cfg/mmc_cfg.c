@@ -85,11 +85,13 @@ void MMC_Init(void) {
 		 * Check available block addresses. Writing in 0x10 makes
 		 * SD Card not readable and it must be erased.
 		 */
-		// for (tmp_cnt = 0; tmp_cnt < SD_BLOCKSIZE; tmp_cnt++) {
-		// 	mmc_write_buffer[tmp_cnt] = 5; // char to hex
-		// }
-		// MMC_Write_Block(&sdc, 0x10, mmc_write_buffer);
-		// MMC_Read_Block(&sdc, 0x10, mmc_buffer);
+		 for (tmp_cnt = 0; tmp_cnt < SD_BLOCKSIZE; tmp_cnt++) {
+		 	mmc_write_buffer[tmp_cnt] = '5';
+		 }
+		 unsigned long int addr_cnt = 0x1000;
+		 for (addr_cnt = 0x1000; addr_cnt < 0x2000; addr_cnt++) {
+		     MMC_Write_Block(&sdc, addr_cnt, mmc_write_buffer);
+		 }
 	}
 }
 
