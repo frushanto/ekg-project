@@ -11,6 +11,7 @@
 #include <msp430.h>
 #include <driverlib.h>
 #include <std_types.h>
+#include "main.h"
 
 
 
@@ -18,9 +19,6 @@
 void Init_ADC(void);
 void Start_ADC(void);
 
-
-
-extern uint16_t adc_result;
 
 
 #endif /* INCLUDES_CONFIG_ADC_CFG_H_ */

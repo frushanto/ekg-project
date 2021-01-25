@@ -20,10 +20,13 @@ uint16_t watchdog_var = 0;
 uint8_t one_sec = 0;
 uint8_t adc_ready = 0;
 bool enable_functionality = false;
-uint8_t puls[puls_buffer] = { 70, 70, 70, 70, 70 };
+uint8_t puls[puls_buffer] = { 0 };
 uint8_t index = 0;
-uint16_t puls_value_trx = 70;
+uint16_t puls_value_trx = 0;
 uint8_t j = 0;
+uint16_t akku_vol = 0;
+uint16_t adc_result = 0;
+
 
 /* Function definitions */
 void main(void) {
@@ -46,23 +49,24 @@ void main(void) {
 
     while(1) {
 
-        if(adc_ready && enable_functionality)
+        if(adc_ready) //&& enable_functionality)
         {
             adc_ready = 0;
             watchdog_var++;
             Start_ADC();
+
             adc_value = adc_result;
-            UART_serialplot(adc_value, 0);  // nach UART_serialplot ist die Variable adc_result nicht mehr gültig. Warum auch immer
+            UART_serialplot(adc_result, akku_vol);  // nach UART_serialplot ist die Variable adc_result nicht mehr gültig. Warum auch immer
                                                // außerdem stürzt die MCU ab wenn bpm den Wert 100 erreicht ?!?!?!?!
                                                // beim Wert 99 ist die MCU nach etwa 5 min auch hängen geblieben
 
-
+/*
             if(adc_value <= threshold)
             {
                 millisecs++;
             }
 
-            else if((adc_value > threshold) && millisecs)
+            else if((adc_value > threshold) && (millisecs > 400))
             {
                 bpm = (uint16_t) (60000 / millisecs);
 //                if((bpm < 121) && (bpm > 39))
@@ -99,25 +103,22 @@ void main(void) {
             {
                 one_sec = 0;
 
+//                puls_value_trx = 0;
+//                puls[index] = bpm;
+//                index++;
+//                if(index >= puls_buffer)
+//                   index = 0;
+//
+//                for(j = 0; j < puls_buffer; j++)
+//                {
+//                    puls_value_trx = puls_value_trx + puls[j];
+//                }
+//                puls_value_trx = puls_value_trx / puls_buffer;
 
-                if((bpm > 0.8 * puls_value_trx) && (bpm < 1.2 * puls_value_trx))
-                {
-                    puls_value_trx = 0;
-                    puls[index] = bpm;
-                    index++;
-                    if(index >= puls_buffer)
-                        index = 0;
-                }
-
-                for(j = 0; j < puls_buffer; j++)
-                {
-                    puls_value_trx = puls_value_trx + puls[j];
-                }
-                puls_value_trx = puls_value_trx / puls_buffer;
-
-                UART_serialplot(adc_value, puls_value_trx);
+                UART_serialplot(adc_value, bpm);
 
             }
+            */
 
         }
 
