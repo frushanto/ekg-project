@@ -11,6 +11,7 @@
 #define SD_BLOCKSIZE                512
 #define SD_BLOCKSIZE_NBITS          9
 #define PERIPH_CLOCKRATE            1000000     // 1MHz
+#define SD_MAX_WRITE_ATTEMPTS       4000
 
 void MMC_Init(void);
 int MMC_Init_Card(mmc_context_t *sdc);

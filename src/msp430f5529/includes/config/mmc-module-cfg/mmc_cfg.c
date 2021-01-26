@@ -9,7 +9,7 @@ static mmc_context_t sdc;
 uint8_t mmc_ok;
 uint8_t mmc_counter, mmc_wait;
 uint16_t tmp_cnt = 0;
-char mmc_write_buffer[SD_BLOCKSIZE];
+unsigned char mmc_write_buffer[SD_BLOCKSIZE];
 
 void Init_MMC(void) {
 	MMC_Init();
@@ -79,7 +79,7 @@ void MMC_Init(void) {
 		MMC_Read_Block(&sdc, 0x02, mmc_buffer);
 		MMC_Read_Block(&sdc, 0x03, mmc_buffer);
 		MMC_Read_Block(&sdc, 0x04, mmc_buffer);
-		MMC_Read_Block(&sdc, 0x04, mmc_buffer);
+		MMC_Read_Block(&sdc, 0x05, mmc_buffer);
 		
 		/* !!! IMPORTANT !!! 
 		 * Check available block addresses. Writing in 0x10 makes
@@ -306,6 +306,7 @@ unsigned char *argument) {
 	MMC_Send_Byte(0xFF);					// Dummy Byte
 }
 
+// Convert block address of SD Card
 void MMC_Change_Argument(unsigned char *argument, u32 value) {
 	argument[3] = (unsigned char)(value >> 24);
 	argument[2] = (unsigned char)(value >> 16);
@@ -367,7 +368,12 @@ int MMC_Read_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data) {
 
 	return 1;
 }
-
+/******************************************************************************
+Write single 512 byte block
+response = 0x00 - busy timeout
+response = 0x05 - data accepted
+response = 0xFF - response timeout
+******************************************************************************/
 int MMC_Write_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data) {
 	unsigned long int i = 0;
 	unsigned char temp[1];
@@ -407,8 +413,8 @@ int MMC_Write_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data) {
 	}
 
 	do {
-		temp[0] = MMC_Receive_Byte();				// Receive and store
-	} while (temp[0] == 0xFF);					// Try until I get 0x00
+		temp[0] = MMC_Receive_Byte();			// Receive and store
+	} while (temp[0] == 0xFF);	    			// Try until I get 0x00
 
 	do {
 		temp[0] = MMC_Receive_Byte();			// Receive and store
