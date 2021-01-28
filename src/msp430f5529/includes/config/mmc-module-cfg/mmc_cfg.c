@@ -74,28 +74,39 @@ void MMC_Init(void) {
 		MMC_Read_Block(&sdc, 0x04, mmc_buffer);
 		MMC_Read_Block(&sdc, 0x05, mmc_buffer);
 		
-		/* !!! IMPORTANT !!! 
-		 * Check available block addresses. Writing in 0x10 makes
-		 * SD Card not readable and it must be erased.
-		 */
-		 for (tmp_cnt = 0; tmp_cnt < SD_BLOCKSIZE; tmp_cnt++) {
+		for (tmp_cnt = 0; tmp_cnt < SD_BLOCKSIZE; tmp_cnt++) {
 		 	mmc_write_buffer[tmp_cnt] = '5';
-		 }
-		 unsigned long int addr_cnt = 0x1000;
-		 // 1 slot = 515 bytes
-		 // => 0x1000 - 0x2000 = 4096 slots
-		 // 1 slot = 512 byte = 0,5 kB
-		 // 4096 slots = 0,5 kB * 4096
-		 // => 2048kB => 2MB
-		 for (addr_cnt = 0x5001; addr_cnt < 0x6000; addr_cnt++) {
-		     MMC_Write_Block(&sdc, addr_cnt, mmc_write_buffer);
-		     MMC_Read_Block(&sdc, addr_cnt, mmc_buffer);
-		 }
-
-         // Erased:             3.342.336 bytes (3,3 MB on disk)
-		 // After write:        3.244.032 bytes (3,2 MB on disk)
-		 // After 2nd write:    3.276.800 bytes (3,3 MB on disk)
-		 // After 3rd write:    3.276.800 bytes (3,3 MB on disk)
+		}
+        unsigned long int addr_cnt = 0x1000;
+        // 1 slot = 515 bytes
+        // => 0x1000 - 0x2000 = 4096 slots
+        // 1 slot = 512 byte = 0,5 kB
+        // 4096 slots = 0,5 kB * 4096
+        // => 2048kB => 2MB
+        for (addr_cnt = 0x5001; addr_cnt < 0x6000; addr_cnt++) {
+            MMC_Write_Block(&sdc, addr_cnt, mmc_write_buffer);
+            MMC_Read_Block(&sdc, addr_cnt, mmc_buffer);
+        }
+        /*
+         * SD Card details
+         *
+         * Volume name      : ECG_SD
+         * Partition offset : 8192 sectors (4194304 bytes)
+         * Volume size      : 15556608 sectors (7964983296 bytes)
+         * Bytes per sector : 512
+         * Bytes per cluster: 32768
+         * FAT offset       : 2048 sectors (1048576 bytes)
+         * # FAT sectors    : 2048
+         * Number of FATs   : 1
+         * Cluster offset   : 4096 sectors (2097152 bytes)
+         * # Clusters       : 243008
+         * Volume Serial #  : 601295e4
+         * Bitmap start     : 2
+         * Bitmap file size : 30376
+         * Upcase start     : 3
+         * Upcase file size : 5836
+         * Root start       : 4
+         * */
 	}
 }
 
