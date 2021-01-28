@@ -30,6 +30,7 @@
 // Includes for sd card module
 #include "ff.h"
 #include "diskio.h"
+#include "includes/functions/sd_card_functions.h"
 
 typedef enum
 {
