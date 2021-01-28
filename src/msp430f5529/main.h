@@ -19,11 +19,17 @@
 #include "includes/config/fir_filter.h"
 #include "includes/config/iir_filter.h"
 #include "includes/config/spi_cfg.h"
-#include "includes/config/mmc-module-cfg/mmc_cfg.h"
-#include "includes/config/mmc-module-cfg/mmc_comm_spi_cfg.h"
-#include "includes/config/mmc-module-cfg/mmc_spi_cfg.h"
+#include "includes/config/sd-card-cfg/diskio.h"
+#include "includes/config/sd-card-cfg/ff.h"
+#include "includes/config/sd-card-cfg/ffconf.h"
+#include "includes/config/sd-card-cfg/HAL_SDCard.h"
+#include "includes/config/sd-card-cfg/mmc.h"
 #include "includes/functions/uart_functions.h"
 #include "includes/functions/bpm_function.h"
+
+// Includes for sd card module
+#include "ff.h"
+#include "diskio.h"
 
 typedef enum
 {

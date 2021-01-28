@@ -39,8 +39,9 @@ void Init_GPIO(void) {
         );
 
     // SPI_CS_SDCARD - P2.7
-    GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN7);
-    GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN7);
+    // SPI_CS_SDCARD_ALTERNATIVE - P3.5
+    GPIO_setAsOutputPin(GPIO_PORT_P3, GPIO_PIN5);
+    GPIO_setOutputHighOnPin(GPIO_PORT_P3, GPIO_PIN5);
     
     // TODO CARD DETECTION TO BE TESTED
     

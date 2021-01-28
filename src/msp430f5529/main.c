@@ -13,10 +13,27 @@ STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* Function declarations */
 void Init_Watchdog(void);
 void EnableGlobalInterrupt(void);
+// SD Card Module
+FRESULT WriteFile(char*, char*, WORD);
+void fat_init(void);
+FIL file;                   /* Opened file object */
+FATFS fatfs;                /* File system object */
+DIRS dir;                   /* Directory object   */
+FRESULT errCode;            /* Error code object  */
+FRESULT res;                /* Result object      */
+UINT bytesRead;             /* Bytes read object  */
+UINT read;                  /* Read bytes object  */
+
+unsigned char MST_Data,SLV_Data;
+BYTE buffer[32];
+int result=1;
 
 /* Function definitions */
 void main(void)
 {
+    unsigned char buffer[20];
+    unsigned int size;
+
     while (1)
     {
         switch (g_sys_state)
@@ -30,7 +47,19 @@ void main(void)
             Init_UART();
             Init_ADC();
             Init_SPI();
-            //Init_MMC();
+
+            
+            /*** BEGIN SD Card Code ***/
+            fat_init();            //mount, set directory to read from, assign file
+            //unsigned int bytesWritten;
+            //f_write(&file, "FAYSAL", 6, &bytesWritten);
+            res = f_read(&file, buffer, sizeof(buffer), &size);
+            f_close(&file);
+            // TODO line below to be tested
+            //f_mount(0,0);       // unmount sd card if needed
+            /*** END SD Card Code ***/
+
+
             EnableGlobalInterrupt();
             /* Init MSP430 END */
             g_sys_state = IDLE_STATE; // Change state
@@ -101,14 +130,18 @@ void main(void)
     }
 }
 
-//     while (1){
-//         if (g_timer_1khz_flag){
-//             KZ_EKG();
-//             LZ_EKG();
-//             g_timer_1khz_flag = 0;
-//         }
-//     }
-// }
+void fat_init(void){
+    errCode = -1;
+
+    while (errCode != FR_OK){                               //go until f_open returns FR_OK (function successful)
+        errCode = f_mount(0, &fatfs);                       //mount drive number 0
+        errCode = f_opendir(&dir, "/");				    	//root directory
+
+        errCode = f_open(&file, "/teste.txt", FA_CREATE_ALWAYS | FA_WRITE);
+        if(errCode != FR_OK)
+            result=0;                                       //used as a debugging flag
+    }
+}
 
 /*** Configure Watchdog Timer ***/
 void Init_Watchdog(void)
