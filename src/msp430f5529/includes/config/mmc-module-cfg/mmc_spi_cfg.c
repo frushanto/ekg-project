@@ -2,6 +2,9 @@
 #include <msp430f5529.h>
 #include "mmc_spi_cfg.h"
 
+uint8_t mmc_receive_byte;
+uint16_t gie;
+
 /* Initialize and enable the SPI module */
 /*
 void spi_initialize()
@@ -51,33 +54,38 @@ void MMC_CS_Deassert()
 }
 
 /* Send a single byte over the SPI port */
-void MMC_Send_Byte(unsigned char input)
+void MMC_Send_Byte(uint8_t input)
 {
-	char i;
+	gie = __get_SR_register() & GIE;		// Store current GIE state
+	__disable_interrupt();                          // Make this operation atomic
+
 	UCB0IFG &= ~UCRXIFG;
 	while (!(UCB0IFG&UCTXIFG));
 	/* Send the byte */
 	UCB0TXBUF = input;
 	/* Wait for the byte to be sent */
+	while (UCB0STAT & UCBUSY);		// Wait for all TX/RX to finish
+	UCB0RXBUF;						// Dummy read to empty RX buffer
+									// and clear any overrun conditions
+
+	__bis_SR_register(gie);         // Restore original GIE state
 	// TODO Test the line below
 	//while ((UCB0IFG & UCRXIFG) == 0) { }
-	for (i = 0; i < 50; i++);
+	//for (i = 0; i < 5; i++);
 }
 /* Receive a byte. Output an 0xFF (the bus idles high) to receive the byte */
-unsigned char MMC_Receive_Byte()
+uint8_t MMC_Receive_Byte()
 {
-	char i;
-	unsigned char tmp;
-	UCB0IFG &= ~UCRXIFG;
-	while (!(UCB0IFG&UCTXIFG));
-	/* Send the byte */
-	UCB0TXBUF = 0xFF;
-	/* Wait for the byte to be received */
-	// TODO Test the line below
-	//while ((UCB0IFG & UCRXIFG) == 0) { }
-	tmp = UCB0RXBUF;
-	for (i = 0; i < 50; i++);
-	return tmp;
+	gie = __get_SR_register() & GIE;	// Store current GIE state
+    __disable_interrupt();                      // Make this operation atomic
+
+	UCB0IFG &= ~UCRXIFG;			// Ensure RXIFG is clear
+	while (!(UCB0IFG&UCTXIFG));		// Wait while not ready for TX
+	UCB0TXBUF = 0xFF;				// Write dummy byte
+	while (!(UCB0IFG & UCRXIFG)) ;  // Wait for RX buffer (full)
+	mmc_receive_byte = UCB0RXBUF;
+	__bis_SR_register(gie);        // Restore original GIE state
+	return mmc_receive_byte;
 }
 
 /* Disable the SPI MMC module. This function assumes the module had

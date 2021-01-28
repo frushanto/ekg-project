@@ -46,19 +46,12 @@ void MMC_Init(void) {
 	mmc_buffer[22] = 1;
 	mmc_buffer[23] = 'W';
 
-	// Configure trigger bits.
-	/*
-	P8OUT &= ~BIT2;
-	P8DIR |= BIT2;
-	*/
-
 	// Initialize MMC
 	sdc.busyflag = 0;								// Busy Flag
 	sdc.timeout_write = PERIPH_CLOCKRATE / 8;		// Set Write Clock Rate
 	sdc.timeout_read = PERIPH_CLOCKRATE / 20;		// Set Read Clock Rate
 	mmc_ok = MMC_Init_Card(&sdc);					// Initialize SD
 	//spi_set_divisor(4);							// Speed up clock
-
 
 	/* Read in the first block on the SD Card */
 	if (mmc_ok == 1) {
@@ -89,9 +82,20 @@ void MMC_Init(void) {
 		 	mmc_write_buffer[tmp_cnt] = '5';
 		 }
 		 unsigned long int addr_cnt = 0x1000;
-		 for (addr_cnt = 0x1000; addr_cnt < 0x2000; addr_cnt++) {
+		 // 1 slot = 515 bytes
+		 // => 0x1000 - 0x2000 = 4096 slots
+		 // 1 slot = 512 byte = 0,5 kB
+		 // 4096 slots = 0,5 kB * 4096
+		 // => 2048kB => 2MB
+		 for (addr_cnt = 0x5001; addr_cnt < 0x6000; addr_cnt++) {
 		     MMC_Write_Block(&sdc, addr_cnt, mmc_write_buffer);
+		     MMC_Read_Block(&sdc, addr_cnt, mmc_buffer);
 		 }
+
+         // Erased:             3.342.336 bytes (3,3 MB on disk)
+		 // After write:        3.244.032 bytes (3,2 MB on disk)
+		 // After 2nd write:    3.276.800 bytes (3,3 MB on disk)
+		 // After 3rd write:    3.276.800 bytes (3,3 MB on disk)
 	}
 }
 

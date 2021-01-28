@@ -15,8 +15,8 @@
 
 void MMC_Init(void);
 int MMC_Init_Card(mmc_context_t *sdc);
-int MMC_Read_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data);
-int MMC_Write_Block(mmc_context_t *sdc, u32 blockaddr, unsigned char *data);
+int MMC_Read_Block(mmc_context_t *sdc, u32 blockaddr, uint8_t *data);
+int MMC_Write_Block(mmc_context_t *sdc, u32 blockaddr, uint8_t *data);
 
 void MMC_Delay(char number);
 //void trigger(void);
