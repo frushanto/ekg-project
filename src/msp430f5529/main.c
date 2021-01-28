@@ -30,7 +30,7 @@ void main(void)
             Init_UART();
             Init_ADC();
             Init_SPI();
-            Init_MMC();
+            //Init_MMC();
             EnableGlobalInterrupt();
             /* Init MSP430 END */
             g_sys_state = IDLE_STATE; // Change state
