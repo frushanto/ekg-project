@@ -23,6 +23,9 @@ extern "C" {
 
 #include "integer.h"	/* Basic integer types */
 #include "ffconf.h"		/* FatFs configuration options */
+//#include <msp430.h>
+//#include <includes/driverlib/driverlib.h>
+//#include <includes/driverlib/std_types.h>
 
 #if _FATFS != _FFCONF
 #error Wrong configuration file (ffconf.h).

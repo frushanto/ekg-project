@@ -26,7 +26,6 @@ void Init_FAT(void){
     }
     f_write(&file, txbufferInit, sizeof(txbufferInit), &bytesWritten);
     f_close(&file);
-
     
 
 //    f_mkdir("/test");
