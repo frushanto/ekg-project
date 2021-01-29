@@ -7,6 +7,8 @@
 #include <includes/config/uart_cfg.h>
 #include "main.h"
 #include "includes/config/sd-card-cfg/ff.h"
+//#include <stdio.h>
+//#include <string.h>
 
 FIL file;                   /* Opened file object */
 FATFS fatfs;                /* File system object */
