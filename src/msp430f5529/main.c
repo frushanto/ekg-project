@@ -6,6 +6,7 @@ uint8_t g_timer_1sec_flag = 0;
 uint16_t g_adc_result = 0;
 uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
+uint8_t g_tmp_return = 0;
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
@@ -31,7 +32,8 @@ void main(void) {
             Init_FAT();            //mount, set directory to read from, assign file
             EnableGlobalInterrupt();
             /* Init MSP430 END */
-            g_sys_state = IDLE_STATE; // Change state
+            //g_sys_state = IDLE_STATE; // Change state
+            g_sys_state = ECG_SHORT; // Change state
             break;
 
         case ECG_SHORT:
@@ -39,6 +41,16 @@ void main(void) {
             {
                 g_timer_1khz_flag = 0;
                 ST_ECG();
+                
+                /* BEGIN Writing on SD Card */
+                f_open(&file, "/ecgdata.csv", FA_OPEN_EXISTING | FA_WRITE);
+                g_tmp_return = f_puts(g_adc_result, &file);
+                g_tmp_return = f_printf(&file, g_adc_result);
+                //f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
+                f_close(&file);
+                /* END Writing on SD Card */
+
+
             }
             if (g_long_ECG_flag)
             {

@@ -26,11 +26,8 @@
 #include "includes/config/sd-card-cfg/mmc.h"
 #include "includes/functions/uart_functions.h"
 #include "includes/functions/bpm_function.h"
-
-// Includes for sd card module
-#include "ff.h"
-#include "diskio.h"
 #include "includes/functions/sd_card_functions.h"
+#include "integer.h"
 
 typedef enum
 {
@@ -51,6 +48,7 @@ extern uint8_t g_long_ECG_flag;
 extern uint8_t g_timer_1khz_flag;
 extern uint8_t g_timer_1sec_flag;
 extern uint16_t g_adc_result;
+extern uint8_t g_tmp_return;
 extern STATE_MACHINE_e g_sys_state;
 
 #endif /* MAIN_H_ */

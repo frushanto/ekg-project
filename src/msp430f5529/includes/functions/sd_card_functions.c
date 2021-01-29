@@ -27,7 +27,7 @@ void Init_FAT(void){
     f_write(&file, txbufferInit, sizeof(txbufferInit), &bytesWritten);
     f_close(&file);
 
-    SD_WriteCSV();
+    
 
 //    f_mkdir("/test");
 //    f_open(&file, "/test/newfile.txt", FA_CREATE_ALWAYS | FA_WRITE);
@@ -44,7 +44,7 @@ void SD_WriteCSV(void) {
     for (sd_cnt = 0; sd_cnt < SD_BUFFER_MAX_SIZE; sd_cnt++) {
         g_txbuffer[sd_cnt] = '\0';
     }
-    strcpy(g_txbuffer, "New data for csv file");
+    strcpy(g_txbuffer, "New data for csv file\n");
     f_open(&file, "/ecgdata.csv", FA_CREATE_ALWAYS | FA_WRITE);
     f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
     f_close(&file);
