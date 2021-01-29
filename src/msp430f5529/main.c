@@ -43,9 +43,12 @@ void main(void) {
                 ST_ECG();
                 
                 /* BEGIN Writing on SD Card */
-                f_open(&file, "/ecgdata.csv", FA_OPEN_EXISTING | FA_WRITE);
-                g_tmp_return = f_puts(g_adc_result, &file);
-                g_tmp_return = f_printf(&file, g_adc_result);
+                f_open(&file, "/ecgdata.csv", FA_CREATE_ALWAYS | FA_WRITE);
+                g_tmp_return = f_puts('a', &file);
+                g_tmp_return = f_puts('b', &file);
+                g_tmp_return = f_puts('c', &file);
+                g_tmp_return = f_puts('d', &file);
+                g_tmp_return = f_printf(&file, 'e');
                 //f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
                 f_close(&file);
                 /* END Writing on SD Card */
