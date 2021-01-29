@@ -15,12 +15,10 @@ void Init_Watchdog(void);
 void EnableGlobalInterrupt(void);
 
 /* Function definitions */
-void main(void)
-{
-    while (1)
-    {
-        switch (g_sys_state)
-        {
+void main(void) {
+    while (1) {
+        switch (g_sys_state) {
+
         case SYS_INIT:
             /* Init MSP430 BEGIN */
             Init_Watchdog();

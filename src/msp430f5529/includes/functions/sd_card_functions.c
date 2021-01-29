@@ -2,8 +2,9 @@
 
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
-unsigned char filename[] = "/testfile.txt";
-unsigned char txbufferInit[] = "SD Card init successful";
+char filename[] = "/testfile.txt";
+char txbufferInit[] = "SD Card init successful";
+char g_txbuffer[512] = "Test text for txt and csv files";
 int result = 1;
 unsigned int size;
 unsigned int bytesWritten;
@@ -21,20 +22,16 @@ void Init_FAT(void){
     }
     f_write(&file, txbufferInit, sizeof(txbufferInit), &bytesWritten);
     f_close(&file);
-    tempFunc_WriteToFile("Blah blah");
-}
 
-void tempFunc_WriteToFile(const void *txbuff) {
-    const BYTE *txbuffer = txbuff;
-    // Create new txt file and write data
     f_mkdir("/test");
     f_open(&file, "/test/newfile.txt", FA_CREATE_ALWAYS | FA_WRITE);
-    //strcpy(txbuffer, "Test data Test data Test data");
-    f_write(&file, txbuffer, sizeof(txbuffer), &bytesWritten);
-
-    //res = f_read(&file, buffer, sizeof(buffer), &size);
+    f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
     f_close(&file);
-    // TODO line below to be tested
-    //f_mount(0,0);       // unmount sd card if needed
+
+    f_open(&file, "/ecgdata.csv", FA_CREATE_ALWAYS | FA_WRITE);
+    f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
+    f_close(&file);
 }
 
+    // TODO line below to be tested
+    //f_mount(0,0);       // unmount sd card if needed
