@@ -15,105 +15,20 @@ void Init_Watchdog(void);
 void EnableGlobalInterrupt(void);
 
 /* Function definitions */
-void main(void)
-{
-    while (1)       // while(1) better in case "IDLE_STATE", ...
-    {
-        switch (g_sys_state)
-        {
-        case SYS_INIT:
-            /* Init MSP430 BEGIN */
-            Init_Watchdog();
-            Init_GPIO();
-            Init_CLK();
-            Init_Timers();
-            Init_UART();
-            Init_ADC();
-            //    Init_SPI();
-            /* !!! For test purposes leave Init_MMC() line commented out!!! */
-            //Init_MMC();
-            EnableGlobalInterrupt();
-            /* Init MSP430 END */
-            g_sys_state = IDLE_STATE; // Change state
-            break;
+void main(void) {
+    
+    Init_Watchdog();
+    Init_GPIO();
+    Init_CLK();
+    Init_Timers();
+    Init_UART();
+    Init_ADC();
+    EnableGlobalInterrupt();
 
-        case ECG_SHORT:
-            if (g_timer_1khz_flag)
-            {
-                g_timer_1khz_flag = 0;
-                ST_ECG();
-            }
-            if (g_long_ECG_flag)
-            {
-                g_long_ECG_flag = 0;
-                Short_ECG_Error();
-            }
-            if (!g_short_ECG_flag)
-            {
-                Clear_Wave_ST();
-                g_sys_state = IDLE_STATE;
-            }
-            break;
+    while(1) {
 
-        case ECG_LONG:
-            if (g_timer_1khz_flag)
-            {
-                g_timer_1khz_flag = 0;
-                LT_ECG();
-            }
-            if (g_short_ECG_flag)
-            {
-                g_short_ECG_flag = 0;
-                Long_ECG_Error();
-            }
-            if (!g_long_ECG_flag)
-            {
-                Clear_Wave_LT();
-                g_sys_state = IDLE_STATE;
-            }
-            break;
-
-        case ENERGY_SAVING_MODE:
-            break;
-
-        case IDLE_STATE:
-//        while (1)
-//        {
-
-            if (g_short_ECG_flag)
-            {
-                g_sys_state = ECG_SHORT;
-            }
-            if (g_long_ECG_flag)
-            {
-                g_sys_state = ECG_LONG;
-            }
-//        }
-            break;
-
-        case SYS_ERROR:
-            break;
-
-        case SYS_DIRTY_START:
-            break;
-
-        case SYS_BAD_KEY:
-            break;
-
-        default:
-            break;
-        }     // while(1)
     }
 }
-
-//     while (1){
-//         if (g_timer_1khz_flag){
-//             KZ_EKG();
-//             LZ_EKG();
-//             g_timer_1khz_flag = 0;
-//         }
-//     }
-// }
 
 /*** Configure Watchdog Timer ***/
 void Init_Watchdog(void)
