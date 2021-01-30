@@ -28,6 +28,7 @@
 #include "includes/functions/bpm_function.h"
 #include "includes/functions/sd_card_functions.h"
 #include "integer.h"
+#include "stdio.h"
 
 typedef enum
 {

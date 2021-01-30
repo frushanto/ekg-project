@@ -27,6 +27,9 @@ void Init_FAT(void){
     f_write(&file, txbufferInit, sizeof(txbufferInit), &bytesWritten);
     f_close(&file);
     
+    f_open(&file, "/ecgdata.csv", FA_CREATE_ALWAYS | FA_WRITE);
+//    f_close(&file);
+
 
 //    f_mkdir("/test");
 //    f_open(&file, "/test/newfile.txt", FA_CREATE_ALWAYS | FA_WRITE);
@@ -38,16 +41,16 @@ void Init_FAT(void){
 //    f_close(&file);
 }
 
-void SD_WriteCSV(void) {
-    uint16_t sd_cnt = 0;
-    for (sd_cnt = 0; sd_cnt < SD_BUFFER_MAX_SIZE; sd_cnt++) {
-        g_txbuffer[sd_cnt] = '\0';
-    }
-    strcpy(g_txbuffer, "New data for csv file\n");
-    f_open(&file, "/ecgdata.csv", FA_CREATE_ALWAYS | FA_WRITE);
-    f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
-    f_close(&file);
-}
+//void SD_WriteCSV(void) {
+//    uint16_t sd_cnt = 0;
+//    for (sd_cnt = 0; sd_cnt < SD_BUFFER_MAX_SIZE; sd_cnt++) {
+//        g_txbuffer[sd_cnt] = '\0';
+//    }
+//    strcpy(g_txbuffer, "New data for csv file\n");
+//    f_open(&file, "/ecgdata.csv", FA_CREATE_ALWAYS | FA_WRITE);
+//    f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
+//    f_close(&file);
+//}
 
     // TODO line below to be tested
     //f_mount(0,0);       // unmount sd card if needed

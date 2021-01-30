@@ -8,6 +8,8 @@ uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
 uint8_t g_tmp_return = 0;
 
+uint8_t tmpCnt = 0;
+
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
 
@@ -43,14 +45,22 @@ void main(void) {
                 ST_ECG();
                 
                 /* BEGIN Writing on SD Card */
-                f_open(&file, "/ecgdata.csv", FA_CREATE_ALWAYS | FA_WRITE);
-                g_tmp_return = f_puts('a', &file);
-                g_tmp_return = f_puts('b', &file);
-                g_tmp_return = f_puts('c', &file);
-                g_tmp_return = f_puts('d', &file);
-                g_tmp_return = f_printf(&file, 'e');
+//                f_open(&file, "/ecgdata.csv", FA_OPEN_EXISTING | FA_WRITE);
+//                g_tmp_return = f_putc('a', &file);
+//                g_tmp_return = f_putc('b', &file);
+//                g_tmp_return = f_putc('c', &file);
+                char tmpArray[4];
+                sprintf(tmpArray, "%d", g_adc_result);
+                g_tmp_return = f_puts(tmpArray, &file);
+                tmpCnt++;
+                if (tmpCnt == 5) {
+                    f_close(&file);
+                }
+//                g_tmp_return = f_printf(&file, '5678xyz');
+//                g_tmp_return = f_puts('c', &file);
+//                g_tmp_return = f_puts('d', &file);
+//                g_tmp_return = f_printf(&file, 'e');
                 //f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
-                f_close(&file);
                 /* END Writing on SD Card */
 
 
@@ -89,6 +99,7 @@ void main(void) {
             break;
 
         case IDLE_STATE:
+            g_sys_state = ECG_SHORT;
             if (g_short_ECG_flag)
             {
                 g_sys_state = ECG_SHORT;
