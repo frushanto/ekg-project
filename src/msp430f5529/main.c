@@ -52,6 +52,7 @@ void main(void) {
                 char tmpArray[4];
                 sprintf(tmpArray, "%d", g_adc_result);
                 g_tmp_return = f_puts(tmpArray, &file);
+
                 tmpCnt++;
                 if (tmpCnt == 5) {
                     f_close(&file);
