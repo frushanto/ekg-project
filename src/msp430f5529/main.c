@@ -12,7 +12,7 @@ uint8_t bpm = 60;
 uint16_t millisecs = 0;
 uint16_t adc_value = 0;
 //uint16_t maximum = 0;
-//uint16_t period = 0;
+uint8_t flag = 0;
 uint16_t threshold = 2200;
 uint16_t max = 0;
 uint16_t min = 4095;
@@ -26,6 +26,7 @@ uint16_t puls_value_trx = 0;
 uint8_t j = 0;
 uint16_t akku_vol = 0;
 uint16_t adc_result = 0;
+bool buzzer_flag = false;
 
 
 /* Function definitions */
@@ -49,14 +50,34 @@ void main(void) {
 
     while(1) {
 
-        if(adc_ready && enable_functionality)
-        {
-            adc_ready = 0;
-            watchdog_var++;
-            Start_ADC();
+    	flag = GPIO_getInputPinValue(GPIO_PORT_P6, GPIO_PIN2);
 
-            adc_value = adc_result;
-            UART_serialplot(adc_result, akku_vol);  // nach UART_serialplot ist die Variable adc_result nicht mehr gültig. Warum auch immer
+    	if (flag) {
+
+			GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN3);
+			GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
+		}
+    	else {
+			GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN3);
+			GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+		}
+
+//    	__delay_cycles(5000000);
+//        GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
+//        GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
+
+
+//        if(adc_ready && enable_functionality)
+//        {
+//        	adc_ready = 0;
+
+//            GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN1);
+
+//            watchdog_var++;
+//            Start_ADC();
+//
+//            adc_value = adc_result;
+//            UART_serialplot(adc_result, akku_vol);  // nach UART_serialplot ist die Variable adc_result nicht mehr gültig. Warum auch immer
                                                // außerdem stürzt die MCU ab wenn bpm den Wert 100 erreicht ?!?!?!?!
                                                // beim Wert 99 ist die MCU nach etwa 5 min auch hängen geblieben
 
@@ -120,7 +141,7 @@ void main(void) {
             }
             */
 
-        }
+//        }
 
     }
 }

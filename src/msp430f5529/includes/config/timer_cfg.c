@@ -410,6 +410,8 @@ void TIMER1_A0_ISR (void)
     /*** BEGIN will be executed every 1 KHz ***/
 
     adc_ready = 1;
+    if(buzzer_flag) GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
+
 
 //    timer_a1_1khz_test++;
 //
@@ -480,6 +482,11 @@ void TIMER0_B0_ISR (void)
     /*** BEGIN will be executed every 1 SEC ***/
 
     one_sec = 1;
+    buzzer_flag = !buzzer_flag;
+
+    GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
+    GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
+
 
 //    timer_b0_1hz_test++;
 //

@@ -29,6 +29,7 @@ extern bool enable_functionality;
 extern uint8_t one_sec;
 extern uint16_t akku_vol;
 extern uint16_t adc_result;
+extern bool buzzer_flag;
 
 
 #endif /* MAIN_H_ */
