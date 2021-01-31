@@ -50,17 +50,32 @@ void main(void) {
 
     while(1) {
 
+
     	flag = GPIO_getInputPinValue(GPIO_PORT_P6, GPIO_PIN2);
 
     	if (flag) {
 
-			GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN3);
-			GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
-		}
-    	else {
-			GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN3);
-			GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
-		}
+    		GPIO_toggleOutputOnPin(
+    				GPIO_PORT_P2,
+    				GPIO_PIN4
+    				);
+    	}
+//			GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
+//		}
+//    	else {
+//			GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN3);
+//			GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+//		}
+
+    	__delay_cycles(2000000);
+
+
+//    	if(one_sec)
+//    	{
+//    		one_sec = 0;
+//    		GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
+//  		GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
+//    	}
 
 //    	__delay_cycles(5000000);
 //        GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);

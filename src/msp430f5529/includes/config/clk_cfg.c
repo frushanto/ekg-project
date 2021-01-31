@@ -73,8 +73,8 @@ void Init_CLK() {
 
 
     //Verify if the Clock settings are as expected
-    clockValue = UCS_getSMCLK();    // clockValue = 11993088d
-    clockValue = UCS_getMCLK();     // clockValue = 11993088d
+    clockValue = UCS_getSMCLK();    // clockValue = 20447232
+    clockValue = UCS_getMCLK();     // clockValue = 20447232
     clockValue = UCS_getACLK();     // clockValue = 32768d
 }
 
