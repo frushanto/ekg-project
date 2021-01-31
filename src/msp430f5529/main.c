@@ -11,6 +11,7 @@ uint8_t g_tmp_return = 0;
 uint16_t tmpCnt = 0;
 char comma[1];
 char tmpArray[4];
+char localtimeArray[80];
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
@@ -36,6 +37,14 @@ void main(void) {
             Init_FAT();            //mount, set directory to read from, assign file
             EnableGlobalInterrupt();
             /* Init MSP430 END */
+
+
+            // Local time config
+            time_t rawtime;
+            struct tm * timeinfo;
+            time (&rawtime);
+
+
             //g_sys_state = IDLE_STATE; // Change state
             g_sys_state = ECG_SHORT; // Change state
             break;
@@ -46,13 +55,27 @@ void main(void) {
                 g_timer_1khz_flag = 0;
                 ST_ECG();
                 
+                timeinfo = localtime (&rawtime);
+                // printf ("%s", asctime (timeinfo));
 
+                // Set adc value
                 sprintf(tmpArray, "%d", g_adc_result);
-                sprintf(comma, "%s", ",");
                 g_tmp_return = f_puts(tmpArray, &file);
+
+                // Set comma
+                sprintf(comma, "%s", ",");
                 g_tmp_return = f_puts(comma, &file);
+
+                // Print local time
+                //sprintf(localtimeArray, "%s", asctime (timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec));
+//                strftime(localtimeArray, 30, "%H%M%S", timeinfo);
+                strftime(localtimeArray, 80, "The time is %I:%M %p.\n", timeinfo);
+                g_tmp_return = f_puts(localtimeArray, &file);
+
+                // Next line
                 sprintf(tmpArray, "%s", "\r\n");
                 g_tmp_return = f_puts(tmpArray, &file);
+
                 tmpCnt++;
 
                 if (tmpCnt == 1000) {
