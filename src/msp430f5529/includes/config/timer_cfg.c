@@ -30,8 +30,8 @@ void Init_Timer_A() {
     confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32; // 32 -> 638976Hz
     confTimerA2.timerPeriod = 639; // 638976Hz / 1000Hz = 639
     // Test with approx. 2 Hz
-    //confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // 64 -> 319488Hz
-    //confTimerA2.timerPeriod = 63897; // approx. 2 Hz
+//    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // 64 -> 319488Hz
+//    confTimerA2.timerPeriod = 63897; // approx. 2 Hz
     confTimerA2.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
     confTimerA2.captureCompareInterruptEnable_CCR0_CCIE =
         TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
@@ -55,9 +55,13 @@ void TIMER1_A0_ISR (void)
 {
     // Put code for LEDs here
     //Toggle P1.0
-    GPIO_toggleOutputOnPin(
-		GPIO_PORT_P1,
-		GPIO_PIN0);
+//	GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
+	GPIO_toggleOutputOnPin(
+	        GPIO_PORT_P2,
+	        GPIO_PIN4);
+	GPIO_toggleOutputOnPin(
+		GPIO_PORT_P2,
+		GPIO_PIN3);
 }
 
 //******************************************************************************
@@ -73,8 +77,10 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 #endif
 void TIMER2_A0_ISR (void)
 {
+
     GPIO_toggleOutputOnPin(
-        GPIO_PORT_P4,
-        GPIO_PIN7);
+            GPIO_PORT_P6,
+            GPIO_PIN1);
+
 
 }

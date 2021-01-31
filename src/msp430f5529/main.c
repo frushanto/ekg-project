@@ -6,6 +6,7 @@ uint8_t g_timer_1sec_flag = 0;
 uint16_t g_adc_result = 0;
 uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
+uint8_t flag = 0;
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
@@ -25,7 +26,23 @@ void main(void) {
     Init_ADC();
     EnableGlobalInterrupt();
 
+
+//    GPIO_setOutputHighOnPin(GPIO_PORT_P6,
+//    							GPIO_PIN6);
     while(1) {
+
+//    	flag = GPIO_getInputPinValue(GPIO_PORT_P6, GPIO_PIN2);
+//
+//    	if(flag)
+//    	{
+////    		__delay_cycles(2000000);
+////    		flag = GPIO_getInputPinValue(GPIO_PORT_P6, GPIO_PIN2);
+////    		if(flag)
+////    		{
+//        		GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
+////    		}
+//    	}
+//    	__delay_cycles(20000000);
 
     }
 }

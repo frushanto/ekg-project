@@ -12,17 +12,28 @@ uint8_t g_transmitData = 11;
 // Configure GPIO ports/pins
 void Init_GPIO(void) {
     // Configure LED1 on DevKit
-    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
-    GPIO_setOutputLowOnPin(GPIO_PORT_P1,
-                                GPIO_PIN0);
+    GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN3);
+    GPIO_setOutputLowOnPin(GPIO_PORT_P2,
+                                GPIO_PIN3);
     
     // Configure buzzer
-    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN6);
+    GPIO_setAsOutputPin(GPIO_PORT_P6, GPIO_PIN1);
+    GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN1);
     
     // Configure LED2 on DevKit
-    GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN7);
-    GPIO_setOutputLowOnPin(GPIO_PORT_P4,
-                                GPIO_PIN7);
+    GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN4);
+    GPIO_setOutputLowOnPin(GPIO_PORT_P2,
+                                GPIO_PIN4);
+
+    // Configure 5V DC/DC Enaeble
+	GPIO_setAsOutputPin(GPIO_PORT_P6, GPIO_PIN6);
+	GPIO_setOutputLowOnPin(GPIO_PORT_P6,
+							GPIO_PIN6);
+
+	// Configure button on PCB
+	GPIO_setAsInputPin(GPIO_PORT_P6, GPIO_PIN2);
+
+
 
     // Configure button on DevKit
     GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
