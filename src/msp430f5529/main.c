@@ -8,7 +8,9 @@ uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
 uint8_t g_tmp_return = 0;
 
-uint8_t tmpCnt = 0;
+uint16_t tmpCnt = 0;
+char comma[1];
+char tmpArray[4];
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
@@ -44,25 +46,18 @@ void main(void) {
                 g_timer_1khz_flag = 0;
                 ST_ECG();
                 
-                /* BEGIN Writing on SD Card */
-//                f_open(&file, "/ecgdata.csv", FA_OPEN_EXISTING | FA_WRITE);
-//                g_tmp_return = f_putc('a', &file);
-//                g_tmp_return = f_putc('b', &file);
-//                g_tmp_return = f_putc('c', &file);
-                char tmpArray[4];
-                sprintf(tmpArray, "%d", g_adc_result);
-                g_tmp_return = f_puts(tmpArray, &file);
 
+                sprintf(tmpArray, "%d", g_adc_result);
+                sprintf(comma, "%s", ",");
+                g_tmp_return = f_puts(tmpArray, &file);
+                g_tmp_return = f_puts(comma, &file);
+                sprintf(tmpArray, "%s", "\r\n");
+                g_tmp_return = f_puts(tmpArray, &file);
                 tmpCnt++;
-                if (tmpCnt == 5) {
+
+                if (tmpCnt == 1000) {
                     f_close(&file);
                 }
-//                g_tmp_return = f_printf(&file, '5678xyz');
-//                g_tmp_return = f_puts('c', &file);
-//                g_tmp_return = f_puts('d', &file);
-//                g_tmp_return = f_printf(&file, 'e');
-                //f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
-                /* END Writing on SD Card */
 
 
             }
