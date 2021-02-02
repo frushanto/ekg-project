@@ -7,6 +7,12 @@ uint16_t g_adc_result = 0;
 uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
 
+/* For median filter */
+#define NUM_ELEMENTS    7
+sMedianFilter_t medianFilter;
+static sMedianNode_t medianBuffer[NUM_ELEMENTS];
+/* End median filter */
+
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
 
@@ -29,6 +35,10 @@ void main(void)
             Init_Timers();
             Init_UART();
             Init_ADC();
+            /* Init median filter */
+            medianFilter.numNodes = NUM_ELEMENTS;
+            medianFilter.medianBuffer = medianBuffer;
+            MEDIANFILTER_Init(&medianFilter); // Init median filter
             //    Init_SPI();
             /* !!! For test purposes leave Init_MMC() line commented out!!! */
             //Init_MMC();

@@ -24,12 +24,15 @@ void calculate_bpm_ST()
     else if ((g_adc_result > threshold_ecg_value) && millisecs)
     {
         bpm = (uint16_t) (60000 / millisecs);
-        if ((bpm < 121) && (bpm > 39))
-        {
+
+        int medianValue = MEDIANFILTER_Insert(&medianFilter, bpm);
+
+//        if ((medianValue < 121) && (medianValue > 39))
+//        {
             uart_transmit_data_start("page2.puls.val=");
-            uart_transmit_data_value (bpm);
+            uart_transmit_data_value (medianValue);
             uart_transmit_data_end();
-        }
+//        }
         threshold_ecg_value = maximum_ecg_value - 0.2 * (maximum_ecg_value - minimum_ecg_value);
 
         watchdog_ecg = 0;

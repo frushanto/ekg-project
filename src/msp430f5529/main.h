@@ -21,6 +21,7 @@
 #include "includes/config/spi_cfg.h"
 #include "includes/functions/uart_functions.h"
 #include "includes/functions/bpm_function.h"
+#include "includes/config/median_cfg.h"
 
 typedef enum
 {
@@ -42,5 +43,6 @@ extern uint8_t g_timer_1khz_flag;
 extern uint8_t g_timer_1sec_flag;
 extern uint16_t g_adc_result;
 extern STATE_MACHINE_e g_sys_state;
+extern sMedianFilter_t medianFilter;
 
 #endif /* MAIN_H_ */
