@@ -2,7 +2,7 @@
  * bluetooth.h
  *
  *  Created on: 30.01.2021
- *      Author: adria
+ *      Author: Adrian
  */
 
 #ifndef INCLUDES_CONFIG_BLUETOOTH_H_
