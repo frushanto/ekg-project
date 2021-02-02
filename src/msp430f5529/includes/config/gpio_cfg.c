@@ -11,6 +11,7 @@
 void Init_GPIO(void) {
     // Configure LED1 on DevKit
     GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
+    GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
     // Configure buzzer
 //    GPIO_setAsOutputPin(GPIO_PORT_P6, GPIO_PIN1);
 
@@ -19,7 +20,7 @@ void Init_GPIO(void) {
 
     // Configure LED2 on DevKit
     GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN7);
-
+    GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN7);
     // Configure LED
 //    GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN3);
 
@@ -28,9 +29,6 @@ void Init_GPIO(void) {
 
     // Configure button on DevKit
     GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
-
-    // Configure Button as Input
-//    GPIO_setAsInputPin(GPIO_PORT_P1, GPIO_PIN1);
 
     /*** LEAVE COMMENTED OUT BEGIN ***/
     // What edge transition will trigger an interrupt
@@ -41,7 +39,7 @@ void Init_GPIO(void) {
     //GPIO_clearInterruptFlag(GPIO_PORT_P1, GPIO_PIN1);
     /*** LEAVE COMMENTED OUT END ***/
 
-//    GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN1);
+    GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN1);
 }
 
 // Activate buzzer

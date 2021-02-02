@@ -51,48 +51,16 @@ void main(void) {
     while(1) {
 
 
-    	flag = GPIO_getInputPinValue(GPIO_PORT_P6, GPIO_PIN2);
-
-    	if (flag) {
-
-    		GPIO_toggleOutputOnPin(
-    				GPIO_PORT_P2,
-    				GPIO_PIN4
-    				);
-    	}
-//			GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
-//		}
-//    	else {
-//			GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN3);
-//			GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
-//		}
-
-    	__delay_cycles(2000000);
+        if(adc_ready && enable_functionality)
+        {
+        	adc_ready = 0;
 
 
-//    	if(one_sec)
-//    	{
-//    		one_sec = 0;
-//    		GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
-//  		GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
-//    	}
+            watchdog_var++;
+            Start_ADC();
 
-//    	__delay_cycles(5000000);
-//        GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
-//        GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
-
-
-//        if(adc_ready && enable_functionality)
-//        {
-//        	adc_ready = 0;
-
-//            GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN1);
-
-//            watchdog_var++;
-//            Start_ADC();
-//
-//            adc_value = adc_result;
-//            UART_serialplot(adc_result, akku_vol);  // nach UART_serialplot ist die Variable adc_result nicht mehr gültig. Warum auch immer
+            adc_value = adc_result;
+            UART_serialplot(adc_result, akku_vol);  // nach UART_serialplot ist die Variable adc_result nicht mehr gültig. Warum auch immer
                                                // außerdem stürzt die MCU ab wenn bpm den Wert 100 erreicht ?!?!?!?!
                                                // beim Wert 99 ist die MCU nach etwa 5 min auch hängen geblieben
 
@@ -155,8 +123,7 @@ void main(void) {
 
             }
             */
-
-//        }
+        }
 
     }
 }
