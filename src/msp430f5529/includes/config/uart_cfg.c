@@ -5,7 +5,7 @@
  *      Author: ivan
  */
 
-//#include <includes/config/uart_cfg.h>
+#include <includes/config/uart_cfg.h>
 
 #define UART_BASE_A0 0
 #define UART_BASE_A1 1

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "bluetooth.h"
 
 /* GLOBAL VARs */
 uint8_t g_timer_1khz_flag = 0;
