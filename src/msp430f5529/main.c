@@ -8,6 +8,12 @@ void EnableGlobalInterrupt(void);
 #define R_THRESHOLD 2200
 #define puls_buffer 5
 
+#define NUM_ELEMENTS    7
+sMedianFilter_t medianFilter;
+static sMedianNode_t medianBuffer[NUM_ELEMENTS];
+uint8_t g_median_value = 0;
+
+
 uint8_t bpm = 60;
 uint16_t millisecs = 0;
 uint16_t adc_value = 0;
@@ -29,6 +35,7 @@ uint16_t adc_result = 0;
 bool buzzer_flag = false;
 
 
+
 /* Function definitions */
 void main(void) {
     /* Init MSP430 BEGIN */
@@ -38,6 +45,11 @@ void main(void) {
     Init_Timers();
     Init_UART();
     Init_ADC();
+//    /* Init median filter */
+    medianFilter.numNodes = NUM_ELEMENTS;
+    medianFilter.medianBuffer = medianBuffer;
+    MEDIANFILTER_Init(&medianFilter); // Init median filter
+
     EnableGlobalInterrupt();
     /* Init MSP430 END */
 
@@ -60,11 +72,11 @@ void main(void) {
             Start_ADC();
 
             adc_value = adc_result;
-            UART_serialplot(adc_result, akku_vol);  // nach UART_serialplot ist die Variable adc_result nicht mehr gültig. Warum auch immer
+            UART_serialplot(adc_value, 0);  // nach UART_serialplot ist die Variable adc_result nicht mehr gültig. Warum auch immer
                                                // außerdem stürzt die MCU ab wenn bpm den Wert 100 erreicht ?!?!?!?!
                                                // beim Wert 99 ist die MCU nach etwa 5 min auch hängen geblieben
 
-/*
+
             if(adc_value <= threshold)
             {
                 millisecs++;
@@ -73,9 +85,11 @@ void main(void) {
             else if((adc_value > threshold) && (millisecs > 400))
             {
                 bpm = (uint16_t) (60000 / millisecs);
+//                g_median_value = MEDIANFILTER_Insert(&medianFilter, bpm);
+
 //                if((bpm < 121) && (bpm > 39))
 //                {
-//                    UART_serialplot(adc_value, bpm); // Hier bpm ans Display senden
+                    UART_serialplot(adc_value, bpm); // Hier bpm ans Display senden
 //                }
                 threshold = max - 0.2 * (max - min);
 
@@ -103,26 +117,26 @@ void main(void) {
                 min = 4095;
             }
 
-            if(one_sec)
-            {
-                one_sec = 0;
-
-//                puls_value_trx = 0;
-//                puls[index] = bpm;
-//                index++;
-//                if(index >= puls_buffer)
-//                   index = 0;
+//            if(one_sec)
+//            {
+//                one_sec = 0;
 //
-//                for(j = 0; j < puls_buffer; j++)
-//                {
-//                    puls_value_trx = puls_value_trx + puls[j];
-//                }
-//                puls_value_trx = puls_value_trx / puls_buffer;
+////                puls_value_trx = 0;
+////                puls[index] = bpm;
+////                index++;
+////                if(index >= puls_buffer)
+////                   index = 0;
+////
+////                for(j = 0; j < puls_buffer; j++)
+////                {
+////                    puls_value_trx = puls_value_trx + puls[j];
+////                }
+////                puls_value_trx = puls_value_trx / puls_buffer;
+//
+//                UART_serialplot(adc_result, bpm);
+//
+//            }
 
-                UART_serialplot(adc_value, bpm);
-
-            }
-            */
         }
 
     }
