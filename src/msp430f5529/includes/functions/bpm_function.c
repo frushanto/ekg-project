@@ -8,7 +8,7 @@
 
 void calculate_bpm_ST()
 {
-    uint16_t bpm = 60;
+    static uint16_t bpm = 60;
     static uint16_t millisecs = 0;
     static uint16_t threshold_ecg_value = 2200;
     static uint16_t maximum_ecg_value = 0;
@@ -25,16 +25,8 @@ void calculate_bpm_ST()
     {
         bpm = (uint16_t) (60000 / millisecs);
 
-//        int medianValue = MEDIANFILTER_Insert(&medianFilter, bpm);
 
-//        if ((medianValue < 121) && (medianValue > 39))
-//        {
-//            uart_transmit_data_start("page2.puls.val=");
-//            uart_transmit_data_value (bpm);
-//            uart_transmit_data_end();
-//        }
 
-        UART_serialplot(g_adc_result, bpm); // Hier bpm ans Display senden
 
         threshold_ecg_value = maximum_ecg_value - 0.2 * (maximum_ecg_value - minimum_ecg_value);
 
@@ -60,6 +52,13 @@ void calculate_bpm_ST()
         threshold_ecg_value = maximum_ecg_value - 0.2 * (maximum_ecg_value - minimum_ecg_value);
         maximum_ecg_value = 0;
         minimum_ecg_value = 4095;
+    }
+
+    if (g_timer_1sec_flag)
+    {
+        g_timer_1sec_flag = 0;
+        uint8_t medianValue = (uint8_t) MEDIANFILTER_Insert(&medianFilter, bpm);
+        UART_serialplot(g_adc_result, medianValue); // Hier bpm ans Display senden
     }
 }
 

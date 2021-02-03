@@ -15,6 +15,6 @@
 
 /* Function declarations */
 void Init_ADC(void);
-void Test_ADC(void);
+void Start_ADC(void);
 
 #endif /* INCLUDES_CONFIG_ADC_CFG_H_ */

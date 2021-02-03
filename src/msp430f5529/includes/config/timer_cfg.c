@@ -1,167 +1,169 @@
+//#include <includes/config/timer_cfg.h>
+//
+///*
+// * Date: 2021-01-22
+// * Author: Ivan Kozlov
+// * Description: Timer Setup Parameters
+// *
+// * ============================ TIMER A ============================
+// * Timer A is triggered by SMCLK = 20447232Hz.
+// *
+// * Timer A1 has a clock divider = 32, which decreases timer triggered
+// * frequency down to 20447232Hz / 32 = 638976Hz.
+// * Timer A1 triggered frequency = 638976Hz.
+// *
+// * Timer A2 has a clock divider = 32, which decreases timer triggered
+// * frequency down to 20447232Hz / 32 = 638976Hz.
+// * Timer A2 triggered frequency = 638976Hz.
+// *
+// * Timer A1 is used for 1kHz interrupt routine.
+// * Timer A2 is used for 100Hz interrupt routine.
+// * =================================================================
+// *
+// * ============================ TIMER B ============================
+// * Timer B is triggered by ACLK = 32768Hz.
+// * Timer B0 has a clock divider = 1, which has NO influence on timer
+// * frequency. Timer B0 frequency = 32768Hz.
+// *
+// * Timer B0 is used for 1Hz interrupt routine.
+// * =================================================================
+// */
+//
+///*
+// * ===================== CONSTANTS CALCULATION =====================
+// *
+// * Timer B0 constant calculation
+// * ACLK = 32768Hz
+// * DIVIDER = 1
+// * Compare value = ACLK / Desired frequency / DIVIDER
+// * => Compare value = 32768Hz / 1Hz / 1
+// * => Compare value = 32768
+// */
+//uint16_t const timer_b0_compare_value_1hz_aclk = 32768;
+//
+///*
+// * Timer A1 constant calculation
+// * SMCLK = 20447232Hz
+// * DIVIDER = 32
+// * Compare value = SMCLK / Desired frequency / DIVIDER
+// * => Compare value = 20447232Hz / 1000Hz / 32
+// * => Compare value = 639
+// */
+//uint16_t const timer_a1_compare_value_1khz_smclk = 639;
+//
+///*
+// * Timer A2 constant calculation
+// * SMCLK = 20447232Hz
+// * DIVIDER = 32
+// * Compare value = SMCLK / Desired frequency / DIVIDER
+// * => Compare value = 20447232Hz / 100Hz / 32
+// * => Compare value = 6390
+// */
+//uint16_t const timer_a2_compare_value_100hz_smclk = 6390;
+//
+///*
+// * Timer test
+// */
+//uint32_t timer_a2_100hz_test = 0;
+//uint32_t timer_a1_1khz_test = 0;
+//uint32_t timer_b0_1hz_test = 0;
+//
+// /* ============================================================= */
+//
+//void Init_Timers() {
+//    Init_Timer_A();
+//}
+//
+//void Init_Timer_A() {
+//
+//    // Start timer
+//    Timer_A_clearTimerInterrupt(TIMER_A1_BASE);
+//
+//    /*** Init TIMER_A1 sourced by ACLK ***/
+//    Timer_A_initUpModeParam param = {0};
+//    param.clockSource = TIMER_A_CLOCKSOURCE_ACLK;
+//    param.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_1;
+//    param.timerPeriod = 32; //(32768 / 4);
+//    param.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
+//    param.captureCompareInterruptEnable_CCR0_CCIE =
+//        TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
+//    param.timerClear = TIMER_A_DO_CLEAR;
+//    param.startTimer = true;
+//    Timer_A_initUpMode(TIMER_A1_BASE, &param);
+//}
+//
+////******************************************************************************
+////
+////This is the TIMER1_A0 interrupt vector service routine.
+////
+////******************************************************************************
+//#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
+//#pragma vector=TIMER1_A0_VECTOR
+//__interrupt
+//#elif defined(__GNUC__)
+//__attribute__((interrupt(TIMER1_A0_VECTOR)))
+//#endif
+//void TIMER1_A0_ISR (void)
+//{
+//    // Put code for LEDs here
+//    //Toggle P1.0
+//    GPIO_toggleOutputOnPin(
+//		GPIO_PORT_P2,
+//		GPIO_PIN3
+//		);
+////    GPIO_toggleOutputOnPin(
+////    		GPIO_PORT_P2,
+////    		GPIO_PIN4
+////    		);
+//
+//}
+///////////////////////////////////////////////////////////////////////////////////////////////
+
 #include <includes/config/timer_cfg.h>
-
-/*
- * Date: 2021-01-22
- * Author: Ivan Kozlov
- * Description: Timer Setup Parameters
- * 
- * ============================ TIMER A ============================
- * Timer A is triggered by SMCLK = 20447232Hz.
- *
- * Timer A1 has a clock divider = 32, which decreases timer triggered
- * frequency down to 20447232Hz / 32 = 638976Hz.
- * Timer A1 triggered frequency = 638976Hz.
- *
- * Timer A2 has a clock divider = 32, which decreases timer triggered
- * frequency down to 20447232Hz / 32 = 638976Hz.
- * Timer A2 triggered frequency = 638976Hz.
- * 
- * Timer A1 is used for 1kHz interrupt routine.
- * Timer A2 is used for 100Hz interrupt routine.
- * =================================================================
- * 
- * ============================ TIMER B ============================
- * Timer B is triggered by ACLK = 32768Hz.
- * Timer B0 has a clock divider = 1, which has NO influence on timer
- * frequency. Timer B0 frequency = 32768Hz.
- * 
- * Timer B0 is used for 1Hz interrupt routine.
- * =================================================================
- */
-
-/* 
- * ===================== CONSTANTS CALCULATION =====================
- * 
- * Timer B0 constant calculation
- * ACLK = 32768Hz 
- * DIVIDER = 1
- * Compare value = ACLK / Desired frequency / DIVIDER
- * => Compare value = 32768Hz / 1Hz / 1
- * => Compare value = 32768
- */
-uint16_t const timer_b0_compare_value_1hz_aclk = 32768;
-
-/* 
- * Timer A1 constant calculation
- * SMCLK = 20447232Hz
- * DIVIDER = 32
- * Compare value = SMCLK / Desired frequency / DIVIDER
- * => Compare value = 20447232Hz / 1000Hz / 32
- * => Compare value = 639
- */
-uint16_t const timer_a1_compare_value_1khz_smclk = 639;
-
-/* 
- * Timer A2 constant calculation
- * SMCLK = 20447232Hz
- * DIVIDER = 32
- * Compare value = SMCLK / Desired frequency / DIVIDER
- * => Compare value = 20447232Hz / 100Hz / 32
- * => Compare value = 6390
- */
-uint16_t const timer_a2_compare_value_100hz_smclk = 6390;
-
- /* ============================================================= */
 
 void Init_Timers() {
     Init_Timer_A();
-    Init_Timer_B();
 }
 
 void Init_Timer_A() {
 
-    /*** BEGIN Init TIMER_A1 in continuous mode sourced by SMCLK ***/
-    Timer_A_initContinuousModeParam initContParamTimerA1 = {0};
-    initContParamTimerA1.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;
-    /*** !!!IMPORTANT!!! - CLK DIVIDER = 64 => 20447232Hz / 64 = 319488Hz ***/
-    initContParamTimerA1.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32;
-    initContParamTimerA1.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
-    initContParamTimerA1.timerClear = TIMER_A_DO_CLEAR;
-    initContParamTimerA1.startTimer = false;
-    Timer_A_initContinuousMode(TIMER_A1_BASE, &initContParamTimerA1);
-    /*** END Init TIMER_A1 in continuous mode sourced by SMCLK ***/
+    // Start timer
+    Timer_A_clearTimerInterrupt(TIMER_A1_BASE);
 
-    /*** BEGIN Init COMPARE MODE by TIMER_A1 - 1kHz SMCLK ***/
-    Timer_A_clearCaptureCompareInterrupt(TIMER_A1_BASE,
-        TIMER_A_CAPTURECOMPARE_REGISTER_0
-        );
+    /*** Init TIMER_A1 sourced by ACLK ***/
+    Timer_A_initUpModeParam confTimerA1 = {0};
+    confTimerA1.clockSource = TIMER_A_CLOCKSOURCE_ACLK;
+    confTimerA1.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_1;
+    confTimerA1.timerPeriod = 32768;
+    confTimerA1.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
+    confTimerA1.captureCompareInterruptEnable_CCR0_CCIE =
+        TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
+    confTimerA1.timerClear = TIMER_A_DO_CLEAR;
+    confTimerA1.startTimer = true;
+    Timer_A_initUpMode(TIMER_A1_BASE, &confTimerA1);
 
-    Timer_A_initCompareModeParam initCompParam1KHz = {0};
-    initCompParam1KHz.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_0;
-    initCompParam1KHz.compareInterruptEnable = TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
-    initCompParam1KHz.compareOutputMode = TIMER_A_OUTPUTMODE_OUTBITVALUE;
-    // Define CLK cycles for CCR0 Interrupt
-    initCompParam1KHz.compareValue = timer_a1_compare_value_1khz_smclk;
-    Timer_A_initCompareMode(TIMER_A1_BASE, &initCompParam1KHz);
+    // Start timer
+    Timer_A_clearTimerInterrupt(TIMER_A2_BASE);
 
-    Timer_A_startCounter( TIMER_A1_BASE,
-            TIMER_A_CONTINUOUS_MODE
-                );
-    /*** END Init COMPARE MODE by TIMER_A1 - 1kHz SMCLK ***/
-
-    /*** BEGIN Init TIMER_A2 in continuous mode sourced by SMCLK ***/
-    Timer_A_initContinuousModeParam initContParamTimerA2 = {0};
-    initContParamTimerA2.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;
-    initContParamTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32;
-    initContParamTimerA2.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
-    initContParamTimerA2.timerClear = TIMER_A_DO_CLEAR;
-    initContParamTimerA2.startTimer = false;
-    Timer_A_initContinuousMode(TIMER_A2_BASE, &initContParamTimerA2);
-    /*** END Init TIMER_A2 in continuous mode sourced by SMCLK ***/
-
-    /*** BEGIN Init COMPARE MODE by TIMER_A2 - 10 MS ***/
-    Timer_A_clearCaptureCompareInterrupt(TIMER_A2_BASE,
-        TIMER_A_CAPTURECOMPARE_REGISTER_0
-        );
-
-    Timer_A_initCompareModeParam initCompParam100hz = {0};
-    initCompParam100hz.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_0;
-    initCompParam100hz.compareInterruptEnable = TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
-    initCompParam100hz.compareOutputMode = TIMER_A_OUTPUTMODE_OUTBITVALUE;
-    // Define CLK cycles for CCR0 Interrupt
-    initCompParam100hz.compareValue = timer_a2_compare_value_100hz_smclk;
-    Timer_A_initCompareMode(TIMER_A2_BASE, &initCompParam100hz);
-
-    Timer_A_startCounter( TIMER_A2_BASE,
-            TIMER_A_CONTINUOUS_MODE
-                );
-    /*** END Init COMPARE MODE by TIMER_A2 - 10 MS ***/
-}
-
-void Init_Timer_B() {
-    /*** BEGIN Init TIMER_B0 in continuous mode sourced by ACLK ***/
-    Timer_B_initContinuousModeParam initContParamTimerB0 = {0};
-    initContParamTimerB0.clockSource = TIMER_B_CLOCKSOURCE_ACLK;
-    initContParamTimerB0.clockSourceDivider = TIMER_B_CLOCKSOURCE_DIVIDER_1;
-    initContParamTimerB0.timerInterruptEnable_TBIE = TIMER_B_TBIE_INTERRUPT_DISABLE;
-    initContParamTimerB0.timerClear = TIMER_B_DO_CLEAR;
-    initContParamTimerB0.startTimer = false;
-    // If doesn't work, try Timer_B_initC..
-    Timer_B_initContinuousMode(TIMER_B0_BASE, &initContParamTimerB0);
-    /*** END Init TIMER_B0 in continuous mode sourced by ACLK ***/
-
-    /*** BEGIN Init COMPARE MODE by TIMER_B0 - 1 SEC ***/
-    Timer_B_clearCaptureCompareInterrupt(TIMER_B0_BASE,
-        TIMER_B_CAPTURECOMPARE_REGISTER_0
-        );
-
-    Timer_B_initCompareModeParam initCompParam1Hz = {0};
-    initCompParam1Hz.compareRegister = TIMER_B_CAPTURECOMPARE_REGISTER_0;
-    initCompParam1Hz.compareInterruptEnable = TIMER_B_CAPTURECOMPARE_INTERRUPT_ENABLE;
-    initCompParam1Hz.compareOutputMode = TIMER_B_OUTPUTMODE_OUTBITVALUE;
-    // Define CLK cycles for CCR0 Interrupt
-    initCompParam1Hz.compareValue = timer_b0_compare_value_1hz_aclk;
-    Timer_B_initCompareMode(TIMER_B0_BASE, &initCompParam1Hz);
-
-    Timer_B_startCounter( TIMER_B0_BASE,
-            TIMER_B_CONTINUOUS_MODE
-                );
-    /*** END Init COMPARE MODE by TIMER_B0 - 1 SEC ***/
+    /*** Init TIMER_A2 sourced by SMCLK ***/
+    Timer_A_initUpModeParam confTimerA2 = {0};
+    confTimerA2.clockSource = TIMER_A_CLOCKSOURCE_SMCLK; // 20447232Hz
+    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32; // 32 -> 638976Hz
+    confTimerA2.timerPeriod = 639; // 638976Hz / 1000Hz = 639
+    // Test with approx. 2 Hz
+//    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // 64 -> 319488Hz
+//    confTimerA2.timerPeriod = 63897; // approx. 2 Hz
+    confTimerA2.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
+    confTimerA2.captureCompareInterruptEnable_CCR0_CCIE =
+        TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
+    confTimerA2.timerClear = TIMER_A_DO_CLEAR;
+    confTimerA2.startTimer = true;
+    Timer_A_initUpMode(TIMER_A2_BASE, &confTimerA2);
 }
 
 //******************************************************************************
 //
-//This is the TIMER1_A3 interrupt vector service routine.
+//This is the TIMER1_A0 interrupt vector service routine.
 //
 //******************************************************************************
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
@@ -172,29 +174,22 @@ __attribute__((interrupt(TIMER1_A0_VECTOR)))
 #endif
 void TIMER1_A0_ISR (void)
 {
-    uint16_t compVal = Timer_A_getCaptureCompareCount(TIMER_A1_BASE,
-            TIMER_A_CAPTURECOMPARE_REGISTER_0)
-            + timer_a1_compare_value_1khz_smclk;
+    // Put code for LEDs here
+    //Toggle P1.0
 
-    /*** BEGIN will be executed every 1 KHz ***/
+	GPIO_toggleOutputOnPin(
+	        GPIO_PORT_P4,
+	        GPIO_PIN7);
+	GPIO_toggleOutputOnPin(
+		GPIO_PORT_P1,
+		GPIO_PIN0);
 
-    // GPIO_toggleOutputOnPin(GPIO_PORT_P1,
-    //                                GPIO_PIN0);
-
-    g_timer_1khz_flag = 1;
-
-    /*** END will be executed every 1 KHz ***/
-
-    // Add Offset to CCR0
-    Timer_A_setCompareValue(TIMER_A1_BASE,
-        TIMER_A_CAPTURECOMPARE_REGISTER_0,
-        compVal
-        );
+    g_timer_1sec_flag = 1;
 }
 
 //******************************************************************************
 //
-//This is the TIMER2_A3 interrupt vector service routine.
+//This is the TIMER2_A0 interrupt vector service routine.
 //
 //******************************************************************************
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
@@ -205,52 +200,10 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 #endif
 void TIMER2_A0_ISR (void)
 {
-    uint16_t compVal = Timer_A_getCaptureCompareCount(TIMER_A2_BASE,
-            TIMER_A_CAPTURECOMPARE_REGISTER_0)
-            + timer_a2_compare_value_100hz_smclk;
 
-    /*** BEGIN will be executed every 10 milliseconds ***/
 
-    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
-                                    GPIO_PIN0);
+    g_timer_1khz_flag = 1;
 
-    /*** END will be executed every 10 milliseconds ***/
 
-    // Add Offset to CCR0
-    Timer_A_setCompareValue(TIMER_A2_BASE,
-        TIMER_A_CAPTURECOMPARE_REGISTER_0,
-        compVal
-        );
 }
 
-//******************************************************************************
-//
-//This is the TIMER0_B0 interrupt vector service routine.
-//
-//******************************************************************************
-#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
-#pragma vector=TIMER0_B0_VECTOR
-__interrupt
-#elif defined(__GNUC__)
-__attribute__((interrupt(TIMER0_B0_VECTOR)))
-#endif
-void TIMER0_B0_ISR (void)
-{
-    uint16_t compVal = Timer_B_getCaptureCompareCount(TIMER_B0_BASE,
-            TIMER_B_CAPTURECOMPARE_REGISTER_0)
-            + timer_b0_compare_value_1hz_aclk;
-
-    /*** BEGIN will be executed every 1 SEC ***/
-
-    GPIO_toggleOutputOnPin(GPIO_PORT_P4,
-                                   GPIO_PIN7);
-
-    g_timer_1sec_flag = 1;
-
-    /*** END will be executed every 1 SEC ***/
-    // Add Offset to CCR0
-    Timer_B_setCompareValue(TIMER_B0_BASE,
-        TIMER_B_CAPTURECOMPARE_REGISTER_0,
-        compVal
-        );
-}

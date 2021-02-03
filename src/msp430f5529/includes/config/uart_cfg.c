@@ -146,13 +146,13 @@ void Init_UART() {
 
     // Init UART A0
     // USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
-    if (STATUS_FAIL == USCI_A_UART_init(USCI_A0_BASE, &uart_cfg)){
+    if (STATUS_FAIL == USCI_A_UART_init(USCI_A1_BASE, &uart_cfg)){
         return;
     }
-    USCI_A_UART_enable(USCI_A0_BASE);
-    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+    USCI_A_UART_enable(USCI_A1_BASE);
+    USCI_A_UART_clearInterrupt(USCI_A1_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT);
-    USCI_A_UART_enableInterrupt(USCI_A0_BASE,
+    USCI_A_UART_enableInterrupt(USCI_A1_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT);
 }
 

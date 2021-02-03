@@ -6,57 +6,11 @@
  */
 
 #include <adc_cfg.h>
+//#include "main.h"
+
 
 void Init_ADC() {
-    //Enable A/D channel A0
-    GPIO_setAsPeripheralModuleFunctionInputPin(
-            GPIO_PORT_P6, GPIO_PIN0);
 
-    //Init the ADC12_A Module
-    /*
-     * Base address of ADC12_A Module
-     * Use internal ADC12_A bit as sample/hold signal
-     * to start conversion
-     * USE ACLK 32kHz as clock source
-     * Use default clock divider of 1
-     */
-    ADC12_A_init(ADC12_A_BASE,
-                 ADC12_A_SAMPLEHOLDSOURCE_SC,
-                 ADC12_A_CLOCKSOURCE_ACLK,
-                 ADC12_A_CLOCKDIVIDER_1);
-
-    ADC12_A_enable(ADC12_A_BASE);
-
-    /*
-     * Base address of ADC12_A Module
-     * For memory buffers 0-7 sample/hold for 64
-     * clock cycles
-     * For memory buffers 8-15 sample/hold for 4
-     * clock cycles (default)
-     * Disable Multiple Sampling
-     */
-    ADC12_A_setupSamplingTimer(ADC12_A_BASE,
-        ADC12_A_CYCLEHOLD_64_CYCLES,
-        ADC12_A_CYCLEHOLD_4_CYCLES,
-        ADC12_A_MULTIPLESAMPLESDISABLE);
-
-    //Configure Memory Buffer
-    /*
-     * Base address of the ADC12_A Module
-     * Configure memory buffer 0
-     * Map input A0 to memory buffer 0
-     * Vr+ = Vref+ (int)
-     * Vr- = AVss
-     * Memory buffer 0 is not the end of a sequence
-     */
-    ADC12_A_configureMemoryParam adc_cfg = {0};
-    adc_cfg.memoryBufferControlIndex = ADC12_A_MEMORY_0;
-    adc_cfg.inputSourceSelect = ADC12_A_INPUT_A0;
-    // TODO Ask about voltage references
-    adc_cfg.positiveRefVoltageSourceSelect = ADC12_A_VREFPOS_AVCC;//ADC12_A_VREFPOS_INT;
-    adc_cfg.negativeRefVoltageSourceSelect = ADC12_A_VREFNEG_AVSS;
-    adc_cfg.endOfSequence = ADC12_A_NOTENDOFSEQUENCE;
-    ADC12_A_configureMemory(ADC12_A_BASE ,&adc_cfg);
 
     //Configure internal reference
     //If ref generator busy, WAIT
@@ -70,24 +24,97 @@ void Init_ADC() {
     //Delay (~75us) for Ref to settle
     __delay_cycles(75);
 
+    //Enable A/D channel A0
+    GPIO_setAsPeripheralModuleFunctionInputPin(
+            GPIO_PORT_P6, GPIO_PIN4);
+
+    GPIO_setAsPeripheralModuleFunctionInputPin(   // battery surveillance
+    		GPIO_PORT_P6, GPIO_PIN5);
+
+
+    //Configure Memory Buffer
+    /*
+     * Base address of the ADC12_A Module
+     * Configure memory buffer 0
+     * Map input A0 to memory buffer 0
+     * Vr+ = Vref+ (int)
+     * Vr- = AVss
+     * Memory buffer 0 is not the end of a sequence
+     */
+    ADC12_A_configureMemoryParam adc_cfg = {0};
+    adc_cfg.memoryBufferControlIndex = ADC12_A_MEMORY_0;
+    adc_cfg.inputSourceSelect = ADC12_A_INPUT_A4;
+    adc_cfg.positiveRefVoltageSourceSelect = ADC12_A_VREFPOS_AVCC;//ADC12_A_VREFPOS_INT;
+    adc_cfg.negativeRefVoltageSourceSelect = ADC12_A_VREFNEG_AVSS;
+    adc_cfg.endOfSequence = ADC12_A_NOTENDOFSEQUENCE;
+
+    ADC12_A_configureMemoryParam adc_akku_cfg = {0};    // configuration for 2nd Channel for battery surveillance
+    adc_akku_cfg.memoryBufferControlIndex = ADC12_A_MEMORY_1;
+    adc_akku_cfg.inputSourceSelect = ADC12_A_INPUT_A5;
+	adc_akku_cfg.positiveRefVoltageSourceSelect = ADC12_A_VREFPOS_AVCC; //ADC12_A_VREFPOS_INT;
+	adc_akku_cfg.negativeRefVoltageSourceSelect = ADC12_A_VREFNEG_AVSS;
+	adc_akku_cfg.endOfSequence = ADC12_A_ENDOFSEQUENCE;
+
+    //Init the ADC12_A Module
+    /*
+     * Base address of ADC12_A Module
+     * Use internal ADC12_A bit as sample/hold signal
+     * to start conversion
+     * USE ACLK 32kHz as clock source / EDIT SMCLK
+     * Use default clock divider of 1
+     */
+    ADC12_A_init(ADC12_A_BASE,
+                 ADC12_A_SAMPLEHOLDSOURCE_SC,
+                 ADC12_A_CLOCKSOURCE_SMCLK,
+                 ADC12_A_CLOCKDIVIDER_1);
+
+    /*
+     * Base address of ADC12_A Module
+     * For memory buffers 0-7 sample/hold for 64
+     * clock cycles
+     * For memory buffers 8-15 sample/hold for 4
+     * clock cycles (default)
+     * Disable Multiple Sampling
+     */
+    ADC12_A_setupSamplingTimer(ADC12_A_BASE,
+        ADC12_A_CYCLEHOLD_16_CYCLES,
+        ADC12_A_CYCLEHOLD_4_CYCLES,
+        ADC12_A_MULTIPLESAMPLESENABLE);   // multisampling enabled
+
+    ADC12_A_configureMemory(ADC12_A_BASE ,&adc_cfg);
+
+	ADC12_A_configureMemory(ADC12_A_BASE, &adc_akku_cfg);
+
     //Enable memory buffer 0 interrupt
     ADC12_A_clearInterrupt(ADC12_A_BASE,
             ADC12IFG0);
     ADC12_A_enableInterrupt(ADC12_A_BASE,
             ADC12IE0);
+
+	__enable_interrupt();
+
+    ADC12_A_enable(ADC12_A_BASE);
+
 }
 
-void Test_ADC() {
+void Start_ADC() {
     //Enable/Start sampling and conversion
     /*
      * Base address of ADC12_A Module
      * Start the conversion into memory buffer 0
      * Use the single-channel, single-conversion mode
      */
-    ADC12_A_startConversion(
+
+//    ADC12_A_startConversion(
+//            ADC12_A_BASE,
+//            ADC12_A_MEMORY_0,
+//            ADC12_A_SINGLECHANNEL);
+
+    ADC12_A_startConversion(            // Conversion with two channels
             ADC12_A_BASE,
             ADC12_A_MEMORY_0,
-            ADC12_A_SINGLECHANNEL);
+            ADC12_A_SEQOFCHANNELS);
+
 
     //LPM0, ADC12_A_ISR will force exit
     __bis_SR_register(LPM0_bits + GIE);
@@ -95,15 +122,24 @@ void Test_ADC() {
     __no_operation();
 }
 
+
+
+
 #pragma vector = ADC12_VECTOR
 __interrupt void ADC12_A_ISR(void) {
     switch (__even_in_range(ADC12IV,34)) {
         case  0: break;   //Vector  0:  No interrupt
         case  2: break;   //Vector  2:  ADC overflow
         case  4: break;   //Vector  4:  ADC timing overflow
-        case  6:;          //Vector  6:  ADC12IFG0
+        case  6:          //Vector  6:  ADC12IFG0
          //Is Memory Buffer 0 = A0 > 0.5AVcc?
-        g_adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
+
+
+            g_adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
+
+//            akku_vol = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_1);
+
+
          //Exit active CPU
          __bic_SR_register_on_exit(LPM0_bits);
          break;
