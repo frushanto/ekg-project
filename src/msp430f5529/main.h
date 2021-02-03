@@ -23,7 +23,7 @@
 
 
 extern sMedianFilter_t medianFilter;
-extern uint8_t g_median_value;
+
 
 //uint16_t uart_timer_one_sec = 0;
 extern uint8_t adc_ready;

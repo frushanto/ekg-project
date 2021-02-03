@@ -137,7 +137,7 @@ void Init_UART() {
     /**************************************************************/
 
     //uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_ACLK;
-    uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_SMCLK; // -> 11993088 Hz
+    uart_cfg.selectClockSource = USCI_A_UART_CLOCKSOURCE_SMCLK; // -> 20 MHz
     uart_cfg.clockPrescalar = 173; //104; //104 //3; // Table 36-4, p.952 User's Guide
     uart_cfg.firstModReg = 0;
     uart_cfg.secondModReg = 5;//1; //1 //3;

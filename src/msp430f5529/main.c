@@ -14,15 +14,10 @@ static sMedianNode_t medianBuffer[NUM_ELEMENTS];
 uint8_t g_median_value = 0;
 
 
-uint8_t bpm = 60;
-uint16_t millisecs = 0;
+
 uint16_t adc_value = 0;
 //uint16_t maximum = 0;
 uint8_t flag = 0;
-uint16_t threshold = 2200;
-uint16_t max = 0;
-uint16_t min = 4095;
-uint16_t watchdog_var = 0;
 uint8_t one_sec = 0;
 uint8_t adc_ready = 0;
 bool enable_functionality = false;
@@ -33,6 +28,13 @@ uint8_t j = 0;
 uint16_t akku_vol = 0;
 uint16_t adc_result = 0;
 bool buzzer_flag = false;
+
+uint8_t bpm = 0;
+static uint16_t millisecs = 0;
+static uint16_t threshold = 2200;
+static uint16_t max = 0;
+static uint16_t min = 4095;
+static uint16_t watchdog_var = 0;
 
 
 
@@ -46,9 +48,9 @@ void main(void) {
     Init_UART();
     Init_ADC();
 //    /* Init median filter */
-    medianFilter.numNodes = NUM_ELEMENTS;
-    medianFilter.medianBuffer = medianBuffer;
-    MEDIANFILTER_Init(&medianFilter); // Init median filter
+//    medianFilter.numNodes = NUM_ELEMENTS;
+//    medianFilter.medianBuffer = medianBuffer;
+//    MEDIANFILTER_Init(&medianFilter); // Init median filter
 
     EnableGlobalInterrupt();
     /* Init MSP430 END */
@@ -67,7 +69,6 @@ void main(void) {
         {
         	adc_ready = 0;
 
-
             watchdog_var++;
             Start_ADC();
 
@@ -85,7 +86,7 @@ void main(void) {
             else if((adc_value > threshold) && (millisecs > 400))
             {
                 bpm = (uint16_t) (60000 / millisecs);
-//                g_median_value = MEDIANFILTER_Insert(&medianFilter, bpm);
+//                g_median_value = (uint8_t) MEDIANFILTER_Insert(&medianFilter, bpm);
 
 //                if((bpm < 121) && (bpm > 39))
 //                {
