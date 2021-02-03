@@ -8,9 +8,9 @@ uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
 
 /* For median filter */
-#define NUM_ELEMENTS    7
-sMedianFilter_t medianFilter;
-static sMedianNode_t medianBuffer[NUM_ELEMENTS];
+//#define NUM_ELEMENTS    7
+//sMedianFilter_t medianFilter;
+//static sMedianNode_t medianBuffer[NUM_ELEMENTS];
 /* End median filter */
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
@@ -36,15 +36,15 @@ void main(void)
             Init_UART();
             Init_ADC();
             /* Init median filter */
-            medianFilter.numNodes = NUM_ELEMENTS;
-            medianFilter.medianBuffer = medianBuffer;
-            MEDIANFILTER_Init(&medianFilter); // Init median filter
+//            medianFilter.numNodes = NUM_ELEMENTS;
+//            medianFilter.medianBuffer = medianBuffer;
+//            MEDIANFILTER_Init(&medianFilter); // Init median filter
             //    Init_SPI();
             /* !!! For test purposes leave Init_MMC() line commented out!!! */
             //Init_MMC();
             EnableGlobalInterrupt();
             /* Init MSP430 END */
-            g_sys_state = IDLE_STATE; // Change state
+            g_sys_state = ECG_SHORT; // Change state
             break;
 
         case ECG_SHORT:
@@ -53,16 +53,16 @@ void main(void)
                 g_timer_1khz_flag = 0;
                 ST_ECG();
             }
-            if (g_long_ECG_flag)
-            {
-                g_long_ECG_flag = 0;
-                Short_ECG_Error();
-            }
-            if (!g_short_ECG_flag)
-            {
-                Clear_Wave_ST();
-                g_sys_state = IDLE_STATE;
-            }
+//            if (g_long_ECG_flag)
+//            {
+//                g_long_ECG_flag = 0;
+//                Short_ECG_Error();
+//            }
+//            if (!g_short_ECG_flag)
+//            {
+//                Clear_Wave_ST();
+//                g_sys_state = IDLE_STATE;
+//            }
             break;
 
         case ECG_LONG:

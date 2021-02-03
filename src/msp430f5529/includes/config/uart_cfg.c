@@ -10,7 +10,7 @@
 #define UART_BASE_A0    0
 #define UART_BASE_A1    1
 
-#define UART_BASE       UART_BASE_A0
+#define UART_BASE       UART_BASE_A1
 #define UART_MESSAGE_MAX_LENGTH 12
 #define UART_TX_MAX_LENGTH 24
 
@@ -155,6 +155,26 @@ void Init_UART() {
     USCI_A_UART_enableInterrupt(USCI_A0_BASE,
             USCI_A_UART_RECEIVE_INTERRUPT);
 }
+
+
+void UART_serialplot(uint16_t trx_value, uint16_t puls)
+{
+    uint8_t i, length;
+    volatile uint16_t save_trx_value = trx_value;
+    volatile uint16_t save_puls = puls;
+
+    sprintf(uart_transmit_set_val,"%d,%d\r\n", save_trx_value, save_puls); // Länge des Strings überprüfen
+    length = strlen((char const*)uart_transmit_set_val);
+
+    for(i = 0; i < length; i++){
+        USCI_A_UART_transmitData(USCI_A1_BASE, uart_transmit_set_val[i]);
+
+        /* Wait transmission is completed */
+
+        while(USCI_A_UART_queryStatusFlags(USCI_A1_BASE, USCI_A_UART_BUSY) == USCI_A_UART_BUSY);
+    }
+}
+
 
 /*
  * EUSCI_A_UART_enable() enables the EUSI_A_UART and the module

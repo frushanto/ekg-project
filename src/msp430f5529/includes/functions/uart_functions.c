@@ -67,7 +67,8 @@ void Long_ECG_Error()
 void ST_ECG()
 {
     Test_ADC();
-    Uart_ECG_Wave_ST(g_adc_result);
+//    Uart_ECG_Wave_ST(g_adc_result);
+    UART_serialplot(g_adc_result, 0); // Hier bpm ans Display senden
     calculate_bpm_ST();
 }
 

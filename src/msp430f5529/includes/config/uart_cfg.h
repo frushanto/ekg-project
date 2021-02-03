@@ -22,6 +22,7 @@ void uart_transmit_data_start(char nextion_command[]);
 void uart_transmit_data_value(uint16_t transmit_value);
 void uart_transmit_data_end();
 void uart_receive_data_end();
+void UART_serialplot(uint16_t trx_value, uint16_t puls);
 
 /***** GLOBALE VARS *****/
 // extern uint8_t g_kz_start_stop;
