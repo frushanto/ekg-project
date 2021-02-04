@@ -101,9 +101,9 @@ void Init_UART() {
      * P3.3/UCA0TXD/UCA0SIMO
      * */
    GPIO_setAsPeripheralModuleFunctionInputPin(
-           GPIO_PORT_P3, GPIO_PIN4); // UART Rx Pin - P3.4
+           GPIO_PORT_P4, GPIO_PIN1); // UART Rx Pin - P4.1
    GPIO_setAsPeripheralModuleFunctionOutputPin(
-           GPIO_PORT_P3,GPIO_PIN3); // UART Tx Pin - P3.3
+           GPIO_PORT_P4,GPIO_PIN0); // UART Tx Pin - P4.0
 
 #elif UART_BASE == UART_BASE_A1
 
