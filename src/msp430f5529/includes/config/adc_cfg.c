@@ -10,7 +10,7 @@
 void Init_ADC() {
     //Enable A/D channel A0
     GPIO_setAsPeripheralModuleFunctionInputPin(
-            GPIO_PORT_P6, GPIO_PIN0);
+            GPIO_PORT_P6, GPIO_PIN4);
 
     //Init the ADC12_A Module
     /*

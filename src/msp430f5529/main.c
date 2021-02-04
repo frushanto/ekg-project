@@ -31,18 +31,19 @@ void main(void) {
 //    							GPIO_PIN6);
     while(1) {
 
-//    	flag = GPIO_getInputPinValue(GPIO_PORT_P6, GPIO_PIN2);
+//        if(g_timer_1khz_flag)
+//        {
+//            g_timer_1khz_flag = 0;
+//            flag++;
 //
-//    	if(flag)
-//    	{
-////    		__delay_cycles(2000000);
-////    		flag = GPIO_getInputPinValue(GPIO_PORT_P6, GPIO_PIN2);
-////    		if(flag)
-////    		{
-//        		GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
-////    		}
-//    	}
-//    	__delay_cycles(20000000);
+//            Test_ADC();
+//
+//            if(flag == 10)
+//            {
+//                flag = 0;
+//                UART_serialplot(g_adc_result, 0);
+//            }
+//        }
 
     }
 }
