@@ -31,19 +31,19 @@ void main(void) {
 //    							GPIO_PIN6);
     while(1) {
 
-//        if(g_timer_1khz_flag)
-//        {
-//            g_timer_1khz_flag = 0;
+        if(g_timer_1khz_flag)
+        {
+            g_timer_1khz_flag = 0;
 //            flag++;
 //
-//            Test_ADC();
+            Test_ADC();
 //
 //            if(flag == 10)
 //            {
 //                flag = 0;
 //                UART_serialplot(g_adc_result, 0);
 //            }
-//        }
+        }
 
     }
 }

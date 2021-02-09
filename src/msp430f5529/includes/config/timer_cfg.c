@@ -27,8 +27,10 @@ void Init_Timer_A() {
     /*** Init TIMER_A2 sourced by SMCLK ***/ 
     Timer_A_initUpModeParam confTimerA2 = {0};
     confTimerA2.clockSource = TIMER_A_CLOCKSOURCE_SMCLK; // 20447232Hz
-    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32; // 32 -> 638976Hz
-    confTimerA2.timerPeriod = 639; // 638976Hz / 1000Hz = 639
+//    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32; // 32 -> 638976Hz
+    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_8; // -> 4 MHz / 8 = 50000 Hz
+    confTimerA2.timerPeriod = 50; // 50000Hz / 1000Hz = 500
+    //    confTimerA2.timerPeriod = 639; // 638976Hz / 1000Hz = 639
     // Test with approx. 2 Hz
 //    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // 64 -> 319488Hz
 //    confTimerA2.timerPeriod = 63897; // approx. 2 Hz
@@ -58,10 +60,10 @@ void TIMER1_A0_ISR (void)
 //	GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
 	GPIO_toggleOutputOnPin(
 	        GPIO_PORT_P2,
-	        GPIO_PIN4);
+	        GPIO_PIN3);
 	GPIO_toggleOutputOnPin(
 		GPIO_PORT_P2,
-		GPIO_PIN3);
+		GPIO_PIN4);
 
 
 	g_timer_1sec_flag = 1;
