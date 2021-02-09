@@ -22,7 +22,7 @@ void main(void) {
     Init_GPIO();
     Init_CLK();
     Init_Timers();
-//    Init_UART();
+    Init_UART();
     Init_ADC();
     EnableGlobalInterrupt();
 
@@ -38,7 +38,7 @@ void main(void) {
 
             GPIO_toggleOutputOnPin(GPIO_PORT_P6,GPIO_PIN1);
 
-//            Test_ADC();
+//            Start_ADC();
 
             if(flag == 100)
             {

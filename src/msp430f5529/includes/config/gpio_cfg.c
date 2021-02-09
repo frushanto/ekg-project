@@ -7,7 +7,6 @@
 
 #include <includes/config/gpio_cfg.h>
 
-uint8_t g_transmitData = 11;
 
 // Configure GPIO ports/pins
 void Init_GPIO(void) {
@@ -94,15 +93,7 @@ __interrupt void pushbutton_ISR(void) {
             GPIO_toggleOutputOnPin(GPIO_PORT_P2,GPIO_PIN4);
 
             break;
-        case 0x04:          // Pin 1
-            /*** BEGIN Interrupt for P1.1 ***/
-            //Transmit Data to slave
-//            g_transmitData = 0x76;
-//            USCI_B_SPI_transmitData(USCI_B0_BASE, g_transmitData);
-//            GPIO_toggleOutputOnPin(GPIO_PORT_P4,
-//                                   GPIO_PIN7);
-            /*** END Interrupt for P1.1 ***/
-            break;
+        case 0x04: break;   // Pin 1
         case 0x06: break;   // Pin 2
         case 0x08: break;   // Pin 3
         case 0x0A: break;   // Pin 4
