@@ -28,21 +28,33 @@ void main(void) {
 
 
 //    GPIO_setOutputHighOnPin(GPIO_PORT_P6,
-//    							GPIO_PIN6);
+//    	GPIO_PIN6);
+
+
+    GPIO_setOutputHighOnPin(GPIO_PORT_P6,
+                                GPIO_PIN6);
+
+
     while(1) {
+
 
         if(g_timer_1khz_flag)
         {
             g_timer_1khz_flag = 0;
-//            flag++;
+            flag++;
 //
+//            GPIO_toggleOutputOnPin(GPIO_PORT_P6,GPIO_PIN1);
+
+
+
             Test_ADC();
 //
-//            if(flag == 10)
-//            {
-//                flag = 0;
+            if(flag == 100)
+            {
+                flag = 0;
 //                UART_serialplot(g_adc_result, 0);
-//            }
+                GPIO_toggleOutputOnPin(GPIO_PORT_P2,GPIO_PIN4);
+            }
         }
 
     }
