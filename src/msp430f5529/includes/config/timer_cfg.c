@@ -83,9 +83,7 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 void TIMER2_A0_ISR (void)
 {
 
-//    GPIO_toggleOutputOnPin(
-//            GPIO_PORT_P6,
-//            GPIO_PIN1);
+//    GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
 
 
     g_timer_1khz_flag = 1;

@@ -13,8 +13,7 @@ uint8_t g_transmitData = 11;
 void Init_GPIO(void) {
     // Configure LED1 on DevKit
     GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN3);
-    GPIO_setOutputLowOnPin(GPIO_PORT_P2,
-                                GPIO_PIN3);
+    GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN3);
     
     // Configure buzzer
     GPIO_setAsOutputPin(GPIO_PORT_P6, GPIO_PIN1);
@@ -22,21 +21,20 @@ void Init_GPIO(void) {
     
     // Configure LED2 on DevKit
     GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN4);
-    GPIO_setOutputLowOnPin(GPIO_PORT_P2,
-                                GPIO_PIN4);
+    GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
 
     // Configure 5V DC/DC Enaeble
 	GPIO_setAsOutputPin(GPIO_PORT_P6, GPIO_PIN6);
-	GPIO_setOutputLowOnPin(GPIO_PORT_P6,
-							GPIO_PIN6);
+	GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
 
-	// Configure button on PCB
-	GPIO_setAsInputPin(GPIO_PORT_P6, GPIO_PIN2);
+    // Configure button on PCB
+    GPIO_setAsInputPin(GPIO_PORT_P1, GPIO_PIN0);
+    GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN0);
 
+    // Configure Pin attached to button DONT USE
+    GPIO_setAsOutputPin(GPIO_PORT_P6, GPIO_PIN2);
+    GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN2);
 
-
-    // Configure button on DevKit
-    GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN1);
 
     /********************************************/
     /********* BEGIN Configure SPI BLOCK ********/
@@ -44,14 +42,14 @@ void Init_GPIO(void) {
     // SPI_MOSI_SDCARD - P3.0
     // SPI_MISO_SDCARD - P3.1
     // SPI_CLK_SDCARD - P3.2
-    GPIO_setAsPeripheralModuleFunctionInputPin(
-        GPIO_PORT_P3,
-        GPIO_PIN0 + GPIO_PIN1 + GPIO_PIN2
-        );
+//    GPIO_setAsPeripheralModuleFunctionInputPin(
+//        GPIO_PORT_P3,
+//        GPIO_PIN0 + GPIO_PIN1 + GPIO_PIN2
+//        );
 
     // SPI_CS_SDCARD - P2.7
-    GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN7);
-    GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN7);
+//    GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN7);
+//    GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN7);
     
     // TODO CARD DETECTION TO BE TESTED
     
@@ -68,36 +66,41 @@ void Init_GPIO(void) {
      * OR CALCULATE TOTAL RESISTANCE OF BOTH PULL 
      * UPS TO AVOID VOLTAGE DROP */
     /*****************************************/
-    GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P2, GPIO_PIN5);
+//    GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P2, GPIO_PIN5);
     /********************************************/
     /********* END Configure SPI BLOCK **********/
     /********************************************/
 }
 
 // Activate buzzer
-void GPIO_Buzzer_Single_Beep(void) {
-    // Buzzer on
-    GPIO_setOutputHighOnPin(GPIO_PORT_P1,
-                            GPIO_PIN6);
-    DELAY500K;
-    // Buzzer off
-    GPIO_setOutputLowOnPin(GPIO_PORT_P1,
-                            GPIO_PIN6);
-}
+//void GPIO_Buzzer_Single_Beep(void) {
+//    // Buzzer on
+//    GPIO_setOutputHighOnPin(GPIO_PORT_P1,
+//                            GPIO_PIN6);
+//    DELAY500K;
+//    // Buzzer off
+//    GPIO_setOutputLowOnPin(GPIO_PORT_P1,
+//                            GPIO_PIN6);
+//}
 
 /* Interrupt Service Routines */
 #pragma vector = PORT1_VECTOR
 __interrupt void pushbutton_ISR(void) {
     switch(__even_in_range(P1IV, 0x10)) {
         case 0x00: break;   // None
-        case 0x02: break;   // Pin 0
+        case 0x02:          // Pin 0
+
+            GPIO_toggleOutputOnPin(GPIO_PORT_P6,GPIO_PIN6);
+            GPIO_toggleOutputOnPin(GPIO_PORT_P2,GPIO_PIN4);
+
+            break;
         case 0x04:          // Pin 1
             /*** BEGIN Interrupt for P1.1 ***/
             //Transmit Data to slave
-            g_transmitData = 0x76;
-            USCI_B_SPI_transmitData(USCI_B0_BASE, g_transmitData);
-            GPIO_toggleOutputOnPin(GPIO_PORT_P4,
-                                   GPIO_PIN7);
+//            g_transmitData = 0x76;
+//            USCI_B_SPI_transmitData(USCI_B0_BASE, g_transmitData);
+//            GPIO_toggleOutputOnPin(GPIO_PORT_P4,
+//                                   GPIO_PIN7);
             /*** END Interrupt for P1.1 ***/
             break;
         case 0x06: break;   // Pin 2
