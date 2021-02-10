@@ -28,8 +28,8 @@ void Init_Timer_A() {
     Timer_A_initUpModeParam confTimerA2 = {0};
     confTimerA2.clockSource = TIMER_A_CLOCKSOURCE_SMCLK; // 20447232Hz
 //    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32; // 32 -> 638976Hz
-    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_8; // -> 4 MHz / 8 = 50000 Hz
-    confTimerA2.timerPeriod = 50; // 50000Hz / 1000Hz = 500
+    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // -> 4096000 Hz / 64 = 64000 Hz
+    confTimerA2.timerPeriod = 32000; // 64kHz / 2 == 2 Hz
     //    confTimerA2.timerPeriod = 639; // 638976Hz / 1000Hz = 639
     // Test with approx. 2 Hz
 //    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // 64 -> 319488Hz
@@ -55,27 +55,8 @@ __attribute__((interrupt(TIMER1_A0_VECTOR)))
 #endif
 void TIMER1_A0_ISR (void)
 {
-    // Put code for LEDs here
-    //Toggle P1.0
-//	GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
-//	GPIO_toggleOutputOnPin(
-//	        GPIO_PORT_P2,
-//	        GPIO_PIN3);
-
-    // Dev Kit LEDs
-    GPIO_toggleOutputOnPin(
-              GPIO_PORT_P1,
-              GPIO_PIN0);
-    GPIO_toggleOutputOnPin(
-              GPIO_PORT_P4,
-              GPIO_PIN7);
-
-
-//	GPIO_toggleOutputOnPin(
-//		GPIO_PORT_P2,
-//		GPIO_PIN4);
-
-
+    // DevKit LED1
+    GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
 	g_timer_1sec_flag = 1;
 }
 
@@ -92,9 +73,7 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 #endif
 void TIMER2_A0_ISR (void)
 {
-
-//    GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
-
-
+    // DevKit LED2
+    GPIO_toggleOutputOnPin(GPIO_PORT_P4, GPIO_PIN7);
     g_timer_1khz_flag = 1;
 }
