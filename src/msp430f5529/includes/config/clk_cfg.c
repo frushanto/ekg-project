@@ -36,8 +36,8 @@ uint16_t status;
  * */
 void Init_CLK() {
 
-    //Set VCore = 1
-    PMM_setVCore(PMM_CORE_LEVEL_1);
+    //Set VCore = 2
+    PMM_setVCore(PMM_CORE_LEVEL_2);
 
     UCS_initClockSignal (
         UCS_ACLK,               // Configure ACLK
@@ -46,37 +46,18 @@ void Init_CLK() {
     );
 
     //Set DCO FLL reference = REFO
-    UCS_initClockSignal(
-        UCS_FLLREF,
-//            UCS_MCLK,
-        UCS_REFOCLK_SELECT,
-//        UCS_XT2CLK_SELECT,
-        UCS_CLOCK_DIVIDER_1
-        );
+    UCS_initClockSignal(UCS_FLLREF, 
+        UCS_REFOCLK_SELECT, UCS_CLOCK_DIVIDER_1);
 
+    // UCS_initClockSignal(UCS_MCLK, 
+    //     UCS_XT2CLK_SELECT, UCS_CLOCK_DIVIDER_1);
 
-    //Set DCO FLL reference = REFO
-    UCS_initClockSignal(
-//        UCS_FLLREF,
-            UCS_MCLK,
-//        UCS_REFOCLK_SELECT,
-        UCS_XT2CLK_SELECT,
-        UCS_CLOCK_DIVIDER_1
-        );
-
-    UCS_initClockSignal(
-//        UCS_FLLREF,
-            UCS_SMCLK,
-//        UCS_REFOCLK_SELECT,
-        UCS_XT2CLK_SELECT,
-        UCS_CLOCK_DIVIDER_1
-        );
+    // UCS_initClockSignal(UCS_SMCLK, 
+    //     UCS_XT2CLK_SELECT, UCS_CLOCK_DIVIDER_1);
 
     //Set Ratio and Desired MCLK Frequency and initialize DCO
-    UCS_initFLLSettle(
-        UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ,
-        UCS_MCLK_FLLREF_RATIO
-        );
+    UCS_initFLLSettle(UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ,
+        UCS_MCLK_FLLREF_RATIO);
 
     //Verify if the Clock settings are as expected
     clockValue = UCS_getSMCLK();    // clockValue = 4096000d

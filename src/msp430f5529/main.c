@@ -49,8 +49,6 @@ void main(void) {
             /* Init MSP430 END */
             
             g_sys_state = IDLE_STATE; // Change state
-            // Next line for SD Card test only
-//            g_sys_state = ECG_SHORT; // Change state
             break;
 
         case ECG_SHORT:
@@ -58,8 +56,14 @@ void main(void) {
             {
                 g_timer_1khz_flag = 0;
                 ST_ECG();
-                // Test writing on SD Card
-//                SD_TestWriteOnSD();
+                // Testing SD Card
+                // Write in .csv
+                SD_StartWriting();
+                g_writingCyclesCnt++;
+                if (g_writingCyclesCnt == 10) {
+                    g_short_ECG_flag = 0;
+                    g_writingCyclesCnt = 0;
+                }
             }
             if (g_long_ECG_flag)
             {
@@ -69,6 +73,8 @@ void main(void) {
             if (!g_short_ECG_flag)
             {
                 Clear_Wave_ST();
+                // Stop writing in .csv
+                SD_StopWriting();
                 g_sys_state = IDLE_STATE;
             }
             break;
@@ -78,6 +84,8 @@ void main(void) {
             {
                 g_timer_1khz_flag = 0;
                 LT_ECG();
+                // Write in .csv
+                SD_StartWriting();
             }
             if (g_short_ECG_flag)
             {
@@ -87,6 +95,8 @@ void main(void) {
             if (!g_long_ECG_flag)
             {
                 Clear_Wave_LT();
+                // Stop writing in .csv
+                SD_StopWriting();
                 g_sys_state = IDLE_STATE;
             }
             break;
@@ -95,17 +105,20 @@ void main(void) {
             break;
 
         case IDLE_STATE:
-            // Next line for SD Card test only
-//            g_sys_state = ECG_SHORT;
+            // Testing SD Card
+            g_short_ECG_flag = 1;
             if (g_short_ECG_flag)
             {
+                // Start create/write new .csv
+                SD_CreateNewCSV();
                 g_sys_state = ECG_SHORT;
             }
             if (g_long_ECG_flag)
             {
+                // Start create/write new .csv
+                SD_CreateNewCSV();
                 g_sys_state = ECG_LONG;
             }
-//        }
             break;
 
         case SYS_ERROR:

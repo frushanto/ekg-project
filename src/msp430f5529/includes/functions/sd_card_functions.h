@@ -5,6 +5,7 @@
 #include <includes/driverlib/driverlib.h>
 #include <includes/driverlib/std_types.h>
 #include <includes/config/uart_cfg.h>
+#include <ctype.h>
 #include "main.h"
 #include "includes/config/sd-card-cfg/ff.h"
 #include "time.h"
@@ -23,5 +24,8 @@ UINT read;                  /* Read bytes object  */
 FRESULT WriteFile(char*, char*, WORD);
 void Init_FAT(void);
 void SD_TestWriteOnSD(void);
+void SD_CreateNewCSV(void);
+void SD_StartWriting(void);
+void SD_StopWriting(void);
 
 #endif /* INCLUDES_FUNCTIONS_SD_CARD_FUNCTIONS_H_ */
