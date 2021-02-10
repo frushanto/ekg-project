@@ -35,7 +35,8 @@ void main(void) {
             /* Init MSP430 END */
             
             g_sys_state = IDLE_STATE; // Change state
-            //g_sys_state = ECG_SHORT; // Change state
+            // Next line for SD Card test only
+//            g_sys_state = ECG_SHORT; // Change state
             break;
 
         case ECG_SHORT:
@@ -82,6 +83,8 @@ void main(void) {
             break;
 
         case IDLE_STATE:
+            // Next line for SD Card test only
+//            g_sys_state = ECG_SHORT;
             if (g_short_ECG_flag)
             {
                 g_sys_state = ECG_SHORT;

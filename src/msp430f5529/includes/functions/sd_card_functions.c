@@ -75,8 +75,8 @@ void SD_TestWriteOnSD (void) {
     g_tmp_return = f_puts(localtimeArr, &file);
 
     // Next line
-    sprintf(adcSingleResultArr, "%s", "\r\n");
-    g_tmp_return = f_puts(adcSingleResultArr, &file);
+//    sprintf(adcSingleResultArr, "%s", "\r\n");
+//    g_tmp_return = f_puts(adcSingleResultArr, &file);
 
     // TODO i.e. Display control with UART cmd
     if (g_writingCyclesCnt == 100) {
