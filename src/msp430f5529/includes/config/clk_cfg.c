@@ -9,7 +9,7 @@
 
 
 //Target frequency for MCLK in kHz
-#define UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ   4000 //20000   // 20 MHz
+#define UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ   20000 // 4000   // 20 MHz
 #define FLLREF_KHZ                          32      
 // MCLK/FLLRef Ratio
 // 20000 kHz / 32 kHz = 625 kHz
@@ -55,22 +55,22 @@ void Init_CLK() {
         );
 
 
-    //Set DCO FLL reference = REFO
-    UCS_initClockSignal(
-//        UCS_FLLREF,
-            UCS_MCLK,
-//        UCS_REFOCLK_SELECT,
-        UCS_XT2CLK_SELECT,
-        UCS_CLOCK_DIVIDER_1
-        );
-
-    UCS_initClockSignal(
-//        UCS_FLLREF,
-            UCS_SMCLK,
-//        UCS_REFOCLK_SELECT,
-        UCS_XT2CLK_SELECT,
-        UCS_CLOCK_DIVIDER_1
-        );
+//    //Set DCO FLL reference = REFO
+//    UCS_initClockSignal(
+////        UCS_FLLREF,
+//            UCS_MCLK,
+////        UCS_REFOCLK_SELECT,
+//        UCS_XT2CLK_SELECT,
+//        UCS_CLOCK_DIVIDER_1
+//        );
+//
+//    UCS_initClockSignal(
+////        UCS_FLLREF,
+//            UCS_SMCLK,
+////        UCS_REFOCLK_SELECT,
+//        UCS_XT2CLK_SELECT,
+//        UCS_CLOCK_DIVIDER_1
+//        );
 
     //Set Ratio and Desired MCLK Frequency and initialize DCO
     UCS_initFLLSettle(

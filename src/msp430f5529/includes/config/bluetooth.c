@@ -60,8 +60,8 @@ bool Init_UART_BT (void) {
      //USCI_A_UART_setDormant(USCI_A1_BASE);
 
      //Enable Receive Interrupt
-     USCI_A_UART_clearInterrupt(USCI_A1_BASE, USCI_A_UART_RECEIVE_INTERRUPT);
-     USCI_A_UART_enableInterrupt(USCI_A1_BASE,USCI_A_UART_RECEIVE_INTERRUPT);
+//     USCI_A_UART_clearInterrupt(USCI_A1_BASE, USCI_A_UART_RECEIVE_INTERRUPT);
+//     USCI_A_UART_enableInterrupt(USCI_A1_BASE,USCI_A_UART_RECEIVE_INTERRUPT);
 
     return STATUS_SUCCESS;
 }
@@ -80,27 +80,27 @@ bool send_bt_value(uint16_t adc_val){
     return STATUS_SUCCESS;
 }
 
-
-//Define USCI_A1 Interrupt Vector
-#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
-#pragma vector=USCI_A1_VECTOR
-__interrupt
-#elif defined(__GNUC__)
-__attribute__((interrupt(USCI_A1_VECTOR)))
-#endif
-void USCI_A1_ISR (void)
-{
-    switch (__even_in_range(UCA1IV,4)){
-        //Vector 2 - RXIFG
-        case 2:
-
-            //Receive the data
-            uart_rx = USCI_A_UART_receiveData(USCI_A1_BASE);
-
-            //Send data back "echo"
-            USCI_A_UART_transmitData(USCI_A1_BASE, uart_rx);
-
-            break;
-        default: break;
-    }
-}
+//
+////Define USCI_A1 Interrupt Vector
+//#if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
+//#pragma vector=USCI_A1_VECTOR
+//__interrupt
+//#elif defined(__GNUC__)
+//__attribute__((interrupt(USCI_A1_VECTOR)))
+//#endif
+//void USCI_A1_ISR (void)
+//{
+//    switch (__even_in_range(UCA1IV,4)){
+//        //Vector 2 - RXIFG
+//        case 2:
+//
+//            //Receive the data
+//            uart_rx = USCI_A_UART_receiveData(USCI_A1_BASE);
+//
+//            //Send data back "echo"
+//            USCI_A_UART_transmitData(USCI_A1_BASE, uart_rx);
+//
+//            break;
+//        default: break;
+//    }
+//}
