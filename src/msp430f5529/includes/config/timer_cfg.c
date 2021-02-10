@@ -58,9 +58,19 @@ void TIMER1_A0_ISR (void)
     // Put code for LEDs here
     //Toggle P1.0
 //	GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
-	GPIO_toggleOutputOnPin(
-	        GPIO_PORT_P2,
-	        GPIO_PIN3);
+//	GPIO_toggleOutputOnPin(
+//	        GPIO_PORT_P2,
+//	        GPIO_PIN3);
+
+    // Dev Kit LEDs
+    GPIO_toggleOutputOnPin(
+              GPIO_PORT_P1,
+              GPIO_PIN0);
+    GPIO_toggleOutputOnPin(
+              GPIO_PORT_P4,
+              GPIO_PIN7);
+
+
 //	GPIO_toggleOutputOnPin(
 //		GPIO_PORT_P2,
 //		GPIO_PIN4);
