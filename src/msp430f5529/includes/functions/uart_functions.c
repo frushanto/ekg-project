@@ -11,9 +11,11 @@ uint16_t test_plus_minus = 80;
 void Uart_ECG_Wave_ST(uint16_t adc_value)
 {
     adc_value = (adc_value / 8) - 100;
-    uart_transmit_data_start("add 1,0,");
+//    uart_transmit_data_start("add 1,0,");
     uart_transmit_data_value(adc_value);
-    uart_transmit_data_end();
+    uart_transmit_data_start("\r\n");
+
+//    uart_transmit_data_end();
 }
 
 void Uart_ECG_Wave_LT(uint16_t adc_value)

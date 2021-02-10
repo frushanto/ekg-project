@@ -193,7 +193,7 @@ void Init_ADC() {
      */
     ADC12_A_init(ADC12_A_BASE,
                  ADC12_A_SAMPLEHOLDSOURCE_SC,
-                 ADC12_A_CLOCKSOURCE_SMCLK,
+                 ADC12_A_CLOCKSOURCE_ACLK,
                  ADC12_A_CLOCKDIVIDER_1);
 
     /*
@@ -205,7 +205,7 @@ void Init_ADC() {
      * Disable Multiple Sampling
      */
     ADC12_A_setupSamplingTimer(ADC12_A_BASE,
-        ADC12_A_CYCLEHOLD_16_CYCLES,
+        ADC12_A_CYCLEHOLD_4_CYCLES,
         ADC12_A_CYCLEHOLD_4_CYCLES,
         ADC12_A_MULTIPLESAMPLESENABLE);   // multisampling enabled
 
