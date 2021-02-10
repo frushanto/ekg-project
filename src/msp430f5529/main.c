@@ -65,8 +65,6 @@ void main(void) {
                 g_long_ECG_flag = 0;
                 Short_ECG_Error();
             }
-            // TODO ???bug - display will be cleared every time
-            // when g_timer_1khz_flag != 0 -> every 1KHz interrupt
             if (!g_short_ECG_flag)
             {
                 Clear_Wave_ST();
