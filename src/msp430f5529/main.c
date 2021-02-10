@@ -42,15 +42,10 @@ void main(void) {
             medianFilter.numNodes = NUM_ELEMENTS;
             medianFilter.medianBuffer = medianBuffer;
             MEDIANFILTER_Init(&medianFilter); // Init median filter
-            //    Init_SPI();
-            /* !!! For test purposes leave Init_MMC() line commented out!!! */
-            //Init_MMC();
             EnableGlobalInterrupt();
             /* Init MSP430 END */
             
             g_sys_state = IDLE_STATE; // Change state
-            // Next line for SD Card test only
-//            g_sys_state = ECG_SHORT; // Change state
             break;
 
         case ECG_SHORT:
@@ -58,8 +53,6 @@ void main(void) {
             {
                 g_timer_1khz_flag = 0;
                 ST_ECG();
-                // Test writing on SD Card
-//                SD_TestWriteOnSD();
             }
             if (g_long_ECG_flag)
             {
@@ -95,8 +88,6 @@ void main(void) {
             break;
 
         case IDLE_STATE:
-            // Next line for SD Card test only
-//            g_sys_state = ECG_SHORT;
             if (g_short_ECG_flag)
             {
                 g_sys_state = ECG_SHORT;
@@ -105,7 +96,6 @@ void main(void) {
             {
                 g_sys_state = ECG_LONG;
             }
-//        }
             break;
 
         case SYS_ERROR:
@@ -119,7 +109,7 @@ void main(void) {
 
         default:
             break;
-        }     // while(1)
+        } 
     }
 }
 

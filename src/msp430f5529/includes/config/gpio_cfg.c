@@ -31,8 +31,8 @@ void Init_GPIO(void) {
     GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN0);
 
     // Configure Pin attached to button DONT USE
-    GPIO_setAsOutputPin(GPIO_PORT_P6, GPIO_PIN2);
-    GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN2);
+    GPIO_setAsInputPin(GPIO_PORT_P6, GPIO_PIN2);
+    // GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN2);
 
 /* Interrupt Service Routines */
 #pragma vector = PORT1_VECTOR
