@@ -25,21 +25,21 @@ void Init_Timer_A() {
     Timer_A_clearTimerInterrupt(TIMER_A2_BASE);
 
     /*** Init TIMER_A2 sourced by SMCLK ***/ 
-    Timer_A_initUpModeParam confTimerA2 = {0};
-    confTimerA2.clockSource = TIMER_A_CLOCKSOURCE_SMCLK; // 20447232Hz
-//    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32; // 32 -> 638976Hz
-    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_8; // -> 4 MHz / 8 = 50000 Hz
-    confTimerA2.timerPeriod = 50; // 50000Hz / 1000Hz = 500
-    //    confTimerA2.timerPeriod = 639; // 638976Hz / 1000Hz = 639
-    // Test with approx. 2 Hz
-//    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // 64 -> 319488Hz
-//    confTimerA2.timerPeriod = 63897; // approx. 2 Hz
-    confTimerA2.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
-    confTimerA2.captureCompareInterruptEnable_CCR0_CCIE =
-        TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
-    confTimerA2.timerClear = TIMER_A_DO_CLEAR;
-    confTimerA2.startTimer = true;
-    Timer_A_initUpMode(TIMER_A2_BASE, &confTimerA2);
+        Timer_A_initUpModeParam confTimerA2 = {0};
+        confTimerA2.clockSource = TIMER_A_CLOCKSOURCE_SMCLK; // 20447232Hz
+    //    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32; // 32 -> 638976Hz
+        confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // -> 4096000 Hz / 64 = 64000 Hz
+        confTimerA2.timerPeriod = 32000; // 64kHz / 2 == 2 Hz
+        //    confTimerA2.timerPeriod = 639; // 638976Hz / 1000Hz = 639
+        // Test with approx. 2 Hz
+    //    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // 64 -> 319488Hz
+    //    confTimerA2.timerPeriod = 63897; // approx. 2 Hz
+        confTimerA2.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
+        confTimerA2.captureCompareInterruptEnable_CCR0_CCIE =
+            TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
+        confTimerA2.timerClear = TIMER_A_DO_CLEAR;
+        confTimerA2.startTimer = true;
+        Timer_A_initUpMode(TIMER_A2_BASE, &confTimerA2);
 }
 
 //******************************************************************************
