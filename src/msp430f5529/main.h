@@ -19,6 +19,7 @@
 #include "includes/config/fir_filter.h"
 #include "includes/config/iir_filter.h"
 #include "includes/config/spi_cfg.h"
+#include "includes/config/bluetooth.h"
 #include "includes/config/sd-card-cfg/diskio.h"
 #include "includes/config/sd-card-cfg/ff.h"
 #include "includes/config/sd-card-cfg/ffconf.h"

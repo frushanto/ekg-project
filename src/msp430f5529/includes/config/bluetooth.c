@@ -2,7 +2,7 @@
  * bluetooth.c
  *
  *  Created on: 30.01.2021
- *      Author: Adrian Jäger
+ *      Author: Adrian Jï¿½ger
  *
  *      Bluetooth is Controlled by the USCI_A1 Module (USCI_A0 is for Display)
  */
@@ -68,7 +68,7 @@ bool Init_UART_BT (void) {
 
 bool send_bt_value(uint16_t adc_val){
     sprintf((char*)tx_buffer, "%d\r\n", adc_val);
-    for (int i = 0; i < strlen((char*)tx_buffer); i++){
+    for (uint8_t i = 0; i < strlen((char*)tx_buffer); i++){
         //Transmit char by char
         USCI_A_UART_transmitData(USCI_A1_BASE, tx_buffer[i]);
 
