@@ -55,26 +55,6 @@ __attribute__((interrupt(TIMER1_A0_VECTOR)))
 #endif
 void TIMER1_A0_ISR (void)
 {
-    // Put code for LEDs here
-    //Toggle P1.0
-//	GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
-//	GPIO_toggleOutputOnPin(
-//	        GPIO_PORT_P2,
-//	        GPIO_PIN3);
-
-    // Dev Kit LEDs
-    GPIO_toggleOutputOnPin(
-              GPIO_PORT_P1,
-              GPIO_PIN0);
-    GPIO_toggleOutputOnPin(
-              GPIO_PORT_P4,
-              GPIO_PIN7);
-
-
-//	GPIO_toggleOutputOnPin(
-//		GPIO_PORT_P2,
-//		GPIO_PIN4);
-
 
 	g_timer_1sec_flag = 1;
 }
@@ -92,9 +72,6 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 #endif
 void TIMER2_A0_ISR (void)
 {
-
 //    GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
-
-
     g_timer_1khz_flag = 1;
 }
