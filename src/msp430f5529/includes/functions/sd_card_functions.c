@@ -6,7 +6,9 @@
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
 char filename[] = "/testfile.txt";
-char csvnameArr[SD_CSV_ARR_LENGTH] = "/ECGAA.CSV";
+char csvNameShortECGArr[SD_CSV_ARR_LENGTH] = "/SHORTAA.CSV";
+char csvNameLongECGArr[SD_CSV_ARR_LENGTH] = "/LONGAA.CSV";
+const char nextLine[] = ".\n";
 char txbufferInit[] = "SD Card init successful";
 char g_txbuffer[SD_BUFFER_MAX_SIZE] = "Test text for txt and csv files";
 char firstLetter, secondLetter;
@@ -49,48 +51,42 @@ void Init_FAT(void){
 //    f_close(&file);
 }
 
-char *strnfromchar(char destination[], char source, size_t num) {
-    destination[0] = source;    // copy the character into the string
-    destination[1] = '\0';      // null-terminate the string
-
-    return destination;         // common convention for str functions
-}
-
 void SD_CreateNewCSV(void) {
-    // TODO add date to file name
-    time_t rawtime;
-    struct tm * timeinfo;
-    time (&rawtime);
-    timeinfo = localtime (&rawtime);
 
-//    strftime(csvnameArr, SD_CSV_ARR_LENGTH, "/ecgdata%m%d%H%M%S.csv", timeinfo);
-//    strftime(csvnameArr, SD_CSV_ARR_LENGTH, "/ecgdata.csv", timeinfo);
-//    sprintf(csvnameArr, "%s", "/ECGDATAA.CSV");
-    f_open(&file, csvnameArr, FA_CREATE_ALWAYS | FA_WRITE);
-//    f_close(&file);
+    // File naming for SHORT ECG
+    if (g_short_ECG_flag == 1) {
 
-    // Next letter in file name
-    firstLetter = csvnameArr[4];
-    secondLetter = csvnameArr[5];
-    if (isalpha(secondLetter) && tolower(secondLetter) != 'z') {
-        csvnameArr[5] = ++secondLetter;
-    } else if (isalpha(firstLetter) && tolower(firstLetter) != 'z') {
-        csvnameArr[4] = ++firstLetter;
-        csvnameArr[5] = 'A';
+        f_open(&file, csvNameShortECGArr, FA_CREATE_ALWAYS | FA_WRITE);
+
+        // Next letter in file name
+        firstLetter = csvNameShortECGArr[6];
+        secondLetter = csvNameShortECGArr[7];
+        if (isalpha(secondLetter) && tolower(secondLetter) != 'z') {
+            csvNameShortECGArr[7] = ++secondLetter;
+        } else if (isalpha(firstLetter) && tolower(firstLetter) != 'z') {
+            csvNameShortECGArr[6] = ++firstLetter;
+            csvNameShortECGArr[7] = 'A';
+        } else {
+            csvNameShortECGArr[6] = 'A';
+            csvNameShortECGArr[7] = 'A';
+        }
+    // File naming for LONG EKG
     } else {
-        csvnameArr[4] = 'A';
-        csvnameArr[5] = 'A';
+        f_open(&file, csvNameLongECGArr, FA_CREATE_ALWAYS | FA_WRITE);
+
+        // Next letter in file name
+        firstLetter = csvNameLongECGArr[5];
+        secondLetter = csvNameLongECGArr[6];
+        if (isalpha(secondLetter) && tolower(secondLetter) != 'z') {
+            csvNameLongECGArr[6] = ++secondLetter;
+        } else if (isalpha(firstLetter) && tolower(firstLetter) != 'z') {
+            csvNameLongECGArr[5] = ++firstLetter;
+            csvNameLongECGArr[6] = 'A';
+        } else {
+            csvNameLongECGArr[5] = 'A';
+            csvNameLongECGArr[6] = 'A';
+        }
     }
-
-
-
-//    else {
-//        firstLetter = secondLetter;
-//        if (isalpha(firstLetter) && tolower(firstLetter) != 'z') {
-//            csvnameArr[5] = ++secondLetter;
-//            csvnameArr[4] = ++firstLet;
-//        }
-//    }
 }
 
 void SD_StartWriting(void) {
@@ -103,6 +99,9 @@ void SD_StartWriting(void) {
     // Set adc value
     sprintf(adcSingleResultArr, "%d", g_adc_result);
     g_tmp_return = f_puts(adcSingleResultArr, &file);
+
+//    // Set next line
+//    g_tmp_return = f_puts(nextLine, &file);
 
     // Set comma
     sprintf(commaArr, "%s", ",");

@@ -59,6 +59,7 @@ void main(void) {
                 // Testing SD Card
                 // Write in .csv
                 SD_StartWriting();
+                // Leave short ECG maually
                 g_writingCyclesCnt++;
                 if (g_writingCyclesCnt == 10) {
                     g_short_ECG_flag = 0;
