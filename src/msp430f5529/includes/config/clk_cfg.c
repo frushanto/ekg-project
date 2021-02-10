@@ -37,7 +37,7 @@ uint16_t status;
 void Init_CLK() {
 
     //Set VCore = 1
-    PMM_setVCore(PMM_CORE_LEVEL_1);
+    PMM_setVCore(PMM_CORE_LEVEL_2);
 
     UCS_initClockSignal (
         UCS_ACLK,               // Configure ACLK

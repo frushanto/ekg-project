@@ -146,15 +146,14 @@ void Init_UART() {
 
 
     // Init UART A0
-    // USCI_A_UART_init(USCI_A0_BASE, &uart_cfg);
     if (STATUS_FAIL == USCI_A_UART_init(USCI_A0_BASE, &uart_cfg)){
         return;
     }
     USCI_A_UART_enable(USCI_A0_BASE);
-//    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-//            USCI_A_UART_RECEIVE_INTERRUPT);
-//    USCI_A_UART_enableInterrupt(USCI_A0_BASE,
-//            USCI_A_UART_RECEIVE_INTERRUPT);
+    USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+            USCI_A_UART_RECEIVE_INTERRUPT);
+    USCI_A_UART_enableInterrupt(USCI_A0_BASE,
+            USCI_A_UART_RECEIVE_INTERRUPT);
 }
 
 /*
@@ -164,99 +163,99 @@ void Init_UART() {
  * the required interrupts and then enable EUSI_A_UART via
  * EUSCI_A_UART_enable().
  * */
-//
-//#pragma vector = USCI_A0_VECTOR
-// __interrupt void UART_A0_ISR(void) {
-//     switch (__even_in_range(UCA0IV, 4))
-//         {
-//         case 0:
-//             break; // Vector 0 - no interrupt
-//         case 2: // Vector 2 - RXIFG
-//             if (uart_received_data_counter < UART_MESSAGE_MAX_LENGTH) {
-//                 uart_received_data[uart_received_data_counter] =
-//                     USCI_A_UART_receiveData(USCI_A0_BASE);
-//                 uart_received_data_counter++;
-//             }
-//             else {
-//                 uart_received_data_counter = 0;
-//             }
-//
-//             /* Display turn on: 0=0x87 1=0xFF 2=0xFF 3=0xFF */
-//             if(uart_received_data[0] == 0x87 && uart_received_data[1] == 0xFF && uart_received_data[2] == 0xFF && uart_received_data[3] == 0xFF) {
-//                 uart_receive_data_end();
-//             }
-//
-//             /* Display Sleep X,Y: 0=0x68 6=0xFF 7=0xFF 8=0xFF */
-//             else if(uart_received_data[0] == 0x68 && uart_received_data[6] == 0xFF && uart_received_data[7] == 0xFF && uart_received_data[8] == 0xFF) {
-//                 uart_receive_data_end();
-//             }
-//
-//             /* Display page2 'kurzzeit' ECG ***START***: 65 02 06 00 FF FF FF */
-//             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
-//                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 g_short_ECG_flag = 1;
-//                 uart_receive_data_end();
-//             }
-//
-//             /* Display page2 'kurzzeit' ECG ***STOP***: 65 07 01 00 FF FF FF */
-//             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x07 && uart_received_data[2] == 0x01 && uart_received_data[3] == 0x00 &&
-//                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 g_short_ECG_flag = 0;
-//                 uart_receive_data_end();
-//             }
-//
-//             /* Display page3 'langzeit' ECG ***START***: 65 03 05 00 FF FF FF */
-//             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x05 && uart_received_data[3] == 0x00 &&
-//                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 g_long_ECG_flag = 1;
-//                 uart_receive_data_end();
-//             }
-//
-//             /* Display page3 'langzeit' ECG ***STOP***: 65 08 01 00 FF FF FF */
-//             else  if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x08 && uart_received_data[2] == 0x01 && uart_received_data[3] == 0x00 &&
-//                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 g_long_ECG_flag = 0;
-//                 uart_receive_data_end();
-//             }
-//
-//             /* Display select USER ONE: 65 04 03 00 FF FF FF */
-//             else  if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x03 && uart_received_data[3] == 0x00 &&
-//                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 uart_receive_data_end();
-//             }
-//
-//             /* Display select USER TWO: 65 04 04 00 FF FF FF */
-//             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x04 && uart_received_data[3] == 0x00 &&
-//                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 uart_receive_data_end();
-//             }
-//
-//             /* Display select USER THREE: 65 04 05 00 FF FF FF */
-//             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x05 && uart_received_data[3] == 0x00 &&
-//                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 uart_receive_data_end();
-//             }
-//             // TODO Bluetooth
-//             /* Display toggle BLUETOOTH: 65 09 04 00 FF FF FF */
-//             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x09 && uart_received_data[2] == 0x04 && uart_received_data[3] == 0x00 &&
-//                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-//                 uart_receive_data_end();
-//             }
-//
-//             /* fix if function ?! */
-//             else if((uart_received_data[0] < 0x65) ||
-//                     ((uart_received_data[0] > 0x65) && (uart_received_data[0] < 0x68)) ||
-//                             ((uart_received_data[0] > 0x68) && (uart_received_data[0] < 0x87)) ||
-//                             (uart_received_data[0] > 0x87)){
-//                 uart_receive_data_end();
-//             }
-//
-//             USCI_A_UART_clearInterrupt(USCI_A0_BASE,
-//                     USCI_A_UART_RECEIVE_INTERRUPT);
-//             break;
-//         case 4:
-//             break; // Vector 4 - TXIFG
-//         default:
-//             break;
-//         }
-// }
+
+#pragma vector = USCI_A0_VECTOR
+ __interrupt void UART_A0_ISR(void) {
+     switch (__even_in_range(UCA0IV, 4))
+         {
+         case 0:
+             break; // Vector 0 - no interrupt
+         case 2: // Vector 2 - RXIFG
+             if (uart_received_data_counter < UART_MESSAGE_MAX_LENGTH) {
+                 uart_received_data[uart_received_data_counter] =
+                     USCI_A_UART_receiveData(USCI_A0_BASE);
+                 uart_received_data_counter++;
+             }
+             else {
+                 uart_received_data_counter = 0;
+             }
+
+             /* Display turn on: 0=0x87 1=0xFF 2=0xFF 3=0xFF */
+             if(uart_received_data[0] == 0x87 && uart_received_data[1] == 0xFF && uart_received_data[2] == 0xFF && uart_received_data[3] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
+             /* Display Sleep X,Y: 0=0x68 6=0xFF 7=0xFF 8=0xFF */
+             else if(uart_received_data[0] == 0x68 && uart_received_data[6] == 0xFF && uart_received_data[7] == 0xFF && uart_received_data[8] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
+             /* Display page2 'kurzzeit' ECG ***START***: 65 02 06 00 FF FF FF */
+             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x02 && uart_received_data[2] == 0x06 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 g_short_ECG_flag = 1;
+                 uart_receive_data_end();
+             }
+
+             /* Display page2 'kurzzeit' ECG ***STOP***: 65 07 01 00 FF FF FF */
+             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x07 && uart_received_data[2] == 0x01 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 g_short_ECG_flag = 0;
+                 uart_receive_data_end();
+             }
+
+             /* Display page3 'langzeit' ECG ***START***: 65 03 05 00 FF FF FF */
+             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x05 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 g_long_ECG_flag = 1;
+                 uart_receive_data_end();
+             }
+
+             /* Display page3 'langzeit' ECG ***STOP***: 65 08 01 00 FF FF FF */
+             else  if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x08 && uart_received_data[2] == 0x01 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 g_long_ECG_flag = 0;
+                 uart_receive_data_end();
+             }
+
+             /* Display select USER ONE: 65 04 03 00 FF FF FF */
+             else  if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x03 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
+             /* Display select USER TWO: 65 04 04 00 FF FF FF */
+             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x04 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
+             /* Display select USER THREE: 65 04 05 00 FF FF FF */
+             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x05 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+             // TODO Bluetooth
+             /* Display toggle BLUETOOTH: 65 09 04 00 FF FF FF */
+             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x09 && uart_received_data[2] == 0x04 && uart_received_data[3] == 0x00 &&
+                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 uart_receive_data_end();
+             }
+
+             /* fix if function ?! */
+             else if((uart_received_data[0] < 0x65) ||
+                     ((uart_received_data[0] > 0x65) && (uart_received_data[0] < 0x68)) ||
+                             ((uart_received_data[0] > 0x68) && (uart_received_data[0] < 0x87)) ||
+                             (uart_received_data[0] > 0x87)){
+                 uart_receive_data_end();
+             }
+
+             USCI_A_UART_clearInterrupt(USCI_A0_BASE,
+                     USCI_A_UART_RECEIVE_INTERRUPT);
+             break;
+         case 4:
+             break; // Vector 4 - TXIFG
+         default:
+             break;
+         }
+ }

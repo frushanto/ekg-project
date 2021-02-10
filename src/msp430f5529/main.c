@@ -99,8 +99,15 @@ void main(void) {
             }
 
             if (g_timer_1sec_flag){
-                send_bt_value(1234);
                 g_timer_1sec_flag = 0;
+
+
+                Start_ADC();
+                send_bt_value(g_adc_result);
+
+                uart_transmit_data_start("page0.akku.val=");
+                uart_transmit_data_value (80);
+                uart_transmit_data_end();
             }
 
             break;

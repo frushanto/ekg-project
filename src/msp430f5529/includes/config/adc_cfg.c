@@ -214,12 +214,12 @@ void Init_ADC() {
     ADC12_A_configureMemory(ADC12_A_BASE, &adc_akku_cfg);
 
     //Enable memory buffer 0 interrupt
-//    ADC12_A_clearInterrupt(ADC12_A_BASE,
-//            ADC12IFG0);
-//    ADC12_A_enableInterrupt(ADC12_A_BASE,
-//            ADC12IE0);
+    ADC12_A_clearInterrupt(ADC12_A_BASE,
+            ADC12IFG0);
+    ADC12_A_enableInterrupt(ADC12_A_BASE,
+            ADC12IE0);
 
-//    __enable_interrupt();
+    __enable_interrupt();
 
     ADC12_A_enable(ADC12_A_BASE);
 
@@ -252,39 +252,39 @@ void Start_ADC() {
 
 
 
-//
-//#pragma vector = ADC12_VECTOR
-//__interrupt void ADC12_A_ISR(void) {
-//    switch (__even_in_range(ADC12IV,34)) {
-//        case  0: break;   //Vector  0:  No interrupt
-//        case  2: break;   //Vector  2:  ADC overflow
-//        case  4: break;   //Vector  4:  ADC timing overflow
-//        case  6:          //Vector  6:  ADC12IFG0
-//         //Is Memory Buffer 0 = A0 > 0.5AVcc?
-//
-//
-//            g_adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
-//
-////            g_akku_vol = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_1);
-//
-//
-//         //Exit active CPU
-//         __bic_SR_register_on_exit(LPM0_bits);
-//         break;
-//        case  8: break;   //Vector  8:  ADC12IFG1
-//        case 10: break;   //Vector 10:  ADC12IFG2
-//        case 12: break;   //Vector 12:  ADC12IFG3
-//        case 14: break;   //Vector 14:  ADC12IFG4
-//        case 16: break;   //Vector 16:  ADC12IFG5
-//        case 18: break;   //Vector 18:  ADC12IFG6
-//        case 20: break;   //Vector 20:  ADC12IFG7
-//        case 22: break;   //Vector 22:  ADC12IFG8
-//        case 24: break;   //Vector 24:  ADC12IFG9
-//        case 26: break;   //Vector 26:  ADC12IFG10
-//        case 28: break;   //Vector 28:  ADC12IFG11
-//        case 30: break;   //Vector 30:  ADC12IFG12
-//        case 32: break;   //Vector 32:  ADC12IFG13
-//        case 34: break;   //Vector 34:  ADC12IFG14
-//        default: break;
-//    }
-//}
+
+#pragma vector = ADC12_VECTOR
+__interrupt void ADC12_A_ISR(void) {
+    switch (__even_in_range(ADC12IV,34)) {
+        case  0: break;   //Vector  0:  No interrupt
+        case  2: break;   //Vector  2:  ADC overflow
+        case  4: break;   //Vector  4:  ADC timing overflow
+        case  6:          //Vector  6:  ADC12IFG0
+         //Is Memory Buffer 0 = A0 > 0.5AVcc?
+
+
+            g_adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
+
+            g_akku_vol = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_1);
+
+
+         //Exit active CPU
+         __bic_SR_register_on_exit(LPM0_bits);
+         break;
+        case  8: break;   //Vector  8:  ADC12IFG1
+        case 10: break;   //Vector 10:  ADC12IFG2
+        case 12: break;   //Vector 12:  ADC12IFG3
+        case 14: break;   //Vector 14:  ADC12IFG4
+        case 16: break;   //Vector 16:  ADC12IFG5
+        case 18: break;   //Vector 18:  ADC12IFG6
+        case 20: break;   //Vector 20:  ADC12IFG7
+        case 22: break;   //Vector 22:  ADC12IFG8
+        case 24: break;   //Vector 24:  ADC12IFG9
+        case 26: break;   //Vector 26:  ADC12IFG10
+        case 28: break;   //Vector 28:  ADC12IFG11
+        case 30: break;   //Vector 30:  ADC12IFG12
+        case 32: break;   //Vector 32:  ADC12IFG13
+        case 34: break;   //Vector 34:  ADC12IFG14
+        default: break;
+    }
+}
