@@ -38,6 +38,7 @@ void main(void) {
             Init_ADC();
             Init_SPI();
             Init_FAT();            //mount, set directory to read from, assign file
+            Init_UART_BT();         //Init UART Interface for Bluetooth
             /* Init median filter */
             medianFilter.numNodes = NUM_ELEMENTS;
             medianFilter.medianBuffer = medianBuffer;
@@ -96,6 +97,12 @@ void main(void) {
             {
                 g_sys_state = ECG_LONG;
             }
+
+            if (g_timer_1sec_flag){
+                send_bt_value(1234);
+                g_timer_1sec_flag = 0;
+            }
+
             break;
 
         case SYS_ERROR:
