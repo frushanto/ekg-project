@@ -6,6 +6,7 @@ uint8_t g_timer_1sec_flag = 0;
 uint16_t g_adc_result = 0;
 uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
+uint16_t g_akku_vol = 0;
 uint8_t g_tmp_return = 0;
 uint16_t g_writingCyclesCnt = 0;
 

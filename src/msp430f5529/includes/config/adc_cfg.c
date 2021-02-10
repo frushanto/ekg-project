@@ -265,7 +265,7 @@ __interrupt void ADC12_A_ISR(void) {
 
             g_adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
 
-//            akku_vol = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_1);
+//            g_akku_vol = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_1);
 
 
          //Exit active CPU
