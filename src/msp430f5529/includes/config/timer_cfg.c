@@ -61,13 +61,6 @@ uint16_t const timer_a1_compare_value_1khz_smclk = 639;
  */
 uint16_t const timer_a2_compare_value_100hz_smclk = 6390;
 
-/*
- * Timer test 
- */
-uint32_t timer_a2_100hz_test = 0;
-uint32_t timer_a1_1khz_test = 0;
-uint32_t timer_b0_1hz_test = 0;
-
  /* ============================================================= */
 
 void Init_Timers() {
@@ -185,8 +178,6 @@ void TIMER1_A0_ISR (void)
 
     /*** BEGIN will be executed every 1 KHz ***/
 
-    timer_a1_1khz_test++;
-
     // GPIO_toggleOutputOnPin(GPIO_PORT_P1,
     //                                GPIO_PIN0);
 
@@ -220,8 +211,6 @@ void TIMER2_A0_ISR (void)
 
     /*** BEGIN will be executed every 10 milliseconds ***/
 
-    timer_a2_100hz_test++;
-
     GPIO_toggleOutputOnPin(GPIO_PORT_P1,
                                     GPIO_PIN0);
 
@@ -252,8 +241,6 @@ void TIMER0_B0_ISR (void)
             + timer_b0_compare_value_1hz_aclk;
 
     /*** BEGIN will be executed every 1 SEC ***/
-
-    timer_b0_1hz_test++;
 
     GPIO_toggleOutputOnPin(GPIO_PORT_P4,
                                    GPIO_PIN7);

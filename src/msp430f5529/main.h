@@ -19,8 +19,17 @@
 #include "includes/config/fir_filter.h"
 #include "includes/config/iir_filter.h"
 #include "includes/config/spi_cfg.h"
+#include "includes/config/sd-card-cfg/diskio.h"
+#include "includes/config/sd-card-cfg/ff.h"
+#include "includes/config/sd-card-cfg/ffconf.h"
+#include "includes/config/sd-card-cfg/HAL_SDCard.h"
+#include "includes/config/sd-card-cfg/mmc.h"
 #include "includes/functions/uart_functions.h"
 #include "includes/functions/bpm_function.h"
+#include "includes/functions/sd_card_functions.h"
+#include "integer.h"
+#include "stdio.h"
+#include "time.h"
 
 typedef enum
 {
@@ -41,6 +50,8 @@ extern uint8_t g_long_ECG_flag;
 extern uint8_t g_timer_1khz_flag;
 extern uint8_t g_timer_1sec_flag;
 extern uint16_t g_adc_result;
+extern uint8_t g_tmp_return;
+extern uint16_t g_writingCyclesCnt;
 extern STATE_MACHINE_e g_sys_state;
 
 #endif /* MAIN_H_ */

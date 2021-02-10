@@ -6,6 +6,8 @@ uint8_t g_timer_1sec_flag = 0;
 uint16_t g_adc_result = 0;
 uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
+uint8_t g_tmp_return = 0;
+uint16_t g_writingCyclesCnt = 0;
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
@@ -15,12 +17,10 @@ void Init_Watchdog(void);
 void EnableGlobalInterrupt(void);
 
 /* Function definitions */
-void main(void)
-{
-    while (1)       // while(1) better in case "IDLE_STATE", ...
-    {
-        switch (g_sys_state)
-        {
+void main(void) {
+    while (1) {
+        switch (g_sys_state) {
+
         case SYS_INIT:
             /* Init MSP430 BEGIN */
             Init_Watchdog();
@@ -29,12 +29,13 @@ void main(void)
             Init_Timers();
             Init_UART();
             Init_ADC();
-            //    Init_SPI();
-            /* !!! For test purposes leave Init_MMC() line commented out!!! */
-            //Init_MMC();
+            Init_SPI();
+            Init_FAT();            //mount, set directory to read from, assign file
             EnableGlobalInterrupt();
             /* Init MSP430 END */
+            
             g_sys_state = IDLE_STATE; // Change state
+            //g_sys_state = ECG_SHORT; // Change state
             break;
 
         case ECG_SHORT:
@@ -42,12 +43,16 @@ void main(void)
             {
                 g_timer_1khz_flag = 0;
                 ST_ECG();
+                // Test writing on SD Card
+//                SD_TestWriteOnSD();
             }
             if (g_long_ECG_flag)
             {
                 g_long_ECG_flag = 0;
                 Short_ECG_Error();
             }
+            // TODO ???bug - display will be cleared every time
+            // when g_timer_1khz_flag != 0 -> every 1KHz interrupt
             if (!g_short_ECG_flag)
             {
                 Clear_Wave_ST();
@@ -77,9 +82,6 @@ void main(void)
             break;
 
         case IDLE_STATE:
-//        while (1)
-//        {
-
             if (g_short_ECG_flag)
             {
                 g_sys_state = ECG_SHORT;
@@ -105,15 +107,6 @@ void main(void)
         }     // while(1)
     }
 }
-
-//     while (1){
-//         if (g_timer_1khz_flag){
-//             KZ_EKG();
-//             LZ_EKG();
-//             g_timer_1khz_flag = 0;
-//         }
-//     }
-// }
 
 /*** Configure Watchdog Timer ***/
 void Init_Watchdog(void)

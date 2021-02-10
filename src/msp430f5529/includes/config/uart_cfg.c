@@ -18,6 +18,7 @@
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
 
+// TODO defined length
 char uart_transmit_set_val[] = "0";
 uint8_t uart_transmit_full_message[24] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
                                           0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
@@ -34,10 +35,13 @@ void uart_transmit_data_start(char nextion_command[]){
         uart_transmit_full_message[i] = 0x00;
     }
     fm_counter = 0;
+
+    // TODO memset()
     for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
         uart_transmit_set_val[i] = 0x00;
     }
     strcpy(uart_transmit_set_val, nextion_command);
+    // TODO memset()
     for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_set_val[i]);
         uart_transmit_full_message[fm_counter] = uart_transmit_set_val[i];
