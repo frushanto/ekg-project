@@ -12,17 +12,16 @@
 
 #define UART_BASE       UART_BASE_A0
 #define UART_MESSAGE_MAX_LENGTH 12
+#define UART_TX_MAX_LENGTH 24
 
 #define RECEIVE_DATA_COUNT                      0x02
 
 uint8_t uart_received_data[UART_MESSAGE_MAX_LENGTH] = {0x00};
 uint8_t uart_received_data_counter = 0;
 
-// TODO defined length
-char uart_transmit_set_val[] = "0";
-uint8_t uart_transmit_full_message[24] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
-                                          0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
-                                          0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+char uart_transmit_set_val[UART_TX_MAX_LENGTH] = {0x00};
+
+uint8_t uart_transmit_full_message[UART_TX_MAX_LENGTH] = {0x00};
 volatile uint8_t i = 0;
 volatile uint8_t fm_counter = 0;
 
@@ -31,15 +30,9 @@ volatile uint8_t fm_counter = 0;
 //******************************//
 /* Transmit array with Nextion command */
 void uart_transmit_data_start(char nextion_command[]){
-    for (i = 0; i < strlen((char const*)uart_transmit_full_message); i++) {
-        uart_transmit_full_message[i] = 0x00;
-    }
+    memset(uart_transmit_full_message,0x00,UART_TX_MAX_LENGTH);
     fm_counter = 0;
-
-    // TODO memset()
-    for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
-        uart_transmit_set_val[i] = 0x00;
-    }
+    memset(uart_transmit_set_val,0x00,UART_TX_MAX_LENGTH);
     strcpy(uart_transmit_set_val, nextion_command);
     // TODO memset()
     for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
@@ -89,9 +82,7 @@ void uart_transmit_data_end(){
 //*END**************************//
 void uart_receive_data_end(){
     uart_received_data_counter = 0;
-    for(i = 0; i < UART_MESSAGE_MAX_LENGTH; i++) {
-        uart_received_data[i] = 0x00;
-    }
+    memset(uart_received_data,0x00,UART_MESSAGE_MAX_LENGTH);
 }
 //******************************//
 //*UART RECEIVED DATA FUNCTIONS*//
@@ -245,7 +236,7 @@ void Init_UART() {
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
                  uart_receive_data_end();
              }
-
+             // TODO Bluetooth
              /* Display toggle BLUETOOTH: 65 09 04 00 FF FF FF */
              else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x09 && uart_received_data[2] == 0x04 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {

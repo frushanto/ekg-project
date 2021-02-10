@@ -30,6 +30,7 @@
 #include "integer.h"
 #include "stdio.h"
 #include "time.h"
+#include "includes/config/median_cfg.h"
 
 typedef enum
 {
@@ -53,5 +54,6 @@ extern uint16_t g_adc_result;
 extern uint8_t g_tmp_return;
 extern uint16_t g_writingCyclesCnt;
 extern STATE_MACHINE_e g_sys_state;
+extern sMedianFilter_t medianFilter;
 
 #endif /* MAIN_H_ */
