@@ -8,6 +8,9 @@ uint16_t g_adc_result = 0;
 uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
 uint32_t timer1k_counter = 0;
+uint8_t random_values_bt = 0;
+uint16_t ekg_sim_values[10] = {10,15,10,7,30,7,10,14,14,10};
+uint8_t sim_ctu = 0;
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
@@ -85,12 +88,16 @@ void main(void)
 
             if (g_timer_1khz_flag){
                 timer1k_counter++;
+                g_timer_1khz_flag = 0;
             }
 
-            if (timer1k_counter % 20000 == 0){
+            if (timer1k_counter % 500 == 0){
                 GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
-                send_bt_value(1234);
+                send_bt_value(ekg_sim_values[sim_ctu++]);
             }
+
+            if (sim_ctu >= 10)
+                sim_ctu = 0;
 
             if (g_short_ECG_flag)
             {
