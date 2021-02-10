@@ -7,6 +7,7 @@
 #include <includes/config/uart_cfg.h>
 #include "main.h"
 #include "includes/config/sd-card-cfg/ff.h"
+#include "time.h"
 //#include <stdio.h>
 //#include <string.h>
 
@@ -21,5 +22,6 @@ UINT read;                  /* Read bytes object  */
 /* Function declarations */
 FRESULT WriteFile(char*, char*, WORD);
 void Init_FAT(void);
+void SD_TestWriteOnSD(void);
 
 #endif /* INCLUDES_FUNCTIONS_SD_CARD_FUNCTIONS_H_ */

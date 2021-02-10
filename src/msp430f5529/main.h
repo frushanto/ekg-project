@@ -51,6 +51,7 @@ extern uint8_t g_timer_1khz_flag;
 extern uint8_t g_timer_1sec_flag;
 extern uint16_t g_adc_result;
 extern uint8_t g_tmp_return;
+extern uint16_t g_writingCyclesCnt;
 extern STATE_MACHINE_e g_sys_state;
 
 #endif /* MAIN_H_ */
