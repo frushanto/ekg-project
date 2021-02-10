@@ -66,7 +66,19 @@ bool Init_UART_BT (void) {
     return STATUS_SUCCESS;
 }
 
+bool send_bt_value(uint16_t adc_val){
+    sprintf((char*)tx_buffer, "%d\r\n", adc_val);
+    for (int i = 0; i < strlen((char*)tx_buffer); i++){
+        //Transmit char by char
+        USCI_A_UART_transmitData(USCI_A1_BASE, tx_buffer[i]);
 
+        //Wait for Transmit finish
+        while (USCI_A_UART_queryStatusFlags(USCI_A1_BASE, USCI_A_UART_BUSY) == USCI_A_UART_BUSY);
+
+    }
+
+    return STATUS_SUCCESS;
+}
 
 
 //Define USCI_A1 Interrupt Vector
@@ -86,7 +98,7 @@ void USCI_A1_ISR (void)
             uart_rx = USCI_A_UART_receiveData(USCI_A1_BASE);
 
             //Send data back "echo"
-            USCI_A_UART_transmitData(USCI_A0_BASE, uart_rx);
+            USCI_A_UART_transmitData(USCI_A1_BASE, uart_rx);
 
             break;
         default: break;

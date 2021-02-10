@@ -7,6 +7,7 @@ uint8_t g_timer_1sec_flag = 0;
 uint16_t g_adc_result = 0;
 uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
+uint32_t timer1k_counter = 0;
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
@@ -30,6 +31,7 @@ void main(void)
             Init_Timers();
             Init_UART();
             Init_ADC();
+            Init_UART_BT();
             //    Init_SPI();
             /* !!! For test purposes leave Init_MMC() line commented out!!! */
             //Init_MMC();
@@ -80,6 +82,15 @@ void main(void)
         case IDLE_STATE:
 //        while (1)
 //        {
+
+            if (g_timer_1khz_flag){
+                timer1k_counter++;
+            }
+
+            if (timer1k_counter % 20000 == 0){
+                GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
+                send_bt_value(1234);
+            }
 
             if (g_short_ECG_flag)
             {

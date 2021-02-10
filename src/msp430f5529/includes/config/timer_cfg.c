@@ -222,8 +222,8 @@ void TIMER2_A0_ISR (void)
 
     timer_a2_100hz_test++;
 
-    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
-                                    GPIO_PIN0);
+//    GPIO_toggleOutputOnPin(GPIO_PORT_P1,
+//                                    GPIO_PIN0);
 
     /*** END will be executed every 10 milliseconds ***/
 
