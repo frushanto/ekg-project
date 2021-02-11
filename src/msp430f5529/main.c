@@ -1,3 +1,13 @@
+/* TODOs 
+- SD Module (Hannes & Ivan)
+    - Test with LONG&SHORT ECG (test flags)
+    - Test on PCB
+- Gesamttest auf PCB (Hannes & Ivan)
+- Display (Hannes)
+    - Timer
+    - Bluetooth
+*/
+
 #include "main.h"
 
 /* GLOBAL VARs */
@@ -42,9 +52,6 @@ void main(void) {
             medianFilter.numNodes = NUM_ELEMENTS;
             medianFilter.medianBuffer = medianBuffer;
             MEDIANFILTER_Init(&medianFilter); // Init median filter
-            //    Init_SPI();
-            /* !!! For test purposes leave Init_MMC() line commented out!!! */
-            //Init_MMC();
             EnableGlobalInterrupt();
             /* Init MSP430 END */
             

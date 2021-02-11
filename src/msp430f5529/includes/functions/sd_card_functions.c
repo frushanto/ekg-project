@@ -108,7 +108,7 @@ void SD_StartWriting(void) {
     g_tmp_return = f_puts(commaArr, &file);
 
     // TODO fix bug with transferring time to array
-    strftime(localtimeArr, 80, "The time is %I:%M %p.\n", timeinfo);
+    strftime(localtimeArr, 80, "The time is %I:%M %p .\n", timeinfo);
     g_tmp_return = f_puts(localtimeArr, &file);
 }
 
