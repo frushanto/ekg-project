@@ -1,8 +1,8 @@
-PWD /Users/hannes/OneDrive/Projektarbeit EKG-7/Projektbericht/Latex
+PWD /Users/hannes/Documents/GitHub/ekg-project/Latex
 INPUT /usr/local/texlive/2020/texmf.cnf
 INPUT /usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2020/texmf-var/web2c/xetex/xelatex.fmt
-INPUT /Users/hannes/OneDrive/Projektarbeit EKG-7/Projektbericht/Latex/ekg_7_projektbericht.tex
+INPUT /Users/hannes/Documents/GitHub/ekg-project/Latex/ekg_7_projektbericht.tex
 OUTPUT ekg_7_projektbericht.log
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/base/article.cls

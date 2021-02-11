@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.2.11)  11 FEB 2021 17:18
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.2.11)  11 FEB 2021 17:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/hannes/OneDrive/Projektarbeit EKG-7/Projektbericht/Latex/ekg_7_projektbericht.tex"
-(/Users/hannes/OneDrive/Projektarbeit EKG-7/Projektbericht/Latex/ekg_7_projektbericht.tex
+**/Users/hannes/Documents/GitHub/ekg-project/Latex/ekg_7_projektbericht.tex
+(/Users/hannes/Documents/GitHub/ekg-project/Latex/ekg_7_projektbericht.tex
 LaTeX2e <2020-02-02> patch level 5
 L3 programming layer <2020-03-06> (/usr/local/texlive/2020/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
@@ -622,11 +622,11 @@ Package logreq Info: Writing requests to 'ekg_7_projektbericht.run.xml'.
  ) 
 Here is how much of TeX's memory you used:
  14465 strings out of 479418
- 335233 string characters out of 5884585
+ 335188 string characters out of 5884585
  1058385 words of memory out of 5000000
  31782 multiletter control sequences out of 15000+600000
  538217 words of font info for 52 fonts, out of 8000000 for 9000
  1350 hyphenation exceptions out of 8191
- 44i,7n,46p,3191b,3768s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,7n,46p,3174b,3768s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ekg_7_projektbericht.xdv (11 pages, 126972 bytes).
+Output written on ekg_7_projektbericht.xdv (11 pages, 127040 bytes).
