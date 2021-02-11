@@ -2,6 +2,7 @@
 
 #define SD_BUFFER_MAX_SIZE  512
 #define SD_CSV_ARR_LENGTH   23
+#define TB_SIZE             80
 
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
@@ -15,6 +16,8 @@ char firstLetter, secondLetter;
 int result = 1;
 unsigned int size;
 unsigned int bytesWritten;
+
+char timeBuffer[TB_SIZE];
 
 char commaArr[1];
 char adcSingleResultArr[4];
@@ -89,81 +92,43 @@ void SD_CreateNewCSV(void) {
     }
 }
 
-void SD_StartWriting(void) {
-    // TODO write time stuff in separate function
-    time_t rawtime;
-    struct tm * timeinfo;
-    time (&rawtime);
-    timeinfo = localtime (&rawtime);
+void SD_GetCurrentTime(void) {
+    time_t curtime;
+    struct tm *loctime; /* Get the current time. */
+    curtime = time (NULL); /* Convert it to local time representation. */
+    loctime = localtime (&curtime); /* Print out the date and time in the standard format. */
 
+    /* Date format - dd-MM-YYYY HH:MM:SS */
+    uint16_t year = loctime->tm_year + 1900; // Year adjustment
+    uint8_t hour = loctime->tm_hour + 7; // from 7 to 31 -> time zone adjustment
+    uint8_t month = loctime->tm_mon + 1; // Month adjustment (1-12)
+
+    if (hour >= 24) {
+        hour = hour - 24;
+    }
+
+    sprintf(timeBuffer, "%02d-%02d-%d %02d:%02d:%02d\n",
+            loctime->tm_mday, month, year,
+            hour, loctime->tm_min, loctime->tm_sec);
+}
+
+void SD_StartWriting(void) {
     // Set adc value
     sprintf(adcSingleResultArr, "%d", g_adc_result);
     g_tmp_return = f_puts(adcSingleResultArr, &file);
-
-//    // Set next line
-//    g_tmp_return = f_puts(nextLine, &file);
 
     // Set comma
     sprintf(commaArr, "%s", ",");
     g_tmp_return = f_puts(commaArr, &file);
 
-    // TODO fix bug with transferring time to array
-    strftime(localtimeArr, 80, "The time is %I:%M %p .\n", timeinfo);
-    g_tmp_return = f_puts(localtimeArr, &file);
+    // Set current time
+    SD_GetCurrentTime();
+    g_tmp_return = f_puts(timeBuffer, &file);
 }
 
 void SD_StopWriting(void) {
     f_close(&file);
 }
 
-// void SD_TestWriteOnSD (void) {
-//     g_writingCyclesCnt++;
-//     // TODO set local time config to separate function
-//     // Local time config
-//     time_t rawtime;
-//     struct tm * timeinfo;
-//     time (&rawtime);
-//     timeinfo = localtime (&rawtime);
-//     // printf ("%s", asctime (timeinfo));
-
-//     // Open file for writing
-// //        f_open(&file, "/ecgdata.csv", FA_OPEN_EXISTING | FA_WRITE);
-
-//     // Set adc value
-//     sprintf(adcSingleResultArr, "%d", g_adc_result);
-//     g_tmp_return = f_puts(adcSingleResultArr, &file);
-
-//     // Set comma
-//     sprintf(commaArr, "%s", ",");
-//     g_tmp_return = f_puts(commaArr, &file);
-
-//     // Print local time
-//     //sprintf(localtimeArr, "%s", asctime (timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec));
-// //                strftime(localtimeArr, 30, "%H%M%S", timeinfo);
-//     // TODO fix bug with transferring time to array
-//     strftime(localtimeArr, 80, "The time is %I:%M %p.\n", timeinfo);
-//     g_tmp_return = f_puts(localtimeArr, &file);
-
-//     // Next line
-// //    sprintf(adcSingleResultArr, "%s", "\r\n");
-// //    g_tmp_return = f_puts(adcSingleResultArr, &file);
-
-//     // TODO i.e. Display control with UART cmd
-//     if (g_writingCyclesCnt == 100) {
-//         f_close(&file);
-//     }
-// }
-
-//void SD_WriteCSV(void) {
-//    uint16_t sd_cnt = 0;
-//    for (sd_cnt = 0; sd_cnt < SD_BUFFER_MAX_SIZE; sd_cnt++) {
-//        g_txbuffer[sd_cnt] = '\0';
-//    }
-//    strcpy(g_txbuffer, "New data for csv file\n");
-//    f_open(&file, "/ecgdata.csv", FA_CREATE_ALWAYS | FA_WRITE);
-//    f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
-//    f_close(&file);
-//}
-
-    // TODO line below to be tested
-    //f_mount(0,0);       // unmount sd card if needed
+// TODO line below to be tested
+//f_mount(0,0);       // unmount sd card if needed

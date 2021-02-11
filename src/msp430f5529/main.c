@@ -2,6 +2,7 @@
 - SD Module (Hannes & Ivan)
     - Test with LONG&SHORT ECG (test flags)
     - Test on PCB
+    - Add user in .csv
 - Gesamttest auf PCB (Hannes & Ivan)
 - Display (Hannes)
     - Timer
@@ -66,7 +67,7 @@ void main(void) {
                 // Testing SD Card
                 // Write in .csv
                 SD_StartWriting();
-                // Leave short ECG maually
+                // Leave short ECG manually
                 g_writingCyclesCnt++;
                 if (g_writingCyclesCnt == 10) {
                     g_short_ECG_flag = 0;
