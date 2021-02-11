@@ -26,7 +26,7 @@ char localtimeArr[80];
 void SD_TestWriteOnSD(void);
 
 void Init_FAT(void){
-    errCode = -1;
+    errCode = 20;
     
     while (errCode != FR_OK) {                              //go until f_open returns FR_OK (function successful)
         errCode = f_mount(0, &fatfs);                       //mount drive number 0
@@ -38,20 +38,6 @@ void Init_FAT(void){
     }
     f_write(&file, txbufferInit, sizeof(txbufferInit), &bytesWritten);
     f_close(&file);
-
-    
-    // f_open(&file, "/ecgdata.csv", FA_CREATE_ALWAYS | FA_WRITE);
-//    f_close(&file);
-
-
-//    f_mkdir("/test");
-//    f_open(&file, "/test/newfile.txt", FA_CREATE_ALWAYS | FA_WRITE);
-//    f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
-//    f_close(&file);
-//
-    // f_open(&file, "/ecgdata.csv", FA_CREATE_ALWAYS | FA_WRITE);
-//    f_write(&file, g_txbuffer, sizeof(g_txbuffer), &bytesWritten);
-//    f_close(&file);
 }
 
 void SD_CreateNewCSV(void) {
