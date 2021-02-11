@@ -1,0 +1,53 @@
+%EKG-7 Projektbericht
+
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec} %muss mit XeLaTex oder LuaLatex kompiliert werden sonst gibts Errors
+%\setmainfont{Calibri}
+\usepackage[a4paper, right=2cm, top=2cm, left=3cm, bottom=3cm]{geometry}
+\usepackage{setspace} %mit dem package kann der Zeilenabstand beeinflusst werden
+\setstretch{1.3}  %Zeilenabstand 1.3-fach
+\usepackage{siunitx} %für die Darstellung von Einheiten im Fliesstext
+\usepackage{graphicx} %für die Einbindung von Grafiken
+\usepackage[backend=biber, style=alphabetic,]{biblatex}
+\addbibresource{ekg_7_literatur.bib}
+
+
+\begin{document}
+
+\thispagestyle{empty} %keine Seitenzahl anzeigen
+\input{ekg_7_titelseite}
+
+\newpage
+
+\thispagestyle{empty} %keine Seitenzahl anzeigen
+\tableofcontents %das Inhaltsverzeichnis aktualisiert sich erst nach zweimaligem kompilieren
+
+\newpage
+
+\input{ekg_7_abkuerzungsverzeichnis}
+
+\newpage
+
+\input{ekg_7_einleitung}
+
+\input{ekg_7_zielsetzung}
+
+\input{ekg_7_stand_der_technik}
+
+\newpage
+
+\input{ekg_7_realisierung}
+
+\input{ekg_7_ergebnisse}
+
+\input{ekg_7_zusammenfassung}
+
+\input{ekg_7_ausblick}
+
+\printbibliography
+
+\end{document}
