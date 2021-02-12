@@ -7,6 +7,6 @@
 #include "main.h"
 
 /* Function declarations */
-uint16_t ADC_AkkuPercentage(uint16_t akkuValue);
+void ADC_Akku_Average_Value(void);
 
 #endif /* INCLUDES_FUNCTIONS_ADC_FUNCTIONS_H_ */
