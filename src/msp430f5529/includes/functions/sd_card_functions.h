@@ -22,6 +22,9 @@ UINT read;                  /* Read bytes object  */
 /* Function declarations */
 FRESULT WriteFile(char*, char*, WORD);
 void Init_FAT(void);
-void SD_TestWriteOnSD(void);
+void SD_CreateNewCSV(void);
+void SD_StartWriting(void);
+void SD_StopWriting(void);
+void SD_GetCurrentTime(void);
 
 #endif /* INCLUDES_FUNCTIONS_SD_CARD_FUNCTIONS_H_ */

@@ -37,7 +37,7 @@ void main(void) {
             Init_UART();
             Init_ADC();
             Init_SPI();
-            Init_FAT();            //mount, set directory to read from, assign file
+            Init_FAT();             //mount, set directory to read from, assign file
             Init_UART_BT();         //Init UART Interface for Bluetooth
             /* Init median filter */
             medianFilter.numNodes = NUM_ELEMENTS;
@@ -54,6 +54,8 @@ void main(void) {
             {
                 g_timer_1khz_flag = 0;
                 ST_ECG();
+                // Write in .csv
+                SD_StartWriting();
             }
             if (g_long_ECG_flag)
             {
@@ -63,6 +65,8 @@ void main(void) {
             if (!g_short_ECG_flag)
             {
                 Clear_Wave_ST();
+                // Stop writing in .csv
+                SD_StopWriting();
                 g_sys_state = IDLE_STATE;
             }
             break;
@@ -72,6 +76,8 @@ void main(void) {
             {
                 g_timer_1khz_flag = 0;
                 LT_ECG();
+                // Write in .csv
+                SD_StartWriting();
             }
             if (g_short_ECG_flag)
             {
@@ -81,6 +87,8 @@ void main(void) {
             if (!g_long_ECG_flag)
             {
                 Clear_Wave_LT();
+                // Stop writing in .csv
+                SD_StopWriting();
                 g_sys_state = IDLE_STATE;
             }
             break;
@@ -91,10 +99,14 @@ void main(void) {
         case IDLE_STATE:
             if (g_short_ECG_flag)
             {
+                // Start create/write new .csv
+                SD_CreateNewCSV();
                 g_sys_state = ECG_SHORT;
             }
             if (g_long_ECG_flag)
             {
+                // Start create/write new .csv
+                SD_CreateNewCSV();
                 g_sys_state = ECG_LONG;
             }
 
