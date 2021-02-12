@@ -28,8 +28,8 @@ void Init_Timer_A() {
         Timer_A_initUpModeParam confTimerA2 = {0};
         confTimerA2.clockSource = TIMER_A_CLOCKSOURCE_SMCLK; // 20447232Hz
     //    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32; // 32 -> 638976Hz
-        confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // -> 4096000 Hz / 64 = 64000 Hz
-        confTimerA2.timerPeriod = 319; // 64kHz / 2 == 2 Hz
+        confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // -> 20447232Hz / 64 = 319488 Hz
+        confTimerA2.timerPeriod = 3195; // 319488Hz / 100Hz == 3195
         //    confTimerA2.timerPeriod = 639; // 638976Hz / 1000Hz = 639
         // Test with approx. 2 Hz
     //    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // 64 -> 319488Hz
