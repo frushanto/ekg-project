@@ -1,5 +1,26 @@
 #include "main.h"
 
+/*
+ * 2,783V im Maximalfall
+ * 2,253V im Minimalfall
+ *
+ * -> ADC Bereit
+ *
+ * 0 - 4095 Werte
+ * 3V = 4095
+ * 0V = 0
+ *
+ * 2,783V = 3799 ADC Wert
+ * 2,253V = 3075 ADC Wert
+ *
+ * -> After offset
+ *
+ * ADC Akku Max = 724
+ * ADC Akku Min = 0
+ *
+ *  */
+
+
 /* GLOBAL VARs */
 uint8_t g_timer_1khz_flag = 0;
 uint8_t g_timer_1sec_flag = 0;
@@ -9,6 +30,10 @@ uint8_t g_long_ECG_flag = 0;
 uint16_t g_akku_vol = 0;
 uint8_t g_tmp_return = 0;
 uint16_t g_writingCyclesCnt = 0;
+
+// ADC Akku
+#define ADC_OFFSET      3075
+#define ADC_DIVIDER     7       // To be tested
 
 /* For median filter */
 #define NUM_ELEMENTS    7
@@ -118,7 +143,7 @@ void main(void) {
                 send_bt_value(g_adc_result);
 
                 uart_transmit_data_start("page0.akku.val=");
-                uart_transmit_data_value (80);
+                uart_transmit_data_value ((g_akku_vol - ADC_OFFSET)/ADC_DIVIDER);
                 uart_transmit_data_end();
             }
 
