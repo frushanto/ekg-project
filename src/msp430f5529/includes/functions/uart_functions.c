@@ -16,32 +16,14 @@ void Uart_ECG_Wave_ST(uint16_t adc_value)
     adc_value = (adc_value / 20);
     uart_transmit_data_start("add 1,0,");
     uart_transmit_data_value(adc_value);
-//    uart_transmit_data_start("\r\n");
-
     uart_transmit_data_end();
 }
 
 void Uart_ECG_Wave_LT(uint16_t adc_value)
 {
-    adc_value = (adc_value / 8) - 100;
+    adc_value = (adc_value / 20);
     uart_transmit_data_start("add 13,0,");
     uart_transmit_data_value(adc_value);
-    uart_transmit_data_end();
-}
-
-void Test_Plus_Eins()
-{
-    test_plus_minus = test_plus_minus + 1;
-    uart_transmit_data_start("page3.puls.val=");
-    uart_transmit_data_value(test_plus_minus);
-    uart_transmit_data_end();
-}
-
-void Test_Minus_Eins()
-{
-    test_plus_minus = test_plus_minus - 1;
-    uart_transmit_data_start("page3.puls.val=");
-    uart_transmit_data_value(test_plus_minus);
     uart_transmit_data_end();
 }
 
@@ -99,7 +81,7 @@ void ECG_Timer_LT()
         uart_transmit_data_end();
         if (cnt_min > 59 && cnt_sec > 59)
         {
-            cnt_hour ++;
+            cnt_hour++;
             cnt_min = 0;
             cnt_sec = 0;
         }
@@ -116,18 +98,26 @@ void ECG_Timer_LT()
         uart_transmit_data_value(cnt_hour);
         uart_transmit_data_end();
     }
+    if (cnt_hour == 24)
+    {
+        g_long_ECG_flag = 0;
+    }
 }
 
-void Clear_ECG_Timer_LT(void) {
+void Clear_ECG_Timer_LT(void)
+{
     cnt_sec = 0;
     cnt_min = 0;
     cnt_hour = 0;
+    g_timer_uart_1sec = 0;
     uart_transmit_data_start("page3.seconds.val=");
     uart_transmit_data_value(cnt_sec);
     uart_transmit_data_end();
+
     uart_transmit_data_start("page3.minutes.val=");
     uart_transmit_data_value(cnt_min);
     uart_transmit_data_end();
+
     uart_transmit_data_start("page3.hours.val=");
     uart_transmit_data_value(cnt_hour);
     uart_transmit_data_end();
@@ -156,14 +146,21 @@ void ECG_Timer_ST()
         uart_transmit_data_value(cnt_min);
         uart_transmit_data_end();
     }
+    if (cnt_min == 2)
+    {
+        g_short_ECG_flag = 0;
+    }
 }
 
-void Clear_ECG_Timer_ST(void) {
+void Clear_ECG_Timer_ST(void)
+{
     cnt_sec = 0;
     cnt_min = 0;
+    g_timer_uart_1sec = 0;
     uart_transmit_data_start("page2.seconds.val=");
     uart_transmit_data_value(cnt_sec);
     uart_transmit_data_end();
+
     uart_transmit_data_start("page2.minutes.val=");
     uart_transmit_data_value(cnt_min);
     uart_transmit_data_end();

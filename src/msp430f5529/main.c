@@ -47,7 +47,7 @@ void main(void) {
             MEDIANFILTER_Init(&medianFilter); // Init median filter
             EnableGlobalInterrupt();
             /* Init MSP430 END */
-            
+
             g_sys_state = IDLE_STATE; // Change state
             break;
 
@@ -123,6 +123,10 @@ void main(void) {
             break;
 
         case SYS_DIRTY_START:
+            Init_UART();
+            Init_FAT();
+            g_5v_flag = 0;
+            g_sys_state = IDLE_STATE;
             break;
 
         case SYS_BAD_KEY:
