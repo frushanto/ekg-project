@@ -2,7 +2,7 @@
 
 #define SD_BUFFER_MAX_SIZE  512
 #define SD_CSV_ARR_LENGTH   23
-#define TB_SIZE             80
+#define TB_SIZE             21
 
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
@@ -22,6 +22,10 @@ char timeBuffer[TB_SIZE];
 char commaArr[1];
 char adcSingleResultArr[4];
 char localtimeArr[80];
+
+/* Local time */
+time_t curtime;
+struct tm *loctime; /* Get the current time. */
 
 void SD_TestWriteOnSD(void);
 
@@ -79,8 +83,7 @@ void SD_CreateNewCSV(void) {
 }
 
 void SD_GetCurrentTime(void) {
-    time_t curtime;
-    struct tm *loctime; /* Get the current time. */
+
     curtime = time (NULL); /* Convert it to local time representation. */
     loctime = localtime (&curtime); /* Print out the date and time in the standard format. */
 

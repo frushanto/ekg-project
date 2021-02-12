@@ -1,32 +1,5 @@
 #include "main.h"
 
-/*
- * 2,620V im Maximalfall (ADC)
- * 2,121V im Minimalfall (ADC)
- *
- * -> ADC Bereich
- *
- * 0 - 4095 Werte
- * 3V = 4095
- * 0V = 0
- *
- * 2,620V = 3577 ADC Wert
- * 2,121V = 2895 ADC Wert = Offset
- *
- * -> After offset
- *
- * ADC Akku Max = 682
- * ADC Akku Min = 0
- *
- *
- * Akku = 3,51V = 23,3% = 3004 ADC
- *
- * Akku max = 4,2V
- * Akku min = 3,3V
- *
- *  */
-
-
 /* GLOBAL VARs */
 uint8_t g_timer_1khz_flag = 0;
 uint8_t g_timer_1sec_flag = 0;
@@ -76,7 +49,7 @@ void main(void) {
             Init_UART();
             Init_ADC();
             Init_SPI();
-            //Init_FAT();             //mount, set directory to read from, assign file
+            Init_FAT();             //mount, set directory to read from, assign file
             Init_UART_BT();         //Init UART Interface for Bluetooth
             /* Init median filter */
             medianFilter.numNodes = NUM_ELEMENTS;
