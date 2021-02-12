@@ -1,22 +1,28 @@
 #include "main.h"
 
 /*
- * 2,783V im Maximalfall
- * 2,253V im Minimalfall
+ * 2,620V im Maximalfall (ADC)
+ * 2,121V im Minimalfall (ADC)
  *
- * -> ADC Bereit
+ * -> ADC Bereich
  *
  * 0 - 4095 Werte
  * 3V = 4095
  * 0V = 0
  *
- * 2,783V = 3799 ADC Wert
- * 2,253V = 3075 ADC Wert
+ * 2,620V = 3577 ADC Wert
+ * 2,121V = 2895 ADC Wert = Offset
  *
  * -> After offset
  *
- * ADC Akku Max = 724
+ * ADC Akku Max = 682
  * ADC Akku Min = 0
+ *
+ *
+ * Akku = 3,51V = 23,3% = 3004 ADC
+ *
+ * Akku max = 4,2V
+ * Akku min = 3,3V
  *
  *  */
 
@@ -31,9 +37,17 @@ uint16_t g_akku_vol = 0;
 uint8_t g_tmp_return = 0;
 uint16_t g_writingCyclesCnt = 0;
 
-// ADC Akku
-#define ADC_OFFSET      3075
-#define ADC_DIVIDER     7       // To be tested
+// Local vars
+uint8_t cnt_akkuaverage = 0;
+uint32_t akku_percentage = 0;
+uint32_t akku_averageValue = 0;
+
+//const uint16_t adc_akku_offset = 28950;     // To be tested
+const uint16_t adc_akku_offset = 18950;
+const uint16_t adc_akku_divider = 68;       // To be tested
+
+#define ADC_AKKU_SEC        10
+
 
 /* For median filter */
 #define NUM_ELEMENTS    7
@@ -62,7 +76,7 @@ void main(void) {
             Init_UART();
             Init_ADC();
             Init_SPI();
-            Init_FAT();             //mount, set directory to read from, assign file
+            //Init_FAT();             //mount, set directory to read from, assign file
             Init_UART_BT();         //Init UART Interface for Bluetooth
             /* Init median filter */
             medianFilter.numNodes = NUM_ELEMENTS;
@@ -138,13 +152,24 @@ void main(void) {
             if (g_timer_1sec_flag){
                 g_timer_1sec_flag = 0;
 
-
                 Start_ADC();
-                send_bt_value(g_adc_result);
+                send_bt_value(g_akku_vol);
 
-                uart_transmit_data_start("page0.akku.val=");
-                uart_transmit_data_value ((g_akku_vol - ADC_OFFSET)/ADC_DIVIDER);
-                uart_transmit_data_end();
+                akku_averageValue += g_akku_vol;       
+                cnt_akkuaverage++;
+
+                if (cnt_akkuaverage == ADC_AKKU_SEC) {
+                    cnt_akkuaverage = 0;
+                    akku_averageValue /= ADC_AKKU_SEC;
+                    akku_percentage = (((akku_averageValue * 10) - adc_akku_offset)/adc_akku_divider);
+                    akku_averageValue = 0;
+                    uart_transmit_data_start("page0.akku.val=");
+                    uart_transmit_data_value (akku_percentage);
+    //                uart_transmit_data_value ((g_akku_vol - ADC_OFFSET)/ADC_DIVIDER);
+    //                uart_transmit_data_value (80);
+                    uart_transmit_data_end();
+                }
+                
             }
 
             break;

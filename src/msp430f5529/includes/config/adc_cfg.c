@@ -207,7 +207,7 @@ void Init_ADC() {
     ADC12_A_setupSamplingTimer(ADC12_A_BASE,
         ADC12_A_CYCLEHOLD_4_CYCLES,        // 16
         ADC12_A_CYCLEHOLD_4_CYCLES,
-        ADC12_A_MULTIPLESAMPLESENABLE);   // multisampling enabled
+        ADC12_A_MULTIPLESAMPLESENABLE);    // multisampling enabled
 
     ADC12_A_configureMemory(ADC12_A_BASE ,&adc_cfg);
 

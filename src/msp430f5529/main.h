@@ -28,6 +28,7 @@
 #include "includes/functions/uart_functions.h"
 #include "includes/functions/bpm_function.h"
 #include "includes/functions/sd_card_functions.h"
+#include "includes/functions/adc_functions.h"
 #include "integer.h"
 #include "stdio.h"
 #include "time.h"
