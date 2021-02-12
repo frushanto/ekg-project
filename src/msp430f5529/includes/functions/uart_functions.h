@@ -26,6 +26,8 @@ void Short_ECG_Error();
 void Long_ECG_Error();
 void ST_ECG();
 void LT_ECG();
+void ECG_Timer_LT();
+void ECG_Timer_ST();
 
 // extern uint16_t g_adc_result;
 

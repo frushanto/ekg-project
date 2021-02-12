@@ -57,6 +57,7 @@ void TIMER1_A0_ISR (void)
 {
     GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
 	g_timer_1sec_flag = 1;
+	g_timer_uart_1sec = 1;
 }
 
 //******************************************************************************

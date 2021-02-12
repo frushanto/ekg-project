@@ -7,6 +7,9 @@
 #include "includes/functions/uart_functions.h"
 
 uint16_t test_plus_minus = 80;
+uint8_t cnt_sec = 0;
+uint8_t cnt_min = 0;
+uint8_t cnt_hour = 0;
 
 void Uart_ECG_Wave_ST(uint16_t adc_value)
 {
@@ -78,4 +81,64 @@ void LT_ECG()
     Start_ADC();
     Uart_ECG_Wave_LT(g_adc_result);
     calculate_bpm_LT();
+}
+
+void ECG_Timer_LT()
+{
+    if (g_timer_uart_1sec == 1)
+    {
+        g_timer_uart_1sec = 0;
+        cnt_sec++;
+        uart_transmit_data_start("page3.secundes.val=");
+        uart_transmit_data_value(cnt_sec);
+        uart_transmit_data_end();
+        if (cnt_sec > 59 && cnt_min <= 59)
+        {
+            cnt_min++;
+            cnt_sec = 0;
+        }
+        uart_transmit_data_start("page3.minutes.val=");
+        uart_transmit_data_value(cnt_min);
+        uart_transmit_data_end();
+        if (cnt_min > 59 && cnt_sec > 59)
+        {
+            cnt_hour ++;
+            cnt_min = 0;
+            cnt_sec = 0;
+        }
+        uart_transmit_data_start("page3.hours.val=");
+        uart_transmit_data_value(cnt_hour);
+        uart_transmit_data_end();
+        if (cnt_hour == 24)
+        {
+            cnt_hour = 0;
+            cnt_min = 0;
+            cnt_sec = 0;
+        }
+    }
+}
+
+void ECG_Timer_ST()
+{
+    if (g_timer_uart_1sec == 1)
+    {
+        g_timer_uart_1sec = 0;
+        cnt_sec++;
+        uart_transmit_data_start("page2.secundes.val=");
+        uart_transmit_data_value(cnt_sec);
+        uart_transmit_data_end();
+        if (cnt_sec > 59 && cnt_min <= 59)
+        {
+            cnt_min++;
+            cnt_sec = 0;
+        }
+        uart_transmit_data_start("page2.minutes.val=");
+        uart_transmit_data_value(cnt_min);
+        uart_transmit_data_end();
+        if (cnt_min > 59 && cnt_sec > 59)
+        {
+            cnt_min = 0;
+            cnt_sec = 0;
+        }
+    }
 }

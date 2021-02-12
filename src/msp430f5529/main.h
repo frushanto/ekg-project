@@ -58,5 +58,6 @@ extern uint8_t g_tmp_return;
 extern uint16_t g_writingCyclesCnt;
 extern STATE_MACHINE_e g_sys_state;
 extern sMedianFilter_t medianFilter;
+extern uint8_t g_timer_uart_1sec;
 
 #endif /* MAIN_H_ */
