@@ -30,14 +30,14 @@ void Init_SPI() {
     param.clockPolarity = USCI_B_SPI_CLOCKPOLARITY_INACTIVITY_LOW;
     returnValue =  USCI_B_SPI_initMaster(USCI_B0_BASE, &param);
 
-    if (STATUS_FAIL == returnValue){
-        //LED On
-        GPIO_setOutputHighOnPin(
-            GPIO_PORT_P1,
-            GPIO_PIN0
-            );
-        return;
-    }
+    // if (STATUS_FAIL == returnValue){
+    //     //LED On
+    //     GPIO_setOutputHighOnPin(
+    //         GPIO_PORT_P2,
+    //         GPIO_PIN3
+    //         );
+    //     return;
+    // }
 
     //Enable SPI module
     USCI_B_SPI_enable(USCI_B0_BASE);
@@ -48,17 +48,17 @@ void Init_SPI() {
     USCI_B_SPI_enableInterrupt(USCI_B0_BASE,
 		USCI_B_SPI_RECEIVE_INTERRUPT);
 
-    //Now with SPI signals initialized, reset slave
+    //Now with SPI signals initialized, reset slave (Chip Select)
     GPIO_setOutputLowOnPin(
         GPIO_PORT_P2,
         GPIO_PIN7
         );
 
-    //LED On
-    GPIO_setOutputHighOnPin(
-        GPIO_PORT_P4,
-        GPIO_PIN7
-        );
+    // //LED On
+    // GPIO_setOutputHighOnPin(
+    //     GPIO_PORT_P2,
+    //     GPIO_PIN4
+    //     );
 
     //Wait for slave to initialize
     __delay_cycles(100);

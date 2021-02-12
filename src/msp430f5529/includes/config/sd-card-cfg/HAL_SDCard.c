@@ -46,16 +46,16 @@
 #define SPI_SIMO        BIT0  // 0x0001
 #define SPI_SOMI        BIT1  // 0x0002
 #define SPI_CLK         BIT2  // 0x0004
-#define SD_CS           BIT5  // 0x0020
+#define SD_CS           BIT7  // 0x0020
 
 // Ports
 #define SPI_SEL         P3SEL
 #define SPI_DIR         P3DIR
 #define SPI_OUT         P3OUT
 #define SPI_REN         P3REN
-#define SD_CS_SEL       P3SEL
-#define SD_CS_OUT       P3OUT
-#define SD_CS_DIR       P3DIR
+#define SD_CS_SEL       P2SEL
+#define SD_CS_OUT       P2OUT
+#define SD_CS_DIR       P2DIR
 
 /***************************************************************************//**
  * @brief   Initialize SD Card

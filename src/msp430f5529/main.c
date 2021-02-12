@@ -37,7 +37,7 @@ void main(void) {
             Init_UART();
             Init_ADC();
             Init_SPI();
-//            Init_FAT();            //mount, set directory to read from, assign file
+            Init_FAT();            //mount, set directory to read from, assign file
             Init_UART_BT();         //Init UART Interface for Bluetooth
             /* Init median filter */
             medianFilter.numNodes = NUM_ELEMENTS;
