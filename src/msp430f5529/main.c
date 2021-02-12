@@ -68,11 +68,11 @@ void main(void) {
                 // Write in .csv
                 SD_StartWriting();
                 // Leave short ECG manually
-                g_writingCyclesCnt++;
-                if (g_writingCyclesCnt == 10) {
-                    g_short_ECG_flag = 0;
-                    g_writingCyclesCnt = 0;
-                }
+                // g_writingCyclesCnt++;
+                // if (g_writingCyclesCnt == 10) {
+                //     g_short_ECG_flag = 0;
+                //     g_writingCyclesCnt = 0;
+                // }
             }
             if (g_long_ECG_flag)
             {
@@ -115,7 +115,7 @@ void main(void) {
 
         case IDLE_STATE:
             // Testing SD Card
-            g_short_ECG_flag = 1;
+            // g_short_ECG_flag = 1;
             if (g_short_ECG_flag)
             {
                 // Start create/write new .csv
