@@ -28,7 +28,7 @@ void Init_Timer_A() {
     Timer_A_initUpModeParam confTimerA2 = {0};
     confTimerA2.clockSource = TIMER_A_CLOCKSOURCE_SMCLK; // 20447232Hz
     confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // -> 20447232 Hz / 64 = 319488 Hz
-    confTimerA2.timerPeriod = 319; // 319488Hz / 1000Hz == 319
+    confTimerA2.timerPeriod = 3195; // !!! 100  Hz !!! // 319488Hz / 1000Hz == 319
     confTimerA2.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
     confTimerA2.captureCompareInterruptEnable_CCR0_CCIE =
         TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;

@@ -9,7 +9,7 @@
 
 
 //Target frequency for MCLK in kHz
-#define UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ   4000 //20000   // 20 MHz
+#define UCS_MCLK_DESIRED_FREQUENCY_IN_KHZ   20000   // 20 MHz
 #define FLLREF_KHZ                          32      
 // MCLK/FLLRef Ratio
 // 20000 kHz / 32 kHz = 625 kHz
@@ -60,8 +60,8 @@ void Init_CLK() {
         UCS_MCLK_FLLREF_RATIO);
 
     //Verify if the Clock settings are as expected
-    clockValue = UCS_getSMCLK();    // clockValue = 4096000d
-    clockValue = UCS_getMCLK();     // clockValue = 4096000d
+    clockValue = UCS_getSMCLK();    // clockValue = 20MHz
+    clockValue = UCS_getMCLK();     // clockValue = 20MHz
     clockValue = UCS_getACLK();     // clockValue = 32768d
 }
 
