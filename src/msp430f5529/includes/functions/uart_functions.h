@@ -28,6 +28,8 @@ void ST_ECG();
 void LT_ECG();
 void ECG_Timer_LT();
 void ECG_Timer_ST();
+void Clear_ECG_Timer_ST();
+void Clear_ECG_Timer_LT();
 
 // extern uint16_t g_adc_result;
 

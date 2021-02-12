@@ -59,5 +59,6 @@ extern uint16_t g_writingCyclesCnt;
 extern STATE_MACHINE_e g_sys_state;
 extern sMedianFilter_t medianFilter;
 extern uint8_t g_timer_uart_1sec;
+extern uint8_t g_5v_flag;
 
 #endif /* MAIN_H_ */

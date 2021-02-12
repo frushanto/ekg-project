@@ -89,16 +89,13 @@ void ECG_Timer_LT()
     {
         g_timer_uart_1sec = 0;
         cnt_sec++;
-        uart_transmit_data_start("page3.secundes.val=");
-        uart_transmit_data_value(cnt_sec);
-        uart_transmit_data_end();
         if (cnt_sec > 59 && cnt_min <= 59)
         {
             cnt_min++;
             cnt_sec = 0;
         }
-        uart_transmit_data_start("page3.minutes.val=");
-        uart_transmit_data_value(cnt_min);
+        uart_transmit_data_start("page3.seconds.val=");
+        uart_transmit_data_value(cnt_sec);
         uart_transmit_data_end();
         if (cnt_min > 59 && cnt_sec > 59)
         {
@@ -106,8 +103,8 @@ void ECG_Timer_LT()
             cnt_min = 0;
             cnt_sec = 0;
         }
-        uart_transmit_data_start("page3.hours.val=");
-        uart_transmit_data_value(cnt_hour);
+        uart_transmit_data_start("page3.minutes.val=");
+        uart_transmit_data_value(cnt_min);
         uart_transmit_data_end();
         if (cnt_hour == 24)
         {
@@ -115,7 +112,25 @@ void ECG_Timer_LT()
             cnt_min = 0;
             cnt_sec = 0;
         }
+        uart_transmit_data_start("page3.hours.val=");
+        uart_transmit_data_value(cnt_hour);
+        uart_transmit_data_end();
     }
+}
+
+void Clear_ECG_Timer_LT(void) {
+    cnt_sec = 0;
+    cnt_min = 0;
+    cnt_hour = 0;
+    uart_transmit_data_start("page3.seconds.val=");
+    uart_transmit_data_value(cnt_sec);
+    uart_transmit_data_end();
+    uart_transmit_data_start("page3.minutes.val=");
+    uart_transmit_data_value(cnt_min);
+    uart_transmit_data_end();
+    uart_transmit_data_start("page3.hours.val=");
+    uart_transmit_data_value(cnt_hour);
+    uart_transmit_data_end();
 }
 
 void ECG_Timer_ST()
@@ -124,21 +139,32 @@ void ECG_Timer_ST()
     {
         g_timer_uart_1sec = 0;
         cnt_sec++;
-        uart_transmit_data_start("page2.secundes.val=");
-        uart_transmit_data_value(cnt_sec);
-        uart_transmit_data_end();
         if (cnt_sec > 59 && cnt_min <= 59)
         {
             cnt_min++;
             cnt_sec = 0;
         }
-        uart_transmit_data_start("page2.minutes.val=");
-        uart_transmit_data_value(cnt_min);
+        uart_transmit_data_start("page2.seconds.val=");
+        uart_transmit_data_value(cnt_sec);
         uart_transmit_data_end();
         if (cnt_min > 59 && cnt_sec > 59)
         {
             cnt_min = 0;
             cnt_sec = 0;
         }
+        uart_transmit_data_start("page2.minutes.val=");
+        uart_transmit_data_value(cnt_min);
+        uart_transmit_data_end();
     }
+}
+
+void Clear_ECG_Timer_ST(void) {
+    cnt_sec = 0;
+    cnt_min = 0;
+    uart_transmit_data_start("page2.seconds.val=");
+    uart_transmit_data_value(cnt_sec);
+    uart_transmit_data_end();
+    uart_transmit_data_start("page2.minutes.val=");
+    uart_transmit_data_value(cnt_min);
+    uart_transmit_data_end();
 }

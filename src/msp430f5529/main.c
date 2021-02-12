@@ -10,6 +10,7 @@ uint8_t g_long_ECG_flag = 0;
 uint16_t g_akku_vol = 0;
 uint8_t g_tmp_return = 0;
 uint16_t g_writingCyclesCnt = 0;
+uint8_t g_5v_flag = 0;
 
 /* For median filter */
 #define NUM_ELEMENTS    7
@@ -67,6 +68,7 @@ void main(void) {
             if (!g_short_ECG_flag)
             {
                 Clear_Wave_ST();
+                Clear_ECG_Timer_ST();
                 // Stop writing in .csv
                 SD_StopWriting();
                 g_sys_state = IDLE_STATE;
@@ -74,6 +76,7 @@ void main(void) {
             break;
 
         case ECG_LONG:
+            ECG_Timer_LT();
             if (g_timer_1khz_flag)
             {
                 g_timer_1khz_flag = 0;
@@ -89,6 +92,7 @@ void main(void) {
             if (!g_long_ECG_flag)
             {
                 Clear_Wave_LT();
+                Clear_ECG_Timer_LT();
                 // Stop writing in .csv
                 SD_StopWriting();
                 g_sys_state = IDLE_STATE;

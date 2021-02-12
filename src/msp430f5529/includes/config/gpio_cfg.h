@@ -11,6 +11,7 @@
 #include <msp430.h>
 #include <includes/driverlib/driverlib.h>
 #include <includes/driverlib/std_types.h>
+#include <main.h>
 
 /* Function declarations */
 void Init_GPIO(void);
