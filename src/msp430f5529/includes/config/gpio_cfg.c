@@ -50,11 +50,21 @@ __interrupt void pushbutton_ISR(void)
         break;   // None
     case 0x02:          // Pin 0
 
-        __delay_cycles(4000000);   // 20000 = 1ms
+        /* Lock button ISR */
+        /* 
+            1. Check if button pressed
+            2. 
+         */
+
+
+        // 20000 = 1ms -> delay 200ms
+        __delay_cycles(4000000);
         if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0))
         {
-            GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
-            GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
+            // // 5V DC/DC on/off -> HIGH = ON
+            // GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
+            // Toggle LED2 on PCB
+            // GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
 
             g_5v_flag++;
             if (g_5v_flag == 1)
@@ -65,7 +75,7 @@ __interrupt void pushbutton_ISR(void)
             else
             {
                 // init UART and FAT new
-                g_sys_state = SYS_DIRTY_START;  // create new case
+                g_sys_state = SYS_WAKEUP;  // create new case
             }
         }
 

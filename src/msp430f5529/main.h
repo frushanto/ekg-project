@@ -43,7 +43,7 @@ typedef enum
     ENERGY_SAVING_MODE,
     IDLE_STATE,
     SYS_ERROR,
-    SYS_DIRTY_START,
+    SYS_WAKEUP,
     SYS_BAD_KEY
 } STATE_MACHINE_e;
 
