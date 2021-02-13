@@ -57,6 +57,7 @@ void TIMER1_A0_ISR (void)
 {
     GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
 	g_timer_1sec_flag = 1;
+    g_buzzer_1sec_flag = 1;
 	if(g_sys_state == ECG_SHORT || g_sys_state == ECG_LONG){
 	    g_timer_uart_1sec = 1;
 	    g_timer_uart_sync = 1;
@@ -79,4 +80,5 @@ void TIMER2_A0_ISR (void)
 //    GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
     g_timer_1khz_flag = 1;
     g_timer_1khz_buzzer = 1;
+
 }
