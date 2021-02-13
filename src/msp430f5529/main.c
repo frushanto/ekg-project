@@ -111,12 +111,7 @@ void main(void) {
             break;
 
         case ENERGY_SAVING_MODE:
-            // 5V DC/DC ON?
-            if (GPIO_getInputPinValue(GPIO_PORT_P6, GPIO_PIN6)) {
-                g_buzzer_on_flag = 1;
-            } else {
-                g_buzzer_on_flag = 0;
-            }
+//            while(1){}
             break;
 
         case IDLE_STATE:
@@ -139,13 +134,8 @@ void main(void) {
         case SYS_ERROR:
             break;
 
-        case SYS_WAKEUP:
-            // TODO UART to be tested
+        case SYS_DIRTY_START:
             Init_UART();
-            // 5V DC/DC set ACTIVE
-            GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
-            // LED2 on PCB set ACTIVE
-            GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
             Init_FAT();
             g_5v_flag = 0;
             g_sys_state = IDLE_STATE;

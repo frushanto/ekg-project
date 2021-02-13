@@ -50,19 +50,12 @@ __interrupt void pushbutton_ISR(void)
         break;   // None
     case 0x02:          // Pin 0
 
-        /* Lock button ISR */
-        /* 
-            - Check if button pressed
-            
-            - If pressed
-                - either ENERGY_SAVING_MODE
-                - or SYS_WAKEUP
-         */
-
-        // 20000 = 1ms -> delay 200ms
-        __delay_cycles(4000000);
+        __delay_cycles(4000000);   // 20000 = 1ms
         if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0))
         {
+            GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
+            GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
+
             g_5v_flag++;
             if (g_5v_flag == 1)
             {
@@ -72,7 +65,7 @@ __interrupt void pushbutton_ISR(void)
             else
             {
                 // init UART and FAT new
-                g_sys_state = SYS_WAKEUP;
+                g_sys_state = SYS_DIRTY_START;  // create new case
             }
         }
 
