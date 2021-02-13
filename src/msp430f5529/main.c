@@ -15,6 +15,7 @@ uint8_t g_5v_flag = 0;
 uint8_t g_cnt_sec = 0;
 uint8_t g_cnt_min = 0;
 uint8_t g_cnt_hour = 0;
+uint8_t g_timer_1khz_buzzer = 0;
 
 /* For median filter */
 #define NUM_ELEMENTS    7
@@ -108,6 +109,7 @@ void main(void) {
             break;
 
         case ENERGY_SAVING_MODE:
+//            while(1){}
             break;
 
         case IDLE_STATE:
@@ -133,7 +135,7 @@ void main(void) {
         case SYS_DIRTY_START:
             Init_UART();
             Init_FAT();
-//            g_5v_flag = 0;
+            g_5v_flag = 0;
             g_sys_state = IDLE_STATE;
             break;
 

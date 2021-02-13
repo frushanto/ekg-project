@@ -78,4 +78,5 @@ void TIMER2_A0_ISR (void)
 {
 //    GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
     g_timer_1khz_flag = 1;
+    g_timer_1khz_buzzer = 1;
 }

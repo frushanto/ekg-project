@@ -9,12 +9,12 @@
 #define INCLUDES_CONFIG_GPIO_CFG_H_
 
 #include <msp430.h>
-#include <includes/driverlib/driverlib.h>
-#include <includes/driverlib/std_types.h>
+#include <driverlib.h>
+#include <std_types.h>
 #include <main.h>
 
 /* Function declarations */
 void Init_GPIO(void);
-void GPIO_Buzzer_Single_Beep(void);
+void Buzzer_active(void);
 
 #endif /* INCLUDES_CONFIG_GPIO_CFG_H_ */

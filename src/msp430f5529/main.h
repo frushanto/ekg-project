@@ -64,5 +64,6 @@ extern uint8_t g_5v_flag;
 extern uint8_t g_cnt_sec;
 extern uint8_t g_cnt_min;
 extern uint8_t g_cnt_hour;
+extern uint8_t g_timer_1khz_buzzer;
 
 #endif /* MAIN_H_ */
