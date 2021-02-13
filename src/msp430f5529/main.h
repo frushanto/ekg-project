@@ -61,5 +61,8 @@ extern STATE_MACHINE_e g_sys_state;
 extern sMedianFilter_t medianFilter;
 extern uint8_t g_timer_uart_1sec;
 extern uint8_t g_5v_flag;
+extern uint8_t g_cnt_sec;
+extern uint8_t g_cnt_min;
+extern uint8_t g_cnt_hour;
 
 #endif /* MAIN_H_ */

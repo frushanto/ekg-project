@@ -12,6 +12,9 @@ uint16_t g_akku_vol = 0;
 uint8_t g_tmp_return = 0;
 uint16_t g_writingCyclesCnt = 0;
 uint8_t g_5v_flag = 0;
+uint8_t g_cnt_sec = 0;
+uint8_t g_cnt_min = 0;
+uint8_t g_cnt_hour = 0;
 
 /* For median filter */
 #define NUM_ELEMENTS    7

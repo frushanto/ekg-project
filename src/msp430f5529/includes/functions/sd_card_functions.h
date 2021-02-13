@@ -25,6 +25,7 @@ void Init_FAT(void);
 void SD_CreateNewCSV(void);
 void SD_StartWriting(void);
 void SD_StopWriting(void);
-void SD_GetCurrentTime(void);
+// void SD_GetCurrentTime(void);
+void SD_SetTimeStamp(void);
 
 #endif /* INCLUDES_FUNCTIONS_SD_CARD_FUNCTIONS_H_ */

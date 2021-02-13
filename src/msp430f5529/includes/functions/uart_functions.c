@@ -7,9 +7,6 @@
 #include "includes/functions/uart_functions.h"
 
 uint16_t test_plus_minus = 80;
-uint8_t cnt_sec = 0;
-uint8_t cnt_min = 0;
-uint8_t cnt_hour = 0;
 
 void Uart_ECG_Wave_ST(uint16_t adc_value)
 {
@@ -70,35 +67,35 @@ void ECG_Timer_LT()
     if (g_timer_uart_1sec == 1)
     {
         g_timer_uart_1sec = 0;
-        cnt_sec++;
-        if (cnt_sec > 59 && cnt_min <= 59)
+        g_cnt_sec++;
+        if (g_cnt_sec > 59 && g_cnt_min <= 59)
         {
-            cnt_min++;
-            cnt_sec = 0;
+            g_cnt_min++;
+            g_cnt_sec = 0;
         }
         uart_transmit_data_start("page3.seconds.val=");
-        uart_transmit_data_value(cnt_sec);
+        uart_transmit_data_value(g_cnt_sec);
         uart_transmit_data_end();
-        if (cnt_min > 59 && cnt_sec > 59)
+        if (g_cnt_min > 59 && g_cnt_sec > 59)
         {
-            cnt_hour++;
-            cnt_min = 0;
-            cnt_sec = 0;
+            g_cnt_hour++;
+            g_cnt_min = 0;
+            g_cnt_sec = 0;
         }
         uart_transmit_data_start("page3.minutes.val=");
-        uart_transmit_data_value(cnt_min);
+        uart_transmit_data_value(g_cnt_min);
         uart_transmit_data_end();
-        if (cnt_hour == 24)
+        if (g_cnt_hour == 24)
         {
-            cnt_hour = 0;
-            cnt_min = 0;
-            cnt_sec = 0;
+            g_cnt_hour = 0;
+            g_cnt_min = 0;
+            g_cnt_sec = 0;
         }
         uart_transmit_data_start("page3.hours.val=");
-        uart_transmit_data_value(cnt_hour);
+        uart_transmit_data_value(g_cnt_hour);
         uart_transmit_data_end();
     }
-    if (cnt_hour == 24)
+    if (g_cnt_hour == 24)
     {
         g_long_ECG_flag = 0;
     }
@@ -106,20 +103,20 @@ void ECG_Timer_LT()
 
 void Clear_ECG_Timer_LT(void)
 {
-    cnt_sec = 0;
-    cnt_min = 0;
-    cnt_hour = 0;
+    g_cnt_sec = 0;
+    g_cnt_min = 0;
+    g_cnt_hour = 0;
     g_timer_uart_1sec = 0;
     uart_transmit_data_start("page3.seconds.val=");
-    uart_transmit_data_value(cnt_sec);
+    uart_transmit_data_value(g_cnt_sec);
     uart_transmit_data_end();
 
     uart_transmit_data_start("page3.minutes.val=");
-    uart_transmit_data_value(cnt_min);
+    uart_transmit_data_value(g_cnt_min);
     uart_transmit_data_end();
 
     uart_transmit_data_start("page3.hours.val=");
-    uart_transmit_data_value(cnt_hour);
+    uart_transmit_data_value(g_cnt_hour);
     uart_transmit_data_end();
 }
 
@@ -128,25 +125,25 @@ void ECG_Timer_ST()
     if (g_timer_uart_1sec == 1)
     {
         g_timer_uart_1sec = 0;
-        cnt_sec++;
-        if (cnt_sec > 59 && cnt_min <= 59)
+        g_cnt_sec++;
+        if (g_cnt_sec > 59 && g_cnt_min <= 59)
         {
-            cnt_min++;
-            cnt_sec = 0;
+            g_cnt_min++;
+            g_cnt_sec = 0;
         }
         uart_transmit_data_start("page2.seconds.val=");
-        uart_transmit_data_value(cnt_sec);
+        uart_transmit_data_value(g_cnt_sec);
         uart_transmit_data_end();
-        if (cnt_min > 59 && cnt_sec > 59)
+        if (g_cnt_min > 59 && g_cnt_sec > 59)
         {
-            cnt_min = 0;
-            cnt_sec = 0;
+            g_cnt_min = 0;
+            g_cnt_sec = 0;
         }
         uart_transmit_data_start("page2.minutes.val=");
-        uart_transmit_data_value(cnt_min);
+        uart_transmit_data_value(g_cnt_min);
         uart_transmit_data_end();
     }
-    if (cnt_min == 2)
+    if (g_cnt_min == 2)
     {
         g_short_ECG_flag = 0;
     }
@@ -154,14 +151,14 @@ void ECG_Timer_ST()
 
 void Clear_ECG_Timer_ST(void)
 {
-    cnt_sec = 0;
-    cnt_min = 0;
+    g_cnt_sec = 0;
+    g_cnt_min = 0;
     g_timer_uart_1sec = 0;
     uart_transmit_data_start("page2.seconds.val=");
-    uart_transmit_data_value(cnt_sec);
+    uart_transmit_data_value(g_cnt_sec);
     uart_transmit_data_end();
 
     uart_transmit_data_start("page2.minutes.val=");
-    uart_transmit_data_value(cnt_min);
+    uart_transmit_data_value(g_cnt_min);
     uart_transmit_data_end();
 }

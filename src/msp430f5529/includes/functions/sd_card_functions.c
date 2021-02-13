@@ -2,7 +2,7 @@
 
 #define SD_BUFFER_MAX_SIZE  512
 #define SD_CSV_ARR_LENGTH   23
-#define TB_SIZE             21
+#define TB_SIZE             10
 
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
@@ -82,24 +82,33 @@ void SD_CreateNewCSV(void) {
     }
 }
 
-void SD_GetCurrentTime(void) {
-
-    curtime = time (NULL); /* Convert it to local time representation. */
-    loctime = localtime (&curtime); /* Print out the date and time in the standard format. */
-
-    /* Date format - dd-MM-YYYY HH:MM:SS */
-    uint16_t year = loctime->tm_year + 1900; // Year adjustment
-    uint8_t hour = loctime->tm_hour + 7; // from 7 to 31 -> time zone adjustment
-    uint8_t month = loctime->tm_mon + 1; // Month adjustment (1-12)
-
-    if (hour >= 24) {
-        hour = hour - 24;
+void SD_SetTimeStamp(void){
+    memset(timeBuffer,0x00,TB_SIZE);
+    if (g_short_ECG_flag == 1){
+        sprintf(timeBuffer, "%02d:%02d \n",g_cnt_min, g_cnt_sec);
+    }else{
+        sprintf(timeBuffer, "%02d:%02d:%02d \n",g_cnt_hour, g_cnt_min, g_cnt_sec);
     }
-
-    sprintf(timeBuffer, "%02d-%02d-%d %02d:%02d:%02d\n",
-            loctime->tm_mday, month, year,
-            hour, loctime->tm_min, loctime->tm_sec);
 }
+
+// void SD_GetCurrentTime(void) {
+
+//     curtime = time (NULL); /* Convert it to local time representation. */
+//     loctime = localtime (&curtime); /* Print out the date and time in the standard format. */
+
+//     /* Date format - dd-MM-YYYY HH:MM:SS */
+//     uint16_t year = loctime->tm_year + 1900; // Year adjustment
+//     uint8_t hour = loctime->tm_hour + 7; // from 7 to 31 -> time zone adjustment
+//     uint8_t month = loctime->tm_mon + 1; // Month adjustment (1-12)
+
+//     if (hour >= 24) {
+//         hour = hour - 24;
+//     }
+
+//     sprintf(timeBuffer, "%02d-%02d-%d %02d:%02d:%02d\n",
+//             loctime->tm_mday, month, year,
+//             hour, loctime->tm_min, loctime->tm_sec);
+// }
 
 void SD_StartWriting(void) {
     // Set adc value
@@ -111,7 +120,8 @@ void SD_StartWriting(void) {
     g_tmp_return = f_puts(commaArr, &file);
 
     // Set current time
-    SD_GetCurrentTime();
+    // SD_GetCurrentTime();
+    SD_SetTimeStamp();
     g_tmp_return = f_puts(timeBuffer, &file);
 }
 
