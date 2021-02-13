@@ -35,11 +35,6 @@ void Init_GPIO(void)
     // GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN2);
 }
 
-void Buzzer_active(void)
-{
-
-}
-
 /* Interrupt Service Routines */
 #pragma vector = PORT1_VECTOR
 __interrupt void pushbutton_ISR(void)
@@ -65,7 +60,7 @@ __interrupt void pushbutton_ISR(void)
             else
             {
                 // init UART and FAT new
-                g_sys_state = SYS_DIRTY_START;  // create new case
+                g_sys_state = SYS_WAKEUP;  // create new case
             }
         }
 

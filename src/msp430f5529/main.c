@@ -134,7 +134,7 @@ void main(void) {
         case SYS_ERROR:
             break;
 
-        case SYS_DIRTY_START:
+        case SYS_WAKEUP:
             Init_UART();
             Init_FAT();
             g_5v_flag = 0;
