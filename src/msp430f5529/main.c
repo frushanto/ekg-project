@@ -4,6 +4,7 @@
 uint8_t g_timer_1khz_flag = 0;
 uint8_t g_timer_1sec_flag = 0;
 uint8_t g_timer_uart_1sec = 0;
+uint8_t g_timer_uart_sync = 0;
 uint16_t g_adc_result = 0;
 uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
@@ -52,6 +53,7 @@ void main(void) {
             break;
 
         case ECG_SHORT:
+            while((!g_timer_uart_1sec)  && (!g_timer_uart_sync)){}
             ECG_Timer_ST();
             if (g_timer_1khz_flag)
             {
@@ -67,6 +69,7 @@ void main(void) {
             }
             if (!g_short_ECG_flag)
             {
+                g_timer_uart_sync = 0;
                 Clear_Wave_ST();
                 Clear_ECG_Timer_ST();
                 // Stop writing in .csv
@@ -76,6 +79,7 @@ void main(void) {
             break;
 
         case ECG_LONG:
+            while((!g_timer_uart_1sec)  && (!g_timer_uart_sync)){}
             ECG_Timer_LT();
             if (g_timer_1khz_flag)
             {
@@ -91,6 +95,7 @@ void main(void) {
             }
             if (!g_long_ECG_flag)
             {
+                g_timer_uart_sync = 0;
                 Clear_Wave_LT();
                 Clear_ECG_Timer_LT();
                 // Stop writing in .csv
@@ -125,7 +130,7 @@ void main(void) {
         case SYS_DIRTY_START:
             Init_UART();
             Init_FAT();
-            g_5v_flag = 0;
+//            g_5v_flag = 0;
             g_sys_state = IDLE_STATE;
             break;
 
