@@ -17,6 +17,7 @@ uint8_t g_cnt_min = 0;
 uint8_t g_cnt_hour = 0;
 uint8_t g_timer_1khz_buzzer = 0;
 uint8_t g_buzzer_1sec_flag = 0;
+uint8_t g_buzzer_on_flag = 0;
 
 /* For median filter */
 #define NUM_ELEMENTS    7
@@ -110,19 +111,12 @@ void main(void) {
             break;
 
         case ENERGY_SAVING_MODE:
-            // while((!g_buzzer_1sec_flag) && (!g_timer_1khz_buzzer)) {
-                // g_timer_1khz_buzzer = 0;
-            // toggle for 2 sec
+            // 5V DC/DC ON?
             if (GPIO_getInputPinValue(GPIO_PORT_P6, GPIO_PIN6)) {
-                for (uint32_t cnt = 0; cnt <= 40000000; cnt++) {
-                    GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
-                }
+                g_buzzer_on_flag = 1;
+            } else {
+                g_buzzer_on_flag = 0;
             }
-
-            // 5V DC/DC turn OFF
-            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
-            // LED2 on PCB turn OFF
-            GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
             break;
 
         case IDLE_STATE:
