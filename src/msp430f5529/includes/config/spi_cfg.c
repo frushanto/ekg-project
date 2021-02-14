@@ -13,7 +13,7 @@
 //Specify desired frequency of SPI communication
 //
 //*****************************************************************************
-#define SPICLK      10000000         // 10MHz
+#define SPICLK      20000000         // 20MHz
 
 uint8_t transmitData = 0x00, receiveData = 0x00;
 uint8_t returnValue = 0x00;
