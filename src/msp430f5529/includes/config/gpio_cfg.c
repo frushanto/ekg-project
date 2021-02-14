@@ -42,6 +42,23 @@ void Buzzer_active(void){
     }
 }
 
+void State_sys_Energy_Saving_Mode(void){
+    // g_buzzer_on_flag = 1;
+    // while(g_buzzer_on_flag){
+    //     Buzzer_active();
+    //     if(g_buzzer_1sec_flag == 2){
+    //         g_buzzer_on_flag = 0;
+    //         g_buzzer_1sec_flag = 0;
+    //     }
+    // }
+    g_sys_state = ENERGY_SAVING_MODE;
+}
+
+void State_sys_Wakeup_Mode(void){
+    // Buzzer_active();
+    g_sys_state = SYS_WAKEUP;
+}
+
 /* Interrupt Service Routines */
 #pragma vector = PORT1_VECTOR
 __interrupt void pushbutton_ISR(void)
@@ -55,16 +72,15 @@ __interrupt void pushbutton_ISR(void)
         __delay_cycles(4000000);   // 20000 = 1ms
         if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0))
         {
-            g_5v_flag++;
-            if (g_5v_flag == 1)
+            if(g_5v_flag == 0)
             {
-                // energy saving
-                g_sys_state = ENERGY_SAVING_MODE;
+                g_5v_flag = 1;
+                State_sys_Energy_Saving_Mode();
             }
-            else
+            else if(g_5v_flag == 1)
             {
-                // init UART and FAT new
-                g_sys_state = SYS_WAKEUP;  // create new case
+                g_5v_flag = 0;
+                State_sys_Wakeup_Mode();
             }
         }
 
