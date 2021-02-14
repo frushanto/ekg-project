@@ -47,27 +47,21 @@ void Init_CLK() {
 
     //Set DCO FLL reference = REFO
     UCS_initClockSignal(
-        UCS_FLLREF,
-//            UCS_MCLK,
+        UCS_FLLREF,             // Configure FLLREF for (S)MCLK
         UCS_REFOCLK_SELECT,
-//        UCS_XT2CLK_SELECT,
         UCS_CLOCK_DIVIDER_1
         );
 
 
 //    //Set DCO FLL reference = REFO
 //    UCS_initClockSignal(
-////        UCS_FLLREF,
-//            UCS_MCLK,
-////        UCS_REFOCLK_SELECT,
+//        UCS_MCLK,               // Configure MCLK
 //        UCS_XT2CLK_SELECT,
 //        UCS_CLOCK_DIVIDER_1
 //        );
 //
 //    UCS_initClockSignal(
-////        UCS_FLLREF,
-//            UCS_SMCLK,
-////        UCS_REFOCLK_SELECT,
+//        UCS_SMCLK,              // Configure SMCLK
 //        UCS_XT2CLK_SELECT,
 //        UCS_CLOCK_DIVIDER_1
 //        );
@@ -79,9 +73,9 @@ void Init_CLK() {
         );
 
     //Verify if the Clock settings are as expected
-    clockValue = UCS_getSMCLK();    // clockValue = 4MHz
-    clockValue = UCS_getMCLK();     // clockValue = 4MHz
-    clockValue = UCS_getACLK();     // clockValue = 32768d
+    clockValue = UCS_getSMCLK();    // clockValue = 20447232 Hz
+    clockValue = UCS_getMCLK();     // clockValue = 20447232 Hz
+    clockValue = UCS_getACLK();     // clockValue = 32768 Hz
 }
 
 
