@@ -57,11 +57,16 @@ void TIMER1_A0_ISR (void)
 {
     GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
 	g_timer_1sec_flag = 1;
-    g_buzzer_1sec_flag = 1;
 	if(g_sys_state == ECG_SHORT || g_sys_state == ECG_LONG){
 	    g_timer_uart_1sec = 1;
 	    g_timer_uart_sync = 1;
 	}
+    if(g_5v_flag == 1){
+        g_buzzer_1sec_flag++;
+    }
+    if(g_buzzer_1sec_flag == 2){
+        g_buzzer_1sec_flag = 0;
+    }
 }
 
 //******************************************************************************
@@ -81,17 +86,17 @@ void TIMER2_A0_ISR (void)
     // GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
 
     g_timer_1khz_flag = 1;
-    g_timer_1khz_buzzer = 1;
 
     // Toggle buzzer if 5V ON & ENERGY_SAVING_MODE
-    if(g_buzzer_on_flag) {
-        for (uint32_t cnt = 0; cnt <= 4000000; cnt++) {
-            GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
-        }
-        // 5V DC/DC turn OFF
-        GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
-        // LED2 on PCB turn OFF
-        GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
-    }
+//    if(g_buzzer_on_flag) {
+//        for (uint32_t cnt = 0; cnt <= 4000000; cnt++) {
+//            GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
+//        }
+//        // 5V DC/DC turn OFF
+//        GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
+//        // LED2 on PCB turn OFF
+//        GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+//    }
 
+    g_timer_1khz_buzzer = 1;
 }

@@ -15,9 +15,11 @@ uint8_t g_5v_flag = 0;
 uint8_t g_cnt_sec = 0;
 uint8_t g_cnt_min = 0;
 uint8_t g_cnt_hour = 0;
+
+/* BUZZER VARs*/
 uint8_t g_timer_1khz_buzzer = 0;
 uint8_t g_buzzer_1sec_flag = 0;
-uint8_t g_buzzer_on_flag = 0;
+uint8_t g_buzzer_on_flag = 1;
 
 /* For median filter */
 #define NUM_ELEMENTS    7
@@ -33,9 +35,12 @@ void Init_Watchdog(void);
 void EnableGlobalInterrupt(void);
 
 /* Function definitions */
-void main(void) {
-    while (1) {
-        switch (g_sys_state) {
+void main(void)
+{
+    while (1)
+    {
+        switch (g_sys_state)
+        {
 
         case SYS_INIT:
             /* Init MSP430 BEGIN */
@@ -46,8 +51,8 @@ void main(void) {
             Init_UART();
             Init_ADC();
             Init_SPI();
-            Init_FAT();             //mount, set directory to read from, assign file
-            Init_UART_BT();         //Init UART Interface for Bluetooth
+            Init_FAT();                 //mount, set directory to read from, assign file
+            Init_UART_BT();             //Init UART Interface for Bluetooth
             /* Init median filter */
             medianFilter.numNodes = NUM_ELEMENTS;
             medianFilter.medianBuffer = medianBuffer;
@@ -55,11 +60,29 @@ void main(void) {
             EnableGlobalInterrupt();
             /* Init MSP430 END */
 
-            g_sys_state = IDLE_STATE; // Change state
+            g_sys_state = IDLE_STATE;   // Change state
+            break;
+
+        case IDLE_STATE:
+            if (g_short_ECG_flag)
+            {
+                // Start create/write new .csv
+                SD_CreateNewCSV();
+                g_sys_state = ECG_SHORT;
+            }
+            if (g_long_ECG_flag)
+            {
+                // Start create/write new .csv
+                SD_CreateNewCSV();
+                g_sys_state = ECG_LONG;
+            }
+            ADC_Akku_Average_Value();
             break;
 
         case ECG_SHORT:
-            while((!g_timer_uart_1sec) && (!g_timer_uart_sync)){}
+            while ((!g_timer_uart_1sec) && (!g_timer_uart_sync))
+            {
+            }
             ECG_Timer_ST();
             if (g_timer_1khz_flag)
             {
@@ -85,7 +108,9 @@ void main(void) {
             break;
 
         case ECG_LONG:
-            while((!g_timer_uart_1sec)  && (!g_timer_uart_sync)){}
+            while ((!g_timer_uart_1sec) && (!g_timer_uart_sync))
+            {
+            }
             ECG_Timer_LT();
             if (g_timer_1khz_flag)
             {
@@ -111,30 +136,24 @@ void main(void) {
             break;
 
         case ENERGY_SAVING_MODE:
-//            while(1){}
-            break;
-
-        case IDLE_STATE:
-            if (g_short_ECG_flag)
-            {
-                // Start create/write new .csv
-                SD_CreateNewCSV();
-                g_sys_state = ECG_SHORT;
+            while(g_buzzer_1sec_flag){
+                Buzzer_active();
             }
-            if (g_long_ECG_flag)
-            {
-                // Start create/write new .csv
-                SD_CreateNewCSV();
-                g_sys_state = ECG_LONG;
-            }
-            ADC_Akku_Average_Value();
-
-            break;
-
-        case SYS_ERROR:
+            g_5v_flag = 2;
+            // g_buzzer_1sec_flag = 0;
+            // g_buzzer_on_flag = 0;
+            // LED2 on PCB turn ON
+            GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
+            // 5V DC/DC turn OFF
+            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
             break;
 
         case SYS_WAKEUP:
+            // LED2 on PCB turn OFF
+            GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+            // 5V DC/DC turn ON
+            GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
+
             Init_UART();
             Init_FAT();
             g_5v_flag = 0;
@@ -144,9 +163,12 @@ void main(void) {
         case SYS_BAD_KEY:
             break;
 
+        case SYS_ERROR:
+            break;
+
         default:
             break;
-        } 
+        }
     }
 }
 

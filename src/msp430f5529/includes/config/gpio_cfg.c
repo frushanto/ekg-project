@@ -35,6 +35,13 @@ void Init_GPIO(void)
     // GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN2);
 }
 
+void Buzzer_active(void){
+    if(g_timer_1khz_buzzer){
+        g_timer_1khz_buzzer = 0;
+        GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
+    }
+}
+
 /* Interrupt Service Routines */
 #pragma vector = PORT1_VECTOR
 __interrupt void pushbutton_ISR(void)
@@ -48,9 +55,6 @@ __interrupt void pushbutton_ISR(void)
         __delay_cycles(4000000);   // 20000 = 1ms
         if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0))
         {
-            GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN6);
-            GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
-
             g_5v_flag++;
             if (g_5v_flag == 1)
             {
