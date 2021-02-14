@@ -16,8 +16,8 @@
 #include <includes/config/adc_cfg.h>
 
 /* Function declarations */
-void Uart_ECG_Wave_ST(uint16_t adc_value);
-void Uart_ECG_Wave_LT(uint16_t adc_value);
+void Uart_ECG_Wave_ST();
+void Uart_ECG_Wave_LT();
 void Test_Plus_Eins();
 void Test_Minus_Eins();
 void Clear_Wave_ST();

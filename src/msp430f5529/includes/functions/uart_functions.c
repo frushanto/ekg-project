@@ -7,18 +7,19 @@
 #include "includes/functions/uart_functions.h"
 
 uint16_t test_plus_minus = 80;
+uint16_t adc_value = 0;
 
-void Uart_ECG_Wave_ST(uint16_t adc_value)
+void Uart_ECG_Wave_ST()
 {
-    adc_value = (adc_value / 20);
+    adc_value = (g_adc_result / 20);
     uart_transmit_data_start("add 1,0,");
     uart_transmit_data_value(adc_value);
     uart_transmit_data_end();
 }
 
-void Uart_ECG_Wave_LT(uint16_t adc_value)
+void Uart_ECG_Wave_LT()
 {
-    adc_value = (adc_value / 20);
+    adc_value = (g_adc_result / 20);
     uart_transmit_data_start("add 13,0,");
     uart_transmit_data_value(adc_value);
     uart_transmit_data_end();
@@ -51,14 +52,14 @@ void Long_ECG_Error()
 void ST_ECG()
 {
     Start_ADC();
-    Uart_ECG_Wave_ST(g_adc_result);
+    Uart_ECG_Wave_ST();
     calculate_bpm_ST();
 }
 
 void LT_ECG()
 {
     Start_ADC();
-    Uart_ECG_Wave_LT(g_adc_result);
+    Uart_ECG_Wave_LT();
     calculate_bpm_LT();
 }
 

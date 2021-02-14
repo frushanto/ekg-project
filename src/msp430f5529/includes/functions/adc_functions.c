@@ -42,10 +42,12 @@ void ADC_Akku_Average_Value(){
     {
         g_timer_1sec_flag = 0;
 
+        //TODO: first Value is 0 ?!
         Start_ADC();
-        if(g_akku_vol == 0){
-            Start_ADC();
-        }
+//        do{
+//            Start_ADC();
+//        }while(g_akku_vol == 0);
+
         send_bt_value(g_akku_vol);  // Send ADC Value of Akku to Bluetooth
 
         akku_averageValue += g_akku_vol;
