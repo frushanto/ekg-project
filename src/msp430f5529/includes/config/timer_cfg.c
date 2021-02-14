@@ -27,13 +27,8 @@ void Init_Timer_A() {
     /*** Init TIMER_A2 sourced by SMCLK ***/
         Timer_A_initUpModeParam confTimerA2 = {0};
         confTimerA2.clockSource = TIMER_A_CLOCKSOURCE_SMCLK; // 20447232Hz
-    //    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_32; // 32 -> 638976Hz
-        confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // -> 20447232Hz / 64 = 319488 Hz
+        confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // -> 20447232Hz / 64 = 319488Hz
         confTimerA2.timerPeriod = 319; // 319488Hz / 1000Hz == 319
-        //    confTimerA2.timerPeriod = 639; // 638976Hz / 1000Hz = 639
-        // Test with approx. 2 Hz
-    //    confTimerA2.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // 64 -> 319488Hz
-    //    confTimerA2.timerPeriod = 63897; // approx. 2 Hz
         confTimerA2.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
         confTimerA2.captureCompareInterruptEnable_CCR0_CCIE =
             TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
@@ -55,13 +50,20 @@ __attribute__((interrupt(TIMER1_A0_VECTOR)))
 #endif
 void TIMER1_A0_ISR (void)
 {
+    // Test timers
+    g_test_timer_1hz++;
+
+    // Toggle LED on PCB
     GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
 
+    // Sync timer counting for display & sd card
 	g_timer_1sec_flag = 1;
 	if(g_sys_state == ECG_SHORT || g_sys_state == ECG_LONG){
 	    g_timer_uart_1sec = 1;
 	    g_timer_uart_sync = 1;
 	}
+
+	// TODO Buzzer module
     if(g_buzzer_on_flag == 1){
         g_buzzer_1sec_flag++;
     }
@@ -81,6 +83,9 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 #endif
 void TIMER2_A0_ISR (void)
 {
+    // Timers test
+    g_test_timer_1khz++;
+
     // Toggle LED on PCB
     // GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
 
