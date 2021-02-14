@@ -152,7 +152,7 @@ void main(void)
 
             Init_UART();
             Init_FAT();
-            g_5v_flag = 0;
+
             g_sys_state = IDLE_STATE;
             break;
 
