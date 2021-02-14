@@ -20,7 +20,7 @@
  * ADC Akku Min = 0
  *
  *
- * Akku = 3,51V = 23,3% = 3004 ADC
+ * do not believe this -> Akku = 3,51V = 23,3% = 3004 ADC
  *
  * Akku max = 4,2V
  * Akku min = 3,3V

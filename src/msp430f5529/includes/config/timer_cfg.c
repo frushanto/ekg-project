@@ -50,7 +50,6 @@ __attribute__((interrupt(TIMER1_A0_VECTOR)))
 #endif
 void TIMER1_A0_ISR (void)
 {
-    // Test timers
     g_test_timer_1hz++;
 
     // Toggle LED on PCB
@@ -83,9 +82,6 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 #endif
 void TIMER2_A0_ISR (void)
 {
-    // Timers test
-    g_test_timer_1khz++;
-
     // Toggle LED on PCB
     // GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
 

@@ -71,6 +71,5 @@ extern uint8_t g_buzzer_on_flag;
 extern uint32_t g_cnt_buzzer;
 
 extern uint32_t g_test_timer_1hz;
-extern uint32_t g_test_timer_1khz;
 
 #endif /* MAIN_H_ */

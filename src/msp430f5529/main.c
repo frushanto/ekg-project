@@ -16,9 +16,7 @@ uint8_t g_cnt_sec = 0;
 uint8_t g_cnt_min = 0;
 uint8_t g_cnt_hour = 0;
 
-/* Test timers */
 uint32_t g_test_timer_1hz = 0;
-uint32_t g_test_timer_1khz = 0;
 
 /* BUZZER VARs*/
 uint8_t g_timer_1khz_buzzer = 0;
