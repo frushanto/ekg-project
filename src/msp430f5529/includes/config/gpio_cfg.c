@@ -35,28 +35,58 @@ void Init_GPIO(void)
     // GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN2);
 }
 
-void Buzzer_active(void){
-    if(g_timer_1khz_buzzer){
-        g_timer_1khz_buzzer = 0;
-        GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
-    }
-}
+void Buzzer_active(void)
+{
+    while (g_buzzer_on_flag)    // WORKING
+    {
+        if (g_timer_1khz_buzzer)
+        {
+            g_timer_1khz_buzzer = 0;
+            GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
+        }
 
-void State_sys_Energy_Saving_Mode(void){
-    // g_buzzer_on_flag = 1;
-    // while(g_buzzer_on_flag){
-    //     Buzzer_active();
-    //     if(g_buzzer_1sec_flag == 2){
-    //         g_buzzer_on_flag = 0;
-    //         g_buzzer_1sec_flag = 0;
+        if (g_buzzer_1sec_flag == 2)
+        {
+            g_buzzer_1sec_flag = 0;
+            g_buzzer_on_flag = 0;
+        }
+    }                                // WORKING
+
+    // while (!g_buzzer_sync){}
+    // while (g_buzzer_on_flag)
+    // {
+    //     if (g_timer_1khz_buzzer)
+    //     {
+    //         g_timer_1khz_buzzer = 0;
+    //         GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
     //     }
-    // }
-    g_sys_state = ENERGY_SAVING_MODE;
+    //     if (g_buzzer_1sec_flag)
+    //     {
+    //         g_buzzer_1sec_flag = 0;
+    //         g_buzzer_sync = 0;
+    //         g_buzzer_on_flag = 0;
+    //     }
+    // }    
 }
 
-void State_sys_Wakeup_Mode(void){
-    // Buzzer_active();
-    g_sys_state = SYS_WAKEUP;
+void State_sys_Energy_Saving_Mode(void)
+{
+    // Buzzer Signal ON
+    Buzzer_active();
+    // LED2 on PCB turn OFF
+    GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+    // 5V DC/DC turn OFF
+    GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
+}
+
+void State_sys_Wakeup_Mode(void)
+{
+    // LED2 on PCB turn ON
+    GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
+    // 5V DC/DC turn ON
+    GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
+    // Buzzer Signal ON
+    Buzzer_active();
 }
 
 /* Interrupt Service Routines */
@@ -72,15 +102,19 @@ __interrupt void pushbutton_ISR(void)
         __delay_cycles(4000000);   // 20000 = 1ms
         if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0))
         {
-            if(g_5v_flag == 0)
+            if (g_5v_flag == 0)
             {
                 g_5v_flag = 1;
-                State_sys_Energy_Saving_Mode();
+                g_buzzer_on_flag = 1;
+                g_sys_state = ENERGY_SAVING_MODE;
+                // State_sys_Energy_Saving_Mode();
             }
-            else if(g_5v_flag == 1)
+            else if (g_5v_flag == 1)
             {
                 g_5v_flag = 0;
-                State_sys_Wakeup_Mode();
+                g_buzzer_on_flag = 1;
+                g_sys_state = SYS_WAKEUP;
+                // State_sys_Wakeup_Mode();
             }
         }
 

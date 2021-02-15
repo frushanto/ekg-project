@@ -50,8 +50,6 @@ __attribute__((interrupt(TIMER1_A0_VECTOR)))
 #endif
 void TIMER1_A0_ISR (void)
 {
-    g_test_timer_1hz++;
-
     // Toggle LED on PCB
     GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
 
@@ -62,11 +60,16 @@ void TIMER1_A0_ISR (void)
 	    g_timer_uart_sync = 1;
 	}
 
-	// TODO Buzzer module
-    if(g_buzzer_on_flag == 1){
+	// Buzzer sec counter   // WORKING
+    if(g_buzzer_on_flag){
         g_buzzer_1sec_flag++;
-    }
+    }                       // WORKING
     
+    // Sync timer for buzzer
+	// if(g_sys_state == ENERGY_SAVING_MODE || g_sys_state == SYS_WAKEUP){
+	//     g_buzzer_1sec_flag = 1;
+	//     g_buzzer_sync = 1;
+	// }
 }
 
 //******************************************************************************
@@ -82,21 +85,6 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 #endif
 void TIMER2_A0_ISR (void)
 {
-    // Toggle LED on PCB
-    // GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN4);
-
     g_timer_1khz_flag = 1;
-
-    // Toggle buzzer if 5V ON & ENERGY_SAVING_MODE
-//    if(g_buzzer_on_flag) {
-//        for (uint32_t cnt = 0; cnt <= 4000000; cnt++) {
-//            GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
-//        }
-//        // 5V DC/DC turn OFF
-//        GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
-//        // LED2 on PCB turn OFF
-//        GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
-//    }
-
     g_timer_1khz_buzzer = 1;
 }
