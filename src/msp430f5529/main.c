@@ -137,6 +137,7 @@ void main(void)
             break;
 
         case ENERGY_SAVING_MODE:
+            g_buzzer_cnt = 1;
             Buzzer_active();
 
             // LED2 on PCB turn OFF
