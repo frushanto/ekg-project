@@ -69,7 +69,7 @@ void Buzzer_active(void)
             g_timer_1khz_buzzer = 0;
             __delay_cycles(2000000);
         }
-        if (g_buzzer_cnt == 150) // ERROR: 250 ca. 1sec !!!
+        if (g_buzzer_cnt == 150) // 250 ca. 1sec !!!
         {
             g_buzzer_on_flag = 0;
             g_timer_1khz_buzzer = 0;
@@ -81,14 +81,30 @@ void Buzzer_active(void)
 
 void State_sys_Energy_Saving_Mode(void)
 {
-    // Buzzer Signal ON
+    g_buzzer_cnt = 1;
+    // Buzzer turn ON
     Buzzer_active();
+    // LED2 on PCB turn OFF
+    GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+    // 5V DC/DC turn OFF
+    GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);   
 }
 
 void State_sys_Wakeup_Mode(void)
 {
-    // Buzzer Signal ON
+    // LED2 on PCB turn ON
+    GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
+    // 5V DC/DC turn ON
+    GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
+    // Init all 5V Sources
+    Init_UART();
+    Init_FAT();
+    // Buzzer turn ON
+    g_buzzer_on_flag = 1;
+    g_buzzer_cnt = 1;
     Buzzer_active();
+    // Change Sys_State
+    g_sys_state = IDLE_STATE;
 }
 
 /* Interrupt Service Routines */

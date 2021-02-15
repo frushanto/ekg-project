@@ -137,28 +137,11 @@ void main(void)
             break;
 
         case ENERGY_SAVING_MODE:
-            g_buzzer_cnt = 1;
-            Buzzer_active();
-
-            // LED2 on PCB turn OFF
-            GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
-            // 5V DC/DC turn OFF
-            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
+            State_sys_Energy_Saving_Mode();
             break;
 
         case SYS_WAKEUP:
-            // LED2 on PCB turn ON
-            GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
-            // 5V DC/DC turn ON
-            GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
-
-            Init_UART();
-            Init_FAT();
-            g_buzzer_on_flag = 1;
-            g_buzzer_cnt = 1;
-            Buzzer_active();
-
-            g_sys_state = IDLE_STATE;
+            State_sys_Wakeup_Mode();
             break;
 
         case SYS_BAD_KEY:
