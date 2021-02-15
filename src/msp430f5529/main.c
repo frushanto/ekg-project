@@ -20,7 +20,7 @@ uint8_t g_cnt_hour = 0;
 uint8_t g_timer_1khz_buzzer = 0;
 uint8_t g_buzzer_1sec_flag = 0;
 uint8_t g_buzzer_on_flag = 0;
-uint8_t g_buzzer_sync = 0;
+// uint8_t g_buzzer_sync = 0;
 
 /* For median filter */
 #define NUM_ELEMENTS    7

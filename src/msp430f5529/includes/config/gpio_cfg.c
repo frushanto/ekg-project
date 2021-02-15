@@ -37,20 +37,20 @@ void Init_GPIO(void)
 
 void Buzzer_active(void)
 {
-    while (g_buzzer_on_flag)    // WORKING
-    {
+    while (g_buzzer_on_flag)    // WORKING  - can be optimized
+    { 
         if (g_timer_1khz_buzzer)
         {
             g_timer_1khz_buzzer = 0;
             GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
         }
-
         if (g_buzzer_1sec_flag == 2)
         {
+            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN1);
             g_buzzer_1sec_flag = 0;
             g_buzzer_on_flag = 0;
         }
-    }                                // WORKING
+    }                                
 
     // while (!g_buzzer_sync){}
     // while (g_buzzer_on_flag)

@@ -63,7 +63,7 @@ void TIMER1_A0_ISR (void)
 	// Buzzer sec counter   // WORKING
     if(g_buzzer_on_flag){
         g_buzzer_1sec_flag++;
-    }                       // WORKING
+    }                       
     
     // Sync timer for buzzer
 	// if(g_sys_state == ENERGY_SAVING_MODE || g_sys_state == SYS_WAKEUP){
