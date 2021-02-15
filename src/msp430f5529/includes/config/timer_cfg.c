@@ -61,9 +61,9 @@ void TIMER1_A0_ISR (void)
 	}
 
 	// Buzzer sec counter   // WORKING
-    if(g_buzzer_on_flag){
-        g_buzzer_1sec_flag++;
-    }                       
+    // if(g_buzzer_on_flag){
+    //     g_buzzer_1sec_flag++;
+    // }                       
     
     // Sync timer for buzzer
 	// if(g_sys_state == ENERGY_SAVING_MODE || g_sys_state == SYS_WAKEUP){
@@ -86,5 +86,8 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 void TIMER2_A0_ISR (void)
 {
     g_timer_1khz_flag = 1;
-    g_timer_1khz_buzzer = 1;
+    if(g_buzzer_on_flag){
+        g_timer_1khz_buzzer = 1;
+        g_buzzer_cnt++;
+    }  
 }

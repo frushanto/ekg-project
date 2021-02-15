@@ -37,54 +37,56 @@ void Init_GPIO(void)
 
 void Buzzer_active(void)
 {
-    while (g_buzzer_on_flag)    // WORKING  - can be optimized
-    { 
-        if (g_timer_1khz_buzzer)
-        {
-            g_timer_1khz_buzzer = 0;
-            GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
-        }
-        if (g_buzzer_1sec_flag == 2)
-        {
-            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN1);
-            g_buzzer_1sec_flag = 0;
-            g_buzzer_on_flag = 0;
-        }
-    }                                
-
-    // while (!g_buzzer_sync){}
-    // while (g_buzzer_on_flag)
-    // {
+    // while (g_buzzer_on_flag)    // WORKING  - can be optimized
+    // { 
     //     if (g_timer_1khz_buzzer)
     //     {
     //         g_timer_1khz_buzzer = 0;
     //         GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
     //     }
-    //     if (g_buzzer_1sec_flag)
+    //     if (g_buzzer_1sec_flag == 2)
     //     {
+    //         GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN1);
     //         g_buzzer_1sec_flag = 0;
-    //         g_buzzer_sync = 0;
     //         g_buzzer_on_flag = 0;
     //     }
-    // }    
+    // }                                
+    while (g_buzzer_on_flag && g_buzzer_cnt)
+    { 
+        // __delay_cycles(2000000);
+        if (g_timer_1khz_buzzer)
+        {
+            g_timer_1khz_buzzer = 0;
+            GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
+        }
+        if (g_buzzer_cnt == 50)
+        {
+            g_timer_1khz_buzzer = 0;
+            __delay_cycles(2000000);
+        }
+        if (g_buzzer_cnt == 100)
+        {
+            g_timer_1khz_buzzer = 0;
+            __delay_cycles(2000000);
+        }
+        if (g_buzzer_cnt == 150) // ERROR: 250 ca. 1sec !!!
+        {
+            g_buzzer_on_flag = 0;
+            g_timer_1khz_buzzer = 0;
+            g_buzzer_cnt = 0;
+            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN1);
+        }
+    }  
 }
 
 void State_sys_Energy_Saving_Mode(void)
 {
     // Buzzer Signal ON
     Buzzer_active();
-    // LED2 on PCB turn OFF
-    GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
-    // 5V DC/DC turn OFF
-    GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
 }
 
 void State_sys_Wakeup_Mode(void)
 {
-    // LED2 on PCB turn ON
-    GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
-    // 5V DC/DC turn ON
-    GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
     // Buzzer Signal ON
     Buzzer_active();
 }
@@ -112,7 +114,7 @@ __interrupt void pushbutton_ISR(void)
             else if (g_5v_flag == 1)
             {
                 g_5v_flag = 0;
-                g_buzzer_on_flag = 1;
+                // g_buzzer_on_flag = 1;
                 g_sys_state = SYS_WAKEUP;
                 // State_sys_Wakeup_Mode();
             }

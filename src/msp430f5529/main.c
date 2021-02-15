@@ -20,7 +20,7 @@ uint8_t g_cnt_hour = 0;
 uint8_t g_timer_1khz_buzzer = 0;
 uint8_t g_buzzer_1sec_flag = 0;
 uint8_t g_buzzer_on_flag = 0;
-// uint8_t g_buzzer_sync = 0;
+uint16_t g_buzzer_cnt = 0;
 
 /* For median filter */
 #define NUM_ELEMENTS    7
@@ -137,13 +137,26 @@ void main(void)
             break;
 
         case ENERGY_SAVING_MODE:
-            State_sys_Energy_Saving_Mode();
+            Buzzer_active();
+
+            // LED2 on PCB turn OFF
+            GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+            // 5V DC/DC turn OFF
+            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
             break;
 
         case SYS_WAKEUP:
-            State_sys_Wakeup_Mode();
+            // LED2 on PCB turn ON
+            GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
+            // 5V DC/DC turn ON
+            GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
+
             Init_UART();
             Init_FAT();
+            g_buzzer_on_flag = 1;
+            g_buzzer_cnt = 1;
+            Buzzer_active();
+
             g_sys_state = IDLE_STATE;
             break;
 
