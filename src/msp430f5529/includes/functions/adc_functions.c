@@ -28,9 +28,9 @@
  *  */
 
 // Local vars
-uint8_t cnt_akkuaverage = 0;
-uint32_t akku_percentage = 0;
-uint32_t akku_averageValue = 0;
+static uint8_t cnt_akkuaverage = 0;
+static uint32_t akku_percentage = 0;
+static uint32_t akku_averageValue = 0;
 
 const uint16_t adc_akku_offset = 28950;     // To be tested
 const uint16_t adc_akku_divider = 68;       // To be tested
@@ -38,17 +38,21 @@ const uint16_t adc_akku_divider = 68;       // To be tested
 #define ADC_AKKU_SEC        10
 
 void ADC_Akku_Average_Value(){
+
     if (g_timer_1sec_flag)
     {
-        g_timer_1sec_flag = 0;
-
-        //TODO: first Value is 0 ?!
+        //Trigger ADC
         Start_ADC();
-//        do{
-//            Start_ADC();
-//        }while(g_akku_vol == 0);
 
-        send_bt_value(g_akku_vol);  // Send ADC Value of Akku to Bluetooth
+        //Reset Timer flag
+        g_timer_1sec_flag = false;
+    }
+
+    if (g_adc_new_values)
+    {
+
+        // Send ADC Value of accumulator to Bluetooth
+        send_bt_value(g_akku_vol);
 
         akku_averageValue += g_akku_vol;
         cnt_akkuaverage++;
@@ -64,6 +68,8 @@ void ADC_Akku_Average_Value(){
             uart_transmit_data_end();
         }
 
+
+        g_adc_new_values = false;
     }
 }
 

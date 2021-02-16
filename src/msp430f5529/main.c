@@ -1,7 +1,7 @@
 #include "main.h"
 
 /* GLOBAL VARs */
-uint8_t g_timer_1khz_flag = 0;
+uint8_t g_timer_250Hz_flag = 0;
 uint8_t g_timer_1sec_flag = 0;
 uint8_t g_timer_uart_1sec = 0;
 uint16_t g_adc_result = 0;
@@ -64,6 +64,8 @@ void main(void)
             break;
 
         case IDLE_STATE:
+
+            //Check if Start of short ECG is requested
             if (g_short_ECG_flag && g_timer_uart_1sec)  // Sync timer by changing state to ECG Short
             {
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
@@ -71,6 +73,8 @@ void main(void)
                 SD_CreateNewCSV();
                 g_sys_state = ECG_SHORT;
             }
+
+            //Check if Start of short ECG is requested
             if (g_long_ECG_flag && g_timer_uart_1sec)   // Sync timer by changing state to ECG Long
             {
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
@@ -78,23 +82,47 @@ void main(void)
                 SD_CreateNewCSV();
                 g_sys_state = ECG_LONG;
             }
+
             ADC_Akku_Average_Value();
+
             break;
 
         case ECG_SHORT:
+
+            //Update Time for ECG
             ECG_Timer_ST();
-            if (g_timer_1khz_flag)
+
+            //Start ADC at given frequency
+            if (g_timer_250Hz_flag)
             {
-                g_timer_1khz_flag = 0;
-                ST_ECG();
-                // Write in .csv
-                SD_StartWriting();
+                //Give ADC Start Command
+                Start_ADC();
+
+                //Reset Timer Flag
+                g_timer_250Hz_flag = 0;
             }
+
+            //When ADC finished Conversion
+            if (g_adc_new_values)
+            {
+                //Compute new Values and publish to Display
+                ST_ECG();
+
+                // Write in csv
+                SD_StartWriting();
+
+                //Reset Flag
+                g_adc_new_values = false;
+            }
+
+            //Check if switch to long time ECG requested
             if (g_long_ECG_flag)
             {
                 g_long_ECG_flag = 0;
                 Short_ECG_Error();
             }
+
+            //Check if stop of Short ECG requested
             if (!g_short_ECG_flag)
             {
                 Clear_Wave_ST();
@@ -103,22 +131,45 @@ void main(void)
                 SD_StopWriting();
                 g_sys_state = IDLE_STATE;
             }
+
             break;
 
         case ECG_LONG:
+
+            //Update Time for ECG
             ECG_Timer_LT();
-            if (g_timer_1khz_flag)
+
+            //Start ADC at given frequency
+            if (g_timer_250Hz_flag)
             {
-                g_timer_1khz_flag = 0;
-                LT_ECG();
-                // Write in .csv
-                SD_StartWriting();
+                //Give ADC Start Command
+                Start_ADC();
+
+                //Reset Timer Flag
+                g_timer_250Hz_flag = 0;
             }
+
+            //When ADC finished Conversion
+            if (g_adc_new_values)
+            {
+                //Compute new Values and publish to Display
+                LT_ECG();
+
+                // Write in csv
+                SD_StartWriting();
+
+                //Reset Flag
+                g_adc_new_values = false;
+            }
+
+            //Check if switch to short ECG requested
             if (g_short_ECG_flag)
             {
                 g_short_ECG_flag = 0;
                 Long_ECG_Error();
             }
+
+            //Check if stop of long term ECG requested
             if (!g_long_ECG_flag)
             {
                 Clear_Wave_LT();
@@ -127,6 +178,7 @@ void main(void)
                 SD_StopWriting();
                 g_sys_state = IDLE_STATE;
             }
+
             break;
 
         case ENERGY_SAVING_MODE:
