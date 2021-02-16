@@ -90,7 +90,7 @@ void TIMER2_A0_ISR (void)
 {
     g_timer_250Hz_flag = 1;
     if(g_buzzer_on_flag){
-        g_timer_1khz_buzzer = 1;
+        g_timer_250Hz_Buzzer = 1;
         g_buzzer_cnt++;
     }  
 }

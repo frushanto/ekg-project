@@ -18,7 +18,7 @@ uint8_t g_cnt_hour = 0;
 bool g_adc_new_values = 0;
 
 /* BUZZER VARs*/
-uint8_t g_timer_1khz_buzzer = 0;
+uint8_t g_timer_250Hz_Buzzer = 0;
 uint8_t g_buzzer_1sec_flag = 0;
 uint8_t g_buzzer_on_flag = 0;
 uint16_t g_buzzer_cnt = 0;

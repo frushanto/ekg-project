@@ -68,7 +68,7 @@ extern uint8_t g_cnt_hour;
 
 extern bool g_adc_new_values;
 
-extern uint8_t g_timer_1khz_buzzer;
+extern uint8_t g_timer_250Hz_Buzzer;
 extern uint8_t g_buzzer_1sec_flag;
 extern uint8_t g_buzzer_on_flag;
 extern uint16_t g_buzzer_cnt;

@@ -11,7 +11,7 @@ uint16_t adc_value = 0;
 
 void Uart_ECG_Wave_ST()
 {
-    adc_value = ((g_adc_result / 10)) - 80 ;   // TODO: edit value for Display
+    adc_value = ((g_adc_result / 12)) - 80 ;   // TODO: edit value for Display
     uart_transmit_data_start("add 1,0,");
     uart_transmit_data_value(adc_value);
     uart_transmit_data_end();
@@ -19,7 +19,7 @@ void Uart_ECG_Wave_ST()
 
 void Uart_ECG_Wave_LT()
 {
-    adc_value = (g_adc_result / 20);
+    adc_value = ((g_adc_result / 12) - 80);
     uart_transmit_data_start("add 13,0,");
     uart_transmit_data_value(adc_value);
     uart_transmit_data_end();
