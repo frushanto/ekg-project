@@ -28,7 +28,7 @@ void calculate_bpm_ST()
         int medianValue = MEDIANFILTER_Insert(&medianFilter, bpm);
 
         uart_transmit_data_start("page2.puls.val=");
-        uart_transmit_data_value (bpm);
+        uart_transmit_data_value (medianValue);
         uart_transmit_data_end();
         threshold_ecg_value = maximum_ecg_value - 0.2 * (maximum_ecg_value - minimum_ecg_value);
 

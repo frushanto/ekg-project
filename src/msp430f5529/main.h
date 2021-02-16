@@ -54,7 +54,6 @@ extern uint8_t g_short_ECG_flag;
 extern uint8_t g_long_ECG_flag;
 extern uint8_t g_timer_1khz_flag;
 extern uint8_t g_timer_1sec_flag;
-extern uint8_t g_timer_uart_sync;
 extern uint16_t g_adc_result;
 extern uint16_t g_akku_vol;
 extern uint8_t g_tmp_return;

@@ -40,6 +40,7 @@ void Init_Timer_A() {
 //******************************************************************************
 //
 //This is the TIMER1_A0 interrupt vector service routine.
+// TIMER 1 HZ
 //
 //******************************************************************************
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
@@ -55,9 +56,10 @@ void TIMER1_A0_ISR (void)
 
     // Sync timer counting for display & sd card
 	g_timer_1sec_flag = 1;
-	if(g_sys_state == ECG_SHORT || g_sys_state == ECG_LONG){
-	    g_timer_uart_1sec = 1;
-	    g_timer_uart_sync = 1;
+
+    // Sync timer for ECG Short and Long
+    if(g_short_ECG_flag || g_long_ECG_flag){
+    g_timer_uart_1sec = 1;
 	}
 
 	// Buzzer sec counter   // WORKING
@@ -75,6 +77,7 @@ void TIMER1_A0_ISR (void)
 //******************************************************************************
 //
 //This is the TIMER2_A0 interrupt vector service routine.
+// TIMER 250 HZ
 //
 //******************************************************************************
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)

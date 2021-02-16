@@ -4,7 +4,6 @@
 uint8_t g_timer_1khz_flag = 0;
 uint8_t g_timer_1sec_flag = 0;
 uint8_t g_timer_uart_1sec = 0;
-uint8_t g_timer_uart_sync = 0;
 uint16_t g_adc_result = 0;
 uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
@@ -65,14 +64,16 @@ void main(void)
             break;
 
         case IDLE_STATE:
-            if (g_short_ECG_flag)
+            if (g_short_ECG_flag && g_timer_uart_1sec)  // Sync timer by changing state to ECG Short
             {
+                g_timer_uart_1sec = 0;                  // Sync timer back to 0 
                 // Start create/write new .csv
                 SD_CreateNewCSV();
                 g_sys_state = ECG_SHORT;
             }
-            if (g_long_ECG_flag)
+            if (g_long_ECG_flag && g_timer_uart_1sec)   // Sync timer by changing state to ECG Long
             {
+                g_timer_uart_1sec = 0;                  // Sync timer back to 0 
                 // Start create/write new .csv
                 SD_CreateNewCSV();
                 g_sys_state = ECG_LONG;
@@ -81,9 +82,6 @@ void main(void)
             break;
 
         case ECG_SHORT:
-            while ((!g_timer_uart_1sec) && (!g_timer_uart_sync))
-            {
-            }
             ECG_Timer_ST();
             if (g_timer_1khz_flag)
             {
@@ -99,7 +97,6 @@ void main(void)
             }
             if (!g_short_ECG_flag)
             {
-                g_timer_uart_sync = 0;
                 Clear_Wave_ST();
                 Clear_ECG_Timer_ST();
                 // Stop writing in .csv
@@ -109,9 +106,6 @@ void main(void)
             break;
 
         case ECG_LONG:
-            while ((!g_timer_uart_1sec) && (!g_timer_uart_sync))
-            {
-            }
             ECG_Timer_LT();
             if (g_timer_1khz_flag)
             {
@@ -127,7 +121,6 @@ void main(void)
             }
             if (!g_long_ECG_flag)
             {
-                g_timer_uart_sync = 0;
                 Clear_Wave_LT();
                 Clear_ECG_Timer_LT();
                 // Stop writing in .csv
