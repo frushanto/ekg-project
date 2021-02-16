@@ -51,7 +51,6 @@ void Long_ECG_Error()
 
 void ST_ECG()
 {
-    Start_ADC();
     Uart_ECG_Wave_ST();
     calculate_bpm_ST();
 }

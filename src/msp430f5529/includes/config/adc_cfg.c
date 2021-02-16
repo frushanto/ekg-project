@@ -1,5 +1,10 @@
 #include <adc_cfg.h>
 
+//Variables
+bool g_adc_new_values = 0;
+
+
+
 void Init_ADC() {
     //Configure internal reference
     //If ref generator busy, WAIT
@@ -124,10 +129,14 @@ __interrupt void ADC12_A_ISR(void) {
         case  6:          //Vector  6:  ADC12IFG0
          //Is Memory Buffer 0 = A0 > 0.5AVcc?
 
-
+            //Get ECG Value
             g_adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
 
+            //Get accumulator Voltage
             g_akku_vol = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_1);
+
+            //Set flag that new values are available
+            g_adc_new_values = true;
 
 
          //Exit active CPU
