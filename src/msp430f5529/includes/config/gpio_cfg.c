@@ -69,7 +69,7 @@ void Buzzer_active(void)
             g_timer_250Hz_Buzzer = 0;
             __delay_cycles(2000000);
         }
-        if (g_buzzer_cnt == 150) // 250 ca. 1sec !!!
+        if (g_buzzer_cnt == 150) // 250 ca. 1sec
         {
             g_buzzer_on_flag = 0;
             g_timer_250Hz_Buzzer = 0;

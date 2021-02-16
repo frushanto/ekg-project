@@ -52,7 +52,7 @@ __attribute__((interrupt(TIMER1_A0_VECTOR)))
 void TIMER1_A0_ISR (void)
 {
     // Toggle LED on PCB
-    GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
+    // GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
 
     // Sync timer counting for display & sd card
 	g_timer_1sec_flag = 1;

@@ -200,14 +200,14 @@ void main(void)
         }
 
         //Check AKKU in chosen Cases
-        if (g_timer_1sec_flag)
+        if(g_sys_state == IDLE_STATE || g_sys_state == ECG_SHORT || g_sys_state == ECG_LONG)
+        {
+            if (g_timer_1sec_flag)
             {
-                if(g_sys_state == IDLE_STATE || g_sys_state == ECG_SHORT || g_sys_state == ECG_LONG)
-                {
-                    ADC_Akku_Average_Value();
-                }
                 g_timer_1sec_flag = 0;
+                ADC_Akku_Average_Value();
             }
+        }
     }
 }
 
