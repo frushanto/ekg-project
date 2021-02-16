@@ -15,6 +15,8 @@ uint8_t g_cnt_sec = 0;
 uint8_t g_cnt_min = 0;
 uint8_t g_cnt_hour = 0;
 
+bool g_adc_new_values = 0;
+
 /* BUZZER VARs*/
 uint8_t g_timer_1khz_buzzer = 0;
 uint8_t g_buzzer_1sec_flag = 0;
@@ -82,8 +84,6 @@ void main(void)
                 SD_CreateNewCSV();
                 g_sys_state = ECG_LONG;
             }
-
-            ADC_Akku_Average_Value();
 
             break;
 
@@ -198,6 +198,16 @@ void main(void)
         default:
             break;
         }
+
+        //Check AKKU in chosen Cases
+        if (g_timer_1sec_flag)
+            {
+                if(g_sys_state == IDLE_STATE || g_sys_state == ECG_SHORT || g_sys_state == ECG_LONG)
+                {
+                    ADC_Akku_Average_Value();
+                }
+                g_timer_1sec_flag = 0;
+            }
     }
 }
 

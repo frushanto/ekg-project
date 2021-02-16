@@ -1,10 +1,5 @@
 #include <adc_cfg.h>
 
-//Variables
-bool g_adc_new_values = 0;
-
-
-
 void Init_ADC() {
     //Configure internal reference
     //If ref generator busy, WAIT
@@ -72,7 +67,7 @@ void Init_ADC() {
      * Disable Multiple Sampling
      */
     ADC12_A_setupSamplingTimer(ADC12_A_BASE,
-        ADC12_A_CYCLEHOLD_4_CYCLES,        // 16
+        ADC12_A_CYCLEHOLD_4_CYCLES,        //default 4 // 16
         ADC12_A_CYCLEHOLD_4_CYCLES,
         ADC12_A_MULTIPLESAMPLESENABLE);    // multisampling enabled
 

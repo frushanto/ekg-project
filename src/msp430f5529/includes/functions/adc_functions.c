@@ -11,12 +11,12 @@
  * 3V = 4095
  * 0V = 0
  *
- * 2,620V = 3577 ADC Wert
- * 2,121V = 2895 ADC Wert = Offset
+ * 3577 ADC Wert Max -> NOT FIXED
+ * 2720 ADC Wert Min -> FIXED -> OFFSET
  *
  * -> After offset
  *
- * ADC Akku Max = 682
+ * ADC Akku Max = 682 -> NOT FIXED
  * ADC Akku Min = 0
  *
  *
@@ -32,23 +32,16 @@ static uint8_t cnt_akkuaverage = 0;
 static uint32_t akku_percentage = 0;
 static uint32_t akku_averageValue = 0;
 
-const uint16_t adc_akku_offset = 28950;     // To be tested
-const uint16_t adc_akku_divider = 68;       // To be tested
+const uint16_t adc_akku_offset = 27200;     // FIXED
+const uint16_t adc_akku_divider = 68;       // NOT FIXED
 
 #define ADC_AKKU_SEC        10
 
 void ADC_Akku_Average_Value(){
 
-    if (g_timer_1sec_flag)
-    {
-        //Trigger ADC
-        Start_ADC();
+    Start_ADC();
 
-        //Reset Timer flag
-        g_timer_1sec_flag = false;
-    }
-
-    if (g_adc_new_values)
+    if (g_akku_vol)
     {
 
         // Send ADC Value of accumulator to Bluetooth
@@ -63,13 +56,16 @@ void ADC_Akku_Average_Value(){
             akku_averageValue /= ADC_AKKU_SEC;
             akku_percentage = (((akku_averageValue * 10) - adc_akku_offset) / adc_akku_divider);
             akku_averageValue = 0;
+//            if(akku_percentage < 1){
+//                akku_percentage = 1;
+//            }
+//            if(akku_percentage > 100){
+//                akku_percentage = 100;
+//            }
             uart_transmit_data_start("page0.akku.val=");
             uart_transmit_data_value(akku_percentage);
             uart_transmit_data_end();
         }
-
-
-        g_adc_new_values = false;
     }
 }
 

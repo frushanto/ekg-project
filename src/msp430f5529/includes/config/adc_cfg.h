@@ -34,9 +34,6 @@
 #include <std_types.h>
 #include "main.h"
 
-//Variables
-extern bool g_adc_new_values;
-
 /* Function declarations */
 void Init_ADC(void);
 void Start_ADC(void);
