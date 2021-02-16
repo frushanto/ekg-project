@@ -22,7 +22,7 @@ uint8_t g_buzzer_on_flag = 0;
 uint16_t g_buzzer_cnt = 0;
 
 /* For median filter */
-#define NUM_ELEMENTS    7
+#define NUM_ELEMENTS    11
 sMedianFilter_t medianFilter;
 static sMedianNode_t medianBuffer[NUM_ELEMENTS];
 /* End median filter */
