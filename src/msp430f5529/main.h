@@ -34,6 +34,8 @@
 #include "time.h"
 #include "includes/config/median_cfg.h"
 
+#define G_SAMPLE_RATE 250
+
 typedef enum
 {
     SYS_INIT,

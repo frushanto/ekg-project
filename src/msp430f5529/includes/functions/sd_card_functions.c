@@ -84,9 +84,9 @@ void SD_CreateNewCSV(void) {
 
 void SD_SetTimeStamp(void){
     memset(timeBuffer,0x00,TB_SIZE);
-    if (g_short_ECG_flag == 1){
+    if (g_sys_state == ECG_SHORT){
         sprintf(timeBuffer, "%02d:%02d \n",g_cnt_min, g_cnt_sec);
-    }else{
+    }else if (g_sys_state == ECG_LONG){
         sprintf(timeBuffer, "%02d:%02d:%02d \n",g_cnt_hour, g_cnt_min, g_cnt_sec);
     }
 }
