@@ -55,6 +55,11 @@ void SD_Card_Error()
 //    uart_transmit_data_end();
 }
 
+void SD_Card_Timeout() 
+{
+
+}
+
 void ST_ECG()
 {
     Uart_ECG_Wave_ST();

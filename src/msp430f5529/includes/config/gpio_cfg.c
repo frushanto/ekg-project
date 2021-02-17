@@ -164,3 +164,40 @@ __interrupt void pushbutton_ISR(void)
         _never_executed();
     }
 }
+
+#pragma vector = PORT2_VECTOR
+__interrupt void PORT2_ISR(void)
+{
+    switch (__even_in_range(P2IV, 0x10))
+    {
+    case 0x00:
+        break;   // None
+    case 0x02:   // Pin 0
+
+        if (GPIO_getInputPinValue(GPIO_PORT_P2, 
+            GPIO_PIN0)) {
+            g_sd_card_inserted = TRUE;
+        } else {
+            g_sd_card_inserted = FALSE;
+            SD_Card_Error();
+        }
+
+        break;
+    case 0x04:
+        break;   // Pin 1
+    case 0x06:
+        break;   // Pin 2
+    case 0x08:
+        break;   // Pin 3
+    case 0x0A:
+        break;   // Pin 4
+    case 0x0C:
+        break;   // Pin 5
+    case 0x0E:
+        break;   // Pin 6
+    case 0x10:
+        break;   // Pin 7
+    default:
+        _never_executed();
+    }
+}

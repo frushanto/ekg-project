@@ -30,10 +30,15 @@ void SD_TestWriteOnSD(void);
 void Init_FAT(void){
     errCode = 20;
     
-    // If Card Detect = TRUE -> Try to init
     if (GPIO_getInputPinValue(GPIO_PORT_P2, 
             GPIO_PIN0)) {
         g_sd_card_inserted = TRUE;
+    } else {
+        g_sd_card_inserted = FALSE;
+        SD_Card_Error();
+    }
+
+    if (g_sd_card_inserted) {
         //go until f_open returns FR_OK (function successful)
         while ((errCode != FR_OK) || (sdCardTimeout <= SD_INIT_TIMEOUT)) {  
             sdCardTimeout++;
@@ -50,16 +55,13 @@ void Init_FAT(void){
             }
             if (sdCardTimeout == SD_INIT_TIMEOUT) {
                 // TODO send message to display
-                SD_Card_Error();
+                SD_Card_Timeout();
             }
         }
         sdCardTimeout = 0;
         f_write(&file, txbufferInit, 
             sizeof(txbufferInit), &bytesWritten);
         f_close(&file);
-    } else {
-        g_sd_card_inserted = FALSE;
-        SD_Card_Error();
     }
 }
 
