@@ -3,7 +3,7 @@
 #define SD_BUFFER_MAX_SIZE  512
 #define SD_CSV_ARR_LENGTH   23
 #define TB_SIZE             10
-#define SD_INIT_TIMEOUT     1000
+#define SD_INIT_TIMEOUT     10
 
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
@@ -29,14 +29,6 @@ void SD_TestWriteOnSD(void);
 
 void Init_FAT(void){
     errCode = 20;
-    
-    if (GPIO_getInputPinValue(GPIO_PORT_P2, 
-            GPIO_PIN0)) {
-        g_sd_card_inserted = TRUE;
-    } else {
-        g_sd_card_inserted = FALSE;
-        SD_Card_Error();
-    }
 
     if (g_sd_card_inserted) {
         //go until f_open returns FR_OK (function successful)
