@@ -18,14 +18,13 @@ int result = 1;
 uint16_t sdCardTimeout = 0;
 unsigned int size;
 unsigned int bytesWritten;
+bool nameRangeOverflow = FALSE;
 
 char timeBuffer[TB_SIZE];
 
 char commaArr[1];
 char adcSingleResultArr[4];
 char localtimeArr[80];
-
-void SD_TestWriteOnSD(void);
 
 void Init_FAT(void){
     errCode = 20;
@@ -62,6 +61,31 @@ void SD_CreateNewCSV(void) {
     if(g_sd_card_inserted) {
         // File naming for SHORT ECG
         if (g_short_ECG_flag == 1) {
+
+            while (f_open(&file, csvNameShortECGArr, 
+                FA_OPEN_EXISTING) == FR_OK ||
+                (!nameRangeOverflow)) {
+
+                // Immediately close opened file
+                f_close(&file);
+
+                // Try next letter in file name
+                firstLetter = csvNameShortECGArr[6];
+                secondLetter = csvNameShortECGArr[7];
+                if (isalpha(secondLetter) && 
+                    tolower(secondLetter) != 'z') {
+                    csvNameShortECGArr[7] = ++secondLetter;
+                } else if (isalpha(firstLetter) && 
+                    tolower(firstLetter) != 'z') {
+                    csvNameShortECGArr[6] = ++firstLetter;
+                    csvNameShortECGArr[7] = 'A';
+                } else {
+                    csvNameShortECGArr[6] = 'A';
+                    csvNameShortECGArr[7] = 'A';
+                    f_close(&file);
+                    nameRangeOverflow = TRUE;
+                }
+            }
 
             f_open(&file, csvNameShortECGArr, 
                 FA_CREATE_ALWAYS | FA_WRITE);
