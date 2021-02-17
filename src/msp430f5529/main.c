@@ -54,13 +54,6 @@ void main(void)
             Init_UART();
             Init_ADC();
             Init_SPI();
-
-            /* Test Card Detect Pin */
-            if (GPIO_getInputPinValue(GPIO_PORT_P2, 
-            GPIO_PIN0)) {
-                g_sd_card_inserted = TRUE;      // inserted = TRUE ; not inserted = FALSE
-            }
-
             Init_FAT();
             //Init UART Interface for Bluetooth                 
             Init_UART_BT();             
