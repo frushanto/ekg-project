@@ -19,7 +19,7 @@ uint16_t sdCardTimeout = 0;
 unsigned int size;
 unsigned int bytesWritten;
 bool nameRangeOverflow = FALSE;
-
+FRESULT file_exists = 20;
 char timeBuffer[TB_SIZE];
 
 char commaArr[1];
@@ -62,13 +62,10 @@ void SD_CreateNewCSV(void) {
         // File naming for SHORT ECG
         if (g_short_ECG_flag == 1) {
 
-            while (f_open(&file, csvNameShortECGArr, 
-                FA_OPEN_EXISTING) == FR_OK ||
-                (!nameRangeOverflow)) {
-
-                // Immediately close opened file
+            while ((file_exists = f_open(&file, csvNameShortECGArr,
+                                         FA_OPEN_EXISTING)) == FR_OK &&
+                !(nameRangeOverflow)) {
                 f_close(&file);
-
                 // Try next letter in file name
                 firstLetter = csvNameShortECGArr[6];
                 secondLetter = csvNameShortECGArr[7];
@@ -106,6 +103,27 @@ void SD_CreateNewCSV(void) {
             }
         // File naming for LONG EKG
         } else {
+            while ((file_exists = f_open(&file, csvNameLongECGArr,
+                                         FA_OPEN_EXISTING)) == FR_OK &&
+            !(nameRangeOverflow)) {
+                f_close(&file);
+                // Try next letter in file name
+                firstLetter = csvNameLongECGArr[5];
+                secondLetter = csvNameLongECGArr[6];
+                if (isalpha(secondLetter) && 
+                    tolower(secondLetter) != 'z') {
+                    csvNameLongECGArr[6] = ++secondLetter;
+                } else if (isalpha(firstLetter) && 
+                    tolower(firstLetter) != 'z') {
+                    csvNameLongECGArr[5] = ++firstLetter;
+                    csvNameLongECGArr[6] = 'A';
+                } else {
+                    csvNameLongECGArr[5] = 'A';
+                    csvNameLongECGArr[6] = 'A';
+                    f_close(&file);
+                    nameRangeOverflow = TRUE;
+                }
+            }
             f_open(&file, csvNameLongECGArr, 
                 FA_CREATE_ALWAYS | FA_WRITE);
 
