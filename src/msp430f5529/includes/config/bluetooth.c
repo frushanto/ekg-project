@@ -67,7 +67,7 @@ bool Init_UART_BT (void) {
 }
 
 bool send_bt_value(uint16_t adc_val){
-    sprintf((char*)tx_buffer, "%d\r\n", adc_val);
+    sprintf((char*)tx_buffer, "%04d\r\n", adc_val);       // \r\n
     for (uint8_t i = 0; i < strlen((char*)tx_buffer); i++){
         //Transmit char by char
         USCI_A_UART_transmitData(USCI_A1_BASE, tx_buffer[i]);

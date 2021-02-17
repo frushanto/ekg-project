@@ -19,4 +19,6 @@ void Buzzer_active(void);
 void State_sys_Energy_Saving_Mode(void);
 void State_sys_Wakeup_Mode(void);
 
+extern bool bt_state;
+
 #endif /* INCLUDES_CONFIG_GPIO_CFG_H_ */

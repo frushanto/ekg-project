@@ -84,6 +84,7 @@ void main(void)
                 SD_CreateNewCSV();
                 g_sys_state = ECG_LONG;
             }
+            bt_state = GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1);
 
             break;
 

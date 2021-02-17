@@ -53,6 +53,7 @@ void ST_ECG()
 {
     Uart_ECG_Wave_ST();
     calculate_bpm_ST();
+    send_bt_value(g_adc_result);
 }
 
 void LT_ECG()
@@ -60,6 +61,7 @@ void LT_ECG()
     Start_ADC();
     Uart_ECG_Wave_LT();
     calculate_bpm_LT();
+    send_bt_value(g_adc_result);
 }
 
 void ECG_Timer_LT()

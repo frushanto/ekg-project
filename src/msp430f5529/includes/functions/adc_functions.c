@@ -35,7 +35,7 @@ static uint32_t akku_averageValue = 0;
 const uint16_t adc_akku_offset = 27200;     // FIXED
 const uint16_t adc_akku_divider = 100;       // NOT FIXED
 
-#define ADC_AKKU_SEC        10
+#define ADC_AKKU_SEC        60
 
 void ADC_Akku_Average_Value(){
 
@@ -45,7 +45,7 @@ void ADC_Akku_Average_Value(){
     {
 
         // Send ADC Value of accumulator to Bluetooth
-        send_bt_value(g_akku_vol);
+        // send_bt_value(g_akku_vol);
 
         akku_averageValue += g_akku_vol;
         cnt_akkuaverage++;

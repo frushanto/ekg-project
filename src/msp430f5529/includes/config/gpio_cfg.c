@@ -7,6 +7,8 @@
 
 #include <includes/config/gpio_cfg.h>
 
+bool bt_state = 0;
+
 // Configure GPIO ports/pins
 void Init_GPIO(void)
 {
@@ -33,9 +35,13 @@ void Init_GPIO(void)
     // Configure Pin attached to button DONT USE
     GPIO_setAsInputPin(GPIO_PORT_P6, GPIO_PIN2);
     // GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN2);
+
+    // Configure Bluetooth State Pin
+    GPIO_setAsInputPin(GPIO_PORT_P2, GPIO_PIN1);
+
 }
 
-void Buzzer_active(void)
+void Buzzer_active(void)    // Use only for 5V DCDC ON/OFF DONT USE FOR AKKU
 {
     // while (g_buzzer_on_flag)    // WORKING  - can be optimized
     // { 
@@ -118,7 +124,7 @@ __interrupt void pushbutton_ISR(void)
     case 0x02:          // Pin 0
 
         __delay_cycles(4000000);   // 20000 = 1ms
-        if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0))
+        if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0)) //TODO: When Button pressed, do nothing
         {
             if (g_5v_flag == 0)
             {
