@@ -58,7 +58,7 @@ void main(void)
             /* Test Card Detect Pin */
             if (GPIO_getInputPinValue(GPIO_PORT_P2, 
             GPIO_PIN0)) {
-                g_sd_card_inserted = TRUE;
+                g_sd_card_inserted = TRUE;      // inserted = TRUE ; not inserted = FALSE
             }
 
             Init_FAT();
