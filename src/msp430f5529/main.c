@@ -53,8 +53,9 @@ void main(void)
             Init_UART();
             Init_ADC();
             Init_SPI();
-            Init_FAT();                 //mount, set directory to read from, assign file
-            Init_UART_BT();             //Init UART Interface for Bluetooth
+            Init_FAT();
+            //Init UART Interface for Bluetooth                 
+            Init_UART_BT();             
             /* Init median filter */
             medianFilter.numNodes = NUM_ELEMENTS;
             medianFilter.medianBuffer = medianBuffer;
@@ -201,11 +202,13 @@ void main(void)
         }
 
         //Check AKKU in chosen Cases
-        if(g_sys_state == IDLE_STATE || g_sys_state == ECG_SHORT || g_sys_state == ECG_LONG)
+        if (g_timer_1sec_flag)
         {
-            if (g_timer_1sec_flag)
+            g_timer_1sec_flag = 0;
+            if (g_sys_state == IDLE_STATE ||
+                g_sys_state == ECG_SHORT ||
+                g_sys_state == ECG_LONG)
             {
-                g_timer_1sec_flag = 0;
                 ADC_Akku_Average_Value();
             }
         }

@@ -24,6 +24,7 @@ void Clear_Wave_ST();
 void Clear_Wave_LT();
 void Short_ECG_Error();
 void Long_ECG_Error();
+void SD_Card_Error();
 void ST_ECG();
 void LT_ECG();
 void ECG_Timer_LT();

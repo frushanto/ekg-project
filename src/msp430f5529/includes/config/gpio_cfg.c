@@ -39,6 +39,9 @@ void Init_GPIO(void)
     // Configure Bluetooth State Pin
     GPIO_setAsInputPin(GPIO_PORT_P2, GPIO_PIN1);
 
+    // Configure Card Detect for SD Card
+    GPIO_setAsInputPin(GPIO_PORT_P2, GPIO_PIN0);
+
 }
 
 void Buzzer_active(void)    // Use only for 5V DCDC ON/OFF DONT USE FOR AKKU
