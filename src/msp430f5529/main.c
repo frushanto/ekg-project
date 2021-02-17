@@ -14,6 +14,7 @@ uint8_t g_5v_flag = 0;
 uint8_t g_cnt_sec = 0;
 uint8_t g_cnt_min = 0;
 uint8_t g_cnt_hour = 0;
+bool g_sd_card_inserted = FALSE;
 
 bool g_adc_new_values = 0;
 
@@ -53,6 +54,13 @@ void main(void)
             Init_UART();
             Init_ADC();
             Init_SPI();
+
+            /* Test Card Detect Pin */
+            if (GPIO_getInputPinValue(GPIO_PORT_P2, 
+            GPIO_PIN0)) {
+                g_sd_card_inserted = TRUE;
+            }
+
             Init_FAT();
             //Init UART Interface for Bluetooth                 
             Init_UART_BT();             
