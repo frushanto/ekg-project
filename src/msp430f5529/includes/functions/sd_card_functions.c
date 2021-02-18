@@ -3,7 +3,7 @@
 #define SD_BUFFER_MAX_SIZE  512
 #define SD_CSV_ARR_LENGTH   23
 #define TB_SIZE             10
-#define SD_INIT_TIMEOUT     10
+#define SD_INIT_TIMEOUT     3
 
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
@@ -53,6 +53,10 @@ void Init_FAT(void){
         f_write(&file, txbufferInit, 
             sizeof(txbufferInit), &bytesWritten);
         f_close(&file);
+        Set_SD_Icon_Display(1);
+    }else{
+        SD_Card_Error();
+        Set_SD_Icon_Display(0);
     }
 }
 
@@ -173,6 +177,25 @@ void SD_StartWriting(void) {
 void SD_StopWriting(void) {
     if (g_sd_card_inserted) {
         f_close(&file);
+    }
+}
+
+void Check_SD_Card_Connection()
+{
+    if(g_sd_state_flag == 1)
+    {
+        GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_HIGH_TO_LOW_TRANSITION);
+        g_sd_card_inserted = TRUE;
+        Init_FAT();
+        Set_SD_Icon_Display(1);
+        g_sd_state_flag = 2;
+    }else if(g_sd_state_flag == 0)
+    {
+        GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
+        g_sd_card_inserted = FALSE;
+        Set_SD_Icon_Display(0);
+        SD_Card_Error();
+        g_sd_state_flag = 2;
     }
 }
 

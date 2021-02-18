@@ -184,14 +184,32 @@ void Clear_ECG_Timer_ST(void)
 
 void Set_Bluetooth_Icon_Display(uint8_t state)
 {
-    uart_transmit_data_start("bluetooth.val=");
+    uart_transmit_data_start("page0.bluetooth.val=");
     uart_transmit_data_value(state);
     uart_transmit_data_end();
 }
 
 void Set_SD_Icon_Display(uint8_t state)
 {
-    uart_transmit_data_start("sdcard.val=");
+    uart_transmit_data_start("page0.sdcard.val=");
     uart_transmit_data_value(state);
     uart_transmit_data_end();
+}
+
+void Check_BT_Connection()
+{
+    // Check if BT is connetced and show it on Display
+    if(g_bt_state_flag == 1)
+    {
+        GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, GPIO_HIGH_TO_LOW_TRANSITION);
+        g_bt_connected = TRUE;  // needed?
+        Set_Bluetooth_Icon_Display(1);
+        g_bt_state_flag = 2;
+    }else if(g_bt_state_flag == 0)
+    {
+        GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, GPIO_LOW_TO_HIGH_TRANSITION);
+        g_bt_connected = FALSE; // needed?
+        Set_Bluetooth_Icon_Display(0);
+        g_bt_state_flag = 2;
+    }
 }

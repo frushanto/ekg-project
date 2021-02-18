@@ -7,6 +7,9 @@
 
 #include <includes/config/gpio_cfg.h>
 
+uint8_t g_sd_state_flag = 2;
+uint8_t g_bt_state_flag = 2;
+
 // Configure GPIO ports/pins
 void Init_GPIO(void)
 {
@@ -36,6 +39,8 @@ void Init_GPIO(void)
 
     // Configure Bluetooth State Pin
     GPIO_setAsInputPin(GPIO_PORT_P2, GPIO_PIN1);
+    GPIO_enableInterrupt(GPIO_PORT_P2, GPIO_PIN1);
+    GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, GPIO_LOW_TO_HIGH_TRANSITION);
 
     // Configure Card Detect for SD Card
     GPIO_setAsInputPin(GPIO_PORT_P2, GPIO_PIN0);
@@ -48,10 +53,6 @@ void Init_GPIO(void)
         g_sd_card_inserted = FALSE;
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
     }
-    if(g_sd_card_inserted == FALSE){
-        SD_Card_Error();    // doenst work here?
-    }
-
 }
 
 void Buzzer_active(void)    // Use only for 5V DCDC ON/OFF DONT USE FOR AKKU
@@ -115,8 +116,7 @@ void State_sys_Wakeup_Mode(void)
     GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
     // 5V DC/DC turn ON
     GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
-    // Init all 5V Sources
-    Init_UART();
+    // Init SD Card
     Init_FAT();
     // Buzzer turn ON
     g_buzzer_on_flag = 1;
@@ -183,18 +183,19 @@ __interrupt void PORT2_ISR(void)
     case 0x00:
         break;   // None
     case 0x02:   // Pin 0
-
         if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN0)) {
-            GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_HIGH_TO_LOW_TRANSITION);
-            g_sd_card_inserted = TRUE;
+            g_sd_state_flag = 1;
         } else {
-            SD_Card_Error();    // doenst work here?
-            GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
-            g_sd_card_inserted = FALSE;
+            g_sd_state_flag = 0;
         }
 
         break;
     case 0x04:
+        if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1)) {
+            g_bt_state_flag = 1;
+        } else {
+            g_bt_state_flag = 0;
+        }
         break;   // Pin 1
     case 0x06:
         break;   // Pin 2

@@ -15,6 +15,7 @@ uint8_t g_cnt_sec = 0;
 uint8_t g_cnt_min = 0;
 uint8_t g_cnt_hour = 0;
 bool g_sd_card_inserted = FALSE;
+bool g_bt_connected = FALSE;
 
 bool g_adc_new_values = 0;
 
@@ -58,7 +59,7 @@ void main(void)
             //Init UART Interface for Bluetooth                 
             Init_UART_BT();             
             /* Init median filter */
-            medianFilter.numNodes = NUM_ELEMENTS;
+            medianFilter.numNodes = NUM_ELEMENTS;   // TODO: Init_Median
             medianFilter.medianBuffer = medianBuffer;
             MEDIANFILTER_Init(&medianFilter); // Init median filter
             EnableGlobalInterrupt();
@@ -86,25 +87,6 @@ void main(void)
                 SD_CreateNewCSV();
                 g_sys_state = ECG_LONG;
             }
-
-            // Check if BT is connetced and show it on Display
-            if(GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1) == 1)
-            {
-                Set_Bluetooth_Icon_Display(1);
-            }else if(GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1) == 0)
-            {
-                Set_Bluetooth_Icon_Display(0);
-            }
-
-            // Check if SD Card is connected and show it on Display
-            if(g_sd_card_inserted)
-            {
-                Set_SD_Icon_Display(1);
-            }else if (!g_sd_card_inserted)
-            {
-                Set_SD_Icon_Display(0);
-            }
-            
 
             break;
 
@@ -233,7 +215,12 @@ void main(void)
                 g_sys_state == ECG_SHORT ||
                 g_sys_state == ECG_LONG)
             {
+                // Send Akku Value to Display
                 ADC_Akku_Average_Value();
+                // Check if Bluetooth is connetced and show it on Display
+                Check_BT_Connection();
+                // Check if SD Card is connetced and show it on Display
+                Check_SD_Card_Connection();
             }
         }
     }
