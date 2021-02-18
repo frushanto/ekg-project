@@ -26,12 +26,15 @@ void Short_ECG_Error();
 void Long_ECG_Error();
 void SD_Card_Error();
 void SD_Card_Timeout();
+void Akku_80_Error();
 void ST_ECG();
 void LT_ECG();
 void ECG_Timer_LT();
 void ECG_Timer_ST();
 void Clear_ECG_Timer_ST();
 void Clear_ECG_Timer_LT();
+void Set_Bluetooth_Icon_Display(uint8_t state);
+void Set_SD_Icon_Display(uint8_t state);
 
 // extern uint16_t g_adc_result;
 

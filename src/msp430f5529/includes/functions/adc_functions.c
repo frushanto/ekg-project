@@ -29,7 +29,7 @@
 
 // Local vars
 static uint8_t cnt_akkuaverage = 0;
-static uint32_t akku_percentage = 0;
+uint32_t akku_percentage = 0;
 static uint32_t akku_averageValue = 0;
 
 const uint16_t adc_akku_offset = 27200;     // FIXED

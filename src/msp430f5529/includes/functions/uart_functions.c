@@ -51,13 +51,19 @@ void Long_ECG_Error()
 
 void SD_Card_Error()
 {
-//    uart_transmit_data_start();
-//    uart_transmit_data_end();
+   uart_transmit_data_start("page 11");
+   uart_transmit_data_end();
 }
 
 void SD_Card_Timeout() 
 {
 
+}
+
+void Akku_80_Error()
+{
+   uart_transmit_data_start("page 12");
+   uart_transmit_data_end();
 }
 
 void ST_ECG()
@@ -173,5 +179,19 @@ void Clear_ECG_Timer_ST(void)
 
     uart_transmit_data_start("page2.minutes.val=");
     uart_transmit_data_value(g_cnt_min);
+    uart_transmit_data_end();
+}
+
+void Set_Bluetooth_Icon_Display(uint8_t state)
+{
+    uart_transmit_data_start("bluetooth.val=");
+    uart_transmit_data_value(state);
+    uart_transmit_data_end();
+}
+
+void Set_SD_Icon_Display(uint8_t state)
+{
+    uart_transmit_data_start("sdcard.val=");
+    uart_transmit_data_value(state);
     uart_transmit_data_end();
 }

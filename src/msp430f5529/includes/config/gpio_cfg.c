@@ -7,8 +7,6 @@
 
 #include <includes/config/gpio_cfg.h>
 
-bool bt_state = 0;
-
 // Configure GPIO ports/pins
 void Init_GPIO(void)
 {
@@ -49,6 +47,9 @@ void Init_GPIO(void)
     } else {
         g_sd_card_inserted = FALSE;
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
+    }
+    if(g_sd_card_inserted == FALSE){
+        SD_Card_Error();    // doenst work here?
     }
 
 }
@@ -183,14 +184,13 @@ __interrupt void PORT2_ISR(void)
         break;   // None
     case 0x02:   // Pin 0
 
-        if (GPIO_getInputPinValue(GPIO_PORT_P2, 
-            GPIO_PIN0)) {
+        if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN0)) {
             GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_HIGH_TO_LOW_TRANSITION);
             g_sd_card_inserted = TRUE;
         } else {
+            SD_Card_Error();    // doenst work here?
             GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
             g_sd_card_inserted = FALSE;
-            SD_Card_Error();
         }
 
         break;

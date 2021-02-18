@@ -8,5 +8,6 @@
 
 /* Function declarations */
 void ADC_Akku_Average_Value(void);
+extern uint32_t akku_percentage;
 
 #endif /* INCLUDES_FUNCTIONS_ADC_FUNCTIONS_H_ */

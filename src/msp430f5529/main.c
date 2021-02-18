@@ -86,7 +86,25 @@ void main(void)
                 SD_CreateNewCSV();
                 g_sys_state = ECG_LONG;
             }
-            bt_state = GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1);
+
+            // Check if BT is connetced and show it on Display
+            if(GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1) == 1)
+            {
+                Set_Bluetooth_Icon_Display(1);
+            }else if(GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1) == 0)
+            {
+                Set_Bluetooth_Icon_Display(0);
+            }
+
+            // Check if SD Card is connected and show it on Display
+            if(g_sd_card_inserted)
+            {
+                Set_SD_Icon_Display(1);
+            }else if (!g_sd_card_inserted)
+            {
+                Set_SD_Icon_Display(0);
+            }
+            
 
             break;
 
@@ -138,7 +156,12 @@ void main(void)
             break;
 
         case ECG_LONG:
-
+            if(akku_percentage < 80)
+            {
+                Akku_80_Error();
+                g_long_ECG_flag = 0;
+                g_sys_state = IDLE_STATE;
+            }
             //Update Time for ECG
             ECG_Timer_LT();
 
