@@ -18,6 +18,12 @@ FRESULT res;                /* Result object      */
 UINT bytesRead;             /* Bytes read object  */
 UINT read;                  /* Read bytes object  */
 
+typedef struct {
+    char adc[4];
+    char comma[1];
+    char timestamp[10];
+} ADC_STORAGE;
+
 /* Function declarations */
 FRESULT WriteFile(char*, char*, WORD);
 void Init_FAT(void);

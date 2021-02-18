@@ -156,10 +156,33 @@ void main(void)
             //When ADC finished Conversion
             if (g_adc_new_values)
             {
+                /* Steps for evergy saving in ECG_LONG
+                - MCU is recording long ecg
+                - 5V deactivated
+                - receive ADC values as usual
+                - store ADC values for 1 sec on MCU
+                - activate 5V for transfer
+                - send ADC values to SD Card and save in existing file
+                - repeat */
+
                 //Compute new Values and publish to Display
                 LT_ECG();
+
+                // Deactivate 5V
+                
+                // Get ADC values as usual
+                // -> will be executed automatically
+
+                // Store ADC values for 1 sec on MCU
+                SD_Save_ADC_Values();
+
+                // Activate 5V
+
+                // Send ADC values to SD Card & save to the 
+                // same file
+
                 // Write in csv
-                SD_StartWriting();
+                //SD_StartWriting();
 
                 //Reset Flag
                 g_adc_new_values = false;

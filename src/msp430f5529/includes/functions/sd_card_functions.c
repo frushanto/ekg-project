@@ -1,9 +1,11 @@
 #include "sd_card_functions.h"
 
-#define SD_BUFFER_MAX_SIZE  512
-#define SD_CSV_ARR_LENGTH   23
-#define TB_SIZE             10
-#define SD_INIT_TIMEOUT     3
+#define SD_BUFFER_MAX_SIZE      512
+#define SD_CSV_ARR_LENGTH       23
+#define TB_SIZE                 10
+#define SD_INIT_TIMEOUT         3
+#define NUMBER_OF_ADC_VALUES    100
+#define LONG_ECG_ARRAY_LENGTH   15
 
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
@@ -21,6 +23,11 @@ unsigned int bytesWritten;
 bool nameRangeOverflow = FALSE;
 FRESULT file_exists = 20;
 char timeBuffer[TB_SIZE];
+uint16_t adcValuesCnt = 0;
+uint8_t adcEntryCnt = 0;
+// SRAM 8kB + 2kB
+ADC_STORAGE adc_storage[NUMBER_OF_ADC_VALUES];
+
 
 char commaArr[1];
 char adcSingleResultArr[4];
@@ -71,7 +78,7 @@ void SD_CreateNewCSV(void) {
                 f_open(&file, csvNameShortECGArr,
                 FA_OPEN_EXISTING)) == FR_OK &&
                 !(nameRangeOverflow)) {
-                    
+
                 f_close(&file);
                 // Try next letter in file name
                 firstLetter = csvNameShortECGArr[6];
@@ -180,6 +187,57 @@ void SD_StartWriting(void) {
 void SD_StopWriting(void) {
     if (g_sd_card_inserted) {
         f_close(&file);
+    }
+}
+
+// Store ADC values and timestamp in array
+void SD_Save_ADC_Values(void) {
+    if((g_sd_card_inserted) && 
+        (adcValuesCnt <= NUMBER_OF_ADC_VALUES)) {
+        
+        // Set adc value, comma & timestamp
+        strcpy(adc_storage[adcValuesCnt].adc, g_adc_result);
+        strcpy(adc_storage[adcValuesCnt].comma, ",");
+        sprintf(adc_storage[adcValuesCnt].timestamp, 
+        "%d,%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+
+        adcValuesCnt++;
+        // If array is full -> 5V ON and send to SD Card
+        
+    } else if (adcValuesCnt > NUMBER_OF_ADC_VALUES) {
+        // Reset counter
+        adcValuesCnt = 0;
+        // 5V ON
+        if (g_5v_flag == 0) {
+            // LED2 on PCB turn ON
+            GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
+            // 5V DC/DC turn ON
+            GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
+            g_5v_flag = 1;
+
+            // Init SD
+            Init_FAT();
+            
+            // Send to SD
+            // TODO save in the same file
+            SD_CreateNewCSV();
+            f_puts(adc_storage, &file);
+            SD_StopWriting();
+
+            // 5V OFF
+            // LED2 on PCB turn OFF
+            GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+            // 5V DC/DC turn OFF
+            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6); 
+            g_5v_flag = 0;
+
+        } else {
+            // Send to SD
+            // TODO save in the same file
+            SD_CreateNewCSV();
+            f_puts(adc_storage, &file);
+            SD_StopWriting();
+        }
     }
 }
 
