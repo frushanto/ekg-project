@@ -12,7 +12,7 @@
 
 //Mudul-global defines
 #define RX_BUFFER_SIZE 20
-#define TX_BUFFER_SIZE 20
+#define TX_BUFFER_SIZE 30
 
 //Modul-global variables
 static uint8_t uart_tx = 0;
@@ -67,16 +67,15 @@ bool Init_UART_BT (void) {
 }
 
 bool send_bt_value(uint16_t adc_val){
-    sprintf((char*)tx_buffer, "%04d\r\n", adc_val);       // \r\n
+    sprintf((char*)tx_buffer, "2000\r\n,2000\r\n,2000\r\n");
     for (uint8_t i = 0; i < strlen((char*)tx_buffer); i++){
         //Transmit char by char
         USCI_A_UART_transmitData(USCI_A1_BASE, tx_buffer[i]);
 
         //Wait for Transmit finish
-        while (USCI_A_UART_queryStatusFlags(USCI_A1_BASE, USCI_A_UART_BUSY) == USCI_A_UART_BUSY);
-
+        while (USCI_A_UART_queryStatusFlags(USCI_A1_BASE, USCI_A_UART_BUSY) 
+                                            == USCI_A_UART_BUSY);
     }
-
     return STATUS_SUCCESS;
 }
 
