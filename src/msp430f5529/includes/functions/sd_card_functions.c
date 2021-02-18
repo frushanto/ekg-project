@@ -184,6 +184,7 @@ void Check_SD_Card_Connection()
 {
     if(g_sd_state_flag == 1)
     {
+        Display_Exit_Sleep_Mode();
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_HIGH_TO_LOW_TRANSITION);
         g_sd_card_inserted = TRUE;
         Init_FAT();
@@ -191,6 +192,7 @@ void Check_SD_Card_Connection()
         g_sd_state_flag = 2;
     }else if(g_sd_state_flag == 0)
     {
+        Display_Exit_Sleep_Mode();
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
         g_sd_card_inserted = FALSE;
         Set_SD_Icon_Display(0);

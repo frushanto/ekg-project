@@ -9,7 +9,7 @@
 
 uint8_t g_sd_state_flag = 2;
 uint8_t g_bt_state_flag = 2;
-
+uint8_t test = 4;
 // Configure GPIO ports/pins
 void Init_GPIO(void)
 {
@@ -38,9 +38,11 @@ void Init_GPIO(void)
     // GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN2);
 
     // Configure Bluetooth State Pin
-    GPIO_setAsInputPin(GPIO_PORT_P2, GPIO_PIN1);
+//    GPIO_setAsInputPin(GPIO_PORT_P2, GPIO_PIN1);
+    GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P2, GPIO_PIN1);
     GPIO_enableInterrupt(GPIO_PORT_P2, GPIO_PIN1);
     GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, GPIO_LOW_TO_HIGH_TRANSITION);
+    test = (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1));
 
     // Configure Card Detect for SD Card
     GPIO_setAsInputPin(GPIO_PORT_P2, GPIO_PIN0);
@@ -57,20 +59,6 @@ void Init_GPIO(void)
 
 void Buzzer_active(void)    // Use only for 5V DCDC ON/OFF DONT USE FOR AKKU
 {
-    // while (g_buzzer_on_flag)    // WORKING  - can be optimized
-    // { 
-    //     if (g_timer_250Hz_Buzzer)
-    //     {
-    //         g_timer_250Hz_Buzzer = 0;
-    //         GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
-    //     }
-    //     if (g_buzzer_1sec_flag == 2)
-    //     {
-    //         GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN1);
-    //         g_buzzer_1sec_flag = 0;
-    //         g_buzzer_on_flag = 0;
-    //     }
-    // }                                
     while (g_buzzer_on_flag && g_buzzer_cnt)
     { 
         // __delay_cycles(2000000);
@@ -117,7 +105,7 @@ void State_sys_Wakeup_Mode(void)
     // 5V DC/DC turn ON
     GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
     // Init SD Card
-    Init_FAT();
+//    Init_FAT();
     // Buzzer turn ON
     g_buzzer_on_flag = 1;
     g_buzzer_cnt = 1;
@@ -183,6 +171,7 @@ __interrupt void PORT2_ISR(void)
     case 0x00:
         break;   // None
     case 0x02:   // Pin 0
+//        __delay_cycles(2000000);
         if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN0)) {
             g_sd_state_flag = 1;
         } else {
@@ -191,7 +180,8 @@ __interrupt void PORT2_ISR(void)
 
         break;
     case 0x04:
-        if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1)) {
+//        __delay_cycles(2000000);
+        if (test = GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1)) {
             g_bt_state_flag = 1;
         } else {
             g_bt_state_flag = 0;

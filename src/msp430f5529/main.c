@@ -16,6 +16,7 @@ uint8_t g_cnt_min = 0;
 uint8_t g_cnt_hour = 0;
 bool g_sd_card_inserted = FALSE;
 bool g_bt_connected = FALSE;
+// bool g_display_sleep_flag = TRUE;
 
 bool g_adc_new_values = 0;
 

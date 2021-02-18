@@ -69,6 +69,7 @@ extern uint8_t g_cnt_hour;
 extern bool g_sd_card_inserted;
 extern bool g_bt_connected;
 extern bool g_adc_new_values;
+// extern bool g_display_sleep_flag;
 
 extern uint8_t g_timer_250Hz_Buzzer;
 extern uint8_t g_buzzer_1sec_flag;

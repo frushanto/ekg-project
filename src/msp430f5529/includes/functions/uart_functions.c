@@ -196,17 +196,26 @@ void Set_SD_Icon_Display(uint8_t state)
     uart_transmit_data_end();
 }
 
+void Display_Exit_Sleep_Mode()
+{
+    uart_transmit_data_start("sleep=");
+    uart_transmit_data_value(0);
+    uart_transmit_data_end();
+}
+
 void Check_BT_Connection()
 {
     // Check if BT is connetced and show it on Display
     if(g_bt_state_flag == 1)
     {
+        Display_Exit_Sleep_Mode();
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, GPIO_HIGH_TO_LOW_TRANSITION);
         g_bt_connected = TRUE;  // needed?
         Set_Bluetooth_Icon_Display(1);
         g_bt_state_flag = 2;
     }else if(g_bt_state_flag == 0)
     {
+        Display_Exit_Sleep_Mode();
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, GPIO_LOW_TO_HIGH_TRANSITION);
         g_bt_connected = FALSE; // needed?
         Set_Bluetooth_Icon_Display(0);

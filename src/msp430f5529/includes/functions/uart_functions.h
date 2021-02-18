@@ -36,6 +36,7 @@ void Clear_ECG_Timer_LT();
 void Set_Bluetooth_Icon_Display(uint8_t state);
 void Set_SD_Icon_Display(uint8_t state);
 void Check_BT_Connection();
+void Display_Exit_Sleep_Mode();
 
 // extern uint16_t g_adc_result;
 
