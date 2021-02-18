@@ -1,9 +1,48 @@
-[1] Config.pm:304> INFO - This is Biber 2.14
-[1] Config.pm:307> INFO - Logfile is 'ekg_7_projektbericht.blg'
-[334] biber-darwin:322> INFO - === Thu Feb 11, 2021, 17:17:18
-[417] Biber.pm:415> INFO - Reading 'ekg_7_projektbericht.bcf'
-[890] Biber.pm:943> INFO - Found 0 citekeys in bib section 0
-[904] Utils.pm:304> WARN - The file 'ekg_7_projektbericht.bcf' does not contain any citations!
-[917] bbl.pm:652> INFO - Writing 'ekg_7_projektbericht.bbl' with encoding 'UTF-8'
-[918] bbl.pm:755> INFO - Output to ekg_7_projektbericht.bbl
-[918] Biber.pm:128> INFO - WARNINGS: 1
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: ekg_7_projektbericht.aux
+Reallocating 'name_of_file' (item size: 1) to 6 items.
+The style file: unsrt.bst
+Reallocating 'name_of_file' (item size: 1) to 20 items.
+Database file #1: ekg_7_literatur.bib
+You've used 1 entry,
+            1791 wiz_defined-function locations,
+            450 strings with 3605 characters,
+and the built_in function-call counts, 166 in all, are:
+= -- 12
+> -- 4
+< -- 0
++ -- 2
+- -- 1
+* -- 5
+:= -- 32
+add.period$ -- 3
+call.type$ -- 1
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 1
+duplicate$ -- 10
+empty$ -- 20
+format.name$ -- 1
+if$ -- 36
+int.to.chr$ -- 0
+int.to.str$ -- 1
+missing$ -- 2
+newline$ -- 8
+num.names$ -- 1
+pop$ -- 7
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 2
+stack$ -- 0
+substring$ -- 0
+swap$ -- 1
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 1
+width$ -- 2
+write$ -- 12

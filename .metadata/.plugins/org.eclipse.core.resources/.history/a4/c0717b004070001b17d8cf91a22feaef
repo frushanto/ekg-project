@@ -1,0 +1,44 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../includes/config/sd-card-cfg/HAL_SDCard.c \
+../includes/config/sd-card-cfg/SD_main.c.ignored.c \
+../includes/config/sd-card-cfg/ff.c \
+../includes/config/sd-card-cfg/mmc.c 
+
+C_DEPS += \
+./includes/config/sd-card-cfg/HAL_SDCard.d \
+./includes/config/sd-card-cfg/SD_main.c.ignored.d \
+./includes/config/sd-card-cfg/ff.d \
+./includes/config/sd-card-cfg/mmc.d 
+
+OBJS += \
+./includes/config/sd-card-cfg/HAL_SDCard.obj \
+./includes/config/sd-card-cfg/SD_main.c.ignored.obj \
+./includes/config/sd-card-cfg/ff.obj \
+./includes/config/sd-card-cfg/mmc.obj 
+
+OBJS__QUOTED += \
+"includes\config\sd-card-cfg\HAL_SDCard.obj" \
+"includes\config\sd-card-cfg\SD_main.c.ignored.obj" \
+"includes\config\sd-card-cfg\ff.obj" \
+"includes\config\sd-card-cfg\mmc.obj" 
+
+C_DEPS__QUOTED += \
+"includes\config\sd-card-cfg\HAL_SDCard.d" \
+"includes\config\sd-card-cfg\SD_main.c.ignored.d" \
+"includes\config\sd-card-cfg\ff.d" \
+"includes\config\sd-card-cfg\mmc.d" 
+
+C_SRCS__QUOTED += \
+"../includes/config/sd-card-cfg/HAL_SDCard.c" \
+"../includes/config/sd-card-cfg/SD_main.c.ignored.c" \
+"../includes/config/sd-card-cfg/ff.c" \
+"../includes/config/sd-card-cfg/mmc.c" 
+
+
