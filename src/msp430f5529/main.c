@@ -139,12 +139,8 @@ void main(void)
             break;
 
         case ECG_LONG:
-            if(akku_percentage < 80)
-            {
-                Akku_80_Error();
-                g_long_ECG_flag = 0;
-                g_sys_state = IDLE_STATE;
-            }
+            // Check Akku > 80%
+            Check_Akku_Percentage();
             //Update Time for ECG
             ECG_Timer_LT();
 
@@ -153,7 +149,6 @@ void main(void)
             {
                 //Give ADC Start Command
                 Start_ADC();
-
                 //Reset Timer Flag
                 g_timer_250Hz_flag = 0;
             }
@@ -163,7 +158,6 @@ void main(void)
             {
                 //Compute new Values and publish to Display
                 LT_ECG();
-
                 // Write in csv
                 SD_StartWriting();
 

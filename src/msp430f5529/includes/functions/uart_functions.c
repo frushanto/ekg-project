@@ -60,6 +60,15 @@ void SD_Card_Timeout()
 
 }
 
+void Check_Akku_Percentage() {
+    if(g_akku_percentage < 80)
+    {
+        Akku_80_Error();
+        g_long_ECG_flag = 0;
+        g_sys_state = IDLE_STATE;
+    }
+}
+
 void Akku_80_Error()
 {
    uart_transmit_data_start("page 12");
@@ -75,7 +84,7 @@ void ST_ECG()
 
 void LT_ECG()
 {
-    Start_ADC();
+    // Start_ADC();
     Uart_ECG_Wave_LT();
     calculate_bpm_LT();
     send_bt_value(g_adc_result);

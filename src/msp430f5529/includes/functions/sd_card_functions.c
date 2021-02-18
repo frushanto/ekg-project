@@ -31,7 +31,8 @@ void Init_FAT(void){
 
     if (g_sd_card_inserted) {
         //go until f_open returns FR_OK (function successful)
-        while ((errCode != FR_OK) || (sdCardTimeout <= SD_INIT_TIMEOUT)) {  
+        while ((errCode != FR_OK) || 
+            (sdCardTimeout <= SD_INIT_TIMEOUT)) {  
             sdCardTimeout++;
             //mount drive number 0                            
             errCode = f_mount(0, &fatfs); 
@@ -66,9 +67,11 @@ void SD_CreateNewCSV(void) {
         // File naming for SHORT ECG
         if (g_short_ECG_flag == 1) {
 
-            while ((file_exists = f_open(&file, csvNameShortECGArr,
-                                         FA_OPEN_EXISTING)) == FR_OK &&
+            while ((file_exists = 
+                f_open(&file, csvNameShortECGArr,
+                FA_OPEN_EXISTING)) == FR_OK &&
                 !(nameRangeOverflow)) {
+                    
                 f_close(&file);
                 // Try next letter in file name
                 firstLetter = csvNameShortECGArr[6];
