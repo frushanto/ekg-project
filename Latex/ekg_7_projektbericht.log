@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  19 FEB 2021 00:28
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  19 FEB 2021 23:20
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
@@ -107,6 +107,39 @@ X
 Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
 )
 ("C:\Program Files\MiKTeX\tex/latex/fontspec\fontspec.cfg")))
+
+Package fontspec Info: Font family 'Calibri(0)' created for font 'Calibri'
+(fontspec)             with options [Ligatures=TeX].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.:
+(fontspec)             <->"Calibri/OT:script=latn;language=dflt;mapping=tex-tex
+t;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.:
+(fontspec)             <->"Calibri/OT:script=latn;language=dflt;+smcp;mapping=t
+ex-text;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.:
+(fontspec)             <->"Calibri/B/OT:script=latn;language=dflt;mapping=tex-t
+ext;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.:
+(fontspec)             <->"Calibri/B/OT:script=latn;language=dflt;+smcp;mapping
+=tex-text;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.:
+(fontspec)             <->"Calibri/I/OT:script=latn;language=dflt;mapping=tex-t
+ext;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.:
+(fontspec)             <->"Calibri/I/OT:script=latn;language=dflt;+smcp;mapping
+=tex-text;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.:
+(fontspec)             <->"Calibri/BI/OT:script=latn;language=dflt;mapping=tex-
+text;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.:
+(fontspec)             <->"Calibri/BI/OT:script=latn;language=dflt;+smcp;mappin
+g=tex-text;"
+
+
 ("C:\Program Files\MiKTeX\tex/latex/geometry\geometry.sty"
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
@@ -289,25 +322,27 @@ LaTeX Font Info:    Redeclaring symbol font `operators' on input line 20.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
 (Font)              `operators' in the math version `normal' on input line 20.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 20.
+(Font)                  OT1/cmr/m/n --> TU/Calibri(0)/m/n on input line 20.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
 (Font)              `operators' in the math version `bold' on input line 20.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 20.
+(Font)                  OT1/cmr/bx/n --> TU/Calibri(0)/m/n on input line 20.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 20.
+(Font)                  TU/Calibri(0)/m/n --> TU/Calibri(0)/m/n on input line 2
+0.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 20.
+(Font)                  OT1/cmr/m/it --> TU/Calibri(0)/m/it on input line 20.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 20.
+(Font)                  OT1/cmr/bx/n --> TU/Calibri(0)/b/n on input line 20.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
 (Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 20.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 20.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 20.
+(Font)                  TU/Calibri(0)/m/n --> TU/Calibri(0)/b/n on input line 2
+0.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 20.
+(Font)                  OT1/cmr/bx/it --> TU/Calibri(0)/b/it on input line 20.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 20.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
@@ -358,27 +393,37 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 20.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 20.
- (ekg_7_titelseite.tex) [1
+ (ekg_7_titelseite.tex
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 6.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 6.
+
+Overfull \hbox (26.12044pt too wide) in paragraph at lines 8--11
+\TU/Calibri(0)/m/n/17.28 Projektarbeit zum Thema: Entwicklung eines mobilen, uC
+-gesteuerten
+ []
+
+) [1
 
 ] (ekg_7_projektbericht.toc)
 \tf@toc=\write3
 \openout3 = `ekg_7_projektbericht.toc'.
 
- [2]
-(ekg_7_abkuerzungsverzeichnis.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 5--35
+ [2] (ekg_7_abkuerzungsverzeichnis.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 5--33
 
  []
 
 [3] (ekg_7_einleitung.tex [4]) (ekg_7_zielsetzung.tex)
-(ekg_7_stand_der_technik.tex) [5] (ekg_7_realisierung.tex
+(ekg_7_stand_der_technik.tex) [5] [6] (ekg_7_realisierung.tex
 (ekg_7_realisierung_diskussion_der_alternativen.tex)
 (ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex)
 (ekg_7_realisierung_display_und_ui.tex)
 (ekg_7_realisierung_prozessor_einheit.tex) (ekg_7_realisierung_gehäuse.tex)
 (ekg_7_realisierung_schnittstellen.tex) (ekg_7_realisierung_android_app.tex)
 (ekg_7_realisierung_datenspeicherung_auf_sd_karte.tex)
-(ekg_7_realisierung_analoge_filterschaltung.tex [6]
+(ekg_7_realisierung_analoge_filterschaltung.tex [7]
 File: EKG_Signal.png Graphic file (type bmp)
 <EKG_Signal.png>
 File: EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type bmp)
@@ -387,35 +432,29 @@ File: EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type bmp)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[7]
+[8]
 File: EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
 <EKG_aktiver_Tiefpassfilter.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[8]
+[9]
 File: EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
 <EKG_Gesamtübertragungsfunktion.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+ [10]
 File: EKG_virtueller_Ground.png Graphic file (type bmp)
 <EKG_virtueller_Ground.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[9])) (ekg_7_ergebnisse.tex) (ekg_7_zusammenfassung.tex) (ekg_7_ausblick.tex)
-[10] [11] (ekg_7_projektbericht.bbl) (ekg_7_anhang.tex) [12]
-(ekg_7_projektbericht.aux) ) 
+)) (ekg_7_ergebnisse.tex) (ekg_7_zusammenfassung.tex)
+(ekg_7_ausblick.tex) [11] [12] (ekg_7_projektbericht.bbl) (ekg_7_anhang.tex)
+[13] (ekg_7_projektbericht.aux) ) 
 Here is how much of TeX's memory you used:
- 8485 strings out of 412197
- 214693 string characters out of 2853959
- 574647 words of memory out of 3000000
- 27862 multiletter control sequences out of 15000+200000
- 540967 words of font info for 57 fonts, out of 3000000 for 9000
+ 8565 strings out of 412197
+ 217044 string characters out of 2853959
+ 576099 words of memory out of 3000000
+ 27916 multiletter control sequences out of 15000+200000
+ 542048 words of font info for 81 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  78i,7n,95p,3128b,999s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ekg_7_projektbericht.pdf (12 pages).
+Output written on ekg_7_projektbericht.pdf (13 pages).
