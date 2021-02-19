@@ -95,7 +95,13 @@ void State_sys_Energy_Saving_Mode(void)
     // LED2 on PCB turn OFF
     GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
     // 5V DC/DC turn OFF
-    GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);   
+    GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6); 
+    // Check if SD was inserted while turning off
+    if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN0)) {
+        g_sd_state_flag = 1;
+    } else {
+        g_sd_state_flag = 0;
+    }
 }
 
 void State_sys_Wakeup_Mode(void)
@@ -105,7 +111,8 @@ void State_sys_Wakeup_Mode(void)
     // 5V DC/DC turn ON
     GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
     // Init SD Card
-//    Init_FAT();
+    // Init_FAT();
+    Check_SD_Card_Connection();
     // Buzzer turn ON
     g_buzzer_on_flag = 1;
     g_buzzer_cnt = 1;
@@ -170,7 +177,7 @@ __interrupt void PORT2_ISR(void)
     {
     case 0x00:
         break;   // None
-    case 0x02:   // Pin 0
+    case 0x02:   // Pin 0   // SD CARD
 //        __delay_cycles(2000000);
         if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN0)) {
             g_sd_state_flag = 1;
@@ -179,7 +186,7 @@ __interrupt void PORT2_ISR(void)
         }
 
         break;
-    case 0x04:
+    case 0x04:              // BLUETOOTH
 //        __delay_cycles(2000000);
         if (test = GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1)) {
             g_bt_state_flag = 1;
