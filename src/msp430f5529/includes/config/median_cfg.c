@@ -7,6 +7,19 @@
 
 #include "median_cfg.h"
 
+/* For median filter */
+#define NUM_ELEMENTS    11
+sMedianFilter_t medianFilter;
+static sMedianNode_t medianBuffer[NUM_ELEMENTS];
+
+void Init_Median_Filter()
+{
+    /* Init median filter */
+    medianFilter.numNodes = NUM_ELEMENTS;
+    medianFilter.medianBuffer = medianBuffer;
+    MEDIANFILTER_Init(&medianFilter); // Init median filter
+}
+
 int MEDIANFILTER_Init(sMedianFilter_t *medianFilter)
 {
     int i;

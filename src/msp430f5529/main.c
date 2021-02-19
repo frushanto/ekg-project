@@ -17,20 +17,12 @@ uint8_t g_cnt_hour = 0;
 bool g_sd_card_inserted = FALSE;
 bool g_bt_connected = FALSE;
 // bool g_display_sleep_flag = TRUE;
-
 bool g_adc_new_values = 0;
-
 /* BUZZER VARs*/
 uint8_t g_timer_250Hz_Buzzer = 0;
 uint8_t g_buzzer_1sec_flag = 0;
 uint8_t g_buzzer_on_flag = 0;
 uint16_t g_buzzer_cnt = 0;
-
-/* For median filter */
-#define NUM_ELEMENTS    11
-sMedianFilter_t medianFilter;
-static sMedianNode_t medianBuffer[NUM_ELEMENTS];
-/* End median filter */
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
@@ -56,13 +48,9 @@ void main(void)
             Init_UART();
             Init_ADC();
             Init_SPI();
-            Init_FAT();
-            //Init UART Interface for Bluetooth                 
-            Init_UART_BT();             
-            /* Init median filter */
-            medianFilter.numNodes = NUM_ELEMENTS;   // TODO: Init_Median
-            medianFilter.medianBuffer = medianBuffer;
-            MEDIANFILTER_Init(&medianFilter); // Init median filter
+            Init_FAT();               
+            Init_UART_BT();
+            Init_Median_Filter();
             EnableGlobalInterrupt();
             /* Init MSP430 END */
 
