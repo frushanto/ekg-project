@@ -128,7 +128,7 @@ void main(void)
 
         case ECG_LONG:
             // Check Akku > 80%
-            Check_Akku_Percentage();
+//            Check_Akku_Percentage();
             //Update Time for ECG
             ECG_Timer_LT();
 
@@ -154,7 +154,7 @@ void main(void)
                 - repeat */
 
                 //Compute new Values and publish to Display
-                LT_ECG();
+                 LT_ECG();
 
                 // Deactivate 5V
                 

@@ -21,7 +21,7 @@ UINT read;                  /* Read bytes object  */
 typedef struct {
     char adc[4];
     char comma[1];
-    char timestamp[10];
+    char timestamp[9];
 } ADC_STORAGE;
 
 /* Function declarations */

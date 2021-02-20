@@ -139,14 +139,18 @@ __interrupt void pushbutton_ISR(void)
             {
                 g_5v_flag = 1;
                 g_buzzer_on_flag = 1;
-                g_sys_state = ENERGY_SAVING_MODE;
+                if(g_sys_state != ECG_LONG){
+                    g_sys_state = ENERGY_SAVING_MODE;
+                }
                 // State_sys_Energy_Saving_Mode();
             }
             else if (g_5v_flag == 1)
             {
                 g_5v_flag = 0;
                 // g_buzzer_on_flag = 1;
-                g_sys_state = SYS_WAKEUP;
+                if(g_sys_state != ECG_LONG){
+                    g_sys_state = SYS_WAKEUP;
+                }
                 // State_sys_Wakeup_Mode();
             }
         }

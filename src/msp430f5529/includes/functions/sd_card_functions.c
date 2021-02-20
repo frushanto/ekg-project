@@ -27,7 +27,15 @@ uint16_t adcValuesCnt = 0;
 uint8_t adcEntryCnt = 0;
 // SRAM 8kB + 2kB
 ADC_STORAGE adc_storage[NUMBER_OF_ADC_VALUES];
-
+ADC_STORAGE adc_storage2[NUMBER_OF_ADC_VALUES];
+ADC_STORAGE adc_storage3[NUMBER_OF_ADC_VALUES];
+ADC_STORAGE adc_storage4[NUMBER_OF_ADC_VALUES];
+ADC_STORAGE adc_storage5[NUMBER_OF_ADC_VALUES];
+ADC_STORAGE adc_storage6[NUMBER_OF_ADC_VALUES];
+ADC_STORAGE adc_storage7[NUMBER_OF_ADC_VALUES];
+ADC_STORAGE adc_storage8[NUMBER_OF_ADC_VALUES];
+ADC_STORAGE adc_storage9[NUMBER_OF_ADC_VALUES];
+ADC_STORAGE adc_storage10[NUMBER_OF_ADC_VALUES];
 
 char commaArr[1];
 char adcSingleResultArr[4];
@@ -197,10 +205,11 @@ void SD_Save_ADC_Values(void) {
         (adcValuesCnt <= NUMBER_OF_ADC_VALUES)) {
         
         // Set adc value, comma & timestamp
-        strcpy(adc_storage[adcValuesCnt].adc, g_adc_result);
+        sprintf(adc_storage[adcValuesCnt].adc, "%d" ,g_adc_result);
+//        strcpy(adc_storage[adcValuesCnt].adc, g_adc_result);
         strcpy(adc_storage[adcValuesCnt].comma, ",");
         sprintf(adc_storage[adcValuesCnt].timestamp, 
-        "%d,%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
 
         adcValuesCnt++;
 
@@ -209,12 +218,12 @@ void SD_Save_ADC_Values(void) {
         // Reset counter
         adcValuesCnt = 0;
         // 5V ON
-        if (g_5v_flag == 0) {
+        if (g_5v_flag == 1) {
             // LED2 on PCB turn ON
             GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
             // 5V DC/DC turn ON
             GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
-            g_5v_flag = 1;
+            g_5v_flag = 0;
 
             // Init SD
             Init_FAT();
@@ -230,7 +239,7 @@ void SD_Save_ADC_Values(void) {
             GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
             // 5V DC/DC turn OFF
             GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6); 
-            g_5v_flag = 0;
+            g_5v_flag = 1;
         // 5V Button not pressed after LONG_ECG start
         } else {
             // Send to SD
