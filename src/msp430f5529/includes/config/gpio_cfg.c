@@ -112,7 +112,8 @@ void State_sys_Wakeup_Mode(void)
     GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
     // Init SD Card
     // Init_FAT();
-    Check_SD_Card_Connection();
+    // next line is redundant
+    //Check_SD_Card_Connection();
     // Buzzer turn ON
     g_buzzer_on_flag = 1;
     g_buzzer_cnt = 1;

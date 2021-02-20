@@ -3,9 +3,9 @@
 #define SD_BUFFER_MAX_SIZE      512
 #define SD_CSV_ARR_LENGTH       23
 #define TB_SIZE                 10
-#define SD_INIT_TIMEOUT         3
-#define NUMBER_OF_ADC_VALUES    100
-#define LONG_ECG_ARRAY_LENGTH   15
+#define SD_INIT_TIMEOUT         2
+#define NUMBER_OF_ADC_VALUES    250
+//#define LONG_ECG_ARRAY_LENGTH   15
 
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
@@ -192,6 +192,7 @@ void SD_StopWriting(void) {
 
 // Store ADC values and timestamp in array
 void SD_Save_ADC_Values(void) {
+    // Fill array with adc values
     if((g_sd_card_inserted) && 
         (adcValuesCnt <= NUMBER_OF_ADC_VALUES)) {
         
@@ -202,8 +203,8 @@ void SD_Save_ADC_Values(void) {
         "%d,%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
 
         adcValuesCnt++;
-        // If array is full -> 5V ON and send to SD Card
-        
+
+    // If array is full -> 5V ON and send to SD Card
     } else if (adcValuesCnt > NUMBER_OF_ADC_VALUES) {
         // Reset counter
         adcValuesCnt = 0;
@@ -230,7 +231,7 @@ void SD_Save_ADC_Values(void) {
             // 5V DC/DC turn OFF
             GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6); 
             g_5v_flag = 0;
-
+        // 5V Button not pressed after LONG_ECG start
         } else {
             // Send to SD
             // TODO save in the same file
@@ -243,16 +244,14 @@ void SD_Save_ADC_Values(void) {
 
 void Check_SD_Card_Connection()
 {
-    if(g_sd_state_flag == 1)
-    {
+    if(g_sd_state_flag == 1) {
         Display_Exit_Sleep_Mode();
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_HIGH_TO_LOW_TRANSITION);
         g_sd_card_inserted = TRUE;
         Init_FAT();
         Set_SD_Icon_Display(1);
         g_sd_state_flag = 2;
-    }else if(g_sd_state_flag == 0)
-    {
+    } else if(g_sd_state_flag == 0) {
         Display_Exit_Sleep_Mode();
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
         g_sd_card_inserted = FALSE;

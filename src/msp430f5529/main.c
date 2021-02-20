@@ -161,7 +161,7 @@ void main(void)
                 // Get ADC values as usual
                 // -> will be executed automatically
 
-                // Store ADC values for 1 sec on MCU
+                // Store ADC values on MCU
                 SD_Save_ADC_Values();
 
                 // Activate 5V
