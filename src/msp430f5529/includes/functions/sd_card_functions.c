@@ -5,7 +5,7 @@
 #define TB_SIZE                 10
 #define SD_INIT_TIMEOUT         2
 #define NUMBER_OF_ADC_VALUES    250
-#define NUMBER_OF_ADC_ARRAYS    10
+#define NUMBER_OF_ADC_ARRAYS    1
 //#define LONG_ECG_ARRAY_LENGTH   15
 
 unsigned char MST_Data, SLV_Data;
@@ -29,15 +29,15 @@ uint8_t adcArrayCnt = 0;
 uint8_t adcEntryCnt = 0;
 // SRAM 8kB + 2kB
  ADC_STORAGE adc_storage1[NUMBER_OF_ADC_VALUES];
- ADC_STORAGE adc_storage2[NUMBER_OF_ADC_VALUES];
- ADC_STORAGE adc_storage3[NUMBER_OF_ADC_VALUES];
- ADC_STORAGE adc_storage4[NUMBER_OF_ADC_VALUES];
- ADC_STORAGE adc_storage5[NUMBER_OF_ADC_VALUES];
- ADC_STORAGE adc_storage6[NUMBER_OF_ADC_VALUES];
- ADC_STORAGE adc_storage7[NUMBER_OF_ADC_VALUES];
- ADC_STORAGE adc_storage8[NUMBER_OF_ADC_VALUES];
- ADC_STORAGE adc_storage9[NUMBER_OF_ADC_VALUES];
- ADC_STORAGE adc_storage10[NUMBER_OF_ADC_VALUES];
+// ADC_STORAGE adc_storage2[NUMBER_OF_ADC_VALUES];
+// ADC_STORAGE adc_storage3[NUMBER_OF_ADC_VALUES];
+// ADC_STORAGE adc_storage4[NUMBER_OF_ADC_VALUES];
+// ADC_STORAGE adc_storage5[NUMBER_OF_ADC_VALUES];
+// ADC_STORAGE adc_storage6[NUMBER_OF_ADC_VALUES];
+// ADC_STORAGE adc_storage7[NUMBER_OF_ADC_VALUES];
+// ADC_STORAGE adc_storage8[NUMBER_OF_ADC_VALUES];
+// ADC_STORAGE adc_storage9[NUMBER_OF_ADC_VALUES];
+// ADC_STORAGE adc_storage10[NUMBER_OF_ADC_VALUES];
 
 
 
@@ -210,61 +210,63 @@ void SD_WriteToSpecificArray() {
         strcpy(adc_storage1[adcValuesCnt].comma, ",");
         sprintf(adc_storage1[adcValuesCnt].timestamp,
         "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
-    } else if (adcArrayCnt == 2) {
-        // Set adc value, comma & timestamp
-        sprintf(adc_storage2[adcValuesCnt].adc, "%d" ,g_adc_result);
-        strcpy(adc_storage2[adcValuesCnt].comma, ",");
-        sprintf(adc_storage2[adcValuesCnt].timestamp,
-        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
-    } else if (adcArrayCnt == 3) {
-        // Set adc value, comma & timestamp
-        sprintf(adc_storage3[adcValuesCnt].adc, "%d" ,g_adc_result);
-        strcpy(adc_storage3[adcValuesCnt].comma, ",");
-        sprintf(adc_storage3[adcValuesCnt].timestamp,
-                "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
-    } else if (adcArrayCnt == 4) {
-        // Set adc value, comma & timestamp
-        sprintf(adc_storage4[adcValuesCnt].adc, "%d" ,g_adc_result);
-        strcpy(adc_storage4[adcValuesCnt].comma, ",");
-        sprintf(adc_storage4[adcValuesCnt].timestamp,
-                "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
-    } else if (adcArrayCnt == 5) {
-        // Set adc value, comma & timestamp
-        sprintf(adc_storage5[adcValuesCnt].adc, "%d" ,g_adc_result);
-        strcpy(adc_storage5[adcValuesCnt].comma, ",");
-        sprintf(adc_storage5[adcValuesCnt].timestamp,
-        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
-    } else if (adcArrayCnt == 6) {
-        // Set adc value, comma & timestamp
-        sprintf(adc_storage6[adcValuesCnt].adc, "%d" ,g_adc_result);
-        strcpy(adc_storage6[adcValuesCnt].comma, ",");
-        sprintf(adc_storage6[adcValuesCnt].timestamp,
-        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
-    } else if (adcArrayCnt == 7) {
-        // Set adc value, comma & timestamp
-        sprintf(adc_storage7[adcValuesCnt].adc, "%d" ,g_adc_result);
-        strcpy(adc_storage7[adcValuesCnt].comma, ",");
-        sprintf(adc_storage7[adcValuesCnt].timestamp,
-        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
-    } else if (adcArrayCnt == 8) {
-        // Set adc value, comma & timestamp
-        sprintf(adc_storage8[adcValuesCnt].adc, "%d" ,g_adc_result);
-        strcpy(adc_storage8[adcValuesCnt].comma, ",");
-        sprintf(adc_storage8[adcValuesCnt].timestamp,
-        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
-    } else if (adcArrayCnt == 9) {
-        // Set adc value, comma & timestamp
-        sprintf(adc_storage9[adcValuesCnt].adc, "%d" ,g_adc_result);
-        strcpy(adc_storage9[adcValuesCnt].comma, ",");
-        sprintf(adc_storage9[adcValuesCnt].timestamp,
-        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
-    } else if (adcArrayCnt == 10) {
-        // Set adc value, comma & timestamp
-        sprintf(adc_storage10[adcValuesCnt].adc, "%d" ,g_adc_result);
-        strcpy(adc_storage10[adcValuesCnt].comma, ",");
-        sprintf(adc_storage10[adcValuesCnt].timestamp,
-        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
     }
+//    } else if (adcArrayCnt == 2) {
+//        // Set adc value, comma & timestamp
+//        sprintf(adc_storage2[adcValuesCnt].adc, "%d" ,g_adc_result);
+//        strcpy(adc_storage2[adcValuesCnt].comma, ",");
+//        sprintf(adc_storage2[adcValuesCnt].timestamp,
+//        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+//    } else if (adcArrayCnt == 3) {
+//        // Set adc value, comma & timestamp
+//        sprintf(adc_storage3[adcValuesCnt].adc, "%d" ,g_adc_result);
+//        strcpy(adc_storage3[adcValuesCnt].comma, ",");
+//        sprintf(adc_storage3[adcValuesCnt].timestamp,
+//                "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+//    } else if (adcArrayCnt == 4) {
+//        // Set adc value, comma & timestamp
+//        sprintf(adc_storage4[adcValuesCnt].adc, "%d" ,g_adc_result);
+//        strcpy(adc_storage4[adcValuesCnt].comma, ",");
+//        sprintf(adc_storage4[adcValuesCnt].timestamp,
+//                "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+//    } else if (adcArrayCnt == 5) {
+//        // Set adc value, comma & timestamp
+//        sprintf(adc_storage5[adcValuesCnt].adc, "%d" ,g_adc_result);
+//        strcpy(adc_storage5[adcValuesCnt].comma, ",");
+//        sprintf(adc_storage5[adcValuesCnt].timestamp,
+//        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+//    }
+//    } else if (adcArrayCnt == 6) {
+//        // Set adc value, comma & timestamp
+//        sprintf(adc_storage6[adcValuesCnt].adc, "%d" ,g_adc_result);
+//        strcpy(adc_storage6[adcValuesCnt].comma, ",");
+//        sprintf(adc_storage6[adcValuesCnt].timestamp,
+//        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+//    } else if (adcArrayCnt == 7) {
+//        // Set adc value, comma & timestamp
+//        sprintf(adc_storage7[adcValuesCnt].adc, "%d" ,g_adc_result);
+//        strcpy(adc_storage7[adcValuesCnt].comma, ",");
+//        sprintf(adc_storage7[adcValuesCnt].timestamp,
+//        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+//    } else if (adcArrayCnt == 8) {
+//        // Set adc value, comma & timestamp
+//        sprintf(adc_storage8[adcValuesCnt].adc, "%d" ,g_adc_result);
+//        strcpy(adc_storage8[adcValuesCnt].comma, ",");
+//        sprintf(adc_storage8[adcValuesCnt].timestamp,
+//        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+//    } else if (adcArrayCnt == 9) {
+//        // Set adc value, comma & timestamp
+//        sprintf(adc_storage9[adcValuesCnt].adc, "%d" ,g_adc_result);
+//        strcpy(adc_storage9[adcValuesCnt].comma, ",");
+//        sprintf(adc_storage9[adcValuesCnt].timestamp,
+//        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+//    } else if (adcArrayCnt == 10) {
+//        // Set adc value, comma & timestamp
+//        sprintf(adc_storage10[adcValuesCnt].adc, "%d" ,g_adc_result);
+//        strcpy(adc_storage10[adcValuesCnt].comma, ",");
+//        sprintf(adc_storage10[adcValuesCnt].timestamp,
+//        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+//    }
 }
 
 // Store ADC values and timestamp in array
@@ -317,33 +319,33 @@ void SD_Save_ADC_Values(void)
             SD_CreateNewCSV();
             f_puts(adc_storage1, &file);
             SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage2, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage3, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage4, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage5, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage6, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage7, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage8, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage9, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage10, &file);
-            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage2, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage3, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage4, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage5, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage6, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage7, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage8, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage9, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage10, &file);
+//            SD_StopWriting();
 
             // 5V OFF
             // LED2 on PCB turn OFF
@@ -362,33 +364,33 @@ void SD_Save_ADC_Values(void)
             SD_CreateNewCSV();
             f_puts(adc_storage1, &file);
             SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage2, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage3, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage4, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage5, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage6, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage7, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage8, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage9, &file);
-            SD_StopWriting();
-            SD_CreateNewCSV();
-            f_puts(adc_storage10, &file);
-            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage2, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage3, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage4, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage5, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage6, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage7, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage8, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage9, &file);
+//            SD_StopWriting();
+//            SD_CreateNewCSV();
+//            f_puts(adc_storage10, &file);
+//            SD_StopWriting();
         }
     }
 }
