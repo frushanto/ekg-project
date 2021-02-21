@@ -154,7 +154,7 @@ void main(void)
                 - repeat */
 
                 //Compute new Values and publish to Display
-                 LT_ECG();
+                LT_ECG();
 
                 // Deactivate 5V
                 

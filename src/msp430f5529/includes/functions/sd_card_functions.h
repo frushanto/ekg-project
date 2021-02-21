@@ -31,6 +31,7 @@ void SD_CreateNewCSV(void);
 void SD_StartWriting(void);
 void SD_StopWriting(void);
 void SD_SetTimeStamp(void);
+void SD_WriteToSpecificArray(void);
 void Check_SD_Card_Connection();
 
 #endif /* INCLUDES_FUNCTIONS_SD_CARD_FUNCTIONS_H_ */

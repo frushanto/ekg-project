@@ -5,6 +5,7 @@
 #define TB_SIZE                 10
 #define SD_INIT_TIMEOUT         2
 #define NUMBER_OF_ADC_VALUES    250
+#define NUMBER_OF_ADC_ARRAYS    10
 //#define LONG_ECG_ARRAY_LENGTH   15
 
 unsigned char MST_Data, SLV_Data;
@@ -24,18 +25,21 @@ bool nameRangeOverflow = FALSE;
 FRESULT file_exists = 20;
 char timeBuffer[TB_SIZE];
 uint16_t adcValuesCnt = 0;
+uint8_t adcArrayCnt = 0;
 uint8_t adcEntryCnt = 0;
 // SRAM 8kB + 2kB
-ADC_STORAGE adc_storage[NUMBER_OF_ADC_VALUES];
-ADC_STORAGE adc_storage2[NUMBER_OF_ADC_VALUES];
-ADC_STORAGE adc_storage3[NUMBER_OF_ADC_VALUES];
-ADC_STORAGE adc_storage4[NUMBER_OF_ADC_VALUES];
-ADC_STORAGE adc_storage5[NUMBER_OF_ADC_VALUES];
-ADC_STORAGE adc_storage6[NUMBER_OF_ADC_VALUES];
-ADC_STORAGE adc_storage7[NUMBER_OF_ADC_VALUES];
-ADC_STORAGE adc_storage8[NUMBER_OF_ADC_VALUES];
-ADC_STORAGE adc_storage9[NUMBER_OF_ADC_VALUES];
-ADC_STORAGE adc_storage10[NUMBER_OF_ADC_VALUES];
+ ADC_STORAGE adc_storage1[NUMBER_OF_ADC_VALUES];
+ ADC_STORAGE adc_storage2[NUMBER_OF_ADC_VALUES];
+ ADC_STORAGE adc_storage3[NUMBER_OF_ADC_VALUES];
+ ADC_STORAGE adc_storage4[NUMBER_OF_ADC_VALUES];
+ ADC_STORAGE adc_storage5[NUMBER_OF_ADC_VALUES];
+ ADC_STORAGE adc_storage6[NUMBER_OF_ADC_VALUES];
+ ADC_STORAGE adc_storage7[NUMBER_OF_ADC_VALUES];
+ ADC_STORAGE adc_storage8[NUMBER_OF_ADC_VALUES];
+ ADC_STORAGE adc_storage9[NUMBER_OF_ADC_VALUES];
+ ADC_STORAGE adc_storage10[NUMBER_OF_ADC_VALUES];
+
+
 
 char commaArr[1];
 char adcSingleResultArr[4];
@@ -198,77 +202,218 @@ void SD_StopWriting(void) {
     }
 }
 
-// Store ADC values and timestamp in array
-void SD_Save_ADC_Values(void) {
-    // Fill array with adc values
-    if((g_sd_card_inserted) && 
-        (adcValuesCnt <= NUMBER_OF_ADC_VALUES)) {
-        
+void SD_WriteToSpecificArray() {
+
+    if(adcArrayCnt == 1) {
         // Set adc value, comma & timestamp
-        sprintf(adc_storage[adcValuesCnt].adc, "%d" ,g_adc_result);
-//        strcpy(adc_storage[adcValuesCnt].adc, g_adc_result);
-        strcpy(adc_storage[adcValuesCnt].comma, ",");
-        sprintf(adc_storage[adcValuesCnt].timestamp, 
+        sprintf(adc_storage1[adcValuesCnt].adc, "%d" ,g_adc_result);
+        strcpy(adc_storage1[adcValuesCnt].comma, ",");
+        sprintf(adc_storage1[adcValuesCnt].timestamp,
         "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+    } else if (adcArrayCnt == 2) {
+        // Set adc value, comma & timestamp
+        sprintf(adc_storage2[adcValuesCnt].adc, "%d" ,g_adc_result);
+        strcpy(adc_storage2[adcValuesCnt].comma, ",");
+        sprintf(adc_storage2[adcValuesCnt].timestamp,
+        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+    } else if (adcArrayCnt == 3) {
+        // Set adc value, comma & timestamp
+        sprintf(adc_storage3[adcValuesCnt].adc, "%d" ,g_adc_result);
+        strcpy(adc_storage3[adcValuesCnt].comma, ",");
+        sprintf(adc_storage3[adcValuesCnt].timestamp,
+                "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+    } else if (adcArrayCnt == 4) {
+        // Set adc value, comma & timestamp
+        sprintf(adc_storage4[adcValuesCnt].adc, "%d" ,g_adc_result);
+        strcpy(adc_storage4[adcValuesCnt].comma, ",");
+        sprintf(adc_storage4[adcValuesCnt].timestamp,
+                "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+    } else if (adcArrayCnt == 5) {
+        // Set adc value, comma & timestamp
+        sprintf(adc_storage5[adcValuesCnt].adc, "%d" ,g_adc_result);
+        strcpy(adc_storage5[adcValuesCnt].comma, ",");
+        sprintf(adc_storage5[adcValuesCnt].timestamp,
+        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+    } else if (adcArrayCnt == 6) {
+        // Set adc value, comma & timestamp
+        sprintf(adc_storage6[adcValuesCnt].adc, "%d" ,g_adc_result);
+        strcpy(adc_storage6[adcValuesCnt].comma, ",");
+        sprintf(adc_storage6[adcValuesCnt].timestamp,
+        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+    } else if (adcArrayCnt == 7) {
+        // Set adc value, comma & timestamp
+        sprintf(adc_storage7[adcValuesCnt].adc, "%d" ,g_adc_result);
+        strcpy(adc_storage7[adcValuesCnt].comma, ",");
+        sprintf(adc_storage7[adcValuesCnt].timestamp,
+        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+    } else if (adcArrayCnt == 8) {
+        // Set adc value, comma & timestamp
+        sprintf(adc_storage8[adcValuesCnt].adc, "%d" ,g_adc_result);
+        strcpy(adc_storage8[adcValuesCnt].comma, ",");
+        sprintf(adc_storage8[adcValuesCnt].timestamp,
+        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+    } else if (adcArrayCnt == 9) {
+        // Set adc value, comma & timestamp
+        sprintf(adc_storage9[adcValuesCnt].adc, "%d" ,g_adc_result);
+        strcpy(adc_storage9[adcValuesCnt].comma, ",");
+        sprintf(adc_storage9[adcValuesCnt].timestamp,
+        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+    } else if (adcArrayCnt == 10) {
+        // Set adc value, comma & timestamp
+        sprintf(adc_storage10[adcValuesCnt].adc, "%d" ,g_adc_result);
+        strcpy(adc_storage10[adcValuesCnt].comma, ",");
+        sprintf(adc_storage10[adcValuesCnt].timestamp,
+        "%02d:%02d:%02d\n", g_cnt_hour, g_cnt_min, g_cnt_sec);
+    }
+}
 
+// Store ADC values and timestamp in array
+void SD_Save_ADC_Values(void)
+{
+    // Fill array with adc values
+    if ((g_sd_card_inserted) &&
+        (adcValuesCnt <= NUMBER_OF_ADC_VALUES) &&
+        adcArrayCnt <= NUMBER_OF_ADC_ARRAYS)
+    {
+        SD_WriteToSpecificArray();
         adcValuesCnt++;
-
-    // If array is full -> 5V ON and send to SD Card
-    } else if (adcValuesCnt > NUMBER_OF_ADC_VALUES) {
+    }
+    // If array is full but array counter < NUMBER_OF_ADC_ARRAYS
+    else if ((adcValuesCnt > NUMBER_OF_ADC_VALUES) &&
+             (adcArrayCnt != NUMBER_OF_ADC_ARRAYS))
+    {
+            // Reset array values counter
+            adcValuesCnt = 0;
+            // Next array
+            adcArrayCnt++;
+    }
+    // If all arrays are full -> 5V ON and send to SD Card
+    else if ((adcValuesCnt > NUMBER_OF_ADC_VALUES) &&
+             (adcArrayCnt == NUMBER_OF_ADC_ARRAYS))
+    {
         // Reset counter
         adcValuesCnt = 0;
-        // 5V ON
-        if (g_5v_flag == 1) {
+        adcArrayCnt = 0;
+
+        // TODO Clear arrays
+
+        // If 5V OFF
+        if (g_5v_flag == 1)
+        {
+
             // LED2 on PCB turn ON
             GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
             // 5V DC/DC turn ON
             GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
             g_5v_flag = 0;
 
+            // TODO Turn Display OFF
+
             // Init SD
             Init_FAT();
-            
+
             // Send to SD
             // TODO save in the same file
             SD_CreateNewCSV();
-            f_puts(adc_storage, &file);
+            f_puts(adc_storage1, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage2, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage3, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage4, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage5, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage6, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage7, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage8, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage9, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage10, &file);
             SD_StopWriting();
 
             // 5V OFF
             // LED2 on PCB turn OFF
             GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
             // 5V DC/DC turn OFF
-            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6); 
+            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
             g_5v_flag = 1;
-        // 5V Button not pressed after LONG_ECG start
-        } else {
+
+        }
+        // If 5V ON -> Button was pressed
+        // TODO Send immidiately or wait max 10 sec?
+        else if (g_5v_flag == 0)
+        {
             // Send to SD
             // TODO save in the same file
             SD_CreateNewCSV();
-            f_puts(adc_storage, &file);
+            f_puts(adc_storage1, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage2, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage3, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage4, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage5, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage6, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage7, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage8, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage9, &file);
+            SD_StopWriting();
+            SD_CreateNewCSV();
+            f_puts(adc_storage10, &file);
             SD_StopWriting();
         }
     }
 }
 
-void Check_SD_Card_Connection()
-{
-    if(g_sd_state_flag == 1) {
-        Display_Exit_Sleep_Mode();
-        GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_HIGH_TO_LOW_TRANSITION);
-        g_sd_card_inserted = TRUE;
-        Init_FAT();
-        Set_SD_Icon_Display(1);
-        g_sd_state_flag = 2;
-    } else if(g_sd_state_flag == 0) {
-        Display_Exit_Sleep_Mode();
-        GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
-        g_sd_card_inserted = FALSE;
-        Set_SD_Icon_Display(0);
-        SD_Card_Error();
-        g_sd_state_flag = 2;
+    void Check_SD_Card_Connection()
+    {
+        if (g_sd_state_flag == 1)
+        {
+            Display_Exit_Sleep_Mode();
+            GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_HIGH_TO_LOW_TRANSITION);
+            g_sd_card_inserted = TRUE;
+            Init_FAT();
+            Set_SD_Icon_Display(1);
+            g_sd_state_flag = 2;
+        }
+        else if (g_sd_state_flag == 0)
+        {
+            Display_Exit_Sleep_Mode();
+            GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
+            g_sd_card_inserted = FALSE;
+            Set_SD_Icon_Display(0);
+            SD_Card_Error();
+            g_sd_state_flag = 2;
+        }
     }
-}
 
-// TODO line below to be tested
-//f_mount(0,0);       // unmount sd card if needed
+    // TODO line below to be tested
+    //f_mount(0,0);       // unmount sd card if needed
