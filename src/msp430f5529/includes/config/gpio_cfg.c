@@ -55,6 +55,12 @@ void Init_GPIO(void)
         g_sd_card_inserted = FALSE;
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
     }
+
+//GPIO Configs for Launchpad
+#ifdef LAUNCHPAD
+    GPIO_setAsOutputPin(GPIO_PORT_P4, GPIO_PIN7);
+    GPIO_setOutputLowOnPin(GPIO_PORT_P4, GPIO_PIN7);
+#endif
 }
 
 void Buzzer_active(void)    // Use only for 5V DCDC ON/OFF DONT USE FOR AKKU
