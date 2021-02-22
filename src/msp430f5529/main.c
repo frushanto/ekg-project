@@ -14,18 +14,17 @@ uint8_t g_5v_flag = 0;
 uint8_t g_cnt_sec = 0;
 uint8_t g_cnt_min = 0;
 uint8_t g_cnt_hour = 0;
-
+bool g_sd_card_inserted = FALSE;
+bool g_bt_connected = FALSE;
+// bool g_display_sleep_flag = TRUE;
+bool g_adc_new_values = 0;
 /* BUZZER VARs*/
-uint8_t g_timer_1khz_buzzer = 0;
+uint8_t g_timer_250Hz_Buzzer = 0;
 uint8_t g_buzzer_1sec_flag = 0;
 uint8_t g_buzzer_on_flag = 0;
 uint16_t g_buzzer_cnt = 0;
 
-/* For median filter */
-#define NUM_ELEMENTS    7
-sMedianFilter_t medianFilter;
-static sMedianNode_t medianBuffer[NUM_ELEMENTS];
-/* End median filter */
+uint8_t bt_flag = 0;
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
@@ -51,12 +50,9 @@ void main(void)
             Init_UART();
             Init_ADC();
             Init_SPI();
-            Init_FAT();                 //mount, set directory to read from, assign file
-            Init_UART_BT();             //Init UART Interface for Bluetooth
-            /* Init median filter */
-            medianFilter.numNodes = NUM_ELEMENTS;
-            medianFilter.medianBuffer = medianBuffer;
-            MEDIANFILTER_Init(&medianFilter); // Init median filter
+            Init_FAT();               
+            Init_UART_BT();
+            Init_Median_Filter();
             EnableGlobalInterrupt();
             /* Init MSP430 END */
 
@@ -82,8 +78,6 @@ void main(void)
                 SD_CreateNewCSV();
                 g_sys_state = ECG_LONG;
             }
-
-            ADC_Akku_Average_Value();
 
             break;
 
@@ -114,6 +108,11 @@ void main(void)
                 //Reset Flag
                 g_adc_new_values = false;
             }
+            if(bt_flag == 25)
+            {
+                bt_flag = 0;
+                send_bt_value();
+            }
 
             //Check if switch to long time ECG requested
             if (g_long_ECG_flag)
@@ -135,7 +134,8 @@ void main(void)
             break;
 
         case ECG_LONG:
-
+            // Check Akku > 80%
+//            Check_Akku_Percentage();
             //Update Time for ECG
             ECG_Timer_LT();
 
@@ -144,7 +144,6 @@ void main(void)
             {
                 //Give ADC Start Command
                 Start_ADC();
-
                 //Reset Timer Flag
                 g_timer_250Hz_flag = 0;
             }
@@ -152,11 +151,33 @@ void main(void)
             //When ADC finished Conversion
             if (g_adc_new_values)
             {
+                /* Steps for evergy saving in ECG_LONG
+                - MCU is recording long ecg
+                - 5V deactivated
+                - receive ADC values as usual
+                - store ADC values for 1 sec on MCU
+                - activate 5V for transfer
+                - send ADC values to SD Card and save in existing file
+                - repeat */
+
                 //Compute new Values and publish to Display
                 LT_ECG();
 
+                // Deactivate 5V
+                
+                // Get ADC values as usual
+                // -> will be executed automatically
+
+                // Store ADC values on MCU
+                SD_Save_ADC_Values();
+
+                // Activate 5V
+
+                // Send ADC values to SD Card & save to the 
+                // same file
+
                 // Write in csv
-                SD_StartWriting();
+                //SD_StartWriting();
 
                 //Reset Flag
                 g_adc_new_values = false;
@@ -197,6 +218,23 @@ void main(void)
 
         default:
             break;
+        }
+
+        //Check AKKU in chosen Cases
+        if (g_timer_1sec_flag)
+        {
+            g_timer_1sec_flag = 0;
+            if (g_sys_state == IDLE_STATE ||
+                g_sys_state == ECG_SHORT ||
+                g_sys_state == ECG_LONG)
+            {
+                // Send Akku Value to Display
+                ADC_Akku_Average_Value();
+                // Check if Bluetooth is connetced and show it on Display
+                Check_BT_Connection();
+                // Check if SD Card is connetced and show it on Display
+                Check_SD_Card_Connection();
+            }
         }
     }
 }

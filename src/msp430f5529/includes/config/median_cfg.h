@@ -29,6 +29,7 @@ typedef struct
     sMedianNode_t *medianHead;      //pointer to median value
 }sMedianFilter_t;
 
+void Init_Median_Filter(void);
 int MEDIANFILTER_Init(sMedianFilter_t *medianFilter);
 int MEDIANFILTER_Insert(sMedianFilter_t *medianFilter, int sample);
 

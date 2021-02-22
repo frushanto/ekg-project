@@ -19,4 +19,7 @@ void Buzzer_active(void);
 void State_sys_Energy_Saving_Mode(void);
 void State_sys_Wakeup_Mode(void);
 
+extern uint8_t g_sd_state_flag;
+extern uint8_t g_bt_state_flag;
+
 #endif /* INCLUDES_CONFIG_GPIO_CFG_H_ */

@@ -235,12 +235,6 @@ void Init_UART() {
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
                  uart_receive_data_end();
              }
-             // TODO Bluetooth
-             /* Display toggle BLUETOOTH: 65 09 04 00 FF FF FF */
-             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x09 && uart_received_data[2] == 0x04 && uart_received_data[3] == 0x00 &&
-                     uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
-                 uart_receive_data_end();
-             }
 
              /* fix if function ?! */
              else if((uart_received_data[0] < 0x65) ||

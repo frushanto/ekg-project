@@ -52,7 +52,7 @@ __attribute__((interrupt(TIMER1_A0_VECTOR)))
 void TIMER1_A0_ISR (void)
 {
     // Toggle LED on PCB
-    GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
+    // GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
 
     // Sync timer counting for display & sd card
 	g_timer_1sec_flag = 1;
@@ -90,7 +90,11 @@ void TIMER2_A0_ISR (void)
 {
     g_timer_250Hz_flag = 1;
     if(g_buzzer_on_flag){
-        g_timer_1khz_buzzer = 1;
+        g_timer_250Hz_Buzzer = 1;
         g_buzzer_cnt++;
-    }  
+    }
+
+    if(g_sys_state == ECG_SHORT){
+        bt_flag ++;
+    }
 }
