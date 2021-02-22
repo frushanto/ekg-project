@@ -31,6 +31,7 @@
 static uint8_t cnt_akkuaverage = 0;
 uint32_t g_akku_percentage = 0;
 static uint32_t akku_averageValue = 0;
+static uint8_t pre_akku_percentage = 100;
 
 const uint16_t adc_akku_offset = 27200;     // FIXED
 const uint16_t adc_akku_divider = 100;       // NOT FIXED
@@ -64,6 +65,14 @@ void ADC_Akku_Average_Value(){
            if(g_akku_percentage > 100){
                g_akku_percentage = 100;
            }
+           if(g_akku_percentage > pre_akku_percentage)
+           {
+               g_akku_percentage = pre_akku_percentage;
+           }
+
+            pre_akku_percentage = g_akku_percentage;
+
+
             uart_transmit_data_start("page0.akku.val=");
             uart_transmit_data_value(g_akku_percentage);
             uart_transmit_data_end();

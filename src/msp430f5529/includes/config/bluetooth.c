@@ -12,11 +12,12 @@
 
 //Mudul-global defines
 #define RX_BUFFER_SIZE 20
-#define TX_BUFFER_SIZE 6
+#define TX_BUFFER_SIZE 20
 
 //Modul-global variables
 static uint8_t uart_tx = 0;
 static uint8_t tx_buffer[TX_BUFFER_SIZE] = {};
+uint8_t bt_cnt = 0;
 
 static uint8_t uart_rx = 0;
 static uint8_t rx_buffer[RX_BUFFER_SIZE] = {};
@@ -66,18 +67,20 @@ bool Init_UART_BT (void) {
     return STATUS_SUCCESS;
 }
 
-bool send_bt_value(){
-    sprintf((char*)tx_buffer, "%04d\r\n", g_adc_result);
-    for (uint8_t i = 0; i < strlen((char*)tx_buffer); i++){
-        //Transmit char by char
-        USCI_A_UART_transmitData(USCI_A1_BASE, tx_buffer[i]);
+ bool send_bt_value(){
+     sprintf((char*)tx_buffer, ",,,%04d,,,\r\n", g_adc_result); // with comma working better ?!?!?!
+     for (uint8_t i = 0; i < strlen((char*)tx_buffer); i++){
+         //Transmit char by char
+         USCI_A_UART_transmitData(USCI_A1_BASE, tx_buffer[i]);
 
-        //Wait for Transmit finish
-        while (USCI_A_UART_queryStatusFlags(USCI_A1_BASE, USCI_A_UART_BUSY) 
-                                            == USCI_A_UART_BUSY);
-    }
-    return STATUS_SUCCESS;
-}
+         //Wait for Transmit finish
+         while (USCI_A_UART_queryStatusFlags(USCI_A1_BASE, USCI_A_UART_BUSY)
+                                             == USCI_A_UART_BUSY);
+     }
+     return STATUS_SUCCESS;
+ }
+
+
 
 //
 ////Define USCI_A1 Interrupt Vector

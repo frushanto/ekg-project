@@ -108,7 +108,7 @@ void main(void)
                 //Reset Flag
                 g_adc_new_values = false;
             }
-            if(bt_flag == 25)
+            if(bt_flag == 8)
             {
                 bt_flag = 0;
                 send_bt_value();
