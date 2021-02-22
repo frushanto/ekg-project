@@ -65,11 +65,32 @@ Die umfassendste Variante ist die Verwendung eines PMIC (Power Management Integr
 
 Als nächste Möglichkeit wurde die Verwendung von Buck- und Boostkonvertern untersucht. Hierbei handelt es sich um integrierte Schaltungen, welche durch zerhacken einer Gleichspannung mittels Transistoren, nutzen der Selbstinduktionseffekte einer Spule sowie anschließende Glättung und Speicherung durch Kondensatoren eine DCDC Wandlung auf höhere oder niedrigere Spannungen ermöglicht. Diese ICs sind verglichen mit PMICs klein, da sie bereits im SOT23 Package erhältlich sind, und können problemlos Ströme im einstelligen Amperebereich bereitstellen. 
 Diese Schaltungsart wurde als nächstes mit Bauteilen von Analog Devices in LTSPICE simmuliert. Dabei stellte sich die Erzeugung von 5V durch einen Boost-Konverter als hervorragende Realisierung heraus.
-%TODO Spice Bilder einfügen
 
-Bei der Auswahl eines Boost-Konvertes ist vor allem auf ein geringen Eigenverbrauch des ICs sowie eine hohe Schaltfrequenz zu achten. Darüber hinaus gibt es Boost-Konverter mit einem integrierten Enable Pin, welcher nicht nur den IC deaktiviert, sondern auch die Last vollständig vom Eingang abkoppelt. Dies ist überaus nützlich um im Standby Strom zu sparen. Ein Konverter der all diese Anforderungen erfüllt, ist der RP402N501F-TR-FE, welcher bereits ab 0,54€ im Falle einer Massefertigung erhältlich wäre und Ströme bis 800mA unterstützt.
+\begin{figure} [!h]
+	%\centering
+	\includegraphics[width=\textwidth] {DCDC_5V_LTSPICE.png}
+	\caption{Simulation eines 5V Boost Converters}
+	\label{fig_DCDC_5V} 
+\end{figure}
 
-%TODO Spice Bild Restwelligkeit
+Bei der Auswahl eines Boost-Konvertes ist vor allem auf eine hohe Effizienz des ICs sowie einen geringen Eigenverbrauch zu achten. Darüber hinaus gibt es Boost-Konverter mit einem integrierten Enable Pin, welcher nicht nur den IC deaktiviert, sondern auch die Last vollständig vom Eingang abkoppelt. Dies ist überaus nützlich um im Standby Strom zu sparen. Ein Konverter der all diese Anforderungen erfüllt, ist der RP402N501F-TR-FE, welcher bereits ab 0,54€ im Falle einer Massefertigung erhältlich wäre, Ströme bis 800mA sowie eine Effizienz von 90\% - 94\% unterstützt.
 
 Die Erzeugung von 3V durch einen Buck-Konverter ist zwar auch ohne weiteres möglich, allerdings weist diese Schaltungsart bauartbedingt immer eine gewisse Restwelligkeit auf. Da die komplette Analogschaltung zur Aufnahme es EKG Signals mit 3V versorgt wird, sollte hier jede Form von Schwankungen oder Ungenauigkeiten dezimiert werden.
+Deshalb fällt die Wahl für die Generierung von 3V auf einen LDO (Low-Dropout-Regler), welcher einen Spannungsabfall über einen internen MOS-FET verursacht und somit die Eingangsspannung auf eine festgelegte Ausgangsspannung herunterregelt. Da in einem LDO keine schaltenden Vorgänge Stattfinden, ist die Restwelligkeit sehr gering. 
 
+\begin{figure} [!h]
+	%\centering
+	\includegraphics[width=\textwidth] {DCDC_3V_LDO_Shematic.png}
+	\caption{Simulationsaufbau 3V LDO}
+	\label{fig_DCDC_3V_sch} 
+\end{figure}
+
+\begin{figure} [!h]
+	%\centering
+	\includegraphics[width=\textwidth] {DCDC_3V_LDO_Plot.png}
+	\caption{Ausgang 3V LDO mit fallender Eingangsspannung}
+	\label{fig_DCDC_3V_plot} 
+\end{figure}
+
+
+Zu beachten ist jedoch, das ein LDO immer eine minimale Dropout Voltage hat, welche mindestens über ihn abfällt. Somit muss die Eingangsspannung immer größer als die gewünschte Ausgangsspannung plus Dropout Spannung sein. Würde man z.B. eine Ausgangsspannung von 3,3V anstreben und der LDO eine Dropout Voltage von 0,2V besitzen, könnte man den Akku nur bis zu einer Spannung von 3,5V entladen ohne die Ausgangsspannung zu beeinflussen. Deshalb wurde für das EKG-Gerät der LDO TPS79030DBVT mit einer niedrigen Dropout Spannung von 57$\mu$V gewählt. Dieser LDO ist mit einer Restwelligkeit von 56$\mu$V und einem Ruhestrom von 17$\mu$A bestens zur Erfüllung der gestellten Ansprüche geeignet.
