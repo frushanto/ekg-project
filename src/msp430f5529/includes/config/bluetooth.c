@@ -45,7 +45,7 @@ bool Init_UART_BT (void) {
      uart_init_param.msborLsbFirst = USCI_A_UART_LSB_FIRST;
      uart_init_param.numberofStopBits = USCI_A_UART_ONE_STOP_BIT;
      uart_init_param.uartMode = USCI_A_UART_MODE; //use normal mode, no multiprocessor
-     uart_init_param.overSampling = USCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION; //user oversampling
+     uart_init_param.overSampling = USCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION; //use oversampling
 
      //Run Init Function
      if ( STATUS_FAIL == USCI_A_UART_init(USCI_A1_BASE, &uart_init_param)){
