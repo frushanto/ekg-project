@@ -92,5 +92,9 @@ void TIMER2_A0_ISR (void)
     if(g_buzzer_on_flag){
         g_timer_250Hz_Buzzer = 1;
         g_buzzer_cnt++;
-    }  
+    }
+
+    if(g_sys_state == ECG_SHORT){
+        bt_flag ++;
+    }
 }

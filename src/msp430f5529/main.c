@@ -24,6 +24,8 @@ uint8_t g_buzzer_1sec_flag = 0;
 uint8_t g_buzzer_on_flag = 0;
 uint16_t g_buzzer_cnt = 0;
 
+uint8_t bt_flag = 0;
+
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
 
@@ -105,6 +107,11 @@ void main(void)
 
                 //Reset Flag
                 g_adc_new_values = false;
+            }
+            if(bt_flag == 25)
+            {
+                bt_flag = 0;
+                send_bt_value();
             }
 
             //Check if switch to long time ECG requested

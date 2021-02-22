@@ -35,11 +35,13 @@ static uint32_t akku_averageValue = 0;
 const uint16_t adc_akku_offset = 27200;     // FIXED
 const uint16_t adc_akku_divider = 100;       // NOT FIXED
 
-#define ADC_AKKU_SEC        5
+#define ADC_AKKU_SEC        1
 
 void ADC_Akku_Average_Value(){
-
-    Start_ADC();
+    if(g_sys_state == IDLE_STATE)
+    {
+        Start_ADC();
+    }
 
     if (g_akku_vol)
     {
