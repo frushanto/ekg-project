@@ -3,11 +3,11 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: ekg_7_projektbericht.aux
 Reallocating 'name_of_file' (item size: 1) to 6 items.
 The style file: unsrt.bst
-Reallocating 'name_of_file' (item size: 1) to 20 items.
+Reallocating 'name_of_file' (item size: 1) to 16 items.
 Database file #1: ekg_7_literatur.bib
 You've used 1 entry,
             1791 wiz_defined-function locations,
-            450 strings with 3605 characters,
+            450 strings with 3602 characters,
 and the built_in function-call counts, 166 in all, are:
 = -- 12
 > -- 4
