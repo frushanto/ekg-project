@@ -73,7 +73,6 @@ bool get_1hz_flag_bt (void)
         idle_1hz_send_bt_flag = 0;
         return true;
     }
-
     return false;
 }
 
@@ -150,6 +149,6 @@ void TIMER2_A0_ISR (void)
     }
 
     if(g_sys_state == ECG_SHORT){
-        bt_flag ++;
+        bt_flag = 1;
     }
 }

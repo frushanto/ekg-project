@@ -132,10 +132,12 @@ void main(void)
                 //Reset Flag
                 g_adc_new_values = false;
             }
-            if(bt_flag == 25)
+
+            if(g_bt_connected && bt_flag)
             {
+                send_value_dma(g_adc_result);
+                // send_bt_value(g_adc_result);
                 bt_flag = 0;
-                send_bt_value();
             }
 
             //Check if switch to long time ECG requested
