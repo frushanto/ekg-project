@@ -18,6 +18,6 @@
 
 //Prototypes
 bool Init_UART_BT (void); //Init USCI_A0
-bool send_bt_value();
+bool send_bt_value(uint16_t value);
 
 #endif /* INCLUDES_CONFIG_BLUETOOTH_H_ */

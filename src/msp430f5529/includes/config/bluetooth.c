@@ -12,7 +12,7 @@
 
 //Mudul-global defines
 #define RX_BUFFER_SIZE 20
-#define TX_BUFFER_SIZE 20
+#define TX_BUFFER_SIZE 7
 
 //Modul-global variables
 static uint8_t uart_tx = 0;
@@ -39,8 +39,8 @@ bool Init_UART_BT (void) {
      USCI_A_UART_initParam uart_init_param = {0};
 
      uart_init_param.selectClockSource = USCI_A_UART_CLOCKSOURCE_SMCLK; //Use SMCLK
-     uart_init_param.clockPrescalar = 32;
-     uart_init_param.firstModReg = 9;
+     uart_init_param.clockPrescalar = 32;   //32 for baudrate 38400
+     uart_init_param.firstModReg = 9;       // 9 for baurdrate 3800
      uart_init_param.secondModReg = 0;
      uart_init_param.parity = USCI_A_UART_NO_PARITY;
      uart_init_param.msborLsbFirst = USCI_A_UART_LSB_FIRST;
@@ -67,8 +67,8 @@ bool Init_UART_BT (void) {
     return STATUS_SUCCESS;
 }
 
- bool send_bt_value(){
-     sprintf((char*)tx_buffer, ",,,%04d,,,\r\n", g_adc_result); // with comma working better ?!?!?!
+ bool send_bt_value(uint16_t value){
+     sprintf((char*)tx_buffer, "s%04d\n", value);
      for (uint8_t i = 0; i < strlen((char*)tx_buffer); i++){
          //Transmit char by char
          USCI_A_UART_transmitData(USCI_A1_BASE, tx_buffer[i]);
