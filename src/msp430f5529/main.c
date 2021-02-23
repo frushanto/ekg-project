@@ -26,6 +26,8 @@ uint16_t g_buzzer_cnt = 0;
 
 uint8_t bt_flag = 0;
 
+uint16_t bt_test = 0;
+
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
 
@@ -94,7 +96,10 @@ void main(void)
                 GPIO_toggleOutputOnPin(GPIO_PORT_P4,GPIO_PIN7);
 
                 //Startet Senden mit DMA
-                send_value_dma(1234);
+                //send_value_dma(bt_test++);
+
+                if (bt_test > 4096)
+                    bt_test = 0;
 
                 //Alternative: if bedingung true setzen und das hier einkommentieren
                 //send_bt_string("Hello World");
@@ -133,12 +138,12 @@ void main(void)
                 g_adc_new_values = false;
             }
 
-            if(g_bt_connected && bt_flag)
-            {
-                send_value_dma(g_adc_result);
-                // send_bt_value(g_adc_result);
-                bt_flag = 0;
-            }
+//            if(g_bt_connected && bt_flag)
+//            {
+//                send_value_dma(g_adc_result);
+//                // send_bt_value(g_adc_result);
+//                bt_flag = 0;
+//            }
 
             //Check if switch to long time ECG requested
             if (g_long_ECG_flag)

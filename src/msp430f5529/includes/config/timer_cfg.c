@@ -84,9 +84,9 @@ void TIMER0_A0_ISR (void)
     //increment endless-counter
     counter_1khz++;
 
-    //Generate 1Hz Flag with Modulo
-    if (counter_1khz % 1000 == 0)
-        idle_1hz_send_bt_flag = true;
+    //Send BT value with 200Hz
+    if ( (g_sys_state == ECG_SHORT) & (counter_1khz % 5 == 0) )
+        send_value_dma(g_adc_result);
 }
 
 
