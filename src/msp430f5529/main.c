@@ -5,6 +5,9 @@ uint8_t g_timer_250Hz_flag = 0;
 uint8_t g_timer_1sec_flag = 0;
 uint8_t g_timer_uart_1sec = 0;
 uint16_t g_adc_result = 0;
+uint16_t g_adc_result_storage[G_SAMPLE_RATE];
+uint16_t g_adc_result_cnt = 0;
+bool g_adc_result_storage_full = FALSE;
 uint8_t g_short_ECG_flag = 0;
 uint8_t g_long_ECG_flag = 0;
 uint16_t g_akku_vol = 0;
@@ -50,7 +53,7 @@ void main(void)
             Init_UART();
             Init_ADC();
             Init_SPI();
-            Init_FAT();               
+            //Init_FAT();
             Init_UART_BT();
             Init_Median_Filter();
             EnableGlobalInterrupt();
