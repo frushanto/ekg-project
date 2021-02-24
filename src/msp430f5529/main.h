@@ -66,6 +66,8 @@ extern STATE_MACHINE_e g_sys_state;
 extern sMedianFilter_t medianFilter;
 extern uint8_t g_timer_uart_1sec;
 extern uint8_t g_5v_flag;
+extern bool g_ecg_long_5v_on;
+extern bool g_ecg_long_btn_pressed;
 extern uint8_t g_cnt_sec;
 extern uint8_t g_cnt_min;
 extern uint8_t g_cnt_hour;

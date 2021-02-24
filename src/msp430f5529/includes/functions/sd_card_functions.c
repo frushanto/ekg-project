@@ -27,6 +27,7 @@ char timeBuffer[TB_SIZE];
 uint16_t adcValuesCnt = 0;
 uint8_t adcArrayCnt = 0;
 uint8_t adcEntryCnt = 0;
+LONG_ECG_STATE_MACHINE_e g_long_ecg_state = MODE_NORMAL;
 // SRAM 8kB + 2kB
  ADC_STORAGE adc_storage1[NUMBER_OF_ADC_VALUES];
 // ADC_STORAGE adc_storage2[NUMBER_OF_ADC_VALUES];
@@ -271,39 +272,155 @@ void SD_WriteToSpecificArray() {
 
 void SD_Energy_Saving_Long_ECG() {
 
-    // if (sd card inserted) & (g_adc_result_storage_full)
-    // & (g_5v_flag = 0 -> ON)
-    // -> Send array to sd card
-
-    if ((g_sd_card_inserted) && 
-        (g_adc_result_storage_full) &&
-        //0 => 5V ON
-        (g_5v_flag == 0)) 
+    switch (g_long_ecg_state) 
     {
+        // Normal mode: SD = TRUE; STORAGE = FULL; 
+        //              BTN = NOT PRESSED; 5V = ON
+        case MODE_NORMAL:
+            // Sending to SD Card
+            // TODO save in the same file
+            // TODO timestamp
+            if (g_adc_result_storage_full == TRUE) {
+                SD_CreateNewCSV();
+                f_puts(g_adc_result_storage, &file);
+                SD_StopWriting();
+            }
+            
+            if ((g_ecg_long_btn_pressed == TRUE) &&
+                (g_adc_result_storage_full == FALSE))
+            {
+                g_long_ecg_state = MODE_5V_OFF;
+            }
+            else if ((g_ecg_long_btn_pressed == TRUE) &&
+                    (g_adc_result_storage_full == TRUE))
+            {
+                g_long_ecg_state = MODE_5V_ON;
+            }
 
-        // Init SD
-        // TODO init only if 5V was OFF
-        Init_FAT();
+            break;
 
-        // Send to SD
-        // TODO save in the same file
-        // TODO timestamp
-        SD_CreateNewCSV();
-        f_puts(g_adc_result_storage, &file);
-        SD_StopWriting();
+
+
+        case MODE_5V_ON:
+
+            if (g_adc_result_storage_full == FALSE) 
+            {
+                g_long_ecg_state = MODE_5V_OFF;
+            }
+
+            // 5V ON
+            // LED2 on PCB turn ON
+            GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
+            // 5V DC/DC turn ON
+            GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
+            // Adjust 5V flag   
+            g_ecg_long_5v_on = TRUE;
+
+            // SD Card INIT
+            Init_FAT();
+
+            // Sending to SD Card
+            // TODO save in the same file
+            // TODO timestamp
+            SD_CreateNewCSV();
+            f_puts(g_adc_result_storage, &file);
+            SD_StopWriting();
+
+
+            if (g_ecg_long_btn_pressed == FALSE)
+            {
+                g_long_ecg_state = MODE_NORMAL;
+            }
+
+            // When done -> change to MODE_5V_OFF
+            g_long_ecg_state = MODE_5V_OFF;
+
+            break;
+
+        case MODE_5V_OFF:
+            // 5V OFF
+            // LED2 on PCB turn OFF
+            GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+            // 5V DC/DC turn OFF
+            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
+            // Adjust 5V flag
+            g_ecg_long_5v_on = FALSE;
+            if (g_adc_result_storage_full == TRUE)
+            {
+                g_long_ecg_state = MODE_5V_ON;
+            }
+
+            if (g_ecg_long_btn_pressed == FALSE)
+            {
+                g_long_ecg_state = MODE_NORMAL;
+            }
+
+            break;
     }
 
-    // If device will be locked -> user pressed lock button 1 time
-    // means 5V will be switched OFF -> g_5v_flag goes from 0 to 1
-    if (g_5v_flag == 1 /*&&*/ )
-    {
-        // 5V OFF
-        // LED2 on PCB turn OFF
-        GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
-        // 5V DC/DC turn OFF
-        GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
-        g_5v_flag = 1;
-    }
+    // // Normal mode: SD = TRUE; STORAGE = FULL; 
+    // //              BTN = NOT PRESSED; 5V = ON
+    // if ((g_sd_card_inserted) && 
+    //     (g_adc_result_storage_full) &&
+    //     // Not locked yet -> device is active
+    //     (g_ecg_long_btn_pressed == FALSE) && 
+    //     // 5V still ON
+    //     (g_ecg_long_5v_on == TRUE))
+    // {
+    //     // // Send to SD
+    //     // // TODO save in the same file
+    //     // // TODO timestamp
+    //     // SD_CreateNewCSV();
+    //     // f_puts(g_adc_result_storage, &file);
+    //     // SD_StopWriting();
+    // }
+
+    // // 5V OFF mode: SD = TRUE; STORAGE = FILLING;
+    // //              BTN = PRESSED; 5V = ON
+    // if ((g_sd_card_inserted) && 
+    //     // Locked
+    //     (g_ecg_long_btn_pressed == TRUE) && 
+    //     // 5V ON
+    //     (g_ecg_long_5v_on == TRUE)) 
+    //     {
+    //         // While STORAGE = FILLING -> 5V OFF; wait for STORAGE = FULL
+    //         while (g_adc_result_storage_full == FALSE) {
+    //             // 5V OFF & wait until STORAGE = FULL
+    //             // LED2 on PCB turn OFF
+    //             GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+    //             // 5V DC/DC turn OFF
+    //             GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
+    //             // Adjust 5V flag
+    //             g_ecg_long_5v_on = FALSE;
+    //         }
+    //         // If STORAGE = FULL -> 5V ON, SD INIT, send STORAGE to SD
+    //         if (g_adc_result_storage_full == TRUE) 
+    //         {
+    //             // 5V ON
+    //             // LED2 on PCB turn ON
+    //             GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
+    //             // 5V DC/DC turn ON
+    //             GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
+    //             // Adjust 5V flag
+    //             g_ecg_long_5v_on = TRUE;
+    //         }
+    //     }
+
+
+
+
+
+    // // If device will be locked -> user pressed lock button 1 time
+    // // means 5V will be switched OFF -> g_5v_flag goes from 0 to 1
+    // if (g_5v_flag == 1 && )
+    // {
+    //     // 5V OFF
+    //     // LED2 on PCB turn OFF
+    //     GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+    //     // 5V DC/DC turn OFF
+    //     GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
+    //     g_5v_flag = 1;
+    // }
 
 }
 

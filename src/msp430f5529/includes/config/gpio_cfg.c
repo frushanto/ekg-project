@@ -138,9 +138,13 @@ __interrupt void pushbutton_ISR(void)
             // !!! Flags ONLY for ECG_LONG !!!
             if (g_sys_state == ECG_LONG)
             {
-
-                
-
+                // If FALSE -> device in active mode
+                // If TRUE -> device in ENEGRY SAVING mode
+                // If lock button pressed -> go from FALSE to TRUE
+                // -> device goes in ENERGY SAVING mode
+                // If lock button pressed again -> go from TRUE to
+                // FALSE -> device goes out from ENEGRY SAVING
+                g_ecg_long_btn_pressed = !g_ecg_long_btn_pressed;
             }
             // !!! Flags for other cases != ECG_LONG !!!
             else

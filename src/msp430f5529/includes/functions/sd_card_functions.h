@@ -24,6 +24,15 @@ typedef struct {
     char timestamp[9];
 } ADC_STORAGE;
 
+typedef enum
+{
+    MODE_NORMAL,
+    MODE_5V_OFF,
+    MODE_5V_ON
+} LONG_ECG_STATE_MACHINE_e;
+
+extern LONG_ECG_STATE_MACHINE_e g_long_ecg_state;
+
 /* Function declarations */
 FRESULT WriteFile(char*, char*, WORD);
 void Init_FAT(void);
