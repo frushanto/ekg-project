@@ -84,9 +84,10 @@ void TIMER0_A0_ISR (void)
     //increment endless-counter
     counter_1khz++;
 
-    //Send BT value with 200Hz
-    if ( (g_sys_state == ECG_SHORT) & (counter_1khz % 5 == 0) )
-        send_value_dma(g_adc_result);
+    //Send BT value with 100Hz
+    if ( (g_sys_state == ECG_SHORT) && (counter_1khz % 10 == 0) )   // 5 if 200Hz
+        bt_flag = 1;
+        // send_value_dma(g_adc_result);
 }
 
 
@@ -148,7 +149,7 @@ void TIMER2_A0_ISR (void)
         g_buzzer_cnt++;
     }
 
-    if(g_sys_state == ECG_SHORT){
-        bt_flag = 1;
-    }
+    // if(g_sys_state == ECG_SHORT){
+    //     bt_flag = 1;
+    // }
 }

@@ -38,8 +38,8 @@ bool Init_UART_BT (void) {
      USCI_A_UART_initParam uart_init_param = {0};
 
      uart_init_param.selectClockSource = USCI_A_UART_CLOCKSOURCE_SMCLK; //Use SMCLK
-     uart_init_param.clockPrescalar = 10;   // -> 32 Baud = 38400
-     uart_init_param.firstModReg = 14;       // ->  9 Baud = 38400
+     uart_init_param.clockPrescalar = 32;   // -> 32 Baud = 38400   // 10 = 115200
+     uart_init_param.firstModReg = 9;       // ->  9 Baud = 38400  // 14 = 115200
      uart_init_param.secondModReg = 0;
      uart_init_param.parity = USCI_A_UART_NO_PARITY;
      uart_init_param.msborLsbFirst = USCI_A_UART_LSB_FIRST;
