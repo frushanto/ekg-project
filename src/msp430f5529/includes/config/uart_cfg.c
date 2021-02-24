@@ -244,7 +244,7 @@ void Init_UART() {
                  uart_receive_data_end();
 
                  // For ECG_LONG Energy Saving Mode
-                 if(g_sys_state == ECG_LONG && display_sleep_mode == TRUE)
+                 if((g_sys_state == ECG_LONG) && (display_sleep_mode == TRUE))
                  {
                      if(g_long_ecg_state == MODE_5V_OFF)
                      {
