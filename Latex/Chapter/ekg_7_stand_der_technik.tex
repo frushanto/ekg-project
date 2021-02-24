@@ -6,20 +6,62 @@ Dieses Kapitel stellt die Werkzeuge vor die für das Projekt verwendet wurde und
 
 \subsection{Verwendete Software}
 
-Für die Erstellung und Frequenzanalyse eines künstlichen EKG-Signals wurde das numerische Rechentool Matlab verwendet. Damit konnten die Grenzfrequenzen des Signals bereits ohne Labortest abgeschätzt werden. Diese Erkenntnisse wurden bei der Schaltungsentwicklung der analogen Filterschaltung mit LTSpice angewandt. Durch die Einbindung von Herstellermodellen, war die Simulation von Bauteilen möglich, ohne diese physisch zu testen. Für den Entwurf der Leiterplatine kam Altium Designer zur Anwendung. Auch hierfür bieten Hersteller Modelle für die Pinbelegung, den Footprint und 3D-Modelle. Besonders die 3D-Modelle waren für das Gehäusedesign hilfreich um die korrekte Lage und Maße der Bauteile im Gehäuse auch optisch zu prüfen.
+Für die Erstellung und Frequenzanalyse eines künstlichen EKG-Signals wurde das numerische Rechentool Matlab verwendet. Damit konnten die Grenzfrequenzen des Signals bereits ohne Labortest abgeschätzt werden. Diese Erkenntnisse wurden bei der Schaltungsentwicklung der analogen Filterschaltung mit LTSpice angewandt. Durch die Einbindung von Herstellermodellen, war die Simulation von Bauteilen möglich, ohne diese physisch zu testen. Für den Entwurf der Leiterplatine kam Altium Designer zur Anwendung. Auch hierfür bieten Hersteller Modelle für die Pinbelegung, den Footprint und 3D-Modelle an. Besonders die 3D-Modelle waren für das Gehäusedesign hilfreich um die korrekte Lage und Maße der Bauteile im Gehäuse auch optisch zu prüfen.
 %TODO weitere Software wie Nextion Editor , Git, CCS und Blender
 
 \subsection{Marktrecherche}
 
 Auf dem Markt finden sich bereits verschiedene Geräte zur EKG-Aufzeichnung und auch automatisierten Analyse des Signals. Dabei gibt es große Unterschiede im Umfang der Hard- und Software.
 
-Das Modell KardioMobile von AliveCor besteht aus einem Elektrodenpad für die linken und rechten Zeigefinger und wird mit einem Smartphone via Bluetooth gekoppelt. Über ein separates Display verfügt das EKG-Gerät nicht. Das Smartphone, mit dazugehöriger App, dient zur Anzeige, Analyse und Speicherung des Signals und zur Steuerung der Funktion. Kompatibel ist es mit den aktuellen Modellen der gängigen Hersteller mit IOS- und Android-Betriebssystem. Es ermöglicht die Aufnahme eines Ein-Kanal-EKG's über 30 Sekunden bis 5 Minuten, misst die Herzfrequenz und analysiert das Signal danach auf das Vorliegen einer Bradykardie, Tachykardie oder eines Vorhofflimmerns. Ein automatisiertes Langzeit-EKG ist nicht möglich. 
+Das Modell KardioMobile von AliveCor besteht aus einem Elektrodenpad für die linken und rechten Zeigefinger und wird mit einem Smartphone via Bluetooth 4.0 gekoppelt. Über ein separates Display verfügt das EKG-Gerät nicht. Das Smartphone, mit dazugehöriger App, dient zur Anzeige, Analyse und Speicherung des Signals sowie zur Steuerung der Funktion. Kompatibel ist es mit den aktuellen Modellen der gängigen Hersteller mit IOS- und Android-Betriebssystem. Es ermöglicht die Aufnahme eines Ein-Kanal-EKG's über \SI{30}{\sec} bis \SI{5}{\min}, misst die Herzfrequenz und analysiert das Signal danach auf das Vorliegen einer Bradykardie (BK), Tachykardie (TK) oder eines Vorhofflimmerns (VHF). Ein automatisiertes Langzeit-EKG ist nicht möglich. Die Auflösung beträgt 16 Bit bei einer Abtastrate von \SI{300}{\hertz}. Betrieben wird das Gerät mit Knopfbatterien.
 
-Das EKG-Gerät M90 mobile ECG Device vom Hersteller Beurer, verfolgt einen ähnlichen Ansatz. Es verfügt ebenfalls über zwei Elektrodenpads für die Zeigefinger und nimmt damit ein Ein-Kanal-EKG über eine Dauer von 30 Sekunden auf. Danach wird das Signal automatisch auf Vorhofflimmern und Arrhythmien untersucht. Ein Langzeit-EKG wird nicht angeboten. Im Gegensatz zum vorigen Modell verfügt das Gerät von Beurer über ein LC-Display zur Anzeige von Herzfrequenz, Ladezustand und aller weiterer Statusinformationen. Es kann entweder via Bluetooth mit einem Smartphone oder über USB mit einem Computer verbunden werden, um die aufgezeichneten Daten in der zugehörigen, kostenlosen Software zu visualisieren. 
+Das EKG-Gerät M90 mobile ECG Device vom Hersteller Beurer, verfolgt einen ähnlichen Ansatz. Es verfügt ebenfalls über zwei Elektrodenpads für die Zeigefinger und nimmt damit ein Ein-Kanal-EKG über eine Dauer von \SI{30}{\sec} auf. Danach wird das Signal automatisch auf Vorhofflimmern und Arrhythmien untersucht. Ein Langzeit-EKG wird nicht angeboten. Im Gegensatz zum vorigen Modell verfügt das Gerät von Beurer über ein LC-Display zur Anzeige von Herzfrequenz, Ladezustand und aller weiterer Gerätestatusinformationen. Es kann entweder via Bluetooth mit einem Smartphone oder über USB mit einem Computer verbunden werden, um die aufgezeichneten Daten in der zugehörigen, kostenlosen Software zu visualisieren. Versorgt wird das Gerät mittels Knopfbatterien.
 
-Ganz ähnlich dazu bietet Hartmann das Modell Veroval an. Es bietet die gleiche Funktionalität wie das Gerät von Beurer, also ein Ein-Kanal-EKG über 30 Sekunden mit automatisierter Analyse der Herzfrequenz und des Herzrhythmus. Zur Anzeige der Frequenz und der Statusinformationen verfügt es über ein LC-Display, der Kurvenverlauf des Signals wird jedoch auf einem separaten Endgerät angezeigt. Dieses Modell bietet darüber hinaus die Möglichkeit den Blutdruck zu messen. Hierfür verfügt es über eine Blutdruckmanschette in Universalgröße.
+Ganz ähnlich dazu bietet Hartmann das Modell Veroval an. Es bietet die gleiche Funktionalität wie das Gerät von Beurer, also ein Ein-Kanal-EKG über \SI{30}{\sec} mit automatisierter Analyse der Herzfrequenz und des Herzrhythmus. Zur Anzeige der Frequenz und der Statusinformationen verfügt es über ein LC-Display, der Kurvenverlauf des Signals wird jedoch auf einem separaten Endgerät angezeigt. Dieses Modell bietet darüber hinaus die Möglichkeit den Blutdruck zu messen. Hierfür verfügt es über eine Blutdruckmanschette in Universalgröße. Die Bandbreite des EKG's ist mit dem Intervall von \SI{0.05} {\hertz} bis \SI{40} {\hertz} angegeben, bei einer Abtastfrequenz von \SI{256} {\hertz}. Betrieben wird es ebenfalls durch Batterien. 
 
-%TODO 
+Das Modell Active von CardioSecur verfügt im Gegensatz zu allen bisherigen Modellen über Klemmen für Klebeelektroden und ist damit in der Lage verschiedene Ableitungen auf drei Kanälen aufzuzeichnen. Allerdings verfügt das Gerät über keinerlei Anzeige- oder Steuerungsmöglichkeiten. Es wird mittels USB-C an ein Smartphone angeschlossen, welches dann für die Anzeige, Speicherung und Analyse des Signals sowie für die Steuerung verwendet wird. Für die Nutzung der App, ohne die das Gerät nicht verwendet werden kann, ist ein monatliches Abonnement abzuschließen. Die Aufnahmedauer beträgt \SI{10}{\sec}, ein automatisiertes Langzeit-EKG wird nicht angeboten. Die Abtastrate beträgt \SI{250}{\hertz}, bei einer Signalbandbreite von \SI{0.05} {\hertz} bis \SI{40} {\hertz}.
+
+Das letzte Gerät der Recherche ist der EKG-Monitor vom Hersteller Viatom. Er verfügt über Elektrodenpads, wie die ersten 3 Modelle, die für den Kontakt an der linken Handfläche und dem rechten Daumen bestimmt sind. Das 2,4 Zoll Touch-Display dient der Anzeige des Signalverlaufes, des Pulses und der Gerätestatusinformationen. Zudem kann es via USB mit dem Rechner verbunden werden und das EKG auf zugehöriger Software angezeigt werden. Der USB-Anschluss dient ebenso dem Aufladen des integrierten Akkus. Die Aufnahmedauer beträgt \SI{30}{\sec}, wonach das Signal auf Vorhofflimmern und Rhythmusstörungen analysiert wird. Ein automatisches Langzeit-EKG ist nicht möglich. 
+
+\begin{table}
+
+\begin{tabular}[t]{p{2.1 cm}|p{2.1 cm}|p{2.1 cm}|p{2.1 cm}|p{2.1 cm}|p{2.1 cm}}
+Modell & Kardio-Mobile & Beurer ME 90 & Hartmann Veroval & Cardio-Secure Active & EKG-Monitor Viatom\\
+\hline
+Gewicht (g) & 41 & 31 (ohne Batterie) & - & 50 & 280 
+\\
+\hline
+Energie-versorgung & Knopf-batterie & Knopf-batterie & AAA-Batterie & Versorgung durch Smartphone & integrierter Akku 
+\\
+\hline
+Sensortyp & Edelstahl-elektroden-pad & Edelstahl-elektroden-pad & Edelstahl-elektroden-pad & Einmal-klebeelektro-den & Edelstahl-elektroden-pad 
+\\
+\hline
+EKG-Arten & Kurzzeit (\SI{30}{\sec} - \SI{5}{\min}) & Kurzzeit (\SI{30}{\sec}) & Kurzzeit (\SI{30}{\sec}) &  Kurzzeit (\SI{10}{\sec}) &  Kurzzeit (\SI{30}{\sec})
+\\
+\hline
+Display & Smartphone & LC-Display (nicht für Signal-verlauf) & LC-Display (nicht für Signal-verlauf) & Smartphone & 2,4 Zoll Touch-Display 
+\\
+\hline
+Schnitt-stellen & Bluetooth & Bluetooth und USB & USB & USB-C & USB
+\\
+\hline
+automati-sierte Diagnose von & BK, TK und VHF & BK, TK und VHF & BK, TK und VHF & BK, TK und VHF & BK, TK und VHF
+\\
+\hline
+Preis & 120,00 € & 100,00 € & 125,00 € & 150,00 € & 140,00 € 
+
+\\
+\end{tabular}
+\caption{Zusammenfassung der Marktrecherche}
+\label{tab:Marktrecherche}
+
+\end{table}
+
+Wie aus der Zusammenstellung der Ergebnisse in Tabelle \ref{tab:Marktrecherche} zu erkennen ist bieten alle Modelle die Möglichkeit zur automatisierten Diagnostik des Vorhofflimmerns jedoch keines die Funktion einer kontinuierlichen Langzeit-EKG-Aufnahme. Symptomloses Vorhofflimmern, dass zudem noch sporadisch Auftritt könnte bei Kurzzeitaufnahmen übersehen werden. Dies würde das Risiko für Spätfolgen erhöhen. Dieses Projekt hat deshalb die Entwicklung eines Gerätes zur Kurzzeit- und Langzeitaufnahme zum Ziel. Auf die zusätzliche automatisierte Diagnostik des Vorhofflimmerns durch Software wurde aufgrund des Projektfokus (EKG-Messung und eben nicht Auswertung) verzichtet.
+
+%TODO Fehler: Tabelle sitzt alleine auf einer Seite
+%TODO durch Projektgruppe kontrollieren lassen, evtl weitere Anregungen bzw. Kürzungen
 
 
 

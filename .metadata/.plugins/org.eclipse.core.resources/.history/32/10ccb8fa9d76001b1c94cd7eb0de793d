@@ -1,0 +1,44 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../includes/functions/adc_functions.c \
+../includes/functions/bpm_function.c \
+../includes/functions/sd_card_functions.c \
+../includes/functions/uart_functions.c 
+
+C_DEPS += \
+./includes/functions/adc_functions.d \
+./includes/functions/bpm_function.d \
+./includes/functions/sd_card_functions.d \
+./includes/functions/uart_functions.d 
+
+OBJS += \
+./includes/functions/adc_functions.obj \
+./includes/functions/bpm_function.obj \
+./includes/functions/sd_card_functions.obj \
+./includes/functions/uart_functions.obj 
+
+OBJS__QUOTED += \
+"includes\functions\adc_functions.obj" \
+"includes\functions\bpm_function.obj" \
+"includes\functions\sd_card_functions.obj" \
+"includes\functions\uart_functions.obj" 
+
+C_DEPS__QUOTED += \
+"includes\functions\adc_functions.d" \
+"includes\functions\bpm_function.d" \
+"includes\functions\sd_card_functions.d" \
+"includes\functions\uart_functions.d" 
+
+C_SRCS__QUOTED += \
+"../includes/functions/adc_functions.c" \
+"../includes/functions/bpm_function.c" \
+"../includes/functions/sd_card_functions.c" \
+"../includes/functions/uart_functions.c" 
+
+
