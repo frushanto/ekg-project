@@ -1,3 +1,29 @@
 %ekg_7 Stand der Technik
 
 \section{Stand der Technik}
+
+Dieses Kapitel stellt die Werkzeuge vor die für das Projekt verwendet wurde und bereits kommerziell erhältliche Produkte vor. Da der Markt für Heim-EKG-Diagnosegeräte nicht unerschlossen ist, wurde im Zuge einer Marktrecherche der aktuelle Stand der Technik ermittelt, der in angepasstem Rahmen in diesem Projekt erreicht werden soll. 
+
+\subsection{Verwendete Software}
+
+Für die Erstellung und Frequenzanalyse eines künstlichen EKG-Signals wurde das numerische Rechentool Matlab verwendet. Damit konnten die Grenzfrequenzen des Signals bereits ohne Labortest abgeschätzt werden. Diese Erkenntnisse wurden bei der Schaltungsentwicklung der analogen Filterschaltung mit LTSpice angewandt. Durch die Einbindung von Herstellermodellen, war die Simulation von Bauteilen möglich, ohne diese physisch zu testen. Für den Entwurf der Leiterplatine kam Altium Designer zur Anwendung. Auch hierfür bieten Hersteller Modelle für die Pinbelegung, den Footprint und 3D-Modelle. Besonders die 3D-Modelle waren für das Gehäusedesign hilfreich um die korrekte Lage und Maße der Bauteile im Gehäuse auch optisch zu prüfen.
+%TODO weitere Software wie Nextion Editor , Git, CCS und Blender
+
+\subsection{Marktrecherche}
+
+Auf dem Markt finden sich bereits verschiedene Geräte zur EKG-Aufzeichnung und auch automatisierten Analyse des Signals. Dabei gibt es große Unterschiede im Umfang der Hard- und Software.
+
+Das Modell KardioMobile von AliveCor besteht aus einem Elektrodenpad für die linken und rechten Zeigefinger und wird mit einem Smartphone via Bluetooth gekoppelt. Über ein separates Display verfügt das EKG-Gerät nicht. Das Smartphone, mit dazugehöriger App, dient zur Anzeige, Analyse und Speicherung des Signals und zur Steuerung der Funktion. Kompatibel ist es mit den aktuellen Modellen der gängigen Hersteller mit IOS- und Android-Betriebssystem. Es ermöglicht die Aufnahme eines Ein-Kanal-EKG's über 30 Sekunden bis 5 Minuten, misst die Herzfrequenz und analysiert das Signal danach auf das Vorliegen einer Bradykardie, Tachykardie oder eines Vorhofflimmerns. Ein automatisiertes Langzeit-EKG ist nicht möglich. 
+
+Das EKG-Gerät M90 mobile ECG Device vom Hersteller Beurer, verfolgt einen ähnlichen Ansatz. Es verfügt ebenfalls über zwei Elektrodenpads für die Zeigefinger und nimmt damit ein Ein-Kanal-EKG über eine Dauer von 30 Sekunden auf. Danach wird das Signal automatisch auf Vorhofflimmern und Arrhythmien untersucht. Ein Langzeit-EKG wird nicht angeboten. Im Gegensatz zum vorigen Modell verfügt das Gerät von Beurer über ein LC-Display zur Anzeige von Herzfrequenz, Ladezustand und aller weiterer Statusinformationen. Es kann entweder via Bluetooth mit einem Smartphone oder über USB mit einem Computer verbunden werden, um die aufgezeichneten Daten in der zugehörigen, kostenlosen Software zu visualisieren. 
+
+Ganz ähnlich dazu bietet Hartmann das Modell Veroval an. Es bietet die gleiche Funktionalität wie das Gerät von Beurer, also ein Ein-Kanal-EKG über 30 Sekunden mit automatisierter Analyse der Herzfrequenz und des Herzrhythmus. Zur Anzeige der Frequenz und der Statusinformationen verfügt es über ein LC-Display, der Kurvenverlauf des Signals wird jedoch auf einem separaten Endgerät angezeigt. Dieses Modell bietet darüber hinaus die Möglichkeit den Blutdruck zu messen. Hierfür verfügt es über eine Blutdruckmanschette in Universalgröße.
+
+%TODO 
+
+
+
+
+
+
+

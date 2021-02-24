@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  19 FEB 2021 23:23
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  24 FEB 2021 01:23
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
@@ -234,84 +234,84 @@ File: xetex.def 2020/08/26 v5.0i Graphics/color driver for xetex
 (ekg_7_projektbericht.aux)
 \openout1 = `ekg_7_projektbericht.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 2
-0.
+9.
  ("C:\Program Files\MiKTeX\tex/latex/base\ts1cmr.fd"
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
 
 Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid
 (fontspec)             this).
 
 \symlegacymaths=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 20.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 20.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 20.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 20.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 20.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 20.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 20.
-LaTeX Font Info:    Redeclaring math accent \check on input line 20.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 20.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 20.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \colon on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 20.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 20.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 20.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 29.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 29.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 29.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 29.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 29.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 29.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 29.
+LaTeX Font Info:    Redeclaring math accent \check on input line 29.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 29.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 29.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \colon on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 29.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 20.
+(Font)              `operators' in the math version `normal' on input line 29.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 20.
+(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 29.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 20.
+(Font)              `operators' in the math version `bold' on input line 29.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 20.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 29.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 20.
+(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 29.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 20.
+(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 29.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 20.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 29.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 20.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 29.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 20.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 29.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 20.
+(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 29.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 20.
+(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 29.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 20.
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 29.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 20.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 29.
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
@@ -353,12 +353,12 @@ ish.dict"
 Dictionary: translator-basic-dictionary, Language: English 
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 20.
+(Font)              <12> on input line 29.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 20.
+(Font)              <8> on input line 29.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 20.
- (ekg_7_titelseite.tex
+(Font)              <6> on input line 29.
+ (Chapter//ekg_7_titelseite.tex
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 6.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -375,57 +375,98 @@ erten
 \tf@toc=\write3
 \openout3 = `ekg_7_projektbericht.toc'.
 
- [2] (ekg_7_abkuerzungsverzeichnis.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 5--33
+ [2] (Chapter//ekg_7_abkuerzungsverzeichnis.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 5--42
 
  []
 
-[3] (ekg_7_einleitung.tex [4]) (ekg_7_zielsetzung.tex [5])
-(ekg_7_stand_der_technik.tex) [6] (ekg_7_realisierung.tex
-(ekg_7_realisierung_diskussion_der_alternativen.tex)
-(ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex)
-(ekg_7_realisierung_display_und_ui.tex)
-(ekg_7_realisierung_prozessor_einheit.tex) (ekg_7_realisierung_gehäuse.tex)
-(ekg_7_realisierung_schnittstellen.tex) (ekg_7_realisierung_android_app.tex)
-(ekg_7_realisierung_datenspeicherung_auf_sd_karte.tex)
-(ekg_7_realisierung_analoge_filterschaltung.tex [7]
-File: EKG_Signal.png Graphic file (type bmp)
-<EKG_Signal.png>
-File: EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type bmp)
-<EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
+[3] (Chapter//ekg_7_einleitung.tex [4]) (Chapter//ekg_7_zielsetzung.tex
+[5]) (Chapter//ekg_7_stand_der_technik.tex [6]) [7]
+(Chapter//ekg_7_realisierung.tex
+(Chapter//ekg_7_realisierung_diskussion_der_alternativen.tex)
+(Chapter//ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Underfull \hbox (badness 10000) in paragraph at lines 13--15
+
+ []
 
 [8]
-File: EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
-<EKG_aktiver_Tiefpassfilter.png>
+Underfull \hbox (badness 10000) in paragraph at lines 48--49
+
+ []
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Underfull \hbox (badness 10000) in paragraph at lines 50--63
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--63
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+
+ []
 
 [9]
-File: EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
-<EKG_Gesamtübertragungsfunktion.png>
+File: Bilder//DCDC_5V_LTSPICE.png Graphic file (type bmp)
+<Bilder//DCDC_5V_LTSPICE.png>
+File: Bilder//DCDC_3V_LDO_Shematic.png Graphic file (type bmp)
+<Bilder//DCDC_3V_LDO_Shematic.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-File: EKG_virtueller_Ground.png Graphic file (type bmp)
-<EKG_virtueller_Ground.png>
+File: Bilder//DCDC_3V_LDO_Plot.png Graphic file (type bmp)
+<Bilder//DCDC_3V_LDO_Plot.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[10])) (ekg_7_ergebnisse.tex) (ekg_7_zusammenfassung.tex) (ekg_7_ausblick.tex)
-[11] [12] (ekg_7_projektbericht.bbl) (ekg_7_anhang.tex) [13]
-(ekg_7_projektbericht.aux) ) 
+) [10] (Chapter//ekg_7_realisierung_display_und_ui.tex)
+(Chapter//ekg_7_realisierung_prozessor_einheit.tex)
+(Chapter//ekg_7_realisierung_gehäuse.tex)
+(Chapter//ekg_7_realisierung_schnittstellen.tex)
+(Chapter//ekg_7_realisierung_android_app.tex)
+(Chapter//ekg_7_realisierung_datenspeicherung_auf_sd_karte.tex)
+(Chapter//ekg_7_realisierung_analoge_filterschaltung.tex [11] [12]
+File: Bilder//EKG_Signal.png Graphic file (type bmp)
+<Bilder//EKG_Signal.png>
+File: Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type 
+bmp)
+<Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[13]
+File: Bilder//EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
+<Bilder//EKG_aktiver_Tiefpassfilter.png>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[14]
+File: Bilder//EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
+<Bilder//EKG_Gesamtübertragungsfunktion.png>
+ [15]
+File: Bilder//EKG_virtueller_Ground.png Graphic file (type bmp)
+<Bilder//EKG_virtueller_Ground.png>
+)) (Chapter//ekg_7_ergebnisse.tex) (Chapter//ekg_7_zusammenfassung.tex) (Chapte
+r//ekg_7_ausblick.tex) [16] (ekg_7_projektbericht.bbl)
+(Chapter//ekg_7_anhang.tex) [17] (ekg_7_projektbericht.aux) ) 
 Here is how much of TeX's memory you used:
- 8516 strings out of 412197
- 215354 string characters out of 2853959
- 574647 words of memory out of 3000000
- 27880 multiletter control sequences out of 15000+200000
+ 8540 strings out of 412197
+ 216759 string characters out of 2853959
+ 575647 words of memory out of 3000000
+ 27898 multiletter control sequences out of 15000+200000
  541952 words of font info for 69 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  78i,7n,95p,3128b,999s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ekg_7_projektbericht.pdf (13 pages).
+Output written on ekg_7_projektbericht.pdf (17 pages).
