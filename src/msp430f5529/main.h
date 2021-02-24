@@ -35,6 +35,7 @@
 #include "includes/config/median_cfg.h"
 
 #define G_SAMPLE_RATE 250
+#define LONG_ECG_STORAGE_SIZE 1000
 
 typedef enum
 {

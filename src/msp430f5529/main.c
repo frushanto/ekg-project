@@ -5,7 +5,7 @@ uint8_t g_timer_250Hz_flag = 0;
 uint8_t g_timer_1sec_flag = 0;
 uint8_t g_timer_uart_1sec = 0;
 uint16_t g_adc_result = 0;
-uint16_t g_adc_result_storage[G_SAMPLE_RATE];
+uint16_t g_adc_result_storage[LONG_ECG_STORAGE_SIZE]; // 4 sec storage (f = 250 Hz)
 uint16_t g_adc_result_cnt = 0;
 bool g_adc_result_storage_full = FALSE;
 uint8_t g_short_ECG_flag = 0;
