@@ -32,6 +32,7 @@ typedef enum
 } LONG_ECG_STATE_MACHINE_e;
 
 extern LONG_ECG_STATE_MACHINE_e g_long_ecg_state;
+extern bool display_sleep_mode;
 
 /* Function declarations */
 FRESULT WriteFile(char*, char*, WORD);

@@ -242,6 +242,24 @@ void Init_UART() {
                              ((uart_received_data[0] > 0x68) && (uart_received_data[0] < 0x87)) ||
                              (uart_received_data[0] > 0x87)){
                  uart_receive_data_end();
+
+                 // For ECG_LONG Energy Saving Mode
+                 if(g_sys_state == ECG_LONG && display_sleep_mode == TRUE)
+                 {
+                     if(g_long_ecg_state == MODE_5V_OFF)
+                     {
+                        // Set Display to Sleep Mode
+                        uart_transmit_data_start("sleep=");
+                        uart_transmit_data_value(1);
+                        uart_transmit_data_end();
+                     }else if(g_long_ecg_state == MODE_NORMAL)
+                    {
+                        Display_Exit_Sleep_Mode();
+                        uart_transmit_data_start("page 3");
+                        uart_transmit_data_end();
+                        display_sleep_mode = FALSE;
+                    }
+                 }
              }
 
              USCI_A_UART_clearInterrupt(USCI_A0_BASE,

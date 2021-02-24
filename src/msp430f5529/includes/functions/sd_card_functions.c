@@ -27,6 +27,7 @@ char timeBuffer[TB_SIZE];
 uint16_t adcValuesCnt = 0;
 uint8_t adcArrayCnt = 0;
 uint8_t adcEntryCnt = 0;
+bool display_sleep_mode = FALSE;
 LONG_ECG_STATE_MACHINE_e g_long_ecg_state = MODE_NORMAL;
 // SRAM 8kB + 2kB
  ADC_STORAGE adc_storage1[NUMBER_OF_ADC_VALUES];
@@ -280,6 +281,7 @@ void SD_Energy_Saving_Long_ECG() {
             // Sending to SD Card
             // TODO save in the same file
             // TODO timestamp
+            // TODO save g_adc_result_storage as char
             if (g_adc_result_storage_full == TRUE) {
                 SD_CreateNewCSV();
                 f_puts(g_adc_result_storage, &file);
@@ -297,12 +299,20 @@ void SD_Energy_Saving_Long_ECG() {
                 g_long_ecg_state = MODE_5V_ON;
             }
 
+            // Check if SD was inserted while turning off
+            if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN0)) {
+                Set_SD_Icon_Display(1);
+            } else {
+                Set_SD_Icon_Display(0);
+                SD_Card_Error();
+            }
+
             break;
 
 
 
         case MODE_5V_ON:
-
+            display_sleep_mode = TRUE;
             if (g_adc_result_storage_full == FALSE) 
             {
                 g_long_ecg_state = MODE_5V_OFF;
@@ -322,6 +332,7 @@ void SD_Energy_Saving_Long_ECG() {
             // Sending to SD Card
             // TODO save in the same file
             // TODO timestamp
+            // TODO save g_adc_result_storage as char
             SD_CreateNewCSV();
             f_puts(g_adc_result_storage, &file);
             SD_StopWriting();
@@ -338,6 +349,7 @@ void SD_Energy_Saving_Long_ECG() {
             break;
 
         case MODE_5V_OFF:
+            display_sleep_mode = TRUE;
             // 5V OFF
             // LED2 on PCB turn OFF
             GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
@@ -352,6 +364,11 @@ void SD_Energy_Saving_Long_ECG() {
 
             if (g_ecg_long_btn_pressed == FALSE)
             {
+                GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
+                // 5V DC/DC turn ON
+                GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
+                 // Adjust 5V flag   
+                g_ecg_long_5v_on = TRUE;
                 g_long_ecg_state = MODE_NORMAL;
             }
 
