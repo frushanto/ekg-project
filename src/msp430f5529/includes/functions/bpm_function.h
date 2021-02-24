@@ -21,4 +21,10 @@ void calculate_bpm_LT();
 /* Global VARs */
 // extern uint16_t g_adc_result;
 
+/*Defines*/
+#define tachy_brady_cnt_threshold 20
+#define tachy_threshold 100  // zum Testen kannst einfach die obere Schwelle runter oder die untere Schwelle hochsetzten
+#define brady_threshold 60
+
+
 #endif /* INCLUDES_FUNCTIONS_BPM_FUNCTION_H_ */

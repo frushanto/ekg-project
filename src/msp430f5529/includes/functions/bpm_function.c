@@ -6,12 +6,15 @@
  */
 #include "includes/functions/bpm_function.h"
 
+
 uint8_t bpm = 0;
 static uint16_t bpm_cnt = 0;
 static uint16_t threshold_ecg_value = 2200;
 static uint16_t maximum_ecg_value = 0;
 static uint16_t minimum_ecg_value = 4095;
 static uint16_t watchdog_ecg = 0;
+static uint8_t tachy_cnt = 0;
+static uint8_t brady_cnt = 0;
 
 void calculate_bpm_ST()
 {
@@ -23,6 +26,31 @@ void calculate_bpm_ST()
     if ((g_adc_result > threshold_ecg_value) && bpm_cnt > 100)
     {
         bpm = (uint16_t) ((G_SAMPLE_RATE*60) / bpm_cnt);
+
+
+        /*Abfrage auf Tachykardie oder Bradykardie*/
+        if (bpm < brady_threshold)
+        {
+            brady_cnt = brady_cnt + 1;
+            if (brady_cnt >= tachy_brady_cnt_threshold)
+            {
+                //Hier kommt das Displaykommando für die Warnung Bradykardie rein
+            }
+        }
+        else if (bpm > tachy_threshold)
+        {
+            tachy_cnt = tachy_cnt + 1;
+            if (tachy_cnt >= tachy_brady_cnt_threshold)
+            {
+                // Hier kommt das Displaykommando für die Warnung Tachykardie rein
+            }
+        }
+        else
+        {
+            brady_cnt = 0;
+            tachy_cnt = 0;
+        }
+        /*Ende der Abfrage*/
 
         int medianValue = MEDIANFILTER_Insert(&medianFilter, bpm);
 
