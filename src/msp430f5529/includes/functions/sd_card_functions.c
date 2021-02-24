@@ -269,6 +269,44 @@ void SD_WriteToSpecificArray() {
 //    }
 }
 
+void SD_Energy_Saving_Long_ECG() {
+
+    // if (sd card inserted) & (g_adc_result_storage_full)
+    // & (g_5v_flag = 0 -> ON)
+    // -> Send array to sd card
+
+    if ((g_sd_card_inserted) && 
+        (g_adc_result_storage_full) &&
+        //0 => 5V ON
+        (g_5v_flag == 0)) 
+    {
+
+        // Init SD
+        // TODO init only if 5V was OFF
+        Init_FAT();
+
+        // Send to SD
+        // TODO save in the same file
+        // TODO timestamp
+        SD_CreateNewCSV();
+        f_puts(g_adc_result_storage, &file);
+        SD_StopWriting();
+    }
+
+    // If device will be locked -> user pressed lock button 1 time
+    // means 5V will be switched OFF -> g_5v_flag goes from 0 to 1
+    if (g_5v_flag == 1 /*&&*/ )
+    {
+        // 5V OFF
+        // LED2 on PCB turn OFF
+        GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
+        // 5V DC/DC turn OFF
+        GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
+        g_5v_flag = 1;
+    }
+
+}
+
 // Store ADC values and timestamp in array
 void SD_Save_ADC_Values(void)
 {
@@ -319,33 +357,6 @@ void SD_Save_ADC_Values(void)
             SD_CreateNewCSV();
             f_puts(adc_storage1, &file);
             SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage2, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage3, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage4, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage5, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage6, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage7, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage8, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage9, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage10, &file);
-//            SD_StopWriting();
 
             // 5V OFF
             // LED2 on PCB turn OFF
@@ -364,33 +375,6 @@ void SD_Save_ADC_Values(void)
             SD_CreateNewCSV();
             f_puts(adc_storage1, &file);
             SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage2, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage3, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage4, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage5, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage6, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage7, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage8, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage9, &file);
-//            SD_StopWriting();
-//            SD_CreateNewCSV();
-//            f_puts(adc_storage10, &file);
-//            SD_StopWriting();
         }
     }
 }

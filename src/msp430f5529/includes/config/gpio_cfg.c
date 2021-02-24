@@ -129,47 +129,56 @@ __interrupt void pushbutton_ISR(void)
     switch (__even_in_range(P1IV, 0x10))
     {
     case 0x00:
-        break;   // None
-    case 0x02:          // Pin 0
+        break; // None
+    case 0x02: // Pin 0
 
-        __delay_cycles(4000000);   // 20000 = 1ms
+        __delay_cycles(4000000);                            // 20000 = 1ms
         if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0)) //TODO: When Button pressed, do nothing
         {
-            if (g_5v_flag == 0)
+            // !!! Flags ONLY for ECG_LONG !!!
+            if (g_sys_state == ECG_LONG)
             {
-                g_5v_flag = 1;
-                g_buzzer_on_flag = 1;
-                if(g_sys_state != ECG_LONG){
+
+                
+
+            }
+            // !!! Flags for other cases != ECG_LONG !!!
+            else
+            {
+                // g_5v_flag = 0 -> 5V ON
+                if (g_5v_flag == 0)
+                {
+                    // g_5v_flag = 1 -> 5V OFF
+                    g_5v_flag = 1;
+                    g_buzzer_on_flag = 1;
                     g_sys_state = ENERGY_SAVING_MODE;
                 }
-                // State_sys_Energy_Saving_Mode();
-            }
-            else if (g_5v_flag == 1)
-            {
-                g_5v_flag = 0;
-                // g_buzzer_on_flag = 1;
-                if(g_sys_state != ECG_LONG){
+                // g_5v_flag = 1 -> 5V OFF
+                else if (g_5v_flag == 1)
+                {
+                    // g_5v_flag = 0 -> 5V ON
+                    g_5v_flag = 0;
                     g_sys_state = SYS_WAKEUP;
+
                 }
-                // State_sys_Wakeup_Mode();
             }
         }
 
         break;
     case 0x04:
-        break;   // Pin 1
+        break; // Pin 1
     case 0x06:
-        break;   // Pin 2
+        break; // Pin 2
     case 0x08:
-        break;   // Pin 3
+        break; // Pin 3
     case 0x0A:
-        break;   // Pin 4
+        break; // Pin 4
     case 0x0C:
-        break;   // Pin 5
+        break; // Pin 5
     case 0x0E:
-        break;   // Pin 6
+        break; // Pin 6
     case 0x10:
-        break;   // Pin 7
+        break; // Pin 7
     default:
         _never_executed();
     }
@@ -181,36 +190,42 @@ __interrupt void PORT2_ISR(void)
     switch (__even_in_range(P2IV, 0x10))
     {
     case 0x00:
-        break;   // None
-    case 0x02:   // Pin 0   // SD CARD
-//        __delay_cycles(2000000);
-        if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN0)) {
+        break; // None
+    case 0x02: // Pin 0   // SD CARD
+               //        __delay_cycles(2000000);
+        if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN0))
+        {
             g_sd_state_flag = 1;
-        } else {
+        }
+        else
+        {
             g_sd_state_flag = 0;
         }
 
         break;
-    case 0x04:              // BLUETOOTH
-//        __delay_cycles(2000000);
-        if (test = GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1)) {
+    case 0x04: // BLUETOOTH
+               //        __delay_cycles(2000000);
+        if (test = GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1))
+        {
             g_bt_state_flag = 1;
-        } else {
+        }
+        else
+        {
             g_bt_state_flag = 0;
         }
-        break;   // Pin 1
+        break; // Pin 1
     case 0x06:
-        break;   // Pin 2
+        break; // Pin 2
     case 0x08:
-        break;   // Pin 3
+        break; // Pin 3
     case 0x0A:
-        break;   // Pin 4
+        break; // Pin 4
     case 0x0C:
-        break;   // Pin 5
+        break; // Pin 5
     case 0x0E:
-        break;   // Pin 6
+        break; // Pin 6
     case 0x10:
-        break;   // Pin 7
+        break; // Pin 7
     default:
         _never_executed();
     }
