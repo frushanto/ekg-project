@@ -33,6 +33,7 @@ uint16_t ecg_long_array_cnt = 0;
 char commaArr[1];
 char adcSingleResultArr[4];
 char localtimeArr[80];
+char adcSingleResultArrLong[15];
 
 void Init_FAT(void){
     errCode = 20;
@@ -169,6 +170,7 @@ void SD_SetTimeStamp(void){
     }
 }
 
+// TODO: fputs and sprintf in just one Array (see LongECG)
 void SD_StartWriting(void) {
     if(g_sd_card_inserted) {
         // Set adc value
@@ -200,8 +202,6 @@ void SD_Energy_Saving_Long_ECG() {
         case MODE_NORMAL:
             // Sending to SD Card
             // TODO save in the same file
-            // TODO timestamp
-            // TODO save g_adc_result_storage as char
             if (g_adc_result_storage_full == TRUE) 
             {
                 
@@ -212,6 +212,8 @@ void SD_Energy_Saving_Long_ECG() {
                     ecg_long_array_cnt < LONG_ECG_STORAGE_SIZE; 
                     ecg_long_array_cnt++)
                 {
+                    g_cnt_msec_long += 4; // 250 Hz -> 1 value per 4 msec
+
                     // Timestamp calculation
                     if (g_cnt_msec_long >= 1000) {
                         g_cnt_msec_long = 0;
@@ -226,20 +228,11 @@ void SD_Energy_Saving_Long_ECG() {
                                 g_cnt_hour_long++;
                             }
                         } 
-                    } else {
-                        g_cnt_msec_long += 4; // 250 Hz -> 1 value per 4 msec
                     }
-
-                    sprintf(adcSingleResultArr, "%d", g_adc_result_storage[ecg_long_array_cnt]);
+                    sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage[ecg_long_array_cnt]
+                                                                        , g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
                     // Set adc value
-                    g_tmp_return = f_puts(adcSingleResultArr, &file);
-                    // Set comma
-                    sprintf(commaArr, "%s", ",");
-                    g_tmp_return = f_puts(commaArr, &file);
-                    // Set timestamp
-                    sprintf(timeBuffer, "%02d:%02d:%02d \n",
-                        g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
-                    g_tmp_return = f_puts(timeBuffer, &file);
+                    g_tmp_return = f_puts(adcSingleResultArrLong, &file);
                 }
 
                 // Close file
@@ -260,7 +253,7 @@ void SD_Energy_Saving_Long_ECG() {
             // Check if SD was inserted while turning off
             if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN0)) {
                 Set_SD_Icon_Display(1);
-            } else {
+            } else if (!(GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN0))){
                 Set_SD_Icon_Display(0);
                 SD_Card_Error();
             }
@@ -289,8 +282,6 @@ void SD_Energy_Saving_Long_ECG() {
 
             // Sending to SD Card
             // TODO save in the same file
-            // TODO timestamp
-            // TODO save g_adc_result_storage as char
             SD_CreateNewCSV();
             f_puts(g_adc_result_storage, &file);
             SD_StopWriting();
@@ -332,71 +323,6 @@ void SD_Energy_Saving_Long_ECG() {
 
             break;
     }
-
-    // // Normal mode: SD = TRUE; STORAGE = FULL; 
-    // //              BTN = NOT PRESSED; 5V = ON
-    // if ((g_sd_card_inserted) && 
-    //     (g_adc_result_storage_full) &&
-    //     // Not locked yet -> device is active
-    //     (g_ecg_long_btn_pressed == FALSE) && 
-    //     // 5V still ON
-    //     (g_ecg_long_5v_on == TRUE))
-    // {
-    //     // // Send to SD
-    //     // // TODO save in the same file
-    //     // // TODO timestamp
-    //     // SD_CreateNewCSV();
-    //     // f_puts(g_adc_result_storage, &file);
-    //     // SD_StopWriting();
-    // }
-
-    // // 5V OFF mode: SD = TRUE; STORAGE = FILLING;
-    // //              BTN = PRESSED; 5V = ON
-    // if ((g_sd_card_inserted) && 
-    //     // Locked
-    //     (g_ecg_long_btn_pressed == TRUE) && 
-    //     // 5V ON
-    //     (g_ecg_long_5v_on == TRUE)) 
-    //     {
-    //         // While STORAGE = FILLING -> 5V OFF; wait for STORAGE = FULL
-    //         while (g_adc_result_storage_full == FALSE) {
-    //             // 5V OFF & wait until STORAGE = FULL
-    //             // LED2 on PCB turn OFF
-    //             GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
-    //             // 5V DC/DC turn OFF
-    //             GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
-    //             // Adjust 5V flag
-    //             g_ecg_long_5v_on = FALSE;
-    //         }
-    //         // If STORAGE = FULL -> 5V ON, SD INIT, send STORAGE to SD
-    //         if (g_adc_result_storage_full == TRUE) 
-    //         {
-    //             // 5V ON
-    //             // LED2 on PCB turn ON
-    //             GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
-    //             // 5V DC/DC turn ON
-    //             GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
-    //             // Adjust 5V flag
-    //             g_ecg_long_5v_on = TRUE;
-    //         }
-    //     }
-
-
-
-
-
-    // // If device will be locked -> user pressed lock button 1 time
-    // // means 5V will be switched OFF -> g_5v_flag goes from 0 to 1
-    // if (g_5v_flag == 1 && )
-    // {
-    //     // 5V OFF
-    //     // LED2 on PCB turn OFF
-    //     GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
-    //     // 5V DC/DC turn OFF
-    //     GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
-    //     g_5v_flag = 1;
-    // }
-
 }
 
 void Check_SD_Card_Connection()

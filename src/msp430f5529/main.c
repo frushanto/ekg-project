@@ -177,8 +177,6 @@ void main(void)
                 // Get ADC values as usual
                 // -> will be executed automatically
 
-                // Store ADC values on MCU
-//                SD_Save_ADC_Values();
                 SD_Energy_Saving_Long_ECG();
 
                 // Activate 5V
