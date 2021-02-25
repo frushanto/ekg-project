@@ -41,7 +41,8 @@ void Init_GPIO(void)
 //    GPIO_setAsInputPin(GPIO_PORT_P2, GPIO_PIN1);
     GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P2, GPIO_PIN1);
     GPIO_enableInterrupt(GPIO_PORT_P2, GPIO_PIN1);
-    GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, GPIO_LOW_TO_HIGH_TRANSITION);
+    GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, 
+        GPIO_LOW_TO_HIGH_TRANSITION);
     test = (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1));
 
     // Configure Card Detect for SD Card
@@ -50,10 +51,12 @@ void Init_GPIO(void)
     if (GPIO_getInputPinValue(GPIO_PORT_P2,
             GPIO_PIN0)) {
         g_sd_card_inserted = TRUE;
-        GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_HIGH_TO_LOW_TRANSITION);
+        GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, 
+            GPIO_HIGH_TO_LOW_TRANSITION);
     } else {
         g_sd_card_inserted = FALSE;
-        GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, GPIO_LOW_TO_HIGH_TRANSITION);
+        GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN0, 
+            GPIO_LOW_TO_HIGH_TRANSITION);
     }
 }
 

@@ -161,7 +161,45 @@ void SD_CreateNewCSV(void) {
     }
 }
 
-void SD_SetTimeStamp(void){
+void SD_WriteInExistingCSV() {
+     if(g_sd_card_inserted)
+     {
+        // File naming for SHORT ECG
+        if (g_long_ECG_flag == 1)
+        {
+            while ((file_exists = f_open(&file, csvNameLongECGArr,
+                                            FA_OPEN_EXISTING)) == FR_OK &&
+            !(nameRangeOverflow))
+            {
+                f_close(&file);
+                // Try next letter in file name
+                firstLetter = csvNameLongECGArr[5];
+                secondLetter = csvNameLongECGArr[6];
+                if (isalpha(secondLetter) &&
+                    tolower(secondLetter) != 'z') {
+                    csvNameLongECGArr[6] = ++secondLetter;
+                } else if (isalpha(firstLetter) &&
+                    tolower(firstLetter) != 'z') {
+                    csvNameLongECGArr[5] = ++firstLetter;
+                    csvNameLongECGArr[6] = 'A';
+                } else {
+                    csvNameLongECGArr[5] = 'A';
+                    csvNameLongECGArr[6] = 'A';
+                    f_close(&file);
+                    nameRangeOverflow = TRUE;
+                }
+                // TODO!!!
+                f_open(&file, csvNameLongECGArr, FA_OPEN_EXISTING | FA_WRITE);
+                uint32_t len = f_size(&file);
+                if(len != 0 ) len+=2;
+                f_lseek(&file,len);
+                // start writing here
+            }
+        }
+    }
+}
+
+void SD_SetTimeStamp(void) {
     memset(timeBuffer,0x00,TB_SIZE);
     if (g_sys_state == ECG_SHORT){
         sprintf(timeBuffer, "%02d:%02d \n",g_cnt_min, g_cnt_sec);
@@ -204,44 +242,46 @@ void SD_Energy_Saving_Long_ECG() {
             // TODO save in the same file
             if (g_adc_result_storage_full == TRUE) 
             {
-                
-                SD_CreateNewCSV();
+            
+                // SD_WriteInExistingCSV();
 
                 // Write values on SD Card
                 for (ecg_long_array_cnt = 0; 
                     ecg_long_array_cnt < LONG_ECG_STORAGE_SIZE; 
                     ecg_long_array_cnt++)
                 {
-                    g_cnt_msec_long += 4; // 250 Hz -> 1 value per 4 msec
+                    // g_cnt_msec_long += 4; // 250 Hz -> 1 value per 4 msec
 
-                    // Timestamp calculation
-                    if (g_cnt_msec_long >= 1000) {
-                        g_cnt_msec_long = 0;
-                        g_cnt_sec_long++;
-                        if (g_cnt_sec_long > 59) 
-                        {
-                            g_cnt_sec_long = 0;
-                            g_cnt_min_long++;
-                            if (g_cnt_min_long > 59) 
-                            {
-                                g_cnt_min_long = 0;
-                                g_cnt_hour_long++;
-                            }
-                        } 
-                    }
-                    sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage[ecg_long_array_cnt]
-                                                                        , g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
+                    // // Timestamp calculation
+                    // if (g_cnt_msec_long >= 1000) {
+                    //     g_cnt_msec_long = 0;
+                    //     g_cnt_sec_long++;
+                    //     if (g_cnt_sec_long > 59) 
+                    //     {
+                    //         g_cnt_sec_long = 0;
+                    //         g_cnt_min_long++;
+                    //         if (g_cnt_min_long > 59) 
+                    //         {
+                    //             g_cnt_min_long = 0;
+                    //             g_cnt_hour_long++;
+                    //         }
+                    //     } 
+                    // }
+                    // sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage[ecg_long_array_cnt]
+                    //                                                     , g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
+                    sprintf(adcSingleResultArrLong, "%d\n", g_adc_result_storage[ecg_long_array_cnt]);
                     // Set adc value
                     g_tmp_return = f_puts(adcSingleResultArrLong, &file);
                 }
 
-                // Close file
-                SD_StopWriting();
+                // // Close file
+                // SD_StopWriting();
             }
             
             if ((g_ecg_long_btn_pressed == TRUE) &&
                 (g_adc_result_storage_full == FALSE))
             {
+                SD_StopWriting();
                 g_long_ecg_state = MODE_5V_OFF;
             }
             else if ((g_ecg_long_btn_pressed == TRUE) &&
@@ -281,16 +321,45 @@ void SD_Energy_Saving_Long_ECG() {
             Init_FAT();
 
             // Sending to SD Card
-            // TODO save in the same file
-            SD_CreateNewCSV();
-            f_puts(g_adc_result_storage, &file);
-            SD_StopWriting();
+            SD_WriteInExistingCSV();
 
+            // Write values on SD Card
+            for (ecg_long_array_cnt = 0; 
+                ecg_long_array_cnt < LONG_ECG_STORAGE_SIZE; 
+                ecg_long_array_cnt++)
+            {
+                // g_cnt_msec_long += 4; // 250 Hz -> 1 value per 4 msec
 
+                // // Timestamp calculation
+                // if (g_cnt_msec_long >= 1000) {
+                //     g_cnt_msec_long = 0;
+                //     g_cnt_sec_long++;
+                //     if (g_cnt_sec_long > 59) 
+                //     {
+                //         g_cnt_sec_long = 0;
+                //         g_cnt_min_long++;
+                //         if (g_cnt_min_long > 59) 
+                //         {
+                //             g_cnt_min_long = 0;
+                //             g_cnt_hour_long++;
+                //         }
+                //     } 
+                // }
+                // sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage[ecg_long_array_cnt]
+                //                                                     , g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
+                sprintf(adcSingleResultArrLong, "%d\n", g_adc_result_storage[ecg_long_array_cnt]);
+                // Set adc value
+                g_tmp_return = f_puts(adcSingleResultArrLong, &file);
+            }
+            
             if (g_ecg_long_btn_pressed == FALSE)
             {
                 g_long_ecg_state = MODE_NORMAL;
+            } else {
+                SD_StopWriting();
             }
+
+
 
             // When done -> change to MODE_5V_OFF
             g_long_ecg_state = MODE_5V_OFF;
@@ -318,6 +387,13 @@ void SD_Energy_Saving_Long_ECG() {
                 GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
                  // Adjust 5V flag   
                 g_ecg_long_5v_on = TRUE;
+                
+                // SD Card INIT
+                Init_FAT();
+
+                // Sending to SD Card
+                SD_WriteInExistingCSV();
+
                 g_long_ecg_state = MODE_NORMAL;
             }
 

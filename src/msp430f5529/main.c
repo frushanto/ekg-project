@@ -143,6 +143,7 @@ void main(void)
             break;
 
         case ECG_LONG:
+
             // Check Akku > 80%
 //            Check_Akku_Percentage();
             //Update Time for ECG

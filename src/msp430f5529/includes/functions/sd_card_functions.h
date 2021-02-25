@@ -32,6 +32,7 @@ extern bool display_sleep_mode;
 FRESULT WriteFile(char*, char*, WORD);
 void Init_FAT(void);
 void SD_CreateNewCSV(void);
+void SD_WriteInExistingCSV(void);
 void SD_StartWriting(void);
 void SD_StopWriting(void);
 void SD_SetTimeStamp(void);
