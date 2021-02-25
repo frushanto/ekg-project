@@ -18,12 +18,6 @@ FRESULT res;                /* Result object      */
 UINT bytesRead;             /* Bytes read object  */
 UINT read;                  /* Read bytes object  */
 
-typedef struct {
-    char adc[4];
-    char comma[1];
-    char timestamp[9];
-} ADC_STORAGE;
-
 typedef enum
 {
     MODE_NORMAL,
@@ -41,7 +35,7 @@ void SD_CreateNewCSV(void);
 void SD_StartWriting(void);
 void SD_StopWriting(void);
 void SD_SetTimeStamp(void);
-void SD_WriteToSpecificArray(void);
-void Check_SD_Card_Connection();
+void Check_SD_Card_Connection(void);
+void SD_Energy_Saving_Long_ECG(void);
 
 #endif /* INCLUDES_FUNCTIONS_SD_CARD_FUNCTIONS_H_ */

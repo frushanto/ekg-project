@@ -131,6 +131,7 @@ __interrupt void ADC12_A_ISR(void)
         if (g_sys_state == ECG_LONG)
         {
             // TODO saving ADC values in array
+
             g_adc_result_storage[g_adc_result_cnt] = g_adc_result;
 
             // Counter has values 0..999 -> LONG_ECG_STORAGE_SIZE - 1
