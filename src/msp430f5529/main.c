@@ -79,7 +79,7 @@ void main(void)
                 g_sys_state = ECG_SHORT;
             }
 
-            //Check if Start of short ECG is requested
+            //Check if Start of long ECG is requested
             if (g_long_ECG_flag && g_timer_uart_1sec)   // Sync timer by changing state to ECG Long
             {
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
