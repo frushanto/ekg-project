@@ -2,12 +2,11 @@
 
 \section{Stand der Technik}
 
-Dieses Kapitel stellt die Werkzeuge vor die für das Projekt verwendet wurde und bereits kommerziell erhältliche Produkte vor. Da der Markt für Heim-EKG-Diagnosegeräte nicht unerschlossen ist, wurde im Zuge einer Marktrecherche der aktuelle Stand der Technik ermittelt, der in angepasstem Rahmen in diesem Projekt erreicht werden soll. 
+Dieses Kapitel gibt einen Überblick über das Angebot an EKG-Geräten sowohl aus dem Heim- als auch aus dem klinischen Bereich. Da das Projektziel die Entwicklung eines Heim-EKG-Gerätes ist, wird im Zuge einer Marktrecherche der aktuelle Stand der Technik wiedergegeben, der in angepasstem Umfang in diesem Projekt erreicht werden soll. 
 
-\subsection{Verwendete Software}
+\subsection{Überblick der EKG-Diagnostik}
 
-Für die Erstellung und Frequenzanalyse eines künstlichen EKG-Signals wurde das numerische Rechentool Matlab verwendet. Damit konnten die Grenzfrequenzen des Signals bereits ohne Labortest abgeschätzt werden. Diese Erkenntnisse wurden bei der Schaltungsentwicklung der analogen Filterschaltung mit LTSpice angewandt. Durch die Einbindung von Herstellermodellen, war die Simulation von Bauteilen möglich, ohne diese physisch zu testen. Für den Entwurf der Leiterplatine kam Altium Designer zur Anwendung. Auch hierfür bieten Hersteller Modelle für die Pinbelegung, den Footprint und 3D-Modelle an. Besonders die 3D-Modelle waren für das Gehäusedesign hilfreich um die korrekte Lage und Maße der Bauteile im Gehäuse auch optisch zu prüfen.
-%TODO weitere Software wie Nextion Editor , Git, CCS und Blender
+%TODO Überblick über die klinische Gerätetechnik und Hinführung zum Heim-EKG
 
 \subsection{Marktrecherche}
 
@@ -26,30 +25,33 @@ Das letzte Gerät der Recherche ist der EKG-Monitor vom Hersteller Viatom. Er ve
 \begin{table}
 
 \begin{tabular}[t]{p{2.1 cm}|p{2.1 cm}|p{2.1 cm}|p{2.1 cm}|p{2.1 cm}|p{2.1 cm}}
-Modell & Kardio-Mobile & Beurer ME 90 & Hartmann Veroval & Cardio-Secure Active & EKG-Monitor Viatom\\
+\textbf{Modell} & Kardio-Mobile & Beurer ME 90 & Hartmann Veroval & Cardio-Secure Active & EKG-Monitor Viatom\\
 \hline
 Gewicht (g) & 41 & 31 (ohne Batterie) & - & 50 & 280 
 \\
 \hline
-Energie-versorgung & Knopf-batterie & Knopf-batterie & AAA-Batterie & Versorgung durch Smartphone & integrierter Akku 
+\textbf{Energie-versorgung} & Knopf-batterie & Knopf-batterie & AAA-Batterie & Versorgung durch Smartphone & integrierter Akku 
 \\
 \hline
-Sensortyp & Edelstahl-elektroden-pad & Edelstahl-elektroden-pad & Edelstahl-elektroden-pad & Einmal-klebeelektro-den & Edelstahl-elektroden-pad 
+\textbf{Sensortyp} & Edelstahl-elektroden-pad & Edelstahl-elektroden-pad & Edelstahl-elektroden-pad & Einmal-klebeelektro-den & Edelstahl-elektroden-pad 
 \\
 \hline
-EKG-Arten & Kurzzeit (\SI{30}{\sec} - \SI{5}{\min}) & Kurzzeit (\SI{30}{\sec}) & Kurzzeit (\SI{30}{\sec}) &  Kurzzeit (\SI{10}{\sec}) &  Kurzzeit (\SI{30}{\sec})
+\textbf{verfügbare EKG-Arten} & Kurzzeit (\SI{30}{\sec} - \SI{5}{\min}) & Kurzzeit (\SI{30}{\sec}) & Kurzzeit (\SI{30}{\sec}) &  Kurzzeit (\SI{10}{\sec}) &  Kurzzeit (\SI{30}{\sec})
 \\
 \hline
-Display & Smartphone & LC-Display (nicht für Signal-verlauf) & LC-Display (nicht für Signal-verlauf) & Smartphone & 2,4 Zoll Touch-Display 
+\textbf{Display} & Smartphone & LC-Display (nicht für Signal-verlauf) & LC-Display (nicht für Signal-verlauf) & Smartphone & 2,4 Zoll Touch-Display 
 \\
 \hline
-Schnitt-stellen & Bluetooth & Bluetooth und USB & USB & USB-C & USB
+\textbf{Schnitt-stellen} & Bluetooth & Bluetooth und USB & USB & USB-C & USB
 \\
 \hline
-automati-sierte Diagnose von & BK, TK und VHF & BK, TK und VHF & BK, TK und VHF & BK, TK und VHF & BK, TK und VHF
+\textbf{automati-sierte Diagnose von} & BK, TK und VHF & BK, TK und VHF & BK, TK und VHF & BK, TK und VHF & BK, TK und VHF
 \\
 \hline
-Preis & 120,00 € & 100,00 € & 125,00 € & 150,00 € & 140,00 € 
+\textbf{Abtastrate} %TODO Abtastraten aufführen
+\\
+\hline
+\textbf{Preis} & 120,00 € & 100,00 € & 125,00 € & 150,00 € & 140,00 € 
 
 \\
 \end{tabular}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  24 FEB 2021 22:31
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  25 FEB 2021 13:14
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
@@ -633,8 +633,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 49--51
  []
 
 ) [8] [9] [10] (Chapter//ekg_7_realisierung.tex
-(Chapter//ekg_7_realisierung_diskussion_der_alternativen.tex)
-(Chapter//ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
+(Chapter//ekg_7_realisierung_konzeptfindung_und_diskussion_der_alternativen.tex
+) (Chapter//ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
 Underfull \hbox (badness 10000) in paragraph at lines 14--15
 
  []
@@ -710,14 +710,10 @@ File: Bilder//EKG_virtueller_Ground.png Graphic file (type bmp)
 )) [19] (Chapter//ekg_7_ergebnisse.tex)
 (Chapter//ekg_7_zusammenfassung.tex) (Chapter//ekg_7_ausblick.tex) [20]
 (ekg_7_projektbericht.bbl) (Chapter//ekg_7_anhang.tex) [21]
-(ekg_7_projektbericht.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+(ekg_7_projektbericht.aux) ) 
 Here is how much of TeX's memory you used:
  8541 strings out of 412197
- 216857 string characters out of 2853959
+ 216933 string characters out of 2853959
  578647 words of memory out of 3000000
  27899 multiletter control sequences out of 15000+200000
  541952 words of font info for 69 fonts, out of 3000000 for 9000
