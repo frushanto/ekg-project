@@ -208,8 +208,28 @@ void SD_Energy_Saving_Long_ECG() {
                 SD_CreateNewCSV();
 
                 // Write values on SD Card
-                for (ecg_long_array_cnt = 0; ecg_long_array_cnt < LONG_ECG_STORAGE_SIZE; ecg_long_array_cnt++)
+                for (ecg_long_array_cnt = 0; 
+                    ecg_long_array_cnt < LONG_ECG_STORAGE_SIZE; 
+                    ecg_long_array_cnt++)
                 {
+                    // Timestamp calculation
+                    if (g_cnt_msec_long >= 1000) {
+                        g_cnt_msec_long = 0;
+                        g_cnt_sec_long++;
+                        if (g_cnt_sec_long > 59) 
+                        {
+                            g_cnt_sec_long = 0;
+                            g_cnt_min_long++;
+                            if (g_cnt_min_long > 59) 
+                            {
+                                g_cnt_min_long = 0;
+                                g_cnt_hour_long++;
+                            }
+                        } 
+                    } else {
+                        g_cnt_msec_long += 4; // 250 Hz -> 1 value per 4 msec
+                    }
+
                     sprintf(adcSingleResultArr, "%d", g_adc_result_storage[ecg_long_array_cnt]);
                     // Set adc value
                     g_tmp_return = f_puts(adcSingleResultArr, &file);
@@ -217,7 +237,8 @@ void SD_Energy_Saving_Long_ECG() {
                     sprintf(commaArr, "%s", ",");
                     g_tmp_return = f_puts(commaArr, &file);
                     // Set timestamp
-                    SD_SetTimeStamp();
+                    sprintf(timeBuffer, "%02d:%02d:%02d \n",
+                        g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
                     g_tmp_return = f_puts(timeBuffer, &file);
                 }
 

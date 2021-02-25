@@ -71,6 +71,10 @@ extern bool g_ecg_long_btn_pressed;
 extern uint8_t g_cnt_sec;
 extern uint8_t g_cnt_min;
 extern uint8_t g_cnt_hour;
+extern uint16_t g_cnt_msec_long;
+extern uint8_t g_cnt_sec_long;
+extern uint8_t g_cnt_min_long;
+extern uint8_t g_cnt_hour_long;
 
 extern bool g_sd_card_inserted;
 extern bool g_bt_connected;
