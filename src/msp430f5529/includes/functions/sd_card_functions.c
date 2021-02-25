@@ -190,9 +190,9 @@ void SD_WriteInExistingCSV() {
                 }
                 // TODO!!!
                 f_open(&file, csvNameLongECGArr, FA_OPEN_EXISTING | FA_WRITE);
-                uint32_t len = f_size(&file);
-                if(len != 0 ) len+=2;
-                f_lseek(&file,len);
+                // uint32_t len = f_size(&file);
+                // if(len != 0 ) len+=2;
+                f_lseek(&file,f_size(&file));
                 // start writing here
             }
         }
