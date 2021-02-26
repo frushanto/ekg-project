@@ -96,14 +96,11 @@ void main(void)
                 GPIO_toggleOutputOnPin(GPIO_PORT_P4,GPIO_PIN7);
 
                 //Startet Senden mit DMA
-                //send_value_dma(bt_test++);
+                send_bt_value_dma(bt_test++);
 
+                //Reset Counter
                 if (bt_test > 4096)
                     bt_test = 0;
-
-                //Alternative: if bedingung true setzen und das hier einkommentieren
-                //send_bt_string("Hello World");
-                //delay(1000);
             }
 
             #endif

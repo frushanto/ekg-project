@@ -1,7 +1,6 @@
 #include <includes/config/timer_cfg.h>
 
 
-
 /*** Module Variables ***/
 //Endless counter with 1kHz
 static uint32_t counter_1khz = 0;
@@ -87,6 +86,10 @@ void TIMER0_A0_ISR (void)
     //Send BT value with 200Hz
     if ( (g_sys_state == ECG_SHORT) & (counter_1khz % 5 == 0) )
         send_value_dma(g_adc_result);
+
+    if (counter_1khz % 1 == 0)
+        idle_1hz_send_bt_flag = true;
+
 }
 
 
