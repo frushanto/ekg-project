@@ -144,6 +144,7 @@ __interrupt void ADC12_A_ISR(void)
             else
             {
                 g_adc_result_cnt = 0;
+                g_adc_number_of_storages++;
                 // Flag -> storage is ready to be sent
                 // Array will not be cleared
                 // Flag == true -> array has new values

@@ -21,6 +21,8 @@ uint16_t g_cnt_msec_long = 0;
 uint8_t g_cnt_sec_long = 0;
 uint8_t g_cnt_min_long = 0;
 uint8_t g_cnt_hour_long = 0;
+uint16_t g_adc_number_of_storages = 0;
+uint32_t g_adc_csv_offset = 0;
 bool g_ecg_long_5v_on = TRUE;
 bool g_ecg_long_btn_pressed = FALSE;
 bool g_sd_card_inserted = FALSE;
@@ -206,6 +208,8 @@ void main(void)
                 Clear_ECG_Timer_LT();
                 // Stop writing in .csv
                 SD_StopWriting();
+                g_adc_number_of_storages = 0;
+                g_adc_csv_offset = 0;
                 g_sys_state = IDLE_STATE;
             }
 

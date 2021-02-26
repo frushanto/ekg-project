@@ -76,6 +76,9 @@ extern uint8_t g_cnt_sec_long;
 extern uint8_t g_cnt_min_long;
 extern uint8_t g_cnt_hour_long;
 
+extern uint16_t g_adc_number_of_storages;
+extern uint32_t g_adc_csv_offset;
+
 extern bool g_sd_card_inserted;
 extern bool g_bt_connected;
 extern bool g_adc_new_values;
