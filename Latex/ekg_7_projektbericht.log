@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  25 FEB 2021 23:15
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  26 FEB 2021 10:12
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
@@ -715,20 +715,18 @@ t-Fourier-Transformation
 
 File: Bilder//EKG_Signal.png Graphic file (type bmp)
 <Bilder//EKG_Signal.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 File: Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type 
 bmp)
 <Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[17]
+[17] [18]
 File: Bilder//EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
 <Bilder//EKG_aktiver_Tiefpassfilter.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[18]
 File: Bilder//EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
 <Bilder//EKG_Gesamtübertragungsfunktion.png>
 
@@ -744,7 +742,11 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 )) [20] (Chapter//ekg_7_ergebnisse.tex) (Chapter//ekg_7_zusammenfassung.tex)
 (Chapter//ekg_7_ausblick.tex) [21] (ekg_7_projektbericht.bbl)
-(Chapter//ekg_7_anhang.tex) [22] (ekg_7_projektbericht.aux) ) 
+(Chapter//ekg_7_anhang.tex) [22] (ekg_7_projektbericht.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
  8548 strings out of 412197
  217120 string characters out of 2853959
