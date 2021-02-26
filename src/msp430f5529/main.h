@@ -57,6 +57,7 @@ extern uint8_t g_timer_250Hz_flag;
 extern uint8_t g_timer_1sec_flag;
 extern uint16_t g_adc_result;
 extern uint16_t g_adc_result_storage[];
+extern uint16_t g_adc_result_storage_cpy[];
 extern uint16_t g_adc_result_cnt;
 extern bool g_adc_result_storage_full;
 extern uint16_t g_akku_vol;
@@ -75,9 +76,6 @@ extern uint16_t g_cnt_msec_long;
 extern uint8_t g_cnt_sec_long;
 extern uint8_t g_cnt_min_long;
 extern uint8_t g_cnt_hour_long;
-
-extern uint16_t g_adc_number_of_storages;
-extern uint32_t g_adc_csv_offset;
 
 extern bool g_sd_card_inserted;
 extern bool g_bt_connected;

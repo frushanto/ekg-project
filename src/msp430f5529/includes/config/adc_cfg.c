@@ -145,18 +145,17 @@ __interrupt void ADC12_A_ISR(void)
             }
             else
             {
+                // for(uint16_t cnt = 0; cnt < 1000; cnt ++){
+                //     g_adc_result_storage_cpy[cnt] = g_adc_result_storage[cnt];
+                // }
+                memcpy(g_adc_result_storage_cpy, g_adc_result_storage, 2000);
                 g_adc_result_cnt = 0;
-                g_adc_number_of_storages++;
                 // Flag -> storage is ready to be sent
                 // Array will not be cleared
                 // Flag == true -> array has new values
                 g_adc_result_storage_full = TRUE;
             }
         }
-//        if(timer_cnt == 3000)
-//        {
-//            g_cnt_hour = 0;
-//        }
 
         //Get accumulator Voltage
         g_akku_vol = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_1);

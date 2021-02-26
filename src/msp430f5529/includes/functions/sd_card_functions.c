@@ -169,10 +169,6 @@ void SD_WriteInExistingCSV() {
         {
             f_open(&file, csvNameLongECGArr, 
                    FA_OPEN_EXISTING | FA_WRITE);
-
-            // Write at end of File
-            // g_adc_csv_offset = (g_adc_number_of_storages * LONG_ECG_STORAGE_SIZE * 14);
-            // f_lseek(&file, g_adc_csv_offset); // Plan B
             f_lseek(&file, file.fsize);
         }
     }
@@ -221,9 +217,7 @@ void SD_Energy_Saving_Long_ECG() {
             // TODO save in the same file
             if (g_adc_result_storage_full == TRUE) 
             {
-            
                 SD_WriteInExistingCSV();
-
                 // Write values on SD Card
                 for (ecg_long_array_cnt = 0; 
                     ecg_long_array_cnt < LONG_ECG_STORAGE_SIZE; 
@@ -245,11 +239,12 @@ void SD_Energy_Saving_Long_ECG() {
                             }
                         } 
                     }
-                    sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage[ecg_long_array_cnt]
+                    sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage_cpy[ecg_long_array_cnt]
                                                                         , g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
                     // sprintf(adcSingleResultArrLong, "%d\n", g_adc_result_storage[ecg_long_array_cnt]);
                     // Set adc value
                     g_tmp_return = f_puts(adcSingleResultArrLong, &file);
+//                    memset(g_adc_result_storage_cpy, 0, 2000);
                 }
                 g_adc_result_storage_full = FALSE;
                 // Close file
@@ -282,12 +277,6 @@ void SD_Energy_Saving_Long_ECG() {
 
         case MODE_5V_ON:
             display_sleep_mode = TRUE;
-            
-            // // delete? 
-            // if (g_adc_result_storage_full == FALSE) 
-            // {
-            //     g_long_ecg_state = MODE_5V_OFF;
-            // }
 
             // 5V ON
             // LED2 on PCB turn ON
@@ -302,7 +291,6 @@ void SD_Energy_Saving_Long_ECG() {
 
             // Sending to SD Card
             SD_WriteInExistingCSV();
-
             // Write values on SD Card
             for (ecg_long_array_cnt = 0; 
                 ecg_long_array_cnt < LONG_ECG_STORAGE_SIZE; 
@@ -324,25 +312,26 @@ void SD_Energy_Saving_Long_ECG() {
                         }
                     } 
                 }
-                sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage[ecg_long_array_cnt]
+                sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage_cpy[ecg_long_array_cnt]
                                                                     , g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
                 // sprintf(adcSingleResultArrLong, "%d\n", g_adc_result_storage[ecg_long_array_cnt]);
                 // Set adc value
                 g_tmp_return = f_puts(adcSingleResultArrLong, &file);
+//                memset(g_adc_result_storage_cpy, 0, 2000);
             }
+            SD_StopWriting();
             g_adc_result_storage_full = FALSE;
-
             if (g_ecg_long_btn_pressed == FALSE)
             {
+                Display_Exit_Sleep_Mode();
+                uart_transmit_data_start("page 3");
+                uart_transmit_data_end();
                 g_long_ecg_state = MODE_NORMAL;
-            } else {
-                SD_StopWriting();
+            }else
+            {
+                // When done -> change to MODE_5V_OFF
+                g_long_ecg_state = MODE_5V_OFF;
             }
-
-
-
-            // When done -> change to MODE_5V_OFF
-            g_long_ecg_state = MODE_5V_OFF;
 
             break;
 
@@ -371,13 +360,8 @@ void SD_Energy_Saving_Long_ECG() {
                 GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
                  // Adjust 5V flag   
                 g_ecg_long_5v_on = TRUE;
-                
                 // SD Card INIT
                 Init_FAT();
-
-                // Sending to SD Card
-                SD_WriteInExistingCSV();
-
             }
 
             break;

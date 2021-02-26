@@ -6,6 +6,7 @@ uint8_t g_timer_1sec_flag = 0;
 uint8_t g_timer_uart_1sec = 0;
 uint16_t g_adc_result = 0;
 uint16_t g_adc_result_storage[LONG_ECG_STORAGE_SIZE] = {0}; // 4 sec storage (f = 250 Hz)
+uint16_t g_adc_result_storage_cpy[LONG_ECG_STORAGE_SIZE] = {0};
 uint16_t g_adc_result_cnt = 0;
 bool g_adc_result_storage_full = FALSE;
 uint8_t g_short_ECG_flag = 0;
@@ -21,8 +22,6 @@ uint16_t g_cnt_msec_long = 0;
 uint8_t g_cnt_sec_long = 0;
 uint8_t g_cnt_min_long = 0;
 uint8_t g_cnt_hour_long = 0;
-uint16_t g_adc_number_of_storages = 0;
-uint32_t g_adc_csv_offset = 0;
 bool g_ecg_long_5v_on = TRUE;
 bool g_ecg_long_btn_pressed = FALSE;
 bool g_sd_card_inserted = FALSE;
@@ -87,9 +86,7 @@ void main(void)
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
                 // Start create/write new .csv
                 SD_CreateNewCSV();
-                // TEST
                 SD_StopWriting();
-
                 g_sys_state = ECG_LONG;
             }
 
@@ -154,51 +151,9 @@ void main(void)
             //Update Time for ECG
             ECG_Timer_LT();
 
-            //Start ADC at given frequency
-//            if (g_timer_250Hz_flag)
-//            {
-//                //Give ADC Start Command
-//                Start_ADC();
-//                //Reset Timer Flag
-//                g_timer_250Hz_flag = 0;
-//            }
-
-            SD_Energy_Saving_Long_ECG();
             LT_ECG();
 
-            //When ADC finished Conversion
-            // if (g_adc_new_values)
-            // {
-            //     /* Steps for evergy saving in ECG_LONG
-            //     - MCU is recording long ecg
-            //     - 5V deactivated
-            //     - receive ADC values as usual
-            //     - store ADC values for 1 sec on MCU
-            //     - activate 5V for transfer
-            //     - send ADC values to SD Card and save in existing file
-            //     - repeat */
-
-            //     //Compute new Values and publish to Display
-            //     LT_ECG();
-
-            //     // Deactivate 5V
-                
-            //     // Get ADC values as usual
-            //     // -> will be executed automatically
-
-            //     SD_Energy_Saving_Long_ECG();
-
-            //     // Activate 5V
-
-            //     // Send ADC values to SD Card & save to the 
-            //     // same file
-
-            //     // Write in csv
-            //     //SD_StartWriting();
-
-            //     //Reset Flag
-            //     g_adc_new_values = false;
-            // }
+            SD_Energy_Saving_Long_ECG();
 
             //Check if switch to short ECG requested
             if (g_short_ECG_flag)
@@ -210,12 +165,11 @@ void main(void)
             //Check if stop of long term ECG requested
             if (!g_long_ECG_flag)
             {
+                memset(g_adc_result_storage_cpy, 0, 2000);
                 Clear_Wave_LT();
                 Clear_ECG_Timer_LT();
                 // Stop writing in .csv
                 SD_StopWriting();
-                g_adc_number_of_storages = 0;
-                g_adc_csv_offset = 0;
                 g_adc_result_cnt = 0;
                 g_sys_state = IDLE_STATE;
             }

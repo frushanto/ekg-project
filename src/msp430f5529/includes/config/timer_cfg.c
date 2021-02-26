@@ -1,8 +1,5 @@
 #include <includes/config/timer_cfg.h>
 
-uint32_t timer_cnt = 0;
-
-
 void Init_Timers() {
     Init_Timer_A();
 }

@@ -85,7 +85,7 @@ void LT_ECG()
 {
     // Start_ADC();
     Uart_ECG_Wave_LT();
-    calculate_bpm_LT();
+    // calculate_bpm_LT();      // Not working for ECG_Long in Saving Mode, because 250Hz not guaranteed
 }
 
 void ECG_Timer_LT()

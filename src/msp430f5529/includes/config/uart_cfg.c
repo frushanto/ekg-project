@@ -246,7 +246,7 @@ void Init_UART() {
                  // For ECG_LONG Energy Saving Mode
                  if((g_sys_state == ECG_LONG) && (display_sleep_mode == TRUE))
                  {
-                     if(g_long_ecg_state == MODE_5V_OFF)
+                     if((g_long_ecg_state == MODE_5V_OFF) || (g_long_ecg_state == MODE_5V_ON))
                      {
                         // Set Display to Sleep Mode
                         uart_transmit_data_start("sleep=");
