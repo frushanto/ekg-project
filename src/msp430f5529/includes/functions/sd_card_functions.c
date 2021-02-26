@@ -168,12 +168,12 @@ void SD_WriteInExistingCSV() {
         if (g_long_ECG_flag == 1)
         {
             f_open(&file, csvNameLongECGArr, 
-                FA_CREATE_ALWAYS | FA_WRITE);
+                   FA_OPEN_EXISTING | FA_WRITE);
 
             // Write at end of File
-            g_adc_csv_offset = (g_adc_number_of_storages * LONG_ECG_STORAGE_SIZE * 14);
-            f_lseek(&file, g_adc_csv_offset); // Plan B
-            // f_lseek(&file, file.fsize);
+            // g_adc_csv_offset = (g_adc_number_of_storages * LONG_ECG_STORAGE_SIZE * 14);
+            // f_lseek(&file, g_adc_csv_offset); // Plan B
+            f_lseek(&file, file.fsize);
         }
     }
 }
@@ -222,7 +222,7 @@ void SD_Energy_Saving_Long_ECG() {
             if (g_adc_result_storage_full == TRUE) 
             {
             
-                // SD_WriteInExistingCSV();
+                SD_WriteInExistingCSV();
 
                 // Write values on SD Card
                 for (ecg_long_array_cnt = 0; 
@@ -252,8 +252,8 @@ void SD_Energy_Saving_Long_ECG() {
                     g_tmp_return = f_puts(adcSingleResultArrLong, &file);
                 }
                 g_adc_result_storage_full = FALSE;
-                // // Close file
-                // SD_StopWriting();
+                // Close file
+                SD_StopWriting();
             }
             
             if ((g_ecg_long_btn_pressed == TRUE) &&
@@ -283,11 +283,11 @@ void SD_Energy_Saving_Long_ECG() {
         case MODE_5V_ON:
             display_sleep_mode = TRUE;
             
-            // delete? 
-            if (g_adc_result_storage_full == FALSE) 
-            {
-                g_long_ecg_state = MODE_5V_OFF;
-            }
+            // // delete? 
+            // if (g_adc_result_storage_full == FALSE) 
+            // {
+            //     g_long_ecg_state = MODE_5V_OFF;
+            // }
 
             // 5V ON
             // LED2 on PCB turn ON
@@ -330,7 +330,8 @@ void SD_Energy_Saving_Long_ECG() {
                 // Set adc value
                 g_tmp_return = f_puts(adcSingleResultArrLong, &file);
             }
-            
+            g_adc_result_storage_full = FALSE;
+
             if (g_ecg_long_btn_pressed == FALSE)
             {
                 g_long_ecg_state = MODE_NORMAL;

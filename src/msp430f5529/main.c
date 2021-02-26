@@ -87,6 +87,9 @@ void main(void)
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
                 // Start create/write new .csv
                 SD_CreateNewCSV();
+                // TEST
+                SD_StopWriting();
+
                 g_sys_state = ECG_LONG;
             }
 
@@ -159,7 +162,7 @@ void main(void)
 //                //Reset Timer Flag
 //                g_timer_250Hz_flag = 0;
 //            }
-            
+
             SD_Energy_Saving_Long_ECG();
             LT_ECG();
 
