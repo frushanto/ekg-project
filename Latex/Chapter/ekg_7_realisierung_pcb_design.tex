@@ -1,0 +1,33 @@
+%!TEX root =  ..\ekg_7_projektbericht.tex
+
+%PCB Design
+
+\subsection{Platinendesign}
+
+Für das zeichnen von Schaltplänen sowie dem Layouten des PCBs wird das Programm Altium Designer verwendet. Es beinhaltet eine übersichtliche Benutzeroberfläche und zahlreiche Features wie PCB-Design in nativem 3D, interaktives Routing, hierarchische Designs, einheitliche Bibliothekenverwaltung, integrierte SPICE Simulationen und zahlreiche Export-Möglichkeiten in einem Tool. 
+
+%TODO Abkürzungen ins Abkürzungsverzeichnis schreiben
+
+\subsubsection{Erstellung von Libraries}
+Da in der integrierten Datenbank von Altium Designer nicht alle benötigten Bauteile enthalten sind, müssen diese zunächst von Hand angelegt werden. Dieser Prozess gliedert sich in drei Schritte:
+
+\begin{enumerate}
+\item Erstellung des Schaltzeichens:\\
+Hierbei wird mithilfe von geometrischen Formen ein Symbol des Bauteils erstellt, welches möglichst gut seine Funktion widerspiegelt. Idealerweise dient dafür ein Symbol des Herstellers als Vorlage, welches nachgestellt werden kann. Hierbei müssen bereits die Ein- und Ausgangspins des Bauteils festgelegt werden, da nur dort später Leitungen angeschlossen werden können. Den Pins wird eine Nummer zugewiesen, welche später einem Pad des Footprints entspricht.
+
+\item Erstellung des Footprints: \\
+Für jeden Pin des Bauteils muss ein Pad auf dem PCB erstellt werden, auf welchem das Beinchen später aufliegt und verlötet wird. Dabei ist auf eine Ausreichende Größe des Pads zu achten, damit das Beinchen vollständig verbunden werden kann. Es empfiehlt sich, die Pads länger als nötig zu gestalten, wenn im Nachgang noch Bauteile per Hand verlötet werden sollen. Idealerweise verwendet das Bauteil einen Standard-Footprint, welchen es bereits als Vorlage gibt. 
+
+\item Hinzufügen eines 3D Modells: \\
+Um die Platine später in 3D zu bearbeiten und vollständig zu exportieren werden jedem Bauteil dreidimensionale Modelle hinzugefügt. Dies ist in Altium durch den import einer .step Datei möglich. Diese muss im Anschluss noch genau auf das Pad ausgerichtet werden.
+\end{enumerate}
+
+\subsubsection{Zeichnen des Schaltplans}
+
+\subsubsection{Platzieren der Komponente}
+
+\subsubsection{Routing}
+
+\subsubsection{Fertigung und Bestückung}
+
+\subsubsection{Inbetriebnahme}

@@ -1,3 +1,5 @@
+%!TEX root =  ..\ekg_7_projektbericht.tex
+
 %Realisierung/Akkumanagement und Versorgungsspannungen
 
 %\setlength{\parindent}{0em} %TODO das habe ich in die Main verschoben um es einheitlich zu halten 
@@ -97,3 +99,22 @@ Deshalb fällt die Wahl für die Generierung von 3V auf einen LDO (Low-Dropout-R
 
 
 Zu beachten ist jedoch, das ein LDO immer eine minimale Dropout Voltage hat, welche mindestens über ihn abfällt. Somit muss die Eingangsspannung immer größer als die gewünschte Ausgangsspannung plus Dropout Spannung sein. Würde man z.B. eine Ausgangsspannung von 3,3V anstreben und der LDO eine Dropout Voltage von 0,2V besitzen, könnte man den Akku nur bis zu einer Spannung von 3,5V entladen ohne die Ausgangsspannung zu beeinflussen. Deshalb wurde für das EKG-Gerät der LDO TPS79030DBVT mit einer niedrigen Dropout Spannung von 57$\mu$V gewählt. Dieser LDO ist mit einer Restwelligkeit von 56$\mu$V und einem Ruhestrom von 17$\mu$A bestens zur Erfüllung der gestellten Ansprüche geeignet.
+
+\subsubsection{Sicherheitsmaßnahmen}
+Die Nutzung von Lithium-Ionen Zellen birgt einige Risiken. Mögliche Gefahren und Maßnahmen zur Reduktion dieser sind:
+
+\begin{enumerate}
+	\item Kurzschlüsse: \\
+	Als erste Maßnahme hierfür ist der Anschluss der Batterie als Pin Header ausgeführt, wodurch sich am PCB seitigem Ende der Zuleitung eine Buchse befindet. Somit sind die Kontakte im inneren der Buchse geschützt und können nicht durch unachtsame Handhabung Kurzgeschlossen werden. Um bei Kurzschlüssen auf dem Board oder an der Peripherie den Akku zu schützen ist unmittelbar nach dem Header eine Sicherung platziert. Hierfür wurde aus der OMNI-BLOCK Serie von Littelfuse eine 1 Ampere Sicherung mit flinker Auslösecharakteristik gewählt (0154001.DRL). 
+	
+	\item Verpolung: \\
+Um eine Beschädigung der Schaltung durch eine verkehrt eingesetzte Batterie zu verhindern, wodurch Plus- und Minuspol vertauscht wären, ist ein Verpolschutz durch einen PMOS vorhanden. Der Drain-Anschluss liegt hierbei an der Batterie währen der Source-Anschluss dem Rest der Schaltung zugewandt ist. Dadurch ist Bei korrekter Polung der Body-Diode von Drain nach Source leitend. Das Gate ist über einen Widerstand mit dem Ground verbunden, wodurch im Normalbetrieb eine negative Gate-Source Spannung anliegt und den Transistor komplett durchsteuert. Im Fall einer Verpolung ist die Body-Diode nicht leitend und es entsteht keine Potentialdifferenz zwischen Gate und Source. Der FET sperrt und die Schaltung ist geschützt.
+
+	\item Überspannung:\\
+	Überspannungen z.B. durch eine elektrostatische Entladung (ESD) beim wechseln der Batterie können der Schaltung Schaden zufügen. Zur Prävention ist am Spannungeingang eine Bidirektionale Transient Voltage Suppressor (TVS) Diode verbaut, welche Spannungen über 9V schnell nach Ground ableitet.
+	
+	\item Tiefenentladung:\\
+	Eine Entladung auf Spannungen außerhalb der Spezifikation des Akkus können zu dessen Zerstörung führen. Aus diesem Grund wird fortwährend die aktuelle Akkuspannung des Geräts durch die MCU gemessen und ein Einschalten des Geräts wird nur bei ausreichender Spannung erlaubt. Zusätzlich wird ein Akku mit integrierter Schutzbeschaltung verwendet, welche ebenso einen Tiefentladungsschutz enthält.
+
+\end{enumerate}
+
