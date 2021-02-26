@@ -11,4 +11,6 @@ void Init_Timers(void);
 void Init_Timer_A(void);
 void Init_Timer_B(void);
 
+extern uint32_t timer_cnt;
+
 #endif /* INCLUDES_CONFIG_TIMER_CFG_H_ */

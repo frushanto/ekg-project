@@ -128,6 +128,8 @@ __interrupt void ADC12_A_ISR(void)
         //Get ECG Value
         g_adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
 
+//        timer_cnt ++;
+
         if (g_sys_state == ECG_LONG)
         {
             // TODO saving ADC values in array
@@ -139,7 +141,7 @@ __interrupt void ADC12_A_ISR(void)
             {
                 g_adc_result_cnt++;
                 // Flag -> storage will be filled
-                g_adc_result_storage_full = FALSE;
+//                g_adc_result_storage_full = FALSE;
             }
             else
             {
@@ -151,6 +153,10 @@ __interrupt void ADC12_A_ISR(void)
                 g_adc_result_storage_full = TRUE;
             }
         }
+//        if(timer_cnt == 3000)
+//        {
+//            g_cnt_hour = 0;
+//        }
 
         //Get accumulator Voltage
         g_akku_vol = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_1);

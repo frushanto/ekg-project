@@ -1,5 +1,8 @@
 #include <includes/config/timer_cfg.h>
 
+uint32_t timer_cnt = 0;
+
+
 void Init_Timers() {
     Init_Timer_A();
 }
@@ -92,6 +95,10 @@ void TIMER2_A0_ISR (void)
     if(g_buzzer_on_flag){
         g_timer_250Hz_Buzzer = 1;
         g_buzzer_cnt++;
+    }
+    
+    if(g_sys_state == ECG_LONG){
+        Start_ADC();
     }
 
     if(g_sys_state == ECG_SHORT){

@@ -171,9 +171,9 @@ void SD_WriteInExistingCSV() {
                 FA_CREATE_ALWAYS | FA_WRITE);
 
             // Write at end of File
-            g_adc_csv_offset = g_adc_number_of_storages * LONG_ECG_STORAGE_SIZE;
-            // f_lseek(&file, g_adc_csv_offset);
-            f_lseek(&file, file.fsize);
+            g_adc_csv_offset = (g_adc_number_of_storages * LONG_ECG_STORAGE_SIZE * 14);
+            f_lseek(&file, g_adc_csv_offset); // Plan B
+            // f_lseek(&file, file.fsize);
         }
     }
 }
@@ -251,7 +251,7 @@ void SD_Energy_Saving_Long_ECG() {
                     // Set adc value
                     g_tmp_return = f_puts(adcSingleResultArrLong, &file);
                 }
-
+                g_adc_result_storage_full = FALSE;
                 // // Close file
                 // SD_StopWriting();
             }
@@ -326,7 +326,7 @@ void SD_Energy_Saving_Long_ECG() {
                 }
                 sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage[ecg_long_array_cnt]
                                                                     , g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
-                sprintf(adcSingleResultArrLong, "%d\n", g_adc_result_storage[ecg_long_array_cnt]);
+                // sprintf(adcSingleResultArrLong, "%d\n", g_adc_result_storage[ecg_long_array_cnt]);
                 // Set adc value
                 g_tmp_return = f_puts(adcSingleResultArrLong, &file);
             }
