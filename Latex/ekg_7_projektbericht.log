@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  26 FEB 2021 22:12
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  27 FEB 2021 12:50
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
@@ -410,6 +410,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--31
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 32--32
+[]|\TU/lmr/bx/n/12 Gewicht
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--32
 []|\TU/lmr/m/n/12 31 (ohne
  []
 
@@ -656,9 +661,22 @@ Overfull \hbox (3.84906pt too wide) in paragraph at lines 53--53
 [10]) [11] (Chapter//ekg_7_realisierung.tex
 (Chapter//ekg_7_realisierung_konzeptfindung_und_diskussion_der_alternativen.tex
 [12]
+File: Bilder//EKG_Signal.png Graphic file (type bmp)
+<Bilder//EKG_Signal.png>
+File: Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type 
+bmp)
+<Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[13]
+File: Bilder//Filter Blockschaltbild.png Graphic file (type bmp)
+<Bilder//Filter Blockschaltbild.png>
+ [14]
 File: Bilder//Blockschaltbild v1.5.png Graphic file (type bmp)
 <Bilder//Blockschaltbild v1.5.png>
- [13]
+ [15]
 File: Bilder//Test IIR Filter.png Graphic file (type bmp)
 <Bilder//Test IIR Filter.png>
 
@@ -670,12 +688,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
 
  []
 
-
+[16]
 Underfull \hbox (badness 10000) in paragraph at lines 18--20
 
  []
 
-[14] [15]
+[17]
 Underfull \hbox (badness 10000) in paragraph at lines 53--54
 
  []
@@ -695,21 +713,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 69--70
 
  []
 
-[16]
+[18]
 File: Bilder//DCDC_5V_LTSPICE.png Graphic file (type bmp)
 <Bilder//DCDC_5V_LTSPICE.png>
- [17]
+ [19]
 File: Bilder//DCDC_3V_LDO_Shematic.png Graphic file (type bmp)
 <Bilder//DCDC_3V_LDO_Shematic.png>
 File: Bilder//DCDC_3V_LDO_Plot.png Graphic file (type bmp)
 <Bilder//DCDC_3V_LDO_Plot.png>
- [18]) (Chapter//ekg_7_realisierung_display_und_ui.tex)
+ [20]) (Chapter//ekg_7_realisierung_display_und_ui.tex)
 (Chapter//ekg_7_realisierung_prozessor_einheit.tex)
 (Chapter//ekg_7_realisierung_gehäuse.tex)
 (Chapter//ekg_7_realisierung_schnittstellen.tex)
 (Chapter//ekg_7_realisierung_android_app.tex)
 (Chapter//ekg_7_realisierung_datenspeicherung_auf_sd_karte.tex)
-(Chapter//ekg_7_realisierung_analoge_filterschaltung.tex [19] [20]
+(Chapter//ekg_7_realisierung_analoge_filterschaltung.tex [21] [22]
 Overfull \hbox (0.99971pt too wide) in paragraph at lines 11--12
 \TU/lmr/m/n/12 ren Funktionen erstellt. Aus der im Anschluss durchgeführten Fas
 t-Fourier-Transformation
@@ -723,30 +741,30 @@ bmp)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[21]
+[23]
 File: Bilder//EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
 <Bilder//EKG_aktiver_Tiefpassfilter.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[22]
+[24]
 File: Bilder//EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
 <Bilder//EKG_Gesamtübertragungsfunktion.png>
- [23]
+ [25]
 File: Bilder//EKG_virtueller_Ground.png Graphic file (type bmp)
 <Bilder//EKG_virtueller_Ground.png>
-) (Chapter//ekg_7_realisierung_pcb_design.tex [24])) [25]
+) (Chapter//ekg_7_realisierung_pcb_design.tex [26])) [27]
 (Chapter//ekg_7_ergebnisse.tex) (Chapter//ekg_7_zusammenfassung.tex)
-(Chapter//ekg_7_ausblick.tex) [26] (ekg_7_projektbericht.bbl)
-(Chapter//ekg_7_anhang.tex) [27] (ekg_7_projektbericht.aux) ) 
+(Chapter//ekg_7_ausblick.tex) [28] (ekg_7_projektbericht.bbl)
+(Chapter//ekg_7_anhang.tex) [29] (ekg_7_projektbericht.aux) ) 
 Here is how much of TeX's memory you used:
- 8559 strings out of 412197
- 217492 string characters out of 2853959
+ 8568 strings out of 412197
+ 217780 string characters out of 2853959
  579647 words of memory out of 3000000
- 27912 multiletter control sequences out of 15000+200000
+ 27920 multiletter control sequences out of 15000+200000
  541952 words of font info for 69 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  78i,13n,95p,2209b,1092s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ekg_7_projektbericht.pdf (27 pages).
+Output written on ekg_7_projektbericht.pdf (29 pages).
