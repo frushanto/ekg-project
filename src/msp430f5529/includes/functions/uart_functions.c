@@ -121,10 +121,10 @@ void ECG_Timer_LT()
         uart_transmit_data_value(g_cnt_hour);
         uart_transmit_data_end();
     }
-    if (g_cnt_hour == 24)
-    {
-        g_long_ECG_flag = 0;
-    }
+//    if (g_cnt_hour == 24)
+//    {
+//        g_long_ECG_flag = 0;
+//    }
 }
 
 void Clear_ECG_Timer_LT(void)

@@ -3,7 +3,7 @@
 #define SD_BUFFER_MAX_SIZE      512
 #define SD_CSV_ARR_LENGTH       23
 #define TB_SIZE                 10
-#define SD_INIT_TIMEOUT         2
+#define SD_INIT_TIMEOUT         1
 
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
