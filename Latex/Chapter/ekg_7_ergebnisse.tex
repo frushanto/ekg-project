@@ -1,3 +1,25 @@
 %ekg_7 Ergebnis
 
 \section{Ergebnis}
+
+Dieses Kapitel listet die Funktionen des EKG-Gerätes auf die umgesetzt werden konnten. 
+
+\subsection{aufgenommene Signale}
+
+Die automatisierte Aufnahmezeit der Kurzzeit-EKG Funktion wurde mithilfe einer Referenzuhr gemessen und beträgt \SI{120}{\sec}. In dieser Zeit wurden XXX Werte auf der SD-Karte, mit Zeitpunkt und Benutzerkennung gespeichert. Daraus ergibt sich eine durchschnittliche Abtastrate von XXX ($ \frac{Anzahl der Werte}{Zeit}$). Die gespeicherten ADC-Werte des EKG-Signals wurden mithilfe von MS Excel in einem Zeitdiagramm visualisiert (siehe Abbildung (Diagramm erstellen und einfügen)). Gut zu erkennen sind die P- (Vorhofkontraktion) und die T-Welle (Erregungsrückbildung der Kammern). Zwischen den beiden Wellen befindet sich der QRS-Komplex. Deutlich von einander zu unterscheiden sind die negativen (Q- und S-Zacke) und positiven Anteile (R-Zacke) des Komplexes. Aus den ADC-Werten lässt sich nun die Amplitude des Eingangssignals bei der Messung an der Hautoberfläche berechnen. Die Verstärkung der Filterschaltung wurde hierbei zur Vereinfachung als maximal (\SI{67}{\decibel}) über die gesamte Bandbreite angenommen. 
+$  \frac{\frac{ADC-Breite}{delta Signalwerte} * 3V}{Verstärkung der Filterschaltung} $
+Es ergibt sich eine Eingangsamplitude von XXX mV, was der EKG-Amplitude eines gesunden Menschen bei der Ableitung Einthoven 2 entspricht.
+
+Der Test der Langzeit-Aufnahme lieferte XXX Werte. Dies entspricht einer durchschnittlichen Abtastrate von XXX.
+
+
+%Kurzzeit-EKG läuft für 2 Minuten, Abtastrate etwa 250 Hz (Durchschnitt berechnen), insgesamt werden in einer Kurzzeitaufnahme etwa 30000 Werte aufgenommen, Exceldiagramm eines Signals einfügen, kein Rauschen, P- und T-Welle gut zu erkennen und zu unterscheiden, QRS-Komplex gut zu erkennen, Speicherung der rohen ADC-Werte zur späteren Auswertung auf der SD-Karte mit Timestamp und Benutzerkennung, Pulsfunktion, evtl. die Spannung des Eingangssignals zurückrechnen
+%Langzeit-EKG läuft im Test 24 Stunden,  
+
+\subsection{Akkulaufzeit, Bedienung, sonstige Funktionalität}
+
+Stromverbrauch bei eingeschaltetem Display und voller Helligkeit etwa 220 mA
+Stromverbrauch mit Display im Sleep-Modus etwa 105 - 110 mA
+Stromverbrauch bei ausgeschaltetem 5V-DCDC etwa 7,7 mA
+Akkustand nach einer kompletten Langzeitaufnahme war: 
+Akkustand beginnt bei 100\% und sinkt danach erwartungsgemäß bis bei einer Restladung von <20\% das akustische Warnsignal ertönt
