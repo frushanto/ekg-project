@@ -23,10 +23,46 @@ Um die Platine später in 3D zu bearbeiten und vollständig zu exportieren werde
 \end{enumerate}
 
 \subsubsection{Zeichnen des Schaltplans}
+Der Schaltplan wird auf Basis vorhergegangener Versuche durchgeführt. Sobald eine Baugruppe erfolgreich getestet ist, wird sie in den Schaltplan integriert. Vor dem Anlegen der einzelnen Seiten wird ein Template erstellt, was eine einheitliche Form des Schaltplans gewährleistet und Informationen wie Projektname, Ersteller, Revisionsnummer, etc. vermittelt. Der Schaltplan ist auf vier Seite aufgeteilt:
+
+\begin{enumerate}
+\item Power Supply
+\item MCU
+\item Filterung
+\item Peripherie
+\end{enumerate}
+
+Die Nummerierung von Seiten und Bauteilen wurde so konfiguriert, dass diese automatische durch Altium erfolgt. Der Schaltplan ist in funktionale Blöcke untergliedert, welche mit einem kurzen Kommentar beschriftet sind. Dies erleichtert die Übersichtlichkeit (Abbildung \ref{fig:sch_ps}).
+
+\begin{figure} [!h]
+	%\centering
+	\includegraphics[width=\textwidth] {Schematics_EKG_2021-02-21_Power_Supply}
+	\caption{Schaltplan Seite Power Supply}
+	\label{fig:sch_ps} 
+\end{figure}
+
+Weiterhin werden Kondensatoren parallel zu den Versorgungspins sämtlicher ICs eingeplant. Dies verhindert, dass sich Schwankungen in der Versorgungsspannung auf den IC und Lastwechsel des ICs auf die Versorgungsspannung auswirken.
 
 \subsubsection{Platzieren der Komponente}
+Nach dem Abschluss des Schaltplans kann mit dem Layout der Platine begonnen werden. Hierfür wird zunächst in Absprache mit dem Gehäuseverantwortlichen eine Maximalgröße der Platine festgelegt. Die Abmaße werden im Board Planning Mode des neu erstelltem PCB Documents in Altium Designer eingetragen.
+
+Für die Platzierung wird zunächst eine grobe Skizze auf Papier erstellt (Abbildung \ref{fig:p_layout} . Damit wird bereits jeder Baugruppe ein Raum auf der Platine zugesichert, von welchem aus alle Verbindungen zu anderen Baugruppen gut erreichbar sind. 
+
+Die MCU rückt dabei in den Mittelpunkt, da von ihr aus Verbindungen zu allen Baugruppen bestehen. Bei ihr ist darauf zu achten, das sämtliche vom Hersteller geforderten Bypass-Kondensatoren so nah wie möglich an den entsprechenden Pins Platziert werden. Selbiges gilt für den externen Hochfrequenz-Schwingquarz, dessen Zuleitungen ebenfalls nur kurze Distanzen überbrücken sollte.
+
+Die Absicherung der Spannungsversorgung ist in unmittelbarer nähe zum Anschluss an die Batterie zu platzieren. Der 3D Modus ist beim Platzieren von Bauteilen hilfreich um die Platzverhältnisse besser einzuschätzen.
+
+\begin{figure} [!h]
+	%\centering
+	\includegraphics[width=\textwidth] {Platinenlayout_skizze}
+	\caption{Skizze des Platinenlayouts}
+	\label{fig:p_layout} 
+\end{figure}
+
 
 \subsubsection{Routing}
+
+
 
 \subsubsection{Fertigung und Bestückung}
 
