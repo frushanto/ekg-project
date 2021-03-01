@@ -94,6 +94,8 @@ void main(void)
             if (g_long_ECG_flag && g_timer_uart_1sec    // Sync timer by changing state to ECG Long
                     && g_sd_card_inserted)
             {
+                // Check Akku > 80%
+                Check_Akku_Percentage();
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
                 // Start create/write new .csv
                 SD_CreateNewCSV();
@@ -175,8 +177,6 @@ void main(void)
 
         case ECG_LONG:
 
-            // Check Akku > 80%
-//            Check_Akku_Percentage();
             //Update Time for ECG
             ECG_Timer_LT();
 
