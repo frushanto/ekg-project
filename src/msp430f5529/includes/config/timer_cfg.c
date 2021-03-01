@@ -85,7 +85,7 @@ void TIMER0_A0_ISR (void)
 
     //Send BT value with 200Hz
     if ( (g_sys_state == ECG_SHORT) & (counter_1khz % 5 == 0) )
-        send_value_dma(g_adc_result);
+        send_bt_value_dma(g_adc_result);
 
     if (counter_1khz % 1 == 0)
         idle_1hz_send_bt_flag = true;

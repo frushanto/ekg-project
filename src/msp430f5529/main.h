@@ -37,7 +37,7 @@
 #define G_SAMPLE_RATE 250
 
 //Define this when testing on Launchpad, otherwise comment it out
-#define LAUNCHPAD
+// #define LAUNCHPAD
 
 typedef enum
 {
