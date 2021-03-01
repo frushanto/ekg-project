@@ -38,5 +38,6 @@ void SD_StopWriting(void);
 void SD_SetTimeStamp(void);
 void Check_SD_Card_Connection(void);
 void SD_Energy_Saving_Long_ECG(void);
+void SD_WriteUserInCSV(void);
 
 #endif /* INCLUDES_FUNCTIONS_SD_CARD_FUNCTIONS_H_ */

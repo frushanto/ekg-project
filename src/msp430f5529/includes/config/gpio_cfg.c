@@ -95,8 +95,6 @@ void State_sys_Energy_Saving_Mode(void)
     g_buzzer_cnt = 1;
     // Buzzer turn ON
     Buzzer_active();
-    // LED2 on PCB turn OFF
-    GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
     // 5V DC/DC turn OFF
     GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6); 
     // Check if SD was inserted while turning off
@@ -109,8 +107,6 @@ void State_sys_Energy_Saving_Mode(void)
 
 void State_sys_Wakeup_Mode(void)
 {
-    // LED2 on PCB turn ON
-    GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
     // 5V DC/DC turn ON
     GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
     // Init SD Card

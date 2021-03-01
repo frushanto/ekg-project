@@ -132,8 +132,6 @@ __interrupt void ADC12_A_ISR(void)
 
         if (g_sys_state == ECG_LONG)
         {
-            // TODO saving ADC values in array
-
             g_adc_result_storage[g_adc_result_cnt] = g_adc_result;
 
             // Counter has values 0..999 -> LONG_ECG_STORAGE_SIZE - 1
@@ -145,9 +143,6 @@ __interrupt void ADC12_A_ISR(void)
             }
             else
             {
-                // for(uint16_t cnt = 0; cnt < 1000; cnt ++){
-                //     g_adc_result_storage_cpy[cnt] = g_adc_result_storage[cnt];
-                // }
                 memcpy(g_adc_result_storage_cpy, g_adc_result_storage, 2000);
                 g_adc_result_cnt = 0;
                 // Flag -> storage is ready to be sent

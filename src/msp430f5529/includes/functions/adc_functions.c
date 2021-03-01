@@ -36,7 +36,7 @@ static uint8_t pre_akku_percentage = 100;
 const uint16_t adc_akku_offset = 27200;     // FIXED
 const uint16_t adc_akku_divider = 100;       // NOT FIXED
 
-#define ADC_AKKU_SEC        1
+#define ADC_AKKU_SEC        3
 
 void ADC_Akku_Average_Value(){
     if(g_sys_state == IDLE_STATE)

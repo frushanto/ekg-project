@@ -35,6 +35,8 @@ char adcSingleResultArr[4];
 char localtimeArr[80];
 char adcSingleResultArrLong[15];
 
+char userName[] = "Benutzer 0 \n";
+
 void Init_FAT(void){
     errCode = 20;
 
@@ -142,21 +144,6 @@ void SD_CreateNewCSV(void) {
             }
             f_open(&file, csvNameLongECGArr, 
                 FA_CREATE_ALWAYS | FA_WRITE);
-
-//            // Next letter in file name
-//            firstLetter = csvNameLongECGArr[5];
-//            secondLetter = csvNameLongECGArr[6];
-//            if (isalpha(secondLetter) &&
-//                tolower(secondLetter) != 'z') {
-//                csvNameLongECGArr[6] = ++secondLetter;
-//            } else if (isalpha(firstLetter) &&
-//                tolower(firstLetter) != 'z') {
-//                csvNameLongECGArr[5] = ++firstLetter;
-//                csvNameLongECGArr[6] = 'A';
-//            } else {
-//                csvNameLongECGArr[5] = 'A';
-//                csvNameLongECGArr[6] = 'A';
-//            }
         }
     }
 }
@@ -277,10 +264,6 @@ void SD_Energy_Saving_Long_ECG() {
 
         case MODE_5V_ON:
             display_sleep_mode = TRUE;
-
-            // 5V ON
-            // LED2 on PCB turn ON
-            GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
             // 5V DC/DC turn ON
             GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
             // Adjust 5V flag   
@@ -337,9 +320,6 @@ void SD_Energy_Saving_Long_ECG() {
 
         case MODE_5V_OFF:
             display_sleep_mode = TRUE;
-            // 5V OFF
-            // LED2 on PCB turn OFF
-            GPIO_setOutputHighOnPin(GPIO_PORT_P2, GPIO_PIN4);
             // 5V DC/DC turn OFF
             GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN6);
             // Adjust 5V flag
@@ -355,7 +335,6 @@ void SD_Energy_Saving_Long_ECG() {
             if (g_ecg_long_btn_pressed == FALSE)
             {
                 g_long_ecg_state = MODE_NORMAL;
-                GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN4);
                 // 5V DC/DC turn ON
                 GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
                  // Adjust 5V flag   
@@ -368,7 +347,7 @@ void SD_Energy_Saving_Long_ECG() {
     }
 }
 
-void Check_SD_Card_Connection()
+void Check_SD_Card_Connection(void)
 {
     if (g_sd_state_flag == 1)
     {
@@ -387,5 +366,28 @@ void Check_SD_Card_Connection()
         Set_SD_Icon_Display(0);
         SD_Card_Error();
         g_sd_state_flag = 2;
+    }
+}
+
+void SD_WriteUserInCSV(void)
+{
+    if(g_sd_card_inserted) {
+        if(g_user_select == 0){
+            sprintf(userName, "%s \n", "Benutzer 0");
+        }
+
+        if(g_user_select == 1){
+            sprintf(userName, "%s \n", "Benutzer 1");
+        }
+
+        if(g_user_select == 2){
+            sprintf(userName, "%s \n", "Benutzer 2");
+        }
+
+        if(g_user_select == 3){
+            sprintf(userName, "%s \n", "Benutzer 3");
+        }
+
+        g_tmp_return = f_puts(userName, &file);
     }
 }

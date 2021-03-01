@@ -34,6 +34,8 @@ uint8_t g_buzzer_1sec_flag = 0;
 uint8_t g_buzzer_on_flag = 0;
 uint16_t g_buzzer_cnt = 0;
 
+uint8_t g_user_select = 0;
+
 uint8_t bt_flag = 0;
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
@@ -77,6 +79,7 @@ void main(void)
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
                 // Start create/write new .csv
                 SD_CreateNewCSV();
+                SD_WriteUserInCSV();
                 g_sys_state = ECG_SHORT;
             }
 
@@ -86,6 +89,7 @@ void main(void)
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
                 // Start create/write new .csv
                 SD_CreateNewCSV();
+                SD_WriteUserInCSV();
                 SD_StopWriting();
                 g_sys_state = ECG_LONG;
             }

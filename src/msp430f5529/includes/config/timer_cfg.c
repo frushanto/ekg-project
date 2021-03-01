@@ -51,9 +51,6 @@ __attribute__((interrupt(TIMER1_A0_VECTOR)))
 #endif
 void TIMER1_A0_ISR (void)
 {
-    // Toggle LED on PCB
-    // GPIO_toggleOutputOnPin(GPIO_PORT_P2, GPIO_PIN3);
-
     // Sync timer counting for display & sd card
 	g_timer_1sec_flag = 1;
 
@@ -61,17 +58,6 @@ void TIMER1_A0_ISR (void)
     if(g_short_ECG_flag || g_long_ECG_flag){
     g_timer_uart_1sec = 1;
 	}
-
-	// Buzzer sec counter   // WORKING
-    // if(g_buzzer_on_flag){
-    //     g_buzzer_1sec_flag++;
-    // }                       
-    
-    // Sync timer for buzzer
-	// if(g_sys_state == ENERGY_SAVING_MODE || g_sys_state == SYS_WAKEUP){
-	//     g_buzzer_1sec_flag = 1;
-	//     g_buzzer_sync = 1;
-	// }
 }
 
 //******************************************************************************

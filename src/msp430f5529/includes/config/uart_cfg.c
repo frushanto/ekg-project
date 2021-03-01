@@ -221,18 +221,21 @@ void Init_UART() {
              /* Display select USER ONE: 65 04 03 00 FF FF FF */
              else  if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x03 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 g_user_select = 1;
                  uart_receive_data_end();
              }
 
              /* Display select USER TWO: 65 04 04 00 FF FF FF */
              else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x04 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 g_user_select = 2;
                  uart_receive_data_end();
              }
 
              /* Display select USER THREE: 65 04 05 00 FF FF FF */
              else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x04 && uart_received_data[2] == 0x05 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
+                 g_user_select = 3;
                  uart_receive_data_end();
              }
 
@@ -241,6 +244,7 @@ void Init_UART() {
                      ((uart_received_data[0] > 0x65) && (uart_received_data[0] < 0x68)) ||
                              ((uart_received_data[0] > 0x68) && (uart_received_data[0] < 0x87)) ||
                              (uart_received_data[0] > 0x87)){
+                 g_user_select = 0;
                  uart_receive_data_end();
 
                  // For ECG_LONG Energy Saving Mode

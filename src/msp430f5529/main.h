@@ -89,4 +89,6 @@ extern uint16_t g_buzzer_cnt;
 
 extern uint8_t bt_flag;
 
+extern uint8_t g_user_select;
+
 #endif /* MAIN_H_ */
