@@ -91,7 +91,8 @@ void main(void)
             }
 
             //Check if Start of long ECG is requested
-            if (g_long_ECG_flag && g_timer_uart_1sec)   // Sync timer by changing state to ECG Long
+            if (g_long_ECG_flag && g_timer_uart_1sec    // Sync timer by changing state to ECG Long
+                    && g_sd_card_inserted)
             {
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
                 // Start create/write new .csv
@@ -99,6 +100,9 @@ void main(void)
                 SD_WriteUserInCSV();
                 SD_StopWriting();
                 g_sys_state = ECG_LONG;
+            }else if(!g_sd_card_inserted)               // Don't set Long_ECG Flag if SD not inserted
+            {
+                g_long_ECG_flag = 0;
             }
 
             //Testcode for work with Launchpad
