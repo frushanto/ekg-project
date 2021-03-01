@@ -38,6 +38,8 @@ uint8_t g_user_select = 0;
 
 uint8_t bt_flag = 0;
 
+uint16_t bt_test = 0;
+
 STATE_MACHINE_e g_sys_state = SYS_INIT;
 /* END GLOBAL VARs */
 
@@ -62,7 +64,12 @@ void main(void)
             Init_UART();
             Init_ADC();
             Init_SPI();
-            Init_FAT();
+
+            //Init_FAT will brick the CPU when card does not respond
+            #ifndef LAUNCHPAD
+                Init_FAT();
+            #endif
+
             Init_UART_BT();
             Init_Median_Filter();
             EnableGlobalInterrupt();
@@ -94,6 +101,25 @@ void main(void)
                 g_sys_state = ECG_LONG;
             }
 
+            //Testcode for work with Launchpad
+            #ifdef LAUNCHPAD
+
+            //Sende Wert einmal pro Sekunde und toggel LED
+            if (get_1hz_flag_bt())
+            {
+                //Toggel LED2 auf Launchpad
+                GPIO_toggleOutputOnPin(GPIO_PORT_P4,GPIO_PIN7);
+
+                //Startet Senden mit DMA
+                send_bt_value_dma(bt_test++);
+
+                //Reset Counter
+                if (bt_test > 4096)
+                    bt_test = 0;
+            }
+
+            #endif
+
             break;
 
         case ECG_SHORT:
@@ -122,11 +148,6 @@ void main(void)
 
                 //Reset Flag
                 g_adc_new_values = false;
-            }
-            if(bt_flag == 8)
-            {
-                bt_flag = 0;
-                send_bt_value();
             }
 
             //Check if switch to long time ECG requested
@@ -233,4 +254,18 @@ void EnableGlobalInterrupt()
     __bis_SR_register(GIE);
     // For debugger
     __no_operation();
+}
+
+/*** Delay Function, Input in ms ***/
+void delay(uint16_t delay_time)
+{
+    //Buffer actual time
+    uint32_t start_time = get_ms();
+
+    //Until time is passed do nothing
+    while(get_ms() < start_time + delay_time)
+    {
+        __no_operation();
+    }
+
 }

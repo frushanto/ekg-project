@@ -1,10 +1,31 @@
 #include <includes/config/timer_cfg.h>
 
+
+/*** Module Variables ***/
+//Endless counter with 1kHz
+static uint32_t counter_1khz = 0;
+static bool idle_1hz_send_bt_flag = false;
+
 void Init_Timers() {
     Init_Timer_A();
 }
 
 void Init_Timer_A() {
+
+    // Initialize Timer A0 for 1kHz
+    Timer_A_initUpModeParam confTimerA0 = {0};
+    confTimerA0.clockSource = TIMER_A_CLOCKSOURCE_SMCLK; // 20447232Hz
+    confTimerA0.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_64; // -> 20447232Hz / 64 = 319488Hz
+    confTimerA0.timerPeriod = 319; // 319488Hz / 1000Hz == 319 // 1278 == 250 Hz
+    confTimerA0.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
+    confTimerA0.captureCompareInterruptEnable_CCR0_CCIE = TIMER_A_CAPTURECOMPARE_INTERRUPT_ENABLE;
+    confTimerA0.timerClear = TIMER_A_DO_CLEAR;
+    confTimerA0.startTimer = true;
+
+    //Start Timer A0
+    Timer_A_initUpMode(TIMER_A0_BASE, &confTimerA0);
+
+
 
     // Start timer
     Timer_A_clearTimerInterrupt(TIMER_A1_BASE);
@@ -36,6 +57,42 @@ void Init_Timer_A() {
         confTimerA2.startTimer = true;
         Timer_A_initUpMode(TIMER_A2_BASE, &confTimerA2);
 }
+
+/*** Getter for Time since Startup in milliseconds  ***/
+uint32_t get_ms (void)
+{
+    return counter_1khz;
+}
+
+/*** Getter for Time since Startup in milliseconds  ***/
+bool get_1hz_flag_bt (void)
+{
+    if (idle_1hz_send_bt_flag){
+        //Reset Flag in Function
+        idle_1hz_send_bt_flag = 0;
+        return true;
+    }
+    return false;
+}
+
+//Timer A0 Interupt 1kHz
+#pragma vector=TIMER0_A0_VECTOR
+__interrupt
+void TIMER0_A0_ISR (void)
+{
+    //increment endless-counter
+    counter_1khz++;
+
+    //Send BT value with 200Hz
+    if ( (g_sys_state == ECG_SHORT) & (counter_1khz % 5 == 0) )
+        send_bt_value_dma(g_adc_result);
+
+    if (counter_1khz % 1 == 0)
+        idle_1hz_send_bt_flag = true;
+
+}
+
+
 
 //******************************************************************************
 //
@@ -85,6 +142,6 @@ void TIMER2_A0_ISR (void)
     }
 
     if(g_sys_state == ECG_SHORT){
-        bt_flag ++;
+        bt_flag = 1;
     }
 }
