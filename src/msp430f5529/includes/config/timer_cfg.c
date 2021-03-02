@@ -90,6 +90,10 @@ void TIMER0_A0_ISR (void)
     if (counter_1khz % 1 == 0)
         idle_1hz_send_bt_flag = true;
 
+    if((g_sys_state == ECG_LONG) && (counter_1khz % 4 == 0)){ 
+        Start_ADC();                 // use it!!!
+    }
+
 }
 
 
@@ -137,8 +141,4 @@ void TIMER2_A0_ISR (void)
         g_timer_250Hz_Buzzer = 1;
         g_buzzer_cnt++;
     }
-    
-//    if(g_sys_state == ECG_LONG){     // Problems when Start_ADC in Timer Interrupt !!!
-//        Start_ADC();                 // Don't use it!!!
-//    }
 }

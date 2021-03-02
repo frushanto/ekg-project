@@ -99,7 +99,6 @@ void main(void)
                 SD_CreateNewCSV();
                 SD_WriteUserInCSV();
                 SD_StopWriting();
-
                 g_sys_state = ECG_LONG;
             }else if(!g_sd_card_inserted)               // Don't set Long_ECG Flag if SD not inserted
             {
@@ -178,8 +177,6 @@ void main(void)
 
             //Update Time for ECG
             ECG_Timer_LT();
-            
-            Start_ADC(); // ****
 
             LT_ECG();
 

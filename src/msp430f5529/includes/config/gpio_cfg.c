@@ -134,7 +134,7 @@ __interrupt void pushbutton_ISR(void)
         break; // None
     case 0x02: // Pin 0
 
-        __delay_cycles(4000000);                            // 20000 = 1ms
+        __delay_cycles(40000);                            // 20000 = 1ms
         if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0))
         {
             // !!! Flags ONLY for ECG_LONG !!!
@@ -146,6 +146,7 @@ __interrupt void pushbutton_ISR(void)
                 // -> device goes in ENERGY SAVING mode
                 // If lock button pressed again -> go from TRUE to
                 // FALSE -> device goes out from ENEGRY SAVING
+
 //                g_ecg_long_btn_pressed = !g_ecg_long_btn_pressed;
 
                 if(g_ecg_long_btn_pressed == FALSE)

@@ -55,11 +55,6 @@ void SD_Card_Error()
    uart_transmit_data_end();
 }
 
-void SD_Card_Timeout() 
-{
-
-}
-
 void Check_Akku_Percentage() {
     if(g_akku_percentage < 80)
     {
@@ -84,69 +79,37 @@ void ST_ECG()
 void LT_ECG()
 {
     Uart_ECG_Wave_LT();
-    // calculate_bpm_LT();      // Not working for ECG_Long in Saving Mode, because 250Hz not guaranteed
 }
 
 void ECG_Timer_LT()
 {
-    if (g_timer_uart_1sec == 1)
-    {
-        g_timer_uart_1sec = 0;
-        g_cnt_sec++;
-        if (g_cnt_sec > 59 && g_cnt_min <= 59)
-        {
-            g_cnt_min++;
-            g_cnt_sec = 0;
-        }
-        uart_transmit_data_start("page3.seconds.val=");
-        uart_transmit_data_value(g_cnt_sec_long);
-        uart_transmit_data_end();
-        if (g_cnt_min > 59 && g_cnt_sec > 59)
-        {
-            g_cnt_hour++;
-            g_cnt_min = 0;
-            g_cnt_sec = 0;
-        }
-        uart_transmit_data_start("page3.minutes.val=");
-        uart_transmit_data_value(g_cnt_min_long);
-        uart_transmit_data_end();
-        if (g_cnt_hour == 24)
-        {
-            g_cnt_hour = 0;
-            g_cnt_min = 0;
-            g_cnt_sec = 0;
-        }
-        uart_transmit_data_start("page3.hours.val=");
-        uart_transmit_data_value(g_cnt_hour_long);
-        uart_transmit_data_end();
-    }
-//    if (g_cnt_hour == 24)
-//    {
-//        g_long_ECG_flag = 0;
-//    }
+    uart_transmit_data_start("page3.minutes.val=");
+    uart_transmit_data_value(g_cnt_min_long);
+    uart_transmit_data_end();
+
+    uart_transmit_data_start("page3.hours.val=");
+    uart_transmit_data_value(g_cnt_hour_long);
+    uart_transmit_data_end();
+
+   if (g_cnt_hour_long == 24)
+   {
+       g_long_ECG_flag = 0;
+   }
 }
 
 void Clear_ECG_Timer_LT(void)
 {
-    g_cnt_sec = 0;
-    g_cnt_min = 0;
-    g_cnt_hour = 0;
-    g_timer_uart_1sec = 0;
-    uart_transmit_data_start("page3.seconds.val=");
-    uart_transmit_data_value(g_cnt_sec);
-    uart_transmit_data_end();
-
-    uart_transmit_data_start("page3.minutes.val=");
-    uart_transmit_data_value(g_cnt_min);
-    uart_transmit_data_end();
-
-    uart_transmit_data_start("page3.hours.val=");
-    uart_transmit_data_value(g_cnt_hour);
-    uart_transmit_data_end();
-
     g_cnt_sec_long = 0;
     g_cnt_min_long = 0;
     g_cnt_hour_long = 0;
+
+    uart_transmit_data_start("page3.minutes.val=");
+    uart_transmit_data_value(g_cnt_min_long);
+    uart_transmit_data_end();
+
+    uart_transmit_data_start("page3.hours.val=");
+    uart_transmit_data_value(g_cnt_hour_long);
+    uart_transmit_data_end();
 }
 
 void ECG_Timer_ST()

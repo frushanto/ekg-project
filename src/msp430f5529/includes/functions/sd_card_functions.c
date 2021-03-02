@@ -56,10 +56,6 @@ void Init_FAT(void){
                 //used as a debugging flag
                 result = 0;
             }
-            if (sdCardTimeout == SD_INIT_TIMEOUT) {
-                // TODO send message to display
-                SD_Card_Timeout();
-            }
         }
         sdCardTimeout = 0;
 //        f_write(&file, txbufferInit,
@@ -267,7 +263,9 @@ void SD_Energy_Saving_Long_ECG() {
             g_ecg_long_5v_on = TRUE;
 
             // SD Card INIT
+            GPIO_disableInterrupt(GPIO_PORT_P1, GPIO_PIN0);
             Init_FAT();
+            GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN0);
 
             // Sending to SD Card
             SD_WriteInExistingCSV();

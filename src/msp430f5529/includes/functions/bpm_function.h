@@ -18,7 +18,4 @@
 void calculate_bpm_ST();
 void calculate_bpm_LT();
 
-/* Global VARs */
-// extern uint16_t g_adc_result;
-
 #endif /* INCLUDES_FUNCTIONS_BPM_FUNCTION_H_ */

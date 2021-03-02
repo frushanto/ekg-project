@@ -25,7 +25,6 @@ void Clear_Wave_LT();
 void Short_ECG_Error();
 void Long_ECG_Error();
 void SD_Card_Error();
-void SD_Card_Timeout();
 void Check_Akku_Percentage();
 void Akku_80_Error();
 void ST_ECG();
