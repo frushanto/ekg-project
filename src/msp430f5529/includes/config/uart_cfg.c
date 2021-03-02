@@ -182,6 +182,32 @@ void Init_UART() {
                  uart_receive_data_end();
              }
 
+             else if((uart_received_data[0] < 0x65) ||
+                     ((uart_received_data[0] > 0x65) && (uart_received_data[0] < 0x68)) ||
+                             ((uart_received_data[0] > 0x68) && (uart_received_data[0] < 0x87)) ||
+                             (uart_received_data[0] > 0x87)){
+
+                 // For ECG_LONG Energy Saving Mode
+                 if((g_sys_state == ECG_LONG) && (display_sleep_mode == TRUE))
+                 {
+                     if((g_long_ecg_state == MODE_5V_OFF) || (g_long_ecg_state == MODE_5V_ON))
+                     {
+                        // Set Display to Sleep Mode
+                        uart_transmit_data_start("sleep=");
+                        uart_transmit_data_value(1);
+                        uart_transmit_data_end();
+                     }else if(g_long_ecg_state == MODE_NORMAL)
+                    {
+                        Display_Exit_Sleep_Mode();
+                        uart_transmit_data_start("page 3");
+                        uart_transmit_data_end();
+                        display_sleep_mode = FALSE;
+                    }
+                 }
+                 g_user_select = 0;
+                 uart_receive_data_end();
+             }
+
              /* Display Sleep X,Y: 0=0x68 6=0xFF 7=0xFF 8=0xFF */
              else if(uart_received_data[0] == 0x68 && uart_received_data[6] == 0xFF && uart_received_data[7] == 0xFF && uart_received_data[8] == 0xFF) {
                  uart_receive_data_end();
@@ -234,32 +260,6 @@ void Init_UART() {
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
                  g_user_select = 3;
                  uart_receive_data_end();
-             }
-
-             else if((uart_received_data[0] < 0x65) ||
-                     ((uart_received_data[0] > 0x65) && (uart_received_data[0] < 0x68)) ||
-                             ((uart_received_data[0] > 0x68) && (uart_received_data[0] < 0x87)) ||
-                             (uart_received_data[0] > 0x87)){
-                 g_user_select = 0;
-                 uart_receive_data_end();
-
-                 // For ECG_LONG Energy Saving Mode
-                 if((g_sys_state == ECG_LONG) && (display_sleep_mode == TRUE))
-                 {
-                     if((g_long_ecg_state == MODE_5V_OFF) || (g_long_ecg_state == MODE_5V_ON))
-                     {
-                        // Set Display to Sleep Mode
-                        uart_transmit_data_start("sleep=");
-                        uart_transmit_data_value(1);
-                        uart_transmit_data_end();
-                     }else if(g_long_ecg_state == MODE_NORMAL)
-                    {
-                        Display_Exit_Sleep_Mode();
-                        uart_transmit_data_start("page 3");
-                        uart_transmit_data_end();
-                        display_sleep_mode = FALSE;
-                    }
-                 }
              }
 
              USCI_A_UART_clearInterrupt(USCI_A0_BASE,

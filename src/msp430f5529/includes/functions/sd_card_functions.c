@@ -3,7 +3,6 @@
 #define SD_BUFFER_MAX_SIZE      512
 #define SD_CSV_ARR_LENGTH       23
 #define TB_SIZE                 10
-#define SD_INIT_TIMEOUT         1
 
 unsigned char MST_Data, SLV_Data;
 BYTE buffer[32];
@@ -15,7 +14,6 @@ char txbufferInit[] = "SD Card init successful";
 char g_txbuffer[SD_BUFFER_MAX_SIZE] = "Test text for txt and csv files";
 char firstLetter, secondLetter;
 int result = 1;
-uint16_t sdCardTimeout = 0;
 unsigned int size;
 unsigned int bytesWritten;
 bool nameRangeOverflow = FALSE;
@@ -42,25 +40,16 @@ void Init_FAT(void){
 
     if (g_sd_card_inserted) {
         //go until f_open returns FR_OK (function successful)
-        while ((errCode != FR_OK) || 
-            (sdCardTimeout <= SD_INIT_TIMEOUT)) {  
-            sdCardTimeout++;
+        while (errCode != FR_OK) {
             //mount drive number 0                            
             errCode = f_mount(0, &fatfs); 
             //root directory                      
-            errCode = f_opendir(&dir, "/");				    	
-
-//            errCode = f_open(&file, filename,
-//                FA_CREATE_ALWAYS | FA_WRITE);
+            errCode = f_opendir(&dir, "/");
             if (errCode != FR_OK) {
                 //used as a debugging flag
                 result = 0;
             }
         }
-        sdCardTimeout = 0;
-//        f_write(&file, txbufferInit,
-//            sizeof(txbufferInit), &bytesWritten);
-//        f_close(&file);
         Set_SD_Icon_Display(1);
     }else{
         SD_Card_Error();
