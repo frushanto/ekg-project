@@ -14,6 +14,11 @@
 #include <includes/config/uart_cfg.h>
 #include "main.h"
 
+/*Defines*/
+#define tachy_brady_cnt_threshold 20
+#define tachy_threshold 100  // zum Testen kannst einfach die obere Schwelle runter oder die untere Schwelle hochsetzten
+#define brady_threshold 60
+
 /* Function declarations */
 void calculate_bpm_ST();
 void calculate_bpm_LT();
