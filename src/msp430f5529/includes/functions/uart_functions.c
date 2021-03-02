@@ -11,7 +11,7 @@ uint16_t adc_value = 0;
 
 void Uart_ECG_Wave_ST()
 {
-    adc_value = ((g_adc_result / 20));   // TODO: edit value for Display
+    adc_value = ((g_adc_result / 20)); 
     uart_transmit_data_start("add 1,0,");
     uart_transmit_data_value(adc_value);
     uart_transmit_data_end();
@@ -83,7 +83,6 @@ void ST_ECG()
 
 void LT_ECG()
 {
-    // Start_ADC();
     Uart_ECG_Wave_LT();
     // calculate_bpm_LT();      // Not working for ECG_Long in Saving Mode, because 250Hz not guaranteed
 }
@@ -100,7 +99,7 @@ void ECG_Timer_LT()
             g_cnt_sec = 0;
         }
         uart_transmit_data_start("page3.seconds.val=");
-        uart_transmit_data_value(g_cnt_sec);
+        uart_transmit_data_value(g_cnt_sec_long);
         uart_transmit_data_end();
         if (g_cnt_min > 59 && g_cnt_sec > 59)
         {
@@ -109,7 +108,7 @@ void ECG_Timer_LT()
             g_cnt_sec = 0;
         }
         uart_transmit_data_start("page3.minutes.val=");
-        uart_transmit_data_value(g_cnt_min);
+        uart_transmit_data_value(g_cnt_min_long);
         uart_transmit_data_end();
         if (g_cnt_hour == 24)
         {
@@ -118,7 +117,7 @@ void ECG_Timer_LT()
             g_cnt_sec = 0;
         }
         uart_transmit_data_start("page3.hours.val=");
-        uart_transmit_data_value(g_cnt_hour);
+        uart_transmit_data_value(g_cnt_hour_long);
         uart_transmit_data_end();
     }
 //    if (g_cnt_hour == 24)
@@ -144,6 +143,10 @@ void Clear_ECG_Timer_LT(void)
     uart_transmit_data_start("page3.hours.val=");
     uart_transmit_data_value(g_cnt_hour);
     uart_transmit_data_end();
+
+    g_cnt_sec_long = 0;
+    g_cnt_min_long = 0;
+    g_cnt_hour_long = 0;
 }
 
 void ECG_Timer_ST()
@@ -217,14 +220,14 @@ void Check_BT_Connection()
     {
         Display_Exit_Sleep_Mode();
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, GPIO_HIGH_TO_LOW_TRANSITION);
-        g_bt_connected = TRUE;  // needed?
+        g_bt_connected = TRUE;
         Set_Bluetooth_Icon_Display(1);
         g_bt_state_flag = 2;
     }else if(g_bt_state_flag == 0)
     {
         Display_Exit_Sleep_Mode();
         GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, GPIO_LOW_TO_HIGH_TRANSITION);
-        g_bt_connected = FALSE; // needed?
+        g_bt_connected = FALSE;
         Set_Bluetooth_Icon_Display(0);
         g_bt_state_flag = 2;
     }

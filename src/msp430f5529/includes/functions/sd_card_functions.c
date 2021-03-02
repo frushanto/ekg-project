@@ -201,7 +201,6 @@ void SD_Energy_Saving_Long_ECG() {
         //              BTN = NOT PRESSED; 5V = ON
         case MODE_NORMAL:
             // Sending to SD Card
-            // TODO save in the same file
             if (g_adc_result_storage_full == TRUE) 
             {
                 SD_WriteInExistingCSV();
@@ -228,10 +227,8 @@ void SD_Energy_Saving_Long_ECG() {
                     }
                     sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage_cpy[ecg_long_array_cnt]
                                                                         , g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
-                    // sprintf(adcSingleResultArrLong, "%d\n", g_adc_result_storage[ecg_long_array_cnt]);
                     // Set adc value
                     g_tmp_return = f_puts(adcSingleResultArrLong, &file);
-//                    memset(g_adc_result_storage_cpy, 0, 2000);
                 }
                 g_adc_result_storage_full = FALSE;
                 // Close file
@@ -297,24 +294,25 @@ void SD_Energy_Saving_Long_ECG() {
                 }
                 sprintf(adcSingleResultArrLong, "%d,%02d:%02d:%02d\n", g_adc_result_storage_cpy[ecg_long_array_cnt]
                                                                     , g_cnt_hour_long, g_cnt_min_long, g_cnt_sec_long);
-                // sprintf(adcSingleResultArrLong, "%d\n", g_adc_result_storage[ecg_long_array_cnt]);
                 // Set adc value
                 g_tmp_return = f_puts(adcSingleResultArrLong, &file);
-//                memset(g_adc_result_storage_cpy, 0, 2000);
             }
             SD_StopWriting();
             g_adc_result_storage_full = FALSE;
-            if (g_ecg_long_btn_pressed == FALSE)
-            {
-                Display_Exit_Sleep_Mode();
-                uart_transmit_data_start("page 3");
-                uart_transmit_data_end();
-                g_long_ecg_state = MODE_NORMAL;
-            }else
-            {
-                // When done -> change to MODE_5V_OFF
-                g_long_ecg_state = MODE_5V_OFF;
-            }
+
+            // if (g_ecg_long_btn_pressed == FALSE)
+            // {
+            //     Display_Exit_Sleep_Mode();
+            //     uart_transmit_data_start("page 3");
+            //     uart_transmit_data_end();
+            //     g_long_ecg_state = MODE_NORMAL;
+            // }else
+            // {
+            //     // When done -> change to MODE_5V_OFF
+            //     g_long_ecg_state = MODE_5V_OFF;
+            // }
+
+            g_long_ecg_state = MODE_5V_OFF;
 
             break;
 

@@ -36,8 +36,6 @@ uint16_t g_buzzer_cnt = 0;
 
 uint8_t g_user_select = 0;
 
-uint8_t bt_flag = 0;
-
 uint16_t bt_test = 0;
 
 STATE_MACHINE_e g_sys_state = SYS_INIT;
@@ -95,12 +93,13 @@ void main(void)
                     && g_sd_card_inserted)
             {
                 // Check Akku > 80%
-                Check_Akku_Percentage();
+                // Check_Akku_Percentage();
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
                 // Start create/write new .csv
                 SD_CreateNewCSV();
                 SD_WriteUserInCSV();
                 SD_StopWriting();
+
                 g_sys_state = ECG_LONG;
             }else if(!g_sd_card_inserted)               // Don't set Long_ECG Flag if SD not inserted
             {
@@ -179,6 +178,8 @@ void main(void)
 
             //Update Time for ECG
             ECG_Timer_LT();
+            
+            Start_ADC(); // ****
 
             LT_ECG();
 

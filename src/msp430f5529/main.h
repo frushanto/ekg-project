@@ -90,8 +90,6 @@ extern uint8_t g_buzzer_1sec_flag;
 extern uint8_t g_buzzer_on_flag;
 extern uint16_t g_buzzer_cnt;
 
-extern uint8_t bt_flag;
-
 extern uint8_t g_user_select;
 /*** Prototypes ***/
 void delay(uint16_t delay_time);

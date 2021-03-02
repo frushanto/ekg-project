@@ -34,7 +34,6 @@ void uart_transmit_data_start(char nextion_command[]){
     fm_counter = 0;
     memset(uart_transmit_set_val,0x00,UART_TX_MAX_LENGTH);
     strcpy(uart_transmit_set_val, nextion_command);
-    // TODO memset()
     for (i = 0; i < strlen((char const*)uart_transmit_set_val); i++) {
         USCI_A_UART_transmitData(USCI_A0_BASE, uart_transmit_set_val[i]);
         uart_transmit_full_message[fm_counter] = uart_transmit_set_val[i];
@@ -117,9 +116,7 @@ void Init_UART() {
 
     USCI_A_UART_initParam uart_cfg = {0};
 
-    /* Baudrate = 9600, clock freq = ACKL = 32kHz
-     * UCBRx = 3, UCBRFx = 0, UCBRSx = 3, UCOS16 = 0
-     *
+    /* 
      * From: Table 39-5. Recommended Settings for
      * Typical Crystals and Baud Rates at Page 1039/1189 User guide.
      * For more information about baudrate setting see 39.3.10
@@ -239,7 +236,6 @@ void Init_UART() {
                  uart_receive_data_end();
              }
 
-             /* fix if function ?! */
              else if((uart_received_data[0] < 0x65) ||
                      ((uart_received_data[0] > 0x65) && (uart_received_data[0] < 0x68)) ||
                              ((uart_received_data[0] > 0x68) && (uart_received_data[0] < 0x87)) ||

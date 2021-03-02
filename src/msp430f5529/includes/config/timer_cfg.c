@@ -132,16 +132,13 @@ __attribute__((interrupt(TIMER2_A0_VECTOR)))
 void TIMER2_A0_ISR (void)
 {
     g_timer_250Hz_flag = 1;
+
     if(g_buzzer_on_flag){
         g_timer_250Hz_Buzzer = 1;
         g_buzzer_cnt++;
     }
     
-    if(g_sys_state == ECG_LONG){
-        Start_ADC();
-    }
-
-    if(g_sys_state == ECG_SHORT){
-        bt_flag = 1;
-    }
+//    if(g_sys_state == ECG_LONG){     // Problems when Start_ADC in Timer Interrupt !!!
+//        Start_ADC();                 // Don't use it!!!
+//    }
 }

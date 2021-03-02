@@ -9,7 +9,7 @@
 
 uint8_t g_sd_state_flag = 2;
 uint8_t g_bt_state_flag = 2;
-uint8_t test = 4;
+
 // Configure GPIO ports/pins
 void Init_GPIO(void)
 {
@@ -39,12 +39,10 @@ void Init_GPIO(void)
     // GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN2);
 
     // Configure Bluetooth State Pin
-//    GPIO_setAsInputPin(GPIO_PORT_P2, GPIO_PIN1);
     GPIO_setAsInputPinWithPullDownResistor(GPIO_PORT_P2, GPIO_PIN1);
     GPIO_enableInterrupt(GPIO_PORT_P2, GPIO_PIN1);
     GPIO_selectInterruptEdge(GPIO_PORT_P2, GPIO_PIN1, 
         GPIO_LOW_TO_HIGH_TRANSITION);
-    test = (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1));
 
 #ifndef LAUNCHPAD
     // Configure Card Detect for SD Card
@@ -74,7 +72,6 @@ void Buzzer_active(void)    // Use only for 5V DCDC ON/OFF DONT USE FOR AKKU
 {
     while (g_buzzer_on_flag && g_buzzer_cnt)
     { 
-        // __delay_cycles(2000000);
         if (g_timer_250Hz_Buzzer)
         {
             g_timer_250Hz_Buzzer = 0;
@@ -90,7 +87,7 @@ void Buzzer_active(void)    // Use only for 5V DCDC ON/OFF DONT USE FOR AKKU
             g_timer_250Hz_Buzzer = 0;
             __delay_cycles(2000000);
         }
-        if (g_buzzer_cnt == 150) // 250 ca. 1sec
+        if (g_buzzer_cnt == 150)
         {
             g_buzzer_on_flag = 0;
             g_timer_250Hz_Buzzer = 0;
@@ -119,10 +116,6 @@ void State_sys_Wakeup_Mode(void)
 {
     // 5V DC/DC turn ON
     GPIO_setOutputHighOnPin(GPIO_PORT_P6, GPIO_PIN6);
-    // Init SD Card
-    // Init_FAT();
-    // next line is redundant
-    //Check_SD_Card_Connection();
     // Buzzer turn ON
     g_buzzer_on_flag = 1;
     g_buzzer_cnt = 1;
@@ -142,7 +135,7 @@ __interrupt void pushbutton_ISR(void)
     case 0x02: // Pin 0
 
         __delay_cycles(4000000);                            // 20000 = 1ms
-        if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0)) //TODO: When Button pressed, do nothing
+        if (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN0))
         {
             // !!! Flags ONLY for ECG_LONG !!!
             if (g_sys_state == ECG_LONG)
@@ -153,7 +146,15 @@ __interrupt void pushbutton_ISR(void)
                 // -> device goes in ENERGY SAVING mode
                 // If lock button pressed again -> go from TRUE to
                 // FALSE -> device goes out from ENEGRY SAVING
-                g_ecg_long_btn_pressed = !g_ecg_long_btn_pressed;
+//                g_ecg_long_btn_pressed = !g_ecg_long_btn_pressed;
+
+                if(g_ecg_long_btn_pressed == FALSE)
+                {
+                    g_ecg_long_btn_pressed = TRUE;
+                }else if(g_ecg_long_btn_pressed == TRUE)
+                {
+                    g_ecg_long_btn_pressed = FALSE;
+                }
             }
             // !!! Flags for other cases != ECG_LONG !!!
             else
@@ -218,7 +219,7 @@ __interrupt void PORT2_ISR(void)
         break;
     case 0x04: // BLUETOOTH
                //        __delay_cycles(2000000);
-        if (test = GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1))
+        if (GPIO_getInputPinValue(GPIO_PORT_P2, GPIO_PIN1))
         {
             g_bt_state_flag = 1;
         }
