@@ -1,6 +1,6 @@
-%ekg_7_Realisierung/Diskussion der Alternativen
+%ekg_7_Realisierung/Konzeptfindung
 
-\subsection{Konzeptfindung und Diskussion der Alternativen}
+\subsection{Konzeptfindung}
 
 Dieses Unterkapitel führt die Anforderungen und die gewählten Lösungen auf, ohne diese im Detail zu erklären. Die genaue Erläuterung der verfolgten und getesteten Umsetzungen sind Inhalt der folgenden Kapitel der Realisierung. Ebenso werden hier die Lösungen aufgeführt, die sich nach dem Test als zu ineffizient oder zu aufwendig für die Anwendung erwiesen haben.
 
@@ -78,23 +78,3 @@ Für die Erstellung und Frequenzanalyse eines künstlichen EKG-Signals wurde das
 \subsubsection{Verwendete Geräte}
 
 \subsubsection{Bauteilbeschaffung und Fertigung} 
-
-\subsubsection{Digitale Filterung}
-
-Für die digitale Filterung des Netzbrummens wurden jeweils ein FIR- (Finite-Impuls-Response) und ein IIR- (Infinite-Impuls-Response) Filter als Bandsperren mit einer Sperrfrequenz von \SI{50} {\hertz} entworfen. Hierfür wurden die Filterkoeffizienten mit Matlab erzeugt und danach in C als eigenständige Module implementiert. Die Testung erfolgte auf dem Launchpad des MSP430 mit harmonischen Schwingungen zwischen \SI{1}{\hertz} und \SI{200}{\hertz}, einem künstlichen EKG-Signal (beides mit einer Signalquelle erzeugt) und einem echtem EKG-Signal. 
-
-Der FIR-Filter verfügt zwar über einen linearen Phasenverlauf, erwies sich aber bei den Tests schnell als zu rechenintensiv, für die Anwendung auf dem verwendeten Prozessor. Mit ihm wurde bei einer Abtastfrequenz von \SI{250}{\hertz} lediglich eine Dämpfung von \SI{3}{\decibel} bis \SI{6}{\decibel} erreicht.
-
-Der IIR-Filter zeigte sich im Test mit verschiedenen harmonischen Schwingungen als sehr effizient mit einer maximalen Dämpfung von \SI{150}{\decibel} bei geringem Rechenaufwand. Jedoch führte er in der Anwendung bei einem echten EKG-Signal zu einer Verschlechterung des Ausgangssignals, da er Schwingungen erzeugte, wie aus Abbildung \ref{fig_Test_IIR_Filter} zu erkennen ist. 
-
-\begin{figure} [h]
-	%\centering
-	\includegraphics[width=\textwidth] {Test IIR Filter.png}
-	\caption{oben: EKG-Signal mit durch IIR-Filter erzeugtes Störsignal; unten: EKG-Signal ohne IIR-Filterung}
-	\label{fig_Test_IIR_Filter} 
-\end{figure}
-%TODO Anhang für FIR und IIR Filter
-
-
-
-%TODO PROJEKTGRUPPE: weitere alternative Konzepte die wir ausprobiert oder in Betracht gezogen haben (zb. PMIC)

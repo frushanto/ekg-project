@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  28 FEB 2021 14:58
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  2 MAR 2021 21:17
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
@@ -659,8 +659,7 @@ Overfull \hbox (3.84906pt too wide) in paragraph at lines 53--53
  []
 
 [10]) [11] (Chapter//ekg_7_realisierung.tex
-(Chapter//ekg_7_realisierung_konzeptfindung_und_diskussion_der_alternativen.tex
-[12]
+(Chapter//ekg_7_realisierung_konzeptfindung.tex [12]
 File: Bilder//EKG_Signal.png Graphic file (type bmp)
 <Bilder//EKG_Signal.png>
 File: Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type 
@@ -676,7 +675,7 @@ File: Bilder//Filter Blockschaltbild.png Graphic file (type bmp)
  [14]
 File: Bilder//Blockschaltbild v1.5.png Graphic file (type bmp)
 <Bilder//Blockschaltbild v1.5.png>
- [15]
+ [15]) (Chapter//ekg_7_realisierung_diskussion_der_alternativen.tex
 File: Bilder//Test IIR Filter.png Graphic file (type bmp)
 <Bilder//Test IIR Filter.png>
 
@@ -684,11 +683,12 @@ File: Bilder//Test IIR Filter.png Graphic file (type bmp)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) (Chapter//ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
+[16]
 Underfull \hbox (badness 10000) in paragraph at lines 16--17
 
  []
 
-[16]
+
 Underfull \hbox (badness 10000) in paragraph at lines 18--20
 
  []
@@ -708,26 +708,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--68
 
  []
 
-
+[18]
 Underfull \hbox (badness 10000) in paragraph at lines 69--70
 
  []
 
-[18]
 File: Bilder//DCDC_5V_LTSPICE.png Graphic file (type bmp)
 <Bilder//DCDC_5V_LTSPICE.png>
- [19]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[19]
 File: Bilder//DCDC_3V_LDO_Shematic.png Graphic file (type bmp)
 <Bilder//DCDC_3V_LDO_Shematic.png>
 File: Bilder//DCDC_3V_LDO_Plot.png Graphic file (type bmp)
 <Bilder//DCDC_3V_LDO_Plot.png>
- [20]) (Chapter//ekg_7_realisierung_display_und_ui.tex)
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[20] [21]) (Chapter//ekg_7_realisierung_display_und_ui.tex)
 (Chapter//ekg_7_realisierung_prozessor_einheit.tex)
 (Chapter//ekg_7_realisierung_gehäuse.tex)
 (Chapter//ekg_7_realisierung_schnittstellen.tex)
 (Chapter//ekg_7_realisierung_android_app.tex)
 (Chapter//ekg_7_realisierung_datenspeicherung_auf_sd_karte.tex)
-(Chapter//ekg_7_realisierung_analoge_filterschaltung.tex [21] [22]
+(Chapter//ekg_7_realisierung_analoge_filterschaltung.tex [22]
 Overfull \hbox (0.99971pt too wide) in paragraph at lines 11--12
 \TU/lmr/m/n/12 ren Funktionen erstellt. Aus der im Anschluss durchgeführten Fas
 t-Fourier-Transformation
@@ -751,43 +757,33 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [24]
 File: Bilder//EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
 <Bilder//EKG_Gesamtübertragungsfunktion.png>
- [25]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[25]
 File: Bilder//EKG_virtueller_Ground.png Graphic file (type bmp)
 <Bilder//EKG_virtueller_Ground.png>
-) (Chapter//ekg_7_realisierung_pcb_design.tex [26]
-
-LaTeX Warning: Reference `fig:sch_ps' on page 27 undefined on input line 35.
-
-[27]
+ [26]) (Chapter//ekg_7_realisierung_pcb_design.tex [27]
 File: Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg Graphic file (type bmp
 )
 <Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg>
-
-
-LaTeX Warning: Reference `fig:p_layout' on page 28 undefined on input line 49.
-
-[28]
+ [28]
 File: Bilder//Platinenlayout_skizze.png Graphic file (type bmp)
 <Bilder//Platinenlayout_skizze.png>
-)) [29] (Chapter//ekg_7_ergebnisse.tex
+)) [29]
+[30] (Chapter//ekg_7_ergebnisse.tex
 Missing character: There is no ä in font cmmi8!
-) (Chapter//ekg_7_zusammenfassung.tex) (Chapter//ekg_7_ausblick.tex) [30] (ekg_
-7_projektbericht.bbl)
-(Chapter//ekg_7_anhang.tex) [31] (ekg_7_projektbericht.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+) (Chapter//ekg_7_zusammenfassung.tex)
+(Chapter//ekg_7_ausblick.tex) [31] (ekg_7_projektbericht.bbl)
+(Chapter//ekg_7_anhang.tex) [32] (ekg_7_projektbericht.aux) ) 
 Here is how much of TeX's memory you used:
- 8598 strings out of 412197
- 218685 string characters out of 2853959
+ 8602 strings out of 412197
+ 218780 string characters out of 2853959
  579647 words of memory out of 3000000
- 27944 multiletter control sequences out of 15000+200000
+ 27945 multiletter control sequences out of 15000+200000
  541952 words of font info for 69 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  78i,13n,95p,2209b,1092s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ekg_7_projektbericht.pdf (31 pages).
+Output written on ekg_7_projektbericht.pdf (32 pages).
