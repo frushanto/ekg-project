@@ -211,12 +211,6 @@ void main(void)
             State_sys_Wakeup_Mode();
             break;
 
-        case SYS_BAD_KEY:
-            break;
-
-        case SYS_ERROR:
-            break;
-
         default:
             break;
         }

@@ -49,18 +49,12 @@ void Init_FAT(void){
             errCode = f_mount(0, &fatfs); 
             //root directory                      
             errCode = f_opendir(&dir, "/");				    	
-
-//            errCode = f_open(&file, filename,
-//                FA_CREATE_ALWAYS | FA_WRITE);
             if (errCode != FR_OK) {
                 //used as a debugging flag
                 result = 0;
             }
         }
         sdCardTimeout = 0;
-//        f_write(&file, txbufferInit,
-//            sizeof(txbufferInit), &bytesWritten);
-//        f_close(&file);
         Set_SD_Icon_Display(1);
     }else{
         SD_Card_Error();

@@ -48,9 +48,7 @@ typedef enum
     ECG_LONG,
     ENERGY_SAVING_MODE,
     IDLE_STATE,
-    SYS_ERROR,
-    SYS_WAKEUP,
-    SYS_BAD_KEY
+    SYS_WAKEUP
 } STATE_MACHINE_e;
 
 /***** GLOBALE VARS *****/
