@@ -1,58 +1,58 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  3 MAR 2021 22:01
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 21.2) (preloaded format=xelatex 2021.2.22)  3 MAR 2021 22:05
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
-LaTeX2e <2020-10-01> patch level 2
-L3 programming layer <2020-10-27> xparse <2020-03-03>
-("C:\Program Files\MiKTeX\tex/latex/base\article.cls"
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18> xparse <2020-03-03>
+(C:\Program Files\MiKTeX 2.9\tex/latex/base\article.cls
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
-("C:\Program Files\MiKTeX\tex/latex/base\size12.clo"
+(C:\Program Files\MiKTeX 2.9\tex/latex/base\size12.clo
 File: size12.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 )
-\c@part=\count171
-\c@section=\count172
-\c@subsection=\count173
-\c@subsubsection=\count174
-\c@paragraph=\count175
-\c@subparagraph=\count176
-\c@figure=\count177
-\c@table=\count178
+\c@part=\count175
+\c@section=\count176
+\c@subsection=\count177
+\c@subsubsection=\count178
+\c@paragraph=\count179
+\c@subparagraph=\count180
+\c@figure=\count181
+\c@table=\count182
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
 )
-("C:\Program Files\MiKTeX\tex/generic/babel\babel.sty"
-Package: babel 2020/10/27 3.51 The Babel package
+(C:\Program Files\MiKTeX 2.9\tex/generic/babel\babel.sty
+Package: babel 2021/01/26 3.53 The Babel package
 
-("C:\Program Files\MiKTeX\tex/generic/babel\babel.def"
-File: babel.def 2020/10/27 3.51 Babel common definitions
-\babel@savecnt=\count179
+(C:\Program Files\MiKTeX 2.9\tex/generic/babel\babel.def
+File: babel.def 2021/01/26 3.53 Babel common definitions
+\babel@savecnt=\count183
 \U@D=\dimen139
-\l@babelnohyphens=\language79
+\l@babelnohyphens=\language83
 
-("C:\Program Files\MiKTeX\tex/generic/babel\xebabel.def"
-("C:\Program Files\MiKTeX\tex/generic/babel\txtbabel.def"))
+(C:\Program Files\MiKTeX 2.9\tex/generic/babel\xebabel.def
+(C:\Program Files\MiKTeX 2.9\tex/generic/babel\txtbabel.def))
 \bbl@readstream=\read2
 )
-\bbl@dirlevel=\count180
+\bbl@dirlevel=\count184
 
 *************************************
 * Local config file bblopts.cfg used
 *
-("C:\Program Files\MiKTeX\tex/latex/arabi\bblopts.cfg"
+(C:\Program Files\MiKTeX 2.9\tex/latex/arabi\bblopts.cfg
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
  babel
 )
-("C:\Program Files\MiKTeX\tex/latex/babel-german\ngerman.ldf"
+(C:\Program Files\MiKTeX 2.9\tex/latex/babel-german\ngerman.ldf
 Language: ngerman 2020/07/21 v2.12 German support for babel (post-1996 orthogra
 phy)
 
-("C:\Program Files\MiKTeX\tex/latex/babel-german\ngermanb.ldf"
+(C:\Program Files\MiKTeX 2.9\tex/latex/babel-german\ngermanb.ldf
 Language: ngermanb 2020/07/21 v2.12 German support for babel (post-1996 orthogr
 aphy)
 Package babel Info: Making " an active character on input line 121.
 )))
-("C:\Program Files\MiKTeX\tex/latex/base\inputenc.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/base\inputenc.sty
 Package: inputenc 2020/08/01 v1.3d Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
@@ -60,69 +60,75 @@ Package: inputenc 2020/08/01 v1.3d Input encoding file
 
 Package inputenc Warning: inputenc package ignored with utf8 based engines.
 
-) ("C:\Program Files\MiKTeX\tex/latex/base\fontenc.sty"
+) (C:\Program Files\MiKTeX 2.9\tex/latex/base\fontenc.sty
 Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
 2.
 
-("C:\Program Files\MiKTeX\tex/latex/lm\t1lmr.fd"
+(C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ))
-("C:\Program Files\MiKTeX\tex/latex/fontspec\fontspec.sty"
-("C:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse.sty"
-("C:\Program Files\MiKTeX\tex/latex/l3kernel\expl3.sty"
-Package: expl3 2020-10-27 L3 programming layer (loader) 
+(C:\Program Files\MiKTeX 2.9\tex/latex/fontspec\fontspec.sty
+(C:\Program Files\MiKTeX 2.9\tex/latex/l3packages/xparse\xparse.sty
+(C:\Program Files\MiKTeX 2.9\tex/latex/l3kernel\expl3.sty
+Package: expl3 2021-02-18 L3 programming layer (loader) 
 
-("C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-xetex.def"
-File: l3backend-xetex.def 2020-09-24 L3 backend support: XeTeX
-\g__graphics_track_int=\count181
+(C:\Users\AdrianLaptop\AppData\Roaming\MiKTeX\2.9\tex/latex/l3backend\l3backend
+-xetex.def
+File: l3backend-xetex.def 2021-02-18 L3 backend support: XeTeX
+ ()
+\c__kernel_sys_dvipdfmx_version_int=\count185
+\l__color_backend_stack_int=\count186
+\g__color_backend_stack_int=\count187
+\g__graphics_track_int=\count188
 \l__pdf_internal_box=\box47
-\g__pdf_backend_object_int=\count182
-\g__pdf_backend_annotation_int=\count183
+\g__pdf_backend_object_int=\count189
+\g__pdf_backend_annotation_int=\count190
+\g__pdf_backend_link_int=\count191
 ))
 Package: xparse 2020-10-27 L3 Experimental document command parser
 
-("C:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse-generic.tex"))
+(C:\Program Files\MiKTeX 2.9\tex/latex/l3packages/xparse\xparse-generic.tex))
 Package: fontspec 2020/02/21 v2.7i Font selection for XeLaTeX and LuaLaTeX
 
-("C:\Program Files\MiKTeX\tex/latex/fontspec\fontspec-xetex.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/fontspec\fontspec-xetex.sty
 Package: fontspec-xetex 2020/02/21 v2.7i Font selection for XeLaTeX and LuaLaTe
 X
-\l__fontspec_script_int=\count184
-\l__fontspec_language_int=\count185
-\l__fontspec_strnum_int=\count186
-\l__fontspec_tmp_int=\count187
-\l__fontspec_tmpa_int=\count188
-\l__fontspec_tmpb_int=\count189
-\l__fontspec_tmpc_int=\count190
-\l__fontspec_em_int=\count191
-\l__fontspec_emdef_int=\count192
-\l__fontspec_strong_int=\count193
-\l__fontspec_strongdef_int=\count194
+\l__fontspec_script_int=\count192
+\l__fontspec_language_int=\count193
+\l__fontspec_strnum_int=\count194
+\l__fontspec_tmp_int=\count195
+\l__fontspec_tmpa_int=\count196
+\l__fontspec_tmpb_int=\count197
+\l__fontspec_tmpc_int=\count198
+\l__fontspec_em_int=\count199
+\l__fontspec_emdef_int=\count266
+\l__fontspec_strong_int=\count267
+\l__fontspec_strongdef_int=\count268
 \l__fontspec_tmpa_dim=\dimen140
 \l__fontspec_tmpb_dim=\dimen141
 \l__fontspec_tmpc_dim=\dimen142
 
-("C:\Program Files\MiKTeX\tex/latex/base\fontenc.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/base\fontenc.sty
 Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
 )
-("C:\Program Files\MiKTeX\tex/latex/fontspec\fontspec.cfg")))
-("C:\Program Files\MiKTeX\tex/latex/geometry\geometry.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/fontspec\fontspec.cfg)))
+(C:\Program Files\MiKTeX 2.9\tex/latex/geometry\geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
-("C:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks17
 )
-("C:\Program Files\MiKTeX\tex/generic/iftex\ifvtex.sty"
+(C:\Program Files\MiKTeX 2.9\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 
-("C:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty"
+(C:\Program Files\MiKTeX 2.9\tex/generic/iftex\iftex.sty
 Package: iftex 2020/03/06 v1.0d TeX engine tests
 ))
-\Gm@cnth=\count195
-\Gm@cntv=\count196
-\c@Gm@tempcnt=\count197
+\Gm@cnth=\count269
+\Gm@cntv=\count270
+\c@Gm@tempcnt=\count271
 \Gm@bindingoffset=\dimen143
 \Gm@wd@mp=\dimen144
 \Gm@odd@mp=\dimen145
@@ -133,23 +139,23 @@ Package: iftex 2020/03/06 v1.0d TeX engine tests
 \Gm@layoutvoffset=\dimen150
 \Gm@dimlist=\toks18
 
-("C:\Program Files\MiKTeX\tex/xelatex/xetexconfig\geometry.cfg"))
-("C:\Program Files\MiKTeX\tex/latex/setspace\setspace.sty"
+(C:\Program Files\MiKTeX 2.9\tex/xelatex/xetexconfig\geometry.cfg))
+(C:\Program Files\MiKTeX 2.9\tex/latex/setspace\setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-("C:\Program Files\MiKTeX\tex/latex/siunitx\siunitx.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/siunitx\siunitx.sty
 Package: siunitx 2020/02/25 v2.8b A comprehensive (SI) units package
 
-("C:\Program Files\MiKTeX\tex/latex/amsmath\amstext.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amstext.sty
 Package: amstext 2000/06/29 v2.01 AMS text
 
-("C:\Program Files\MiKTeX\tex/latex/amsmath\amsgen.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks19
 \ex@=\dimen151
 ))
-("C:\Program Files\MiKTeX\tex/latex/tools\array.sty"
-Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
+(C:\Program Files\MiKTeX 2.9\tex/latex/latex-tools\array.sty
+Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
 \col@sep=\dimen152
 \ar@mcellbox=\box48
 \extrarowheight=\dimen153
@@ -158,32 +164,32 @@ Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
 \backup@length=\skip50
 \ar@cellbox=\box49
 )
-("C:\Program Files\MiKTeX\tex/latex/l3packages/l3keys2e\l3keys2e.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/l3packages/l3keys2e\l3keys2e.sty
 Package: l3keys2e 2020-10-27 LaTeX2e option processing using LaTeX3 keys
 )
 \l__siunitx_tmp_box=\box50
 \l__siunitx_tmp_dim=\dimen154
-\l__siunitx_tmp_int=\count198
-\l__siunitx_number_mantissa_length_int=\count199
-\l__siunitx_number_uncert_length_int=\count266
-\l__siunitx_round_int=\count267
-\l__siunitx_process_decimal_int=\count268
-\l__siunitx_process_uncertainty_int=\count269
-\l__siunitx_process_fixed_int=\count270
-\l__siunitx_process_integer_min_int=\count271
-\l__siunitx_process_precision_int=\count272
-\l__siunitx_group_min_int=\count273
+\l__siunitx_tmp_int=\count272
+\l__siunitx_number_mantissa_length_int=\count273
+\l__siunitx_number_uncert_length_int=\count274
+\l__siunitx_round_int=\count275
+\l__siunitx_process_decimal_int=\count276
+\l__siunitx_process_uncertainty_int=\count277
+\l__siunitx_process_fixed_int=\count278
+\l__siunitx_process_integer_min_int=\count279
+\l__siunitx_process_precision_int=\count280
+\l__siunitx_group_min_int=\count281
 \l__siunitx_angle_marker_box=\box51
 \l__siunitx_angle_unit_box=\box52
 \l__siunitx_angle_marker_dim=\dimen155
 \l__siunitx_angle_unit_dim=\dimen156
-\l__siunitx_unit_int=\count274
-\l__siunitx_unit_denominator_int=\count275
-\l__siunitx_unit_numerator_int=\count276
-\l__siunitx_unit_prefix_int=\count277
-\l__siunitx_unit_prefix_base_int=\count278
-\l__siunitx_unit_prefix_gram_int=\count279
-\l__siunitx_number_product_int=\count280
+\l__siunitx_unit_int=\count282
+\l__siunitx_unit_denominator_int=\count283
+\l__siunitx_unit_numerator_int=\count284
+\l__siunitx_unit_prefix_int=\count285
+\l__siunitx_unit_prefix_base_int=\count286
+\l__siunitx_unit_prefix_gram_int=\count287
+\l__siunitx_number_product_int=\count288
 \c__siunitx_one_fill_skip=\skip51
 \l__siunitx_table_unit_align_skip=\skip52
 \l__siunitx_table_exponent_dim=\dimen157
@@ -202,30 +208,30 @@ Package: l3keys2e 2020-10-27 LaTeX2e option processing using LaTeX3 keys
 \l__siunitx_table_number_align_skip=\skip53
 \l__siunitx_table_text_align_skip=\skip54
 
-("C:\Program Files\MiKTeX\tex/latex/translator\translator.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/translator\translator.sty
 Package: translator 2020-08-03 v1.12c Easy translation of strings in LaTeX
 )
 
 Package siunitx Warning: Version 1 option 'decimalsymbol' detected.
 
-("C:\Program Files\MiKTeX\tex/latex/siunitx\siunitx-version-1.cfg"
+(C:\Program Files\MiKTeX 2.9\tex/latex/siunitx\siunitx-version-1.cfg
 File: siunitx-version-1.cfg 2017/11/26 v2.7k siunitx: Version 1 settings
 ))
-("C:\Program Files\MiKTeX\tex/latex/graphics\graphicx.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty
 Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX\tex/latex/graphics\graphics.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphics.sty
 Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX\tex/latex/graphics\trig.sty"
+(C:\Program Files\MiKTeX 2.9\tex/latex/graphics\trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-("C:\Program Files\MiKTeX\tex/latex/graphics-cfg\graphics.cfg"
+(C:\Program Files\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: xetex.def on input line 105.
 
-("C:\Program Files\MiKTeX\tex/latex/graphics-def\xetex.def"
+(C:\Program Files\MiKTeX 2.9\tex/latex/graphics-def\xetex.def
 File: xetex.def 2020/08/26 v5.0i Graphics/color driver for xetex
 ))
 \Gin@req@height=\dimen166
@@ -245,7 +251,8 @@ LaTeX Font Info:    ... okay on input line 41.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 4
 1.
- ("C:\Program Files\MiKTeX\tex/latex/base\ts1cmr.fd"
+
+(C:\Program Files\MiKTeX 2.9\tex/latex/base\ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 41.
@@ -312,6 +319,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 41.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 41.
+
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
@@ -345,11 +353,11 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-("C:\Program Files\MiKTeX\tex/latex/siunitx\siunitx-abbreviations.cfg"
+(C:\Program Files\MiKTeX 2.9\tex/latex/siunitx\siunitx-abbreviations.cfg
 File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
 )
-("C:\Program Files\MiKTeX\tex/latex/translator\translator-basic-dictionary-Engl
-ish.dict"
+(C:\Program Files\MiKTeX 2.9\tex/latex/translator\translator-basic-dictionary-E
+nglish.dict
 Dictionary: translator-basic-dictionary, Language: English 
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -672,45 +680,60 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [13]
 File: Bilder//Filter Blockschaltbild.png Graphic file (type bmp)
 <Bilder//Filter Blockschaltbild.png>
- [14]
+
+Underfull \hbox (badness 10000) in paragraph at lines 55--56
+
+ []
+
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 57--66
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--82
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--92
+
+ []
+
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 93--94
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 97--99
+
+ []
+
 File: Bilder//Blockschaltbild v1.5.png Graphic file (type bmp)
 <Bilder//Blockschaltbild v1.5.png>
- [15]) (Chapter//ekg_7_realisierung_diskussion_der_alternativen.tex
+[16]) (Chapter//ekg_7_realisierung_diskussion_der_alternativen.tex [17]
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
+
 File: Bilder//Test IIR Filter.png Graphic file (type bmp)
 <Bilder//Test IIR Filter.png>
 
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (Chapter//ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
-Underfull \hbox (badness 10000) in paragraph at lines 18--31
+)
+Underfull \hbox (badness 10000) in paragraph at lines 25--12
 
  []
 
-[16] [17]
-Underfull \hbox (badness 10000) in paragraph at lines 51--52
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--66
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--66
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 67--68
-
- []
-
-[18]
-File: Bilder//DCDC_5V_LTSPICE.png Graphic file (type bmp)
-<Bilder//DCDC_5V_LTSPICE.png>
- [19]
+(Chapter//ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
+[18] [19]
 File: Bilder//DCDC_3V_LDO_Shematic.png Graphic file (type bmp)
 <Bilder//DCDC_3V_LDO_Shematic.png>
 File: Bilder//DCDC_3V_LDO_Plot.png Graphic file (type bmp)
@@ -723,7 +746,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 11--12
 
  []
 
-[21]) (Chapter//ekg_7_realisierung_android_app.tex)
+) [21] (Chapter//ekg_7_realisierung_android_app.tex)
 (Chapter//ekg_7_realisierung_datenspeicherung_auf_sd_karte.tex)
 (Chapter//ekg_7_realisierung_analoge_filterschaltung.tex [22]
 Overfull \hbox (0.99971pt too wide) in paragraph at lines 11--12
@@ -733,63 +756,48 @@ t-Fourier-Transformation
 
 File: Bilder//EKG_Signal.png Graphic file (type bmp)
 <Bilder//EKG_Signal.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 File: Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type 
 bmp)
 <Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[23] [24]
+[23]
 File: Bilder//EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
 <Bilder//EKG_aktiver_Tiefpassfilter.png>
- [25]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[24]
 File: Bilder//EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
 <Bilder//EKG_Gesamtübertragungsfunktion.png>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 File: Bilder//EKG_virtueller_Ground.png Graphic file (type bmp)
 <Bilder//EKG_virtueller_Ground.png>
 
-
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) (Chapter//ekg_7_realisierung_pcb_design.tex [26] [27]
+[25]) (Chapter//ekg_7_realisierung_pcb_design.tex [26] [27]
 File: Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg Graphic file (type bmp
 )
 <Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[28]
-File: Bilder//Platinenlayout_skizze.png Graphic file (type bmp)
-<Bilder//Platinenlayout_skizze.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[29] [30])) [31] (Chapter//ekg_7_ergebnisse.tex
+ [28] [29]))
+[30] (Chapter//ekg_7_ergebnisse.tex
 Missing character: There is no ä in font cmmi8!
-
-Underfull \hbox (badness 10000) in paragraph at lines 25--26
-
- []
-
-[32]) (Chapter//ekg_7_zusammenfassung.tex) (Chapter//ekg_7_ausblick.tex)
-[33] (ekg_7_projektbericht.bbl) (Chapter//ekg_7_anhang.tex) [34]
-(ekg_7_projektbericht.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+) (Chapter//ekg_7_zusammenfassung.tex)
+(Chapter//ekg_7_ausblick.tex) [31] (ekg_7_projektbericht.bbl)
+(Chapter//ekg_7_anhang.tex) [32] (ekg_7_projektbericht.aux) ) 
 Here is how much of TeX's memory you used:
- 8603 strings out of 412197
- 218800 string characters out of 2853959
- 579647 words of memory out of 3000000
- 27946 multiletter control sequences out of 15000+200000
- 541952 words of font info for 69 fonts, out of 3000000 for 9000
+ 8616 strings out of 411700
+ 219000 string characters out of 2839604
+ 592835 words of memory out of 3000000
+ 28436 multiletter control sequences out of 15000+200000
+ 410294 words of font info for 67 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 78i,13n,95p,2209b,1170s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 81i,13n,102p,2209b,1092s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ekg_7_projektbericht.pdf (34 pages).
+Output written on ekg_7_projektbericht.pdf (32 pages).
