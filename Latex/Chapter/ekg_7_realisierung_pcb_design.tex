@@ -61,9 +61,20 @@ Die Absicherung der Spannungsversorgung ist in unmittelbarer nähe zum Anschluss
 
 
 \subsubsection{Routing}
+Zum Routen wird das interaktive Routing Tool von Altium Designer verwendet. Dort werden zunächst die Design-Rules anhand der Vorgaben des Herstellers Multi Circuit Boards angepasst.
 
+Als Leiterbahnbreite werden 0.3 mm festgelegt, was nach https://www.4pcb.com/trace-width-calculator.html ausreichend ist um selbst die höchsten zu erwartenden Ströme dauerhaft ohne gefährliche Temperaturerhöhung zu tragen. Diese Breite wird ebenso für unbelastete Signalleitungen verwendet, um bei eventuellen Lötarbeiten mehr Stabilität zu bieten. Als Größe für die Vias kommt einheitlich ein Standardvia (Lochdurchmesser 0,3 mm, Ringdurchmesser 0,65 mm) zum Einsatz. Das Verringert die Tooling-Kosten des Herstellers.
+
+Um höchstmögliche Präzision und Störfreiheit für die Analogmessung zu ermöglichen, wird für deren Versorgung ein Sternpunkt festgelegt, welcher mit Konfigurationswiderständen vom Rest der Schaltung trennbar ist. Von diesem Sternpunkt aus wird auch die Vergleichsspannung des ADCs der MCU bedient. Auf den Leiterbahnen ist somit kein Spannungsfall oder Rauschen durch Ströme anderer Baugruppen, welche die Messung beeinflussen könnten. 
+
+Abschließend werden Ground-Polygone auf Top- und Bottom-Layer gelegt, um die Stabilität der Platine zu verbessern und für eine starke Groundanbindung zu sorgen. Um den Sternpunkt damit nicht zu verändern, wird für den Analogbereich ein separates Polygon verwendet.
+
+%TODO Bild von Platine einfügen
 
 
 \subsubsection{Fertigung und Bestückung}
+Bevor die Platine bestellt werden kann, muss ein Design-Rule-Check (DRC) durchgeführt werden. Hierbei wird überprüft, ob die Platine alle vorgegebenen Design-Rules erfüllt. Nach der Korrektur aller Fehler werden die Gerber-Files automatisch mit Altium generiert und an den Hersteller versendet.
+Zum Bestücken wird ein Halbautomat verwendet, welcher die Platzierung der Bauteile durch eine manuell bedienbare Saugspitze deutlich erleichtert. Die Platine mit platzierten Bauteilen durchläuft anschließend den Reflow-Ofen und wird unter dem Mikroskop auf eventuell Lötbrücken überprüft.
 
 \subsubsection{Inbetriebnahme}
+Bei der ersten Inbetriebnahme sollte der Strom zunächst durch ein Labornetzteil begrenzt werden. Nach dem Anschluss der EKG Platine wurde festgestellt, dass diese einen Kurzschluss mit Dioden-Charakteristik verursacht. Sobald die Spannung über 0,8 V erhöht wird, steigt der Strom rapide auf über 20 mA an. Nach umfassender Fehlersuche wird festgestellt, das im Schaltplan die Polarität der Versorgungspins am Operationsverstärker ausgeblendet ist. Dadurch ist die Polarität im Schaltplan sowie im Layout vertauscht. Nach Korrektur dieses Fehlers durch hochbiegen der entsprechenden Beinchen am IC und legen eines Kupferlackdrahtes verläuft die Inbetriebnahme erfolgreich. Über das JTAG Interface kann eine Testsoftware auf die MCU gespielt werden.
