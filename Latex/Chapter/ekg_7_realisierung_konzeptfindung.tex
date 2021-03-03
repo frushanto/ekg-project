@@ -50,7 +50,52 @@ Da das Störsignal durch Magnetfelder mit der gleichen Frequenz der Versorgungsl
 	\label{fig_Blockschaltbild Filter} 
 \end{figure}
 
-Wie aus Abbildung \ref{fig_Blockschaltbild} zu erkennen ist, werden zwei Versorgungsspannungen (\SI{3}{\volt}  und \SI{5}{\volt}) für die Module benötigt. Sie werden aus dem Spannungsbereich eines Lithium-Ionen-Akkus mithilfe eines LDO für \SI{3}{\volt} und eines Aufwärtswandlers für \SI{5}{\volt} erzeugt. Der Aufwärtswandler kann über einen Enable-Eingang vom Prozessor ein- oder ausgeschaltet werden, um den Stromverbrauch durch die Peripherie zu minimieren und die Akkulaufzeit zu verlängern.
+Wie aus Abbildung \ref{fig_Blockschaltbild} zu erkennen ist, werden zwei Versorgungsspannungen (\SI{3}{\volt}  und \SI{5}{\volt}) für die Module benötigt. Sie werden aus dem Spannungsbereich eines Lithium-Ionen-Akkus mithilfe eines LDO für \SI{3}{\volt} und eines Aufwärtswandlers für \SI{5}{\volt} erzeugt. Die Konzeptfindung der Spannungsversorgung wird im Folgendem erläutert.
+
+Für die Wahl des Akkumulators ist die geforderte Laufzeit von mindestens 24 Stunden sowie die Stromaufnahme der Unterbaugruppen ausschlaggebend. Letztere setzt wich wie folgt zusammen:\\
+
+\begin{tabular}[h]{l|c|r}
+Komponente & Nennspannung & Stromverbrauch während Langzeitaufnahme\\
+\hline
+Display & 5 V & 10 mA \\
+Bluetooth & 5 V & 8 mA \\
+Cardreader & 5 V & 15 mA \\
+MCU & 3 V & 4 m A \\
+Signalfilterung & 3 V & 3 mA \\
+\end{tabular}\\
+
+Resultierend daraus eribt sich die gesammte Leistungsaufnahme zu: 
+$$ P_{ges} = 5\,V * (10\,mA + 8\,mA + 15\,mA) + 3\,V * (4\, mA + 3 \,mA) = 186\, mW $$
+
+Die Effizienz der noch unbekannten Spannungswandler wird vorläufig mit 80\% angenommen:
+$$ P_{Bat} = 186\,mW * \frac{1}{0.8} = 232.5\,mW $$
+
+Multipliziert man den Leistungsbedarf mit der gewünschten Laufzeit (als Puffer wird hier mit 30 Stunden gerechnet) so ergibt sich eine nötige Energiemenge von:
+$$ W_{Akku} = 232.5\,mW * 30\,h = 6975\,mWh $$
+
+Die Nennspannung dieser Zellen beträgt in der Regel \SI{3,7}{\volt}. Dadurch ergibt sich eine nötige Ladungsmenge von: 
+$$ Q = \frac{6975\,mWh}{3.7\,V} = 2051\,mAh $$
+
+Diese Ladungsmenge wird großflächig über die Zellgröße 18560 angeboten, welche Weltweit in Massenfertigung produziert wird und somit keine Finanziellen oder Logistische Probleme darstellt.
+
+Lithium-Ionen Zellen nehmen während ihrer Entladung Spannungen zwischen 4.2 V und 3.2 V abhängig vom Ladezustand an. Da sich aus diesem weiten Bereich die Komponenten des EKG-Gerätes nicht zuverlässig versorgen lassen, müssen stabile Zwischenspannungen erzeugt werden. Die erzeugten Spannungen müssen in der Lage sein den maximalen Strom für ihre Baugruppen zu liefern, welcher sich wie folgt zusammensetzt:\\
+
+\begin{tabular}[h]{l|c|r}
+Komponente & Nennspannung & Stromverbrauch maximal\\
+\hline
+Display & 5V & 100mA \\
+Bluetooth & 5V & 40mA \\
+Cardreader & 5V & 100mA \\
+MCU & 3V & 7mA \\
+Signalfilterung & 3V & 3mA \\
+\end{tabular}\\
+
+Dies ergibt eine Stromaufnahme von: $ I_{3\,V} = 10\,mA$ und $I_{5\,V} = 240\,mA $ \\
+
+Für die Erzeugung von 5 V wird ein Boostkonverter verwendet. Hierbei handelt es sich um integrierte Schaltungen, welche durch zerhacken einer Gleichspannung mittels Transistoren, nutzen der Selbstinduktionseffekte einer Spule sowie anschließende Glättung und Speicherung durch Kondensatoren eine DCDC Wandlung auf höhere oder niedrigere Spannungen ermöglicht. Diese ICs sind platzsparend, da sie bereits im SOT23 Package erhältlich sind, und können problemlos Ströme im einstelligen Amperebereich bereitstellen. \\
+
+Die Generierung von 3V durch einen Buck-Konverter ist zwar auch ohne weiteres möglich, allerdings weist diese Schaltungsart bauartbedingt immer eine gewisse Restwelligkeit auf. Da die komplette Analogschaltung zur Aufnahme es EKG Signals mit 3V versorgt wird, sollte hier jede Form von Schwankungen oder Ungenauigkeiten dezimiert werden.
+Deshalb fällt die Wahl für die Generierung von 3V auf einen LDO (Low-Dropout-Regler), welcher einen Spannungsabfall über einen internen MOS-FET verursacht und somit die Eingangsspannung auf eine festgelegte Ausgangsspannung herunterregelt. Da in einem LDO keine schaltenden Vorgänge Stattfinden, ist die Restwelligkeit sehr gering.\\
 
 Die Anzeige und Steuerung erfolgt über ein 3,2 Zoll TFT Touch Display. Es verfügt über eine serielle Schnittstelle und kommuniziert via UART mit dem Input/Ouput-Modul des Prozessors. Zur zusätzlichen Bedienung wurde ein Taster eingeplant, der zum Ein- und Ausschalten des Energiesparmodus verwendet wird. Der Buzzer dient für akustische Warnsignale bei Fehlfunktion oder einem niedrigen Ladezustand des Akkus.
 

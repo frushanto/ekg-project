@@ -46,18 +46,11 @@ Weiterhin werden Kondensatoren parallel zu den Versorgungspins sämtlicher ICs e
 \subsubsection{Platzieren der Komponente}
 Nach dem Abschluss des Schaltplans kann mit dem Layout der Platine begonnen werden. Hierfür wird zunächst in Absprache mit dem Gehäuseverantwortlichen eine Maximalgröße der Platine festgelegt. Die Abmaße werden im Board Planning Mode des neu erstelltem PCB Documents in Altium Designer eingetragen.
 
-Für die Platzierung wird zunächst eine grobe Skizze auf Papier erstellt (Abbildung \ref{fig:p_layout} . Damit wird bereits jeder Baugruppe ein Raum auf der Platine zugesichert, von welchem aus alle Verbindungen zu anderen Baugruppen gut erreichbar sind. 
+Für die Platzierung wird zunächst eine grobe Skizze auf Papier erstellt. Damit wird bereits jeder Baugruppe ein Raum auf der Platine zugesichert, von welchem aus alle Verbindungen zu anderen Baugruppen gut erreichbar sind. 
 
 Die MCU rückt dabei in den Mittelpunkt, da von ihr aus Verbindungen zu allen Baugruppen bestehen. Bei ihr ist darauf zu achten, das sämtliche vom Hersteller geforderten Bypass-Kondensatoren so nah wie möglich an den entsprechenden Pins Platziert werden. Selbiges gilt für den externen Hochfrequenz-Schwingquarz, dessen Zuleitungen ebenfalls nur kurze Distanzen überbrücken sollte.
 
 Die Absicherung der Spannungsversorgung ist in unmittelbarer nähe zum Anschluss an die Batterie zu platzieren. Der 3D Modus ist beim Platzieren von Bauteilen hilfreich um die Platzverhältnisse besser einzuschätzen.
-
-\begin{figure} [!h]
-	%\centering
-	\includegraphics[width=\textwidth] {Platinenlayout_skizze}
-	\caption{Skizze des Platinenlayouts}
-	\label{fig:p_layout} 
-\end{figure}
 
 
 \subsubsection{Routing}
