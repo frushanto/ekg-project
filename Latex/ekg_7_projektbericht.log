@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 21.2) (preloaded format=xelatex 2021.2.22)  3 MAR 2021 08:44
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 21.2) (preloaded format=xelatex 2021.2.22)  3 MAR 2021 19:14
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
@@ -691,55 +691,43 @@ File: Bilder//Test IIR Filter.png Graphic file (type bmp)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) (Chapter//ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
-[16]
-Underfull \hbox (badness 10000) in paragraph at lines 16--17
+[16] [17]
+Underfull \hbox (badness 10000) in paragraph at lines 50--51
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 18--20
-
- []
-
-[17]
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
+Underfull \hbox (badness 10000) in paragraph at lines 52--65
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--68
+Underfull \hbox (badness 10000) in paragraph at lines 52--65
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--68
+Underfull \hbox (badness 10000) in paragraph at lines 66--67
 
  []
 
 [18]
-Underfull \hbox (badness 10000) in paragraph at lines 69--70
-
- []
-
 File: Bilder//DCDC_5V_LTSPICE.png Graphic file (type bmp)
 <Bilder//DCDC_5V_LTSPICE.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[19]
+ [19]
 File: Bilder//DCDC_3V_LDO_Shematic.png Graphic file (type bmp)
 <Bilder//DCDC_3V_LDO_Shematic.png>
 File: Bilder//DCDC_3V_LDO_Plot.png Graphic file (type bmp)
 <Bilder//DCDC_3V_LDO_Plot.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[20] [21]) (Chapter//ekg_7_realisierung_display_und_ui.tex)
+ [20]) (Chapter//ekg_7_realisierung_display_und_ui.tex)
 (Chapter//ekg_7_realisierung_prozessor_einheit.tex)
 (Chapter//ekg_7_realisierung_gehäuse.tex)
-(Chapter//ekg_7_realisierung_schnittstellen.tex)
-(Chapter//ekg_7_realisierung_android_app.tex)
+(Chapter//ekg_7_realisierung_schnittstellen.tex
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
+
+[21]) (Chapter//ekg_7_realisierung_android_app.tex)
 (Chapter//ekg_7_realisierung_datenspeicherung_auf_sd_karte.tex)
 (Chapter//ekg_7_realisierung_analoge_filterschaltung.tex [22]
 Overfull \hbox (0.99971pt too wide) in paragraph at lines 11--12
@@ -749,42 +737,48 @@ t-Fourier-Transformation
 
 File: Bilder//EKG_Signal.png Graphic file (type bmp)
 <Bilder//EKG_Signal.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 File: Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type 
 bmp)
 <Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[23]
+[23] [24]
 File: Bilder//EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
 <Bilder//EKG_aktiver_Tiefpassfilter.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[24]
+ [25]
 File: Bilder//EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
 <Bilder//EKG_Gesamtübertragungsfunktion.png>
+File: Bilder//EKG_virtueller_Ground.png Graphic file (type bmp)
+<Bilder//EKG_virtueller_Ground.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[25]
-File: Bilder//EKG_virtueller_Ground.png Graphic file (type bmp)
-<Bilder//EKG_virtueller_Ground.png>
- [26]) (Chapter//ekg_7_realisierung_pcb_design.tex [27]
+) (Chapter//ekg_7_realisierung_pcb_design.tex [26] [27]
 File: Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg Graphic file (type bmp
 )
 <Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg>
- [28]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[28]
 File: Bilder//Platinenlayout_skizze.png Graphic file (type bmp)
 <Bilder//Platinenlayout_skizze.png>
- [29]))
-[30] [31] (Chapter//ekg_7_ergebnisse.tex
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[29] [30])) [31] (Chapter//ekg_7_ergebnisse.tex
 Missing character: There is no ä in font cmmi8!
-) (Chapter//ekg_7_zusammenfassung.tex)
-(Chapter//ekg_7_ausblick.tex) [32] (ekg_7_projektbericht.bbl)
-(Chapter//ekg_7_anhang.tex) [33] (ekg_7_projektbericht.aux) ) 
+)
+(Chapter//ekg_7_zusammenfassung.tex) (Chapter//ekg_7_ausblick.tex) [32]
+(ekg_7_projektbericht.bbl) (Chapter//ekg_7_anhang.tex) [33]
+(ekg_7_projektbericht.aux) ) 
 Here is how much of TeX's memory you used:
  8634 strings out of 411700
  219493 string characters out of 2839604
