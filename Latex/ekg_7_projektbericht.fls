@@ -1,8 +1,8 @@
-PWD /Users/hannes/Documents/GitHub/ekg-project/Latex
+PWD /Users/ivan/Workspace/Projects/ekg-project/Latex
 INPUT /usr/local/texlive/2020/texmf.cnf
 INPUT /usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2020/texmf-var/web2c/xetex/xelatex.fmt
-INPUT /Users/hannes/Documents/GitHub/ekg-project/Latex/ekg_7_projektbericht.tex
+INPUT /Users/ivan/Workspace/Projects/ekg-project/Latex/ekg_7_projektbericht.tex
 OUTPUT ekg_7_projektbericht.log
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/base/article.cls
@@ -130,6 +130,10 @@ INPUT ./Chapter/ekg_7_realisierung_display_und_ui.tex
 INPUT Bilder/Startseite.png
 INPUT ./Chapter/ekg_7_realisierung_prozessor_einheit.tex
 INPUT ./Chapter/ekg_7_realisierung_prozessor_einheit.tex
+INPUT Bilder/State Machine.png
+INPUT Bilder/Short ECG.png
+INPUT Bilder/Langzeit EKG Energy Saving.png
+INPUT Bilder/Idle State and Evergy Saving.png
 INPUT ./Chapter/ekg_7_realisierung_gehäuse.tex
 INPUT ./Chapter/ekg_7_realisierung_gehäuse.tex
 INPUT ./Chapter/ekg_7_realisierung_schnittstellen.tex
