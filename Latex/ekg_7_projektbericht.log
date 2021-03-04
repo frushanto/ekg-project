@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 21.2) (preloaded format=xelatex 2021.2.22)  3 MAR 2021 22:05
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 21.2) (preloaded format=xelatex 2021.2.22)  4 MAR 2021 08:37
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
@@ -681,42 +681,45 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 File: Bilder//Filter Blockschaltbild.png Graphic file (type bmp)
 <Bilder//Filter Blockschaltbild.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
+Underfull \hbox (badness 10000) in paragraph at lines 56--57
 
  []
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 57--66
+Underfull \hbox (badness 10000) in paragraph at lines 58--67
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 81--82
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--92
+Underfull \hbox (badness 10000) in paragraph at lines 84--93
 
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 93--94
+Underfull \hbox (badness 10000) in paragraph at lines 94--95
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 95--96
+Underfull \hbox (badness 10000) in paragraph at lines 96--97
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 97--99
+Underfull \hbox (badness 10000) in paragraph at lines 98--100
 
  []
 
 File: Bilder//Blockschaltbild v1.5.png Graphic file (type bmp)
 <Bilder//Blockschaltbild v1.5.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 [16]) (Chapter//ekg_7_realisierung_diskussion_der_alternativen.tex [17]
 Underfull \hbox (badness 10000) in paragraph at lines 11--12
 
@@ -788,16 +791,21 @@ File: Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg Graphic file (type bmp
  [28] [29]))
 [30] (Chapter//ekg_7_ergebnisse.tex
 Missing character: There is no ä in font cmmi8!
-) (Chapter//ekg_7_zusammenfassung.tex)
-(Chapter//ekg_7_ausblick.tex) [31] (ekg_7_projektbericht.bbl)
-(Chapter//ekg_7_anhang.tex) [32] (ekg_7_projektbericht.aux) ) 
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
+
+ []
+
+[31]) (Chapter//ekg_7_zusammenfassung.tex) (Chapter//ekg_7_ausblick.tex)
+[32] (ekg_7_projektbericht.bbl) (Chapter//ekg_7_anhang.tex) [33]
+(ekg_7_projektbericht.aux) ) 
 Here is how much of TeX's memory you used:
- 8616 strings out of 411700
- 219000 string characters out of 2839604
+ 8617 strings out of 411700
+ 219020 string characters out of 2839604
  592835 words of memory out of 3000000
- 28436 multiletter control sequences out of 15000+200000
+ 28437 multiletter control sequences out of 15000+200000
  410294 words of font info for 67 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 81i,13n,102p,2209b,1092s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 81i,13n,102p,2209b,1170s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ekg_7_projektbericht.pdf (32 pages).
+Output written on ekg_7_projektbericht.pdf (33 pages).
