@@ -93,7 +93,7 @@ void main(void)
                     && g_sd_card_inserted)
             {
                 // Check Akku > 80%
-                // Check_Akku_Percentage();
+                Check_Akku_Percentage();
                 g_timer_uart_1sec = 0;                  // Sync timer back to 0 
                 // Start create/write new .csv
                 SD_CreateNewCSV();

@@ -20,7 +20,7 @@ void Uart_ECG_Wave_ST()
 void Uart_ECG_Wave_LT()
 {
     adc_value = ((g_adc_result / 20));
-    uart_transmit_data_start("add 13,0,");
+    uart_transmit_data_start("add 7,0,");
     uart_transmit_data_value(adc_value);
     uart_transmit_data_end();
 }
@@ -33,7 +33,7 @@ void Clear_Wave_ST()
 
 void Clear_Wave_LT()
 {
-    uart_transmit_data_start("cle 13,0");
+    uart_transmit_data_start("cle 7,0");
     uart_transmit_data_end();
 }
 
@@ -173,6 +173,18 @@ void Display_Exit_Sleep_Mode()
 {
     uart_transmit_data_start("sleep=");
     uart_transmit_data_value(0);
+    uart_transmit_data_end();
+}
+
+void Display_Tachykardie()
+{
+    uart_transmit_data_start("page 17");
+    uart_transmit_data_end();
+}
+
+void Display_Bradykardie()
+{
+    uart_transmit_data_start("page 18");
     uart_transmit_data_end();
 }
 

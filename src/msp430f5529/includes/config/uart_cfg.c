@@ -201,8 +201,8 @@ void Init_UART() {
                  uart_receive_data_end();
              }
 
-             /* Display page3 'langzeit' ECG ***START***: 65 03 05 00 FF FF FF */
-             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x05 && uart_received_data[3] == 0x00 &&
+             /* Display page3 'langzeit' ECG ***START***: 65 03 02 00 FF FF FF */
+             else if(uart_received_data[0] == 0x65 && uart_received_data[1] == 0x03 && uart_received_data[2] == 0x02 && uart_received_data[3] == 0x00 &&
                      uart_received_data[4] == 0xFF && uart_received_data[5] == 0xFF && uart_received_data[6] == 0xFF) {
                  g_long_ECG_flag = 1;
                  uart_receive_data_end();

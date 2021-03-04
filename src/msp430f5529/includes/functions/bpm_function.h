@@ -16,7 +16,7 @@
 
 /*Defines*/
 #define tachy_brady_cnt_threshold 20
-#define tachy_threshold 100  // zum Testen kannst einfach die obere Schwelle runter oder die untere Schwelle hochsetzten
+#define tachy_threshold 100
 #define brady_threshold 60
 
 /* Function declarations */

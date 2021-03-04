@@ -19,30 +19,34 @@ static uint8_t brady_cnt = 0;
 void calculate_bpm_ST()
 {
     watchdog_ecg ++;    // 250Hz 
-    // if (g_adc_result <= threshold_ecg_value)
-    // {
-        bpm_cnt++;
-    // }else 
+    bpm_cnt++;
+
     if ((g_adc_result > threshold_ecg_value) && bpm_cnt > 100)
     {
         bpm = (uint16_t) ((G_SAMPLE_RATE*60) / bpm_cnt);
 
+        // Calculate BPM Median Value
+        int medianValue = MEDIANFILTER_Insert(&medianFilter, bpm);
 
         /*Abfrage auf Tachykardie oder Bradykardie*/
-        if (bpm < brady_threshold)
+        if (medianValue < brady_threshold)      // BPM
         {
             brady_cnt = brady_cnt + 1;
             if (brady_cnt >= tachy_brady_cnt_threshold)
             {
-                //Hier kommt das Displaykommando für die Warnung Bradykardie rein
+                // Warning for Bradykardie
+                Display_Bradykardie();
+                brady_cnt = 0;
             }
         }
-        else if (bpm > tachy_threshold)
+        else if (medianValue > tachy_threshold) // BPM
         {
             tachy_cnt = tachy_cnt + 1;
             if (tachy_cnt >= tachy_brady_cnt_threshold)
             {
-                // Hier kommt das Displaykommando für die Warnung Tachykardie rein
+                // Warning for Tachykardie
+                Display_Tachykardie();
+                tachy_cnt = 0;
             }
         }
         else
@@ -51,8 +55,6 @@ void calculate_bpm_ST()
             tachy_cnt = 0;
         }
         /*Ende der Abfrage*/
-
-        int medianValue = MEDIANFILTER_Insert(&medianFilter, bpm);
 
         // Send BPM to Display
         uart_transmit_data_start("page2.puls.val=");
