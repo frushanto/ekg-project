@@ -12,3 +12,14 @@ src/
 *.log
 *.pdf
 *.xdv
+Latex/*.aux
+Latex/*.log
+Latex/*.gz
+Latex/*.toc
+Latex/*.bbl
+Latex/*.blg
+Latex/*.fdb_latexmk
+Latex/*.fls
+Latex/*.log
+Latex/*.pdf
+Latex/*.xdv
