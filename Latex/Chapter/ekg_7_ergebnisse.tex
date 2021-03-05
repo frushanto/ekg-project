@@ -6,9 +6,16 @@ Dieses Kapitel führt die Funktionen des EKG-Gerätes auf die umgesetzt wurden.
 
 \subsection{aufgenommene Signale}
 
-Die automatisierte Aufnahmezeit der Kurzzeit-EKG Funktion wurde mithilfe einer Stoppuhr gemessen und beträgt \SI{120}{\sec}. In dieser Zeit wurden 29895 Werte auf der SD-Karte, mit Zeitpunkt und Benutzerkennung gespeichert. Daraus ergibt sich eine durchschnittliche Abtastrate von \SI{249}{\hertz} (= $ \frac{29895\,Werte}{120\,sec}$). Die gespeicherten ADC-Werte des EKG-Signals wurden mithilfe von MS Excel in einem Zeitdiagramm visualisiert (siehe Abbildung 
-%TODO (Diagramm erstellen und einfügen))
-. Gut zu erkennen sind die P- (Vorhofkontraktion) und die T-Welle (Erregungsrückbildung der Kammern). Zwischen den beiden Wellen befindet sich der QRS-Komplex. Deutlich von einander zu unterscheiden sind die negativen (Q- und S-Zacke) und positiven Anteile (R-Zacke) des Komplexes, der die Kammerkontraktion markiert. Im Signal sind keine störenden 50-Hz Schwingungen mehr enthalten. Aus den ADC-Werten lässt sich nun die Amplitude des Eingangssignals bei der Messung an der Hautoberfläche berechnen. Die Verstärkung der Filterschaltung wurde hierbei zur Vereinfachung als maximal (\SI{67}{\decibel}) über die gesamte Bandbreite angenommen. 
+Die automatisierte Aufnahmezeit der Kurzzeit-EKG Funktion wurde mithilfe einer Stoppuhr gemessen und beträgt \SI{120}{\sec}. In dieser Zeit wurden 29895 Werte auf der SD-Karte, mit Zeitpunkt und Benutzerkennung gespeichert. Daraus ergibt sich eine durchschnittliche Abtastrate von \SI{249}{\hertz} (= $ \frac{29895\,Werte}{120\,sec}$). Die gespeicherten ADC-Werte des EKG-Signals wurden mithilfe von MS Excel in einem Zeitdiagramm visualisiert (siehe Abbildung. 
+
+\begin{figure} [!h]
+	%\centering
+	\includegraphics[width=\textwidth] {EKG_Endergebnis.png}
+	\caption{aufgenommenes EKG-Signal}
+	\label{Endergebnis EKG-Signal} 
+\end{figure}
+
+Gut zu erkennen sind die P- (Vorhofkontraktion) und die T-Welle (Erregungsrückbildung der Kammern). Zwischen den beiden Wellen befindet sich der QRS-Komplex. Deutlich von einander zu unterscheiden sind die negativen (Q- und S-Zacke) und positiven Anteile (R-Zacke) des Komplexes, der die Kammerkontraktion markiert. Im Signal sind keine störenden 50-Hz Schwingungen mehr enthalten. Aus den ADC-Werten lässt sich nun die Amplitude des Eingangssignals bei der Messung an der Hautoberfläche berechnen. Die Verstärkung der Filterschaltung wurde hierbei zur Vereinfachung als maximal (\SI{67}{\decibel}) über die gesamte Bandbreite angenommen. 
 \\
 $  \frac{\frac{ADC-Breite}{delta Signalwerte} * 3V}{Verstärkung der Filterschaltung} $. 
 \\
