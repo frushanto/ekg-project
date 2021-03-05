@@ -98,15 +98,25 @@ Für die Erzeugung von 5 V wird ein Aufwärtswandler verwendet. Hierbei handelt 
 Die Generierung von 3V durch einen Abwärtswandler ist möglich, allerdings weist diese Schaltungsart bauartbedingt eine Restwelligkeit auf. Da die komplette Analogschaltung zur Aufnahme es EKG Signals mit 3V versorgt wird, soll hier jede Form von Schwankung vermieden werden.
 Deshalb fällt die Wahl für die Generierung von 3V auf einen LDO (Low-Dropout-Regler), welcher einen Spannungsabfall über einen internen MOS-FET verursacht und somit die Eingangsspannung auf eine festgelegte Ausgangsspannung herunter regelt. Da in einem LDO keine schaltenden Vorgänge Stattfinden, ist die Restwelligkeit sehr gering.\\
 
-Die Anzeige und Steuerung erfolgt über ein 3,2 Zoll TFT Touch Display. Es verfügt über eine serielle Schnittstelle und kommuniziert via UART mit dem Input/Ouput-Modul des Prozessors. Zur zusätzlichen Bedienung wurde ein Taster eingeplant, der zum Ein- und Ausschalten des Energiesparmodus verwendet wird. Der Buzzer dient für akustische Warnsignale bei Fehlfunktion oder einem niedrigen Ladezustand des Akkus.
+Die Anzeige und Steuerung erfolgt über ein 3,2 Zoll TFT Touch Display. Es verfügt über eine serielle Schnittstelle und kommuniziert via UART mit dem Input/Ouput-Modul des Prozessors. Zur zusätzlichen Bedienung wurde ein Taster eingeplant, der zum Ein- und Ausschalten des Energiesparmodus verwendet wird. Der Buzzer dient für akustische Warnsignale bei Fehlfunktion oder einem niedrigen Ladezustand des Akkus.\\
 
-Die zweite UART-Schnittstelle (Universal Asynchronous Receiver Transmitter) der CPU wird verwendet um Daten an das Bluetooth-Modul zu senden. Dieses kommuniziert dann via Bluetooth mit dem Smartphone des Benutzers, um die EKG-Daten in der App anzuzeigen.
+Die zweite UART-Schnittstelle (Universal Asynchronous Receiver Transmitter) der CPU wird verwendet um Daten an das Bluetooth-Modul zu senden. Dieses kommuniziert dann via Bluetooth mit dem Smartphone des Benutzers, um die EKG-Daten in der App anzuzeigen.\\
 
-Die Datenspeicherung erfolgt auf einer externen SD-Karte. Das Kartenmodul das zum Schreiben und Lesen der Daten verwendet wird, kommuniziert via SPI (Serial Peripheral Interface) mit dem Input/Output-Modul der CPU.
+Die Datenspeicherung erfolgt auf einer externen SD-Karte. Das Kartenmodul das zum Schreiben und Lesen der Daten verwendet wird, kommuniziert via SPI (Serial Peripheral Interface) mit dem Input/Output-Modul der CPU.\\
 
-Zur Programmierung und Fehleranalyse der Prozessoreinheit auf der Platine, wird die JTAG-Schnittstelle (Joint Test Action Group) verwendet.
+Zur Programmierung und Fehleranalyse der Prozessoreinheit auf der Platine, wird die JTAG-Schnittstelle (Joint Test Action Group) verwendet.\\
 
-Als Grundstruktur des Codes wird eine State Machine implementiert. Diese besteht aus verschiedenen Zuständen. Jeder Zustand kann als Modul separat programmiert und getestet werden. Dies vereinfacht die Codeentwicklung, erschafft Codeübersichtlichkeit, ermöglicht die Entwicklung verschiedenen Zustände und Bedingungen, unter welchen ein Zustand gewechselt werden kann. In einer State Machine ist es immer möglich festzustellen, in welchem Zustand das Programm sich befindet. 
+Das Projekt EKG7 basiert auf dem Microcontroller MSP430F5529. Laut der Projektvorgaben muss der Prozessor zur MSP430-Prozessorfamilie der Firma Texas Instruments gehören. Nach der Analyse verschiedener µC fiel die Wahl auf die MSP430F5529. Dieser Mikrocontroller hat alle notwendigen Spezifikationen, um die Anforderungen im Lasten- und Pflichtenheft zu erfüllen.\\
+Das Hauptziel der Baugruppe ist eine kontinuierliche und unterbrechungsfreie Bearbeitung und Übertragung des analogen Eingangssignal an verschiedene Module mit einem möglichst niedrigen Stromverbrauch.\\
+F5529 MCU verfügt über fünf verschiedene Stromsparmodi. In diesen Modi liegt die Stromaufnahme im µA-Bereich. Der aktive Zustand des Prozessors verbraucht bei maximaler Belastung im „Worst Case“ 3,7 mA.\\
+Der nächste wichtige Aspekt ist eine ausreichende Taktfrequenz. Die maximale Frequenz der F5529 beträgt 25 MHz. In diesem Projekt sind die Clocks auf eine Frequenz von 20 MHz eingestellt.\\
+Die MCU verfügt über 2 UART- und 4 SPI-Schnittstellen. Beide UART Schnittstellen sind für Bluetooth-Verbindung und Kommunikation mit dem Display ausgelegt. Eine SPI-Schnittstelle ist für die Datenübertragung an das Bluetooth Modul verwendet.
+Die ADC Schnittstelle hat die Auflösung von 12-bit, was möglich macht die Werte im Bereich von 0 bis 4095 zu empfangen. Das ermöglicht sowohl eine präzise Aufnahme eines EKG-Signals als auch präzises Ablesen der Akku-Werte mit einem gewissen Offset.\\ 
+Ein weiterer Faktor für diese Projektarbeit ist die Anzahl der I/O Pins. Die MCU besitzt insgesamt 63 GPIO Pins inklusive 16 interruptsfähige Pins. Dies erleichtert das Hardwaredesign und gibt mehr Freiheit bei der Codeentwicklung.\\
+Die MCU besitzt 8kB RAM. Der Speicher ist genügend, um die temporären Werte intern auf der MCU zu speichern und diverse Features wie z.B. digitale Filterung zu testen.\\
+Ein entscheidender Faktor bei der MCU Auswahl ist die Verfügbarkeit von DevKit mit der gleichen MCU. Nach der Codeentwicklung auf dem DevKit ist es möglich die entwickelte Software mit minimalen Codeanpassungen auf das PCB zu portieren.\\
+
+Als Grundstruktur des Codes wird eine State Machine implementiert. Diese besteht aus verschiedenen Zuständen. Jeder Zustand kann als Modul separat programmiert und getestet werden. Dies vereinfacht die Codeentwicklung, erschafft Codeübersichtlichkeit, ermöglicht die Entwicklung verschiedenen Zustände und Bedingungen, unter welchen ein Zustand gewechselt werden kann. In einer State Machine ist es immer möglich festzustellen, in welchem Zustand das Programm sich befindet.\\
 
 \begin{figure} [h]
 	%\centering

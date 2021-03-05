@@ -2,29 +2,17 @@
 
 \subsection{Prozessoreinheit}
 
-Dieses Kapitel enthält die Beschreibung der MCU, ihre Auswahl und Spezifikationen, sowie Toolchain und Codeentwicklung mit der Erläuterung von essenziellen Codemodulen und deren Funktionalität und Logik.
+Dieses Kapitel gibt eine ausführliche Beschreibung zur Software des Projektes und dessen Entwicklung. Zuerst wird der Begriff State Machine im Allgemeinen beschrieben. Anschließend wird es auf die Implementierung der State Machine im Projekt mit der Beschreibung jedes Zustandes eingegangen, sowie auf essenzielle Module und Funktionsprinzipien.  
 
-\subsubsection{Auswahl und Spezifikationen der Prozessoreinheit}
+\subsubsection{State Machine}
 
-Das Projekt EKG7 basiert auf dem Prozessor MSP430F5529. Laut der Projektvorgaben muss der Prozessor zur MSP430-Prozessorfamilie der Firma Texas Instruments gehören. Nach der Analyse verschiedener µC fiel die Wahl auf die MSP430F5529. Dieser Mikrocontroller hat alle notwendigen Spezifikationen, um die Anforderungen im Lasten- und Pflichtenheft zu erfüllen. 
-Das Hauptziel der Baugruppe ist eine kontinuierliche und unterbrechungsfreie Bearbeitung und Übertragung des analogen Eingangssignal an verschiedene Module mit einem möglichst niedrigen Stromverbrauch. 
-F5529 MCU verfügt über fünf verschiedene Stromsparmodi. In diesen Modi liegt die Stromaufnahme im µA-Bereich. Der aktive Zustand des Prozessors verbraucht bei maximaler Belastung im „Worst Case“ 3,7 mA.
-Der nächste wichtige Aspekt ist eine ausreichende Taktfrequenz. Die maximale Frequenz der F5529 beträgt 25 MHz. In diesem Projekt sind die Clocks auf eine Frequenz von 20 MHz eingestellt.
-Die MCU verfügt über 2 UART- und 4 SPI-Schnittstellen. Beide UART Schnittstellen sind für Bluetooth-Verbindung und Kommunikation mit dem Display ausgelegt. Eine SPI-Schnittstelle ist für die Datenübertragung an das Bluetooth Modul verwendet.
-Die ADC Schnittstelle hat die Auflösung von 12-bit, was möglich macht die Werte im Bereich von 0 bis 4095 zu empfangen. Das ermöglicht sowohl eine präzise Aufnahme eines EKG-Signals als auch präzises Ablesen der Akku-Werte mit einem gewissen Offset. 
-Ein weiterer Faktor für diese Projektarbeit ist die Anzahl der I/O Pins. Die MCU besitzt insgesamt 63 GPIO Pins inklusive 16 interruptsfähige Pins. Dies erleichtert das Hardwaredesign und gibt mehr Freiheit bei der Codeentwicklung.
-Die MCU besitzt 8kB RAM. Der Speicher ist genügend, um die temporären Werte intern auf der MCU zu speichern und diverse Features wie z.B. digitale Filterung zu testen.
-Ein entscheidender Faktor bei der MCU Auswahl ist die Verfügbarkeit von DevKit mit der gleichen MCU. Nach der Codeentwicklung auf dem DevKit ist es möglich die entwickelte Software mit minimalen Codeanpassungen auf das PCB zu portieren.
-
-\subsubsection{Codeentwicklung}
-
-In diesem Unterkapitel wird eine ausführliche Beschreibung zur Software des Projektes und dessen Entwicklung gegeben. Zuerst wird der Begriff State Machine im Allgemeinen beschrieben, warum eine State Machine sinnvoll zu benutzen ist. Anschließend wird es auf die Implementierung der State Machine im Projekt mit der Beschreibung jedes Zustandes eingegangen.  
-
-State Machine: Eine State Machine ist ein sogenannter Verhaltensmodell der Software oder eines Teils der Software mit einer endlichen Anzahl der Zustände. Diese Zustände können gewechselt werden gemäß der Logik des Programms, sowie gemäß der Eingangsdaten.
+Eine State Machine ist ein sogenannter Verhaltensmodell der Software oder eines Teils der Software mit einer endlichen Anzahl der Zustände. Diese Zustände können gewechselt werden gemäß der Logik des Programms, sowie gemäß der Eingangsdaten.
 
 Eine State Machine hat in der Regel einen Initialisierungszustand, anhand dessen die Programmmodule gestartet werden. Ein weiterer Programmablauf ist von dem Initialisierungszustand abhängig. Zum Beispiel nach einer erfolgreichen Initialisierung kann das Programm einen normalen Betrieb anfangen. Sollte in diesem Zustand etwas schiefgehen, kann das Programm einen anderen Zustand nehmen und dementsprechend auf den aufgetretenen Fehler reagieren z.B. mögliche Fehlerursache zeigen oder das System komplett abschalten. Solche Funktionsweise besitzen alle anderen Zustände auch.
 
-Zustände der State Machine: In diesem Projekt sind 6 verschiedene Zustände für das EKG Gerät entwickelt, sowie eine regelmäßige Abfrage der globalen Flags, die jede Sekunde stattfindet. Die Zustände der State Machine sind: 
+\subsubsection{Zustände der State Machine}
+
+In diesem Projekt sind 6 verschiedene Zustände für das EKG Gerät entwickelt, sowie eine regelmäßige Abfrage der globalen Flags, die jede Sekunde stattfindet. Die Zustände der State Machine sind: 
 \begin{itemize}
     \item Initialisierung – SYS\_INIT,
     \item Leerlauf – IDLE\_STATE,
@@ -40,7 +28,9 @@ Aus dem Bild ist zum Teil die Funktionsweise der State Machine zu entnehmen. Meh
     \caption{State Machine des EKG7}
 \end{figure}
 
-Globale Flags: Für das Anzeigen diversen Zustände sind in der Software globalen Flags implementiert. Die Flags können folgende Ereignisse widerspiegeln:
+\subsubsection{Globale Flags}
+
+Für das Anzeigen diversen Zustände sind in der Software globalen Flags implementiert. Die Flags können folgende Ereignisse widerspiegeln:
 \begin{itemize}
     \item Auftreten eines Interrupts,
     \item Ankommen von Daten,
@@ -52,7 +42,9 @@ Globale Flags: Für das Anzeigen diversen Zustände sind in der Software globale
     \item Verbindung mit SD-Karte.
 \end{itemize} 
 
-Interrupts: Ein Interrupt ist ein Signal an die MCU, das hardware- oder softwareseitig auftritt und eine sofortige Antwort bzw. Reaktion der MCU benötigt. Der normale Programmablauf wird dabei gestoppt und es werden Befehle im Interrupt Service Routine erst ausgeführt. Nach dem Ablauf von einem Interrupt kehr die MCU zurück zum normalen Programmablauf.
+\subsubsection{Interrupts}
+
+Ein Interrupt ist ein Signal an die MCU, das hardware- oder softwareseitig auftritt und eine sofortige Antwort bzw. Reaktion der MCU benötigt. Der normale Programmablauf wird dabei gestoppt und es werden Befehle im Interrupt Service Routine erst ausgeführt. Nach dem Ablauf von einem Interrupt kehr die MCU zurück zum normalen Programmablauf.
 In dem Projekt werden Interrupts für folgende Module verwendet:
 \begin{itemize}
     \item GPIO – beim Togglen der Gehäusetaste, Ein- und Ausschalten des Bluetooth Moduls und Einsetzen bzw. Rausnehmen der SD-Karte,
@@ -61,7 +53,9 @@ In dem Projekt werden Interrupts für folgende Module verwendet:
     \item ADC – beim Empfangen von EKG Signalen und Akkuspannung.
 \end{itemize} 
 
-Initialisierung: Initialisierung oder SYS\_INIT ist der Anfangszustand der MCU nach dem Einschalten. Dieser Zustand ruft Initialisierungsfunktionen aller verwendeten Modulen auf und nach dem Initialisierungsvorgang wird verlassen. Hier folgt die Reihenfolge der Module, die im Programm initialisiert werden:
+\subsubsection{Initialisierung}
+
+Initialisierung oder SYS\_INIT ist der Anfangszustand der MCU nach dem Einschalten. Dieser Zustand ruft Initialisierungsfunktionen aller verwendeten Modulen auf und nach dem Initialisierungsvorgang wird verlassen. Hier folgt die Reihenfolge der Module, die im Programm initialisiert werden:
 \begin{itemize}
     \item Watchdog Timer – ist dem Totmann-Schalter ähnlich. Die MCU wird zurückgesetzt, wenn das Programm ihn nicht explizit ausschaltet;
     \item General Purpose Input Output – sind alle programmierbare MCU I/O Pins. Sie müssen vorerst initialisiert werden, da auf deren Funktionalität weitere Module basieren können;
@@ -102,24 +96,44 @@ Im Folgenden wird eine detaillierte Beschreibung von den zu initialisierenden Mo
     \item Medianfilter: Um Artefakte bei der Herzfrequenzmessung herauszufiltern, dient ein Medianfilter. Bei der Initialisierung werden zwei Strukturen und ein Array der Größe 11 angelegt. Ein Medianfilter gibt immer den Wert zurück, der sich in der Mitte des Arrays befindet. Anders als bei einem Mittelwertfilter, haben größere Artefakte keinen Einfluss auf den Medianwert. Dadurch wird sichergestellt, dass die Herzfrequenzmessung auch beim Aufstehen des Patienten oder großen Störfaktoren richtig berechnet wird. Aufgerufen wird die Median-Funktion unmittelbar nach der Herzfrequenzberechnung. In dem Array werden 11 Werte gespeichert und stets der Medianwert an das Display übermittelt.
 \end{enumerate}
 
-IDLE State: Direkt nach dem Initialisierungsvorgang der MCU, befindet man sich im IDLE\_STATE. 
+\subsubsection{Idle State}
+
+Direkt nach dem Initialisierungsvorgang der MCU, befindet man sich im IDLE\_STATE. 
 Als IDLE\_STATE wird der Zustand bezeichnet, in dem sich das EKG-Gerät im Leerlauf befindet. Hier wird kontinuierlich in einer while-Schleife abgefragt, ob der Benutzer/die Benutzerin ein Kurzzeit- oder Langzeit-EKG aufnehmen möchte.
 Eine erfolgreiche Abfrage wird durch den Start-Befehl des Displays in Form eines Interrupts erreicht. Sobald der Benutzer/die Benutzerin den Befehl gibt, wird eine CSV Datei auf der SD-Karte erstellt und der Case der State Machine wechselt entsprechend der gewünschten Aufnahme Methode.
 
-Kurzzeit-EKG aus Nutzersicht: Im Falle einer Kurzzeit-Aufnahme startet man das EKG auf dem Display im Unterpunk „Kurzzeit EKG“. Sobald dieser Befehl ausgeführt wurde, läuft die Aufnahme samt Speicherung für zwei Minuten automatisch ab. Um das EKG vorzeitig abzubrechen, kann der Stopp-Button des Displays betätigt werden. Dabei ist eine Sicherheitsabfrage vorzufinden, ob der Befehl bewusst oder unbewusst getätigt wurde. Gestoppt wird somit erst nach der Bestätigung auf „Ja“. Ansonsten läuft die Aufnahme bis Vollendung der zwei Minuten weiter.
+\subsubsection{Kurzzeit-EKG}
+
+Im Falle einer Kurzzeit-Aufnahme startet man das EKG auf dem Display im Unterpunk „Kurzzeit EKG“. Sobald dieser Befehl ausgeführt wurde, läuft die Aufnahme samt Speicherung für zwei Minuten automatisch ab. Um das EKG vorzeitig abzubrechen, kann der Stopp-Button des Displays betätigt werden. Dabei ist eine Sicherheitsabfrage vorzufinden, ob der Befehl bewusst oder unbewusst getätigt wurde. Gestoppt wird somit erst nach der Bestätigung auf „Ja“. Ansonsten läuft die Aufnahme bis Vollendung der zwei Minuten weiter.
 \begin{figure} [!h]
 	%\centering
 	\includegraphics[width=\textwidth] {Short ECG.png}
 	\caption{Display UI einer Kurzzeit-Aufnahme}
 \end{figure}
 
-Langzeit-EKG aus Nutzersicht: Im Gegensatz zum Kurzzeit-EKG, weist das Schema einer Langzeit-Aufnahme einige Änderungen auf. Gestartet wird ebenfalls durch einen Start-Befehl auf dem Display. Hier ist jedoch zu beachten, dass der Ladestand der Batterie beim Start mindestens 80 \% aufweist. Eine Aufnahme ist ansonsten nicht möglich, da es im Falle eines zu leeren Akkus zu Datenverlust kommen kann. Bei der Langzeit-Aufnahme läuft das EKG für 24 Stunden automatisch. Um eine Aufnahme über 24 Stunden gewähr zu leisten, muss der Nutzer/die Nutzerin den Power Button des Geräts einmalig drücken. Dadurch wird der Stromsparmodus aktiviert und das Gerät wechselt automatisch zwischen einem ON- und OFF-Modus. Im OFF-Modus ist die 5 V Peripherie (das Display und das Bluetooth-Modul) vollständig deaktiviert. Der ON-Modus hingegen, aktiviert alle vier Sekunden das SD-Kartenmodul und speichert die gesammelten Werte in der CSV Datei ab. Bei erneutem Betätigen des Power Buttons wird der Stromsparmodus verlassen und der Zugriff auf das Display wieder gewährt. Um die Aufnahme vorzeitig abzubrechen, kann der Stopp-Button auf dem Display betätigt werden. Wie auch beim Kurzzeit-EKG wird durch die Sicherheitsabfrage ein unbewusstes Drücken verhindert.
+\subsubsection{Langzeit-EKG}
 
-Energy Saving Mode Nutzersicht: Um ein schnelles Entladen der Batterie entgegenzuwirken und eine möglichst lange Lagerung (Shelf-Time) zu garantieren, verfügt das EKG-Gerät über einen Energiesparmodus. Die MCU befindet sich während diesem Vorgang im ENERGY\_SAVING\_MODE. Um diesen zu aktivieren, wird im IDLE\_STATE der physische Button am Gehäuse gedrückt, der die gesamte 5 V Peripherie abschaltet. Beim Betätigen des Tasters, sind drei akustische Töne eines Buzzers zu hören.
+Im Gegensatz zum Kurzzeit-EKG, weist das Schema einer Langzeit-Aufnahme einige Änderungen auf. Gestartet wird ebenfalls durch einen Start-Befehl auf dem Display. Hier ist jedoch zu beachten, dass der Ladestand der Batterie beim Start mindestens 80 \% aufweist. Eine Aufnahme ist ansonsten nicht möglich, da es im Falle eines zu leeren Akkus zu Datenverlust kommen kann. Bei der Langzeit-Aufnahme läuft das EKG für 24 Stunden automatisch. Um eine Aufnahme über 24 Stunden gewähr zu leisten, muss der Nutzer/die Nutzerin den Power Button des Geräts einmalig drücken. Dadurch wird der Stromsparmodus aktiviert und das Gerät wechselt automatisch zwischen einem ON- und OFF-Modus. Im OFF-Modus ist die 5 V Peripherie (das Display und das Bluetooth-Modul) vollständig deaktiviert. Der ON-Modus hingegen, aktiviert alle vier Sekunden das SD-Kartenmodul und speichert die gesammelten Werte in der CSV Datei ab. Bei erneutem Betätigen des Power Buttons wird der Stromsparmodus verlassen und der Zugriff auf das Display wieder gewährt. Um die Aufnahme vorzeitig abzubrechen, kann der Stopp-Button auf dem Display betätigt werden. Wie auch beim Kurzzeit-EKG wird durch die Sicherheitsabfrage ein unbewusstes Drücken verhindert.
 
-Wakeup Mode Nutzersicht: Um den Energiesparmodus wieder zu verlassen, gibt es den Case SYS\_WAKEUP. Aufgerufen wird dieser, wenn während dem Energiesparmodus der Button am Gehäuse gedrückt wird. Die gesamte 5 V Peripherie schaltet sich dabei an und das akustische Signal des Buzzers ist erneut zu hören.
+\subsubsection{Energy Saving Mode und Wakeup Mode}
 
-Akku-, BT-, SD-Abfrage: Abgesehen von der State Machine, befindet sich noch eine if-Abfrage in der main Funktion. Dabei handelt es sich um drei Funktionen, die jede Sekunde im IDLE\_STATE oder während einer Kurz- / Langzeitaufnahme ausgeführt werden.
+Um ein schnelles Entladen der Batterie entgegenzuwirken und eine möglichst lange Lagerung (Shelf-Time) zu garantieren, verfügt das EKG-Gerät über einen Energiesparmodus. Die MCU befindet sich während diesem Vorgang im ENERGY\_SAVING\_MODE. Um diesen zu aktivieren, wird im IDLE\_STATE der physische Button am Gehäuse gedrückt, der die gesamte 5 V Peripherie abschaltet. Beim Betätigen des Tasters, sind drei akustische Töne eines Buzzers zu hören.
+
+Um den Energiesparmodus wieder zu verlassen, gibt es den Case SYS\_WAKEUP. Aufgerufen wird dieser, wenn während dem Energiesparmodus der Button am Gehäuse gedrückt wird. Die gesamte 5 V Peripherie schaltet sich dabei an und das akustische Signal des Buzzers ist erneut zu hören.
+
+Das EKG-Gerät verfügt über einen physischen Button, der die 5 V Peripherie steuert. Dadurch wird das Gerät in einen Energiesparmodus versetzt um eine lange Lagerung zu ermöglichen.
+Beim Drücken des Buttons, wird ein Interrupt im GPIO verursacht. Mithilfe einer Delay-Funktion wird auf das Entprellen der Taste geachtet. Im Interrupt wird eine 5V-Flag gesetzt. Diese Flag ist mit „FALSE“ initialisiert. „FALSE“ bedeutet demnach, dass die 5 V Peripherie eingeschaltet ist.
+Beim erstmaligen drücken wird die Flag auf „TRUE“ gesetzt. Dabei gelangt man in den Case ENERGY\_SAVING\_MODE. In diesem Case wird eine Funktion aufgerufen, die den 5 V DCDC abschaltet. In dieser Funktion wird zunächst die Buzzer-Funktion gestartet. Der Buzzer wird drei Mal mir einer Frequenz von 250 Hz angeregt und generiert dadurch drei akustische Töne. Nachdem der Nutzer das akustische Signal bekommen hat, wird die gesamte 5 V Peripherie abgeschaltet. Da der Pin, der den Status der SD-Karte wiedergibt mit 3 V betrieben wird, wird abgefragt ob sich die SD-Karte im Gerät befindet. Dementsprechend wird eine weitere Flag gesetzt.
+Bei erneutem Drücken des Buttons wird wieder ein Interrupt ausgelöst, der nun die 5V-Flag zurück auf „FALSE“ setzt. Dabei gelangt man in den Case SYS\_WAKEUP. In diesem Case wird die Funktion State\_sys\_Wakeup\_Mode ausgeführt. Die gesamte 5V Peripherie wird wieder angeschaltet. Nachdem der Buzzer das akustischen Signale nach dem Anschalten wiedergibt, gelangt die MCU zurück in den IDLE\_STATE. Die Flag, welche beim Ausschalten für die SD-Karte gesetzt wurde, wird nun durch Check\_SD\_Card\_Connection in der main Funktion abgefragt. Demnach wird auf dem Display die Verbindung angezeigt.
+\begin{figure} [!h]
+	\centering
+	\includegraphics[width=12cm] {Idle State and Evergy Saving.png}
+	\caption{Energy Saving Mode in Idle State}
+\end{figure}
+
+\subsubsection{Akku-, BT-, SD-Abfrage}
+
+Abgesehen von der State Machine, befindet sich noch eine if-Abfrage in der main Funktion. Dabei handelt es sich um drei Funktionen, die jede Sekunde im IDLE\_STATE oder während einer Kurz- / Langzeitaufnahme ausgeführt werden.
 \begin{itemize}
     \item ADC\_Akku\_Average\_Value berechnet alle drei Sekunden den Mittelwert der ADC-Werte, welche am Akku anliegen. Anhand des Mittelwertes wird der Akku in Prozent umgerechnet. Somit ist das Ablesen des Ladestandes auf der Startseite für den Benutzer/die Benutzerin intuitiv und einfach zu verstehen.
     Der Prozentbetrag wird jede dritte Sekunde auf dem Display aktualisiert.
@@ -127,11 +141,15 @@ Akku-, BT-, SD-Abfrage: Abgesehen von der State Machine, befindet sich noch eine
     \item Bei der Abfrage für die SD-Karte gibt es außerdem zwei zusätzliche Funktionen. Wenn die SD-Karte herausgezogen wird, erscheint auf dem Display eine Warnmeldung. Die Speicherung bei einem Langzeit-EKG erfordert eine eingelegte SD-Karte. Beim Entfernen und wieder Anschließen einer SD-Karte, wird diese neu initialisiert und die aktuellen Daten bleiben vorhanden.
 \end{itemize}
 
-Aufnahme eines Kurzzeit-EKG: Die Kurzzeit-EKG Aufnahme wird kontinuierlich durchgeführt. D.h. die ADC Werte werden direkt an das Display und SD-Karte übertragen ohne Zwischenspeichern. Nachdem die MCU auf ECG\_SHORT Zustand wechselt, wird als erstes ein Timer auf dem Display gestartet. Der Timer zählt, wie lange die EKG Aufnahme durchgeführt wird. Nach zwei Minuten wird die Aufnahme automatisch beendet und der Benutzer wird benachrichtigt. Zunächst wird es auf 250 Hz Flag gewartet und sobald die Flag ungleich Null ist, wird ein ADC Wert aufgenommen und die Flag wird zurückgesetzt. Wenn ein neuer ADC Wert ankommt, wird eine weitere Flag gesetzt und dadurch wird der aufgenommene ADC Wert an das Display gesendet und demnächst auf die SD-Karte gespeichert. Die Flag wird zurückgesetzt.
+\subsubsection{Aufnahme eines Kurzzeit-EKG}
+
+Die Kurzzeit-EKG Aufnahme wird kontinuierlich durchgeführt. D.h. die ADC Werte werden direkt an das Display und SD-Karte übertragen ohne Zwischenspeichern. Nachdem die MCU auf ECG\_SHORT Zustand wechselt, wird als erstes ein Timer auf dem Display gestartet. Der Timer zählt, wie lange die EKG Aufnahme durchgeführt wird. Nach zwei Minuten wird die Aufnahme automatisch beendet und der Benutzer wird benachrichtigt. Zunächst wird es auf 250 Hz Flag gewartet und sobald die Flag ungleich Null ist, wird ein ADC Wert aufgenommen und die Flag wird zurückgesetzt. Wenn ein neuer ADC Wert ankommt, wird eine weitere Flag gesetzt und dadurch wird der aufgenommene ADC Wert an das Display gesendet und demnächst auf die SD-Karte gespeichert. Die Flag wird zurückgesetzt.
 Es wird durchgehend kontrolliert, dass es nur Kurzzeit-EKG aufgenommen wird. Sollte der Benutzer während der Aufnahme versuchen auf Langzeit-EKG zu wechseln, wird eine Warnung gezeigt und der Vorgang verhindert.
 Nach der Aufnahme wird die Flag für Kurzzeit-EKG zurückgesetzt, die Datei auf der SD-Karte gespeichert, die Timer zurückgesetzt und die MCU geht in Idle Zustand. Das Display wird dementsprechend die Hauptseite anzeigen.
 
-Aufnahme eines Langzeit-EKG: Im Gegensatz zu Kurzzeit-EKG, werden die Daten während der Langzeit-EKG Aufnahme intern auf der MCU gespeichert und blockweise in gewissen Zeitintervallen an SD-Karte gesendet. Da das SD-Kartenmodul an 5V angeschlossen ist und im Stromsparmodus 5V Peripherie komplett abgeschaltet ist, weicht die Logik von Kurzzeit-Aufnahme ab.
+\subsubsection{Aufnahme eines Langzeit-EKG}
+
+Im Gegensatz zu Kurzzeit-EKG, werden die Daten während der Langzeit-EKG Aufnahme intern auf der MCU gespeichert und blockweise in gewissen Zeitintervallen an SD-Karte gesendet. Da das SD-Kartenmodul an 5V angeschlossen ist und im Stromsparmodus 5V Peripherie komplett abgeschaltet ist, weicht die Logik von Kurzzeit-Aufnahme ab.
 Beim Wechseln auf Langzeit-EKG Modus wird als erstes die Timer- und ADC-Werte an das Display gesendet. Somit kann der Benutzer den Kurvenverlauf und Dauer der Aufnahme sehen. Weiterhin wird die Stromsparmodus-Logik aufgerufen. Diese Logik enthält eine State Machine mit drei Zuständen. Die State Machine ist mit einer switch-Anweisung realisiert. Die drei Zustände sind: normaler Zustand (MODE\_NORMAL), 5V Peripherie an (MODE\_5V\_ON) und 5V Peripherie aus (MODE\_5V\_OFF). 
 Die zwei Modi für 5V an und aus sind für Stromsparmodus entwickelt. Das Funktionsprinzip des Stromsparmodus ist auf dem Bild zu sehen.
 \begin{figure} [!h]
@@ -146,12 +164,3 @@ Wenn die Flag gesetzt wird, geht die MCU in MODE\_5V\_ON in dem die 5V Peripheri
 Wenn der Power Button betätigt wird, geht die MCU in MODE\_NORMAL, zeigt die Werte auf dem Display und sendet Daten via Bluetooth bei Bedarf. In diesem Zustand kann der Benutzer entweder die Aufnahme beenden oder das Gerät wieder in Energy Saving Mode senden. 
 Die Aufnahme wird nach 24 Stunden automatisch beendet und die MCU geht wieder in Idle State.
 
-Energy Saving Mode und Wakeup Mode (Code): Das EKG-Gerät verfügt über einen physischen Button, der die 5 V Peripherie steuert. Dadurch wird das Gerät in einen Energiesparmodus versetzt um eine lange Lagerung zu ermöglichen.
-Beim Drücken des Buttons, wird ein Interrupt im GPIO verursacht. Mithilfe einer Delay-Funktion wird auf das Entprellen der Taste geachtet. Im Interrupt wird eine 5V-Flag gesetzt. Diese Flag ist mit „FALSE“ initialisiert. „FALSE“ bedeutet demnach, dass die 5 V Peripherie eingeschaltet ist.
-Beim erstmaligen drücken wird die Flag auf „TRUE“ gesetzt. Dabei gelangt man in den Case ENERGY\_SAVING\_MODE. In diesem Case wird eine Funktion aufgerufen, die den 5 V DCDC abschaltet. In dieser Funktion wird zunächst die Buzzer-Funktion gestartet. Der Buzzer wird drei Mal mir einer Frequenz von 250 Hz angeregt und generiert dadurch drei akustische Töne. Nachdem der Nutzer das akustische Signal bekommen hat, wird die gesamte 5 V Peripherie abgeschaltet. Da der Pin, der den Status der SD-Karte wiedergibt mit 3 V betrieben wird, wird abgefragt ob sich die SD-Karte im Gerät befindet. Dementsprechend wird eine weitere Flag gesetzt.
-Bei erneutem Drücken des Buttons wird wieder ein Interrupt ausgelöst, der nun die 5V-Flag zurück auf „FALSE“ setzt. Dabei gelangt man in den Case SYS\_WAKEUP. In diesem Case wird die Funktion State\_sys\_Wakeup\_Mode ausgeführt. Die gesamte 5V Peripherie wird wieder angeschaltet. Nachdem der Buzzer das akustischen Signale nach dem Anschalten wiedergibt, gelangt die MCU zurück in den IDLE\_STATE. Die Flag, welche beim Ausschalten für die SD-Karte gesetzt wurde, wird nun durch Check\_SD\_Card\_Connection in der main Funktion abgefragt. Demnach wird auf dem Display die Verbindung angezeigt.
-\begin{figure} [!h]
-	\centering
-	\includegraphics[width=12cm] {Idle State and Evergy Saving.png}
-	\caption{Energy Saving Mode in Idle State}
-\end{figure}
