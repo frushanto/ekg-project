@@ -20,12 +20,11 @@ Ein entscheidender Faktor bei der MCU Auswahl ist die Verfügbarkeit von DevKit 
 
 In diesem Unterkapitel wird eine ausführliche Beschreibung zur Software des Projektes und dessen Entwicklung gegeben. Zuerst wird der Begriff State Machine im Allgemeinen beschrieben, warum eine State Machine sinnvoll zu benutzen ist. Anschließend wird es auf die Implementierung der State Machine im Projekt mit der Beschreibung jedes Zustandes eingegangen.  
 
-State Machine: Eine State Machine ist ein sogenannter Verhaltensmodell der Software oder eines Teils der Software mit einer endlichen Anzahl der Zustände. Diese Zustände können gewechselt werden gemäß der Logik des Programms, sowie empfangenen Daten.
+State Machine: Eine State Machine ist ein sogenannter Verhaltensmodell der Software oder eines Teils der Software mit einer endlichen Anzahl der Zustände. Diese Zustände können gewechselt werden gemäß der Logik des Programms, sowie gemäß der Eingangsdaten.
 
-Motivation und Logik einer State Machine: In einer State Machine ist es immer möglich festzustellen, in welchem Zustand das Programm sich befindet. Dies vereinfacht die Codeentwicklung, erschafft Codeübersichtlichkeit, ermöglicht die Entwicklung verschiedenen Zustände und Bedingungen, unter welchen ein Zustand gewechselt werden kann.
-Eine State Machine hat in der Regel einen Initialisierungszustand, anhand dessen das Programm initialisiert wird. Ein weiterer Programmablauf ist von dem Initialisierungszustand abhängig. Zum Beispiel nach einer erfolgreichen Initialisierung kann das Programm einen normalen Betrieb anfangen. Sollte in diesem Zustand etwas schiefgehen, kann das Programm einen anderen Zustand nehmen und dementsprechend auf den aufgetretenen Fehler reagieren z.B. mögliche Fehlerursache zeigen. Solche funktionsweise besitzen alle anderen Zustände auch.
+Eine State Machine hat in der Regel einen Initialisierungszustand, anhand dessen die Programmmodule gestartet werden. Ein weiterer Programmablauf ist von dem Initialisierungszustand abhängig. Zum Beispiel nach einer erfolgreichen Initialisierung kann das Programm einen normalen Betrieb anfangen. Sollte in diesem Zustand etwas schiefgehen, kann das Programm einen anderen Zustand nehmen und dementsprechend auf den aufgetretenen Fehler reagieren z.B. mögliche Fehlerursache zeigen oder das System komplett abschalten. Solche Funktionsweise besitzen alle anderen Zustände auch.
 
-Zustände der State Machine: In dem Projekt sind 6 verschiedene Zustände für das EKG Gerät entwickelt, sowie eine regelmäßige Überwachung von globalen Flags, die jede Sekunde stattfindet. Diese Zustände sind: 
+Zustände der State Machine: In diesem Projekt sind 6 verschiedene Zustände für das EKG Gerät entwickelt, sowie eine regelmäßige Abfrage der globalen Flags, die jede Sekunde stattfindet. Die Zustände der State Machine sind: 
 \begin{itemize}
     \item Initialisierung – SYS\_INIT,
     \item Leerlauf – IDLE\_STATE,

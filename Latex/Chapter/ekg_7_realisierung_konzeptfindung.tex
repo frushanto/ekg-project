@@ -106,6 +106,7 @@ Die Datenspeicherung erfolgt auf einer externen SD-Karte. Das Kartenmodul das zu
 
 Zur Programmierung und Fehleranalyse der Prozessoreinheit auf der Platine, wird die JTAG-Schnittstelle (Joint Test Action Group) verwendet.
 
+Als Grundstruktur des Codes wird eine State Machine implementiert. Diese besteht aus verschiedenen Zuständen. Jeder Zustand kann als Modul separat programmiert und getestet werden. Dies vereinfacht die Codeentwicklung, erschafft Codeübersichtlichkeit, ermöglicht die Entwicklung verschiedenen Zustände und Bedingungen, unter welchen ein Zustand gewechselt werden kann. In einer State Machine ist es immer möglich festzustellen, in welchem Zustand das Programm sich befindet. 
 
 \begin{figure} [h]
 	%\centering
@@ -114,14 +115,19 @@ Zur Programmierung und Fehleranalyse der Prozessoreinheit auf der Platine, wird 
 	\label{fig_Blockschaltbild} 
 \end{figure}
 
+
 %TODO PROJEKTGRUPPE: Konzeptionierung der jeweiligen Baugruppe; Gründe warum die jeweiligen Bauteile verwendet wurden noch hinzufügen
 
 \subsubsection{Verwendete Software}
-
-Für die Erstellung und Frequenzanalyse eines künstlichen EKG-Signals wurde das numerische Rechentool Matlab verwendet. Damit konnten die Grenzfrequenzen des Signals bereits ohne Labortest abgeschätzt werden. Diese Erkenntnisse wurden bei der Schaltungsentwicklung der analogen Filterschaltung mit LTSpice angewandt. Durch die Einbindung von Herstellermodellen, war die Simulation von Bauteilen möglich, ohne diese physisch zu testen. Für den Entwurf der Leiterplatine kam Altium Designer zur Anwendung. Auch hierfür bieten Hersteller Modelle für die Pinbelegung, den Footprint und 3D-Modelle an. Besonders die 3D-Modelle waren für das Gehäusedesign hilfreich um die korrekte Lage und Maße der Bauteile im Gehäuse auch optisch zu prüfen.
-Für das Display wurde die Software Nextion-Editor verwendet. Diese Software ist speziell für das Display angefertigt und kann beim gleichnamigen Hersteller heruntergeladen werden. Der Nextion-Editor verfügt über ein weites Spektrum von Tools. Für die jeweiligen Symbole der Benutzeroberfläche wurde mit GIMP gearbeitet. Anhand der Symbole ist die UI in allen Bereichen visuell aufeinander abgestimmt.  
+Für die Erstellung und Frequenzanalyse eines künstlichen EKG-Signals wurde das numerische Rechentool Matlab verwendet. Damit konnten die Grenzfrequenzen des Signals bereits ohne Labortest abgeschätzt werden. Diese Erkenntnisse wurden bei der Schaltungsentwicklung der analogen Filterschaltung mit LTSpice angewandt. Durch die Einbindung von Herstellermodellen, war die Simulation von Bauteilen möglich, ohne diese physisch zu testen. Für den Entwurf der Leiterplatine kam Altium Designer zur Anwendung. Auch hierfür bieten Hersteller Modelle für die Pinbelegung, den Footprint und 3D-Modelle an. Besonders die 3D-Modelle waren für das Gehäusedesign hilfreich um die korrekte Lage und Maße der Bauteile im Gehäuse auch optisch zu prüfen.\\
+Für das Display wurde die Software Nextion-Editor verwendet. Diese Software ist speziell für das Display angefertigt und kann beim gleichnamigen Hersteller heruntergeladen werden. Der Nextion-Editor verfügt über ein weites Spektrum von Tools. Für die jeweiligen Symbole der Benutzeroberfläche wurde mit GIMP gearbeitet. Anhand der Symbole ist die UI in allen Bereichen visuell aufeinander abgestimmt.\\
+Der Code ist im IDE Code Composer Studio entwickelt. CCS ist ein Produkt der Firma Texas Instruments. Das IDE ist Eclipse-basiert, besitzt eigenen Compiler, Programmierumgebung und die Möglichkeit im Debug-Modus auf einzelne Register der MCU zuzugreifen.\\
+Für Version Control ist ein privates Repository auf GitHub eingestellt. Damit lässt sich die Codeentwicklung sowohl von einzelnen Modulen als auch von dem ganzen Projekt zu verfolgen.\\
 %TODO PROJEKTGRUPPE: weitere Software die wir verwendet haben wie Blender, Nextion Editor, CCS, Git, Android Studio etc...
 
 \subsubsection{Verwendete Geräte}
-
+%TODO Geräteliste: LaunchPad, Debugger (JTAG), Arduino (Testen von SPI)...
+Das LaunchPad MSP-EXP430F5529LP ist für das Testen des entwickelten Codes verwendet. Das LaunchPad verfügt über die MCU MSP430F5529. Die Schnittstellen, die dieser µC besitzt, sind auf der LaunchPad-Platine verteilt und mit Pinleisten vorgesehen. Somit lässt sich die Peripherie mithilfe von Kabeln und Jumpers anschließen und testen. Anhand dieser Tests wurde die Funktionalität diverser Schaltungen geprüft. Das LaunchPad verfügt über eine interne Debugger-Einheit, sodass die MCU sich via USB Verbindung mit einem Rechner  flashen und debuggen lässt.\\
+Für das Flashen und Debuggen ist eine JTAG-Schnittstelle auf dem PCB vorgesehen. Da das PCB für die Massenfertigung entwickelt ist, ist die Debugger-Einheit wegen Kostenersparnis nicht mehr vorhanden. Die MCU wird direkt via eine JTAG-Schnittstelle durch eine externe Debugger-Einheit angesprochen.\\
+Bei der Codeentwicklung kam Arduino Nano als Slave-Einheit zum Einsatz. Damit wurde die SPI Verbindung zum µC F5529 getestet. 
 \subsubsection{Bauteilbeschaffung und Fertigung} 
