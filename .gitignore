@@ -1,25 +1,27 @@
 .src/
 src/
 .DS_Store
+
+# LaTeX temporary files
 *.aux
 *.log
-*.gz
 *.toc
+
+# PDF output - usually a bad idea to keep this in Git
+*.pdf
+
+# Latexmk
+*.fdb_latexmk
+
+# SyncTeX
+*.synctex.gz
+
+# LaTeX Beamer
+*.snm
+*.vrb
+*.nav
+*.out
+
+# BibTeX
 *.bbl
 *.blg
-*.fdb_latexmk
-*.fls
-*.log
-*.pdf
-*.xdv
-Latex/*.aux
-Latex/*.log
-Latex/*.gz
-Latex/*.toc
-Latex/*.bbl
-Latex/*.blg
-Latex/*.fdb_latexmk
-Latex/*.fls
-Latex/*.log
-Latex/*.pdf
-Latex/*.xdv
