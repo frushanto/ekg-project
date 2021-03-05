@@ -31,10 +31,20 @@ Nach den separaten Modultests, folgte die Integration aller Baugruppen und der G
 
 \subsection{Ausblick/ Verbesserungen}
 
-Ladeschaltung für Akku im Gehäuse integrieren
-Card-Reader und Bluetoothmodul auf Platine um noch kompakter
-mehr steuerungsmöglichkeiten der Spannungsversorgung der peripherie
-zusätzlicher Speicher
-automatisierte Diagnostik von Vorhofflimmern auf Gerät oder extern
-detailiertere Benutzerauswahl
-Skalierung des Signals auf Display
+Während der Entwicklung wurden mögliche Verbesserungen und Erweiterungen des aktuellen Projekts aufgeworfen, die Thema dieses Unterkapitels sind.
+
+\begin{enumerate}
+
+\item Zur Vereinfachung der Bedienung kann die Ladeschaltung des Akkus im Gehäuse integriert werden. So kann der Benutzer auch während des Ladevorgangs das Gerät nutzen.
+
+\item Im aktuellen Stand des Projektes liegen das Bluetooth- und SD-Karten-Modul als separate Platinen vor, die über Flachbandkabel mit der Hauptplatine verbunden werden. Die Integration dieser Baugruppen auf der Hauptplatine, würde die Störanfälligkeit der Verkabelung eliminieren und das Gehäuse könnte noch kompakter entworfen werden.
+
+\item Um den Energiesparmodus zu vereinfachen und allgemein mehr Freiheit bei der Verwaltung der einzelnen peripheren Module zu haben, würde es sich anbieten diese separat mit Strom zu versorgen. Hierfür bieten sich Feldeffekttransistoren an, die über das GPIO-Modul des Prozessors gesteuert angesteuert werden und die Energieversorgung der Peripherie zu- oder abschalten.
+
+\item Um die Funktionalität zu erweitern könnte, wie bereits an anderen Stelle erwähnt, ein Algorithmus zur automatisierten Diagnose von Vorhofflimmern implementiert werden. Hierfür müsste ermittelt werden ob die Rechenleistung des MSP430 bei gleichbleibender Abtastrate ausreicht, oder ob externe Leistung (z.b. Smartphone, PC) nötig ist.
+
+\item Aktuell dient die Android-App hauptsächlich zur Anzeige des Signals. Durch eine gegenseitige Kommunikation zwischen Smartphone und EKG-Gerät könnten die Bedienmöglichkeiten des Smartphones zur Steuerung des EKGs genutzt werden. Beispielsweise könnte die Tastatur eines mobilen Devices genutzt werden um die Benutzerauswahl zu erweitern und detaillierte Patientendaten auf dem EKG-Gerät zu hinterlegen.
+
+\item Mit einem größeren integrierten Display könnten Steuerungsmöglichkeiten zur Skalierung des Signals auf dem Display implementiert werden. In der aktuellen Version wurde darauf verzichtet, da die Auswahlfelder für die eindeutige Bedienung mit dem Finger eine Mindestgröße besitzen müssen.
+
+\end{enumerate}

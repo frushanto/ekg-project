@@ -22,4 +22,6 @@ Der IIR-Filter zeigte sich im Test mit verschiedenen harmonischen Schwingungen a
 
 %TODO PROJEKTGRUPPE: weitere alternative Konzepte die wir ausprobiert oder in Betracht gezogen haben
 
+\subsubsection{Erzeugung der verschiedenen Versorgungsspannungen}
+
 Eine alternative Möglichkeit zur Erzeugung der Unterspannungen ist die Verwendung eines PMIC (Power Management Integrated Circuit), bei welchem es sich um eine integrierte Schaltung handelt, die alle Anfallenden Aufgaben der Spannungserzeugung übernimmt. Dazu zählen: Battery Management (Überwachung des Ladungszustands der Batterie), Spannungsregulation (Bereitstellen von verschiedenen Unterspannungen), Ladefunktionen. Was auf den ersten Blick als gute Lösung für die gegebenen Anforderungen erscheint, gestaltet sich in der praktischen Umsetzung jedoch schwierig. PMICs kommen idr. im QFN48 Package, welches vergleichsweise groß ist und schwierig zu löten. Somit gestaltet sich das Testen einer Schaltung, welche auf einem PMIC basiert als kompliziert. Hinzu kommen die Vergleichsweise hohen kosten des ICs sowie ein hoher Aufwand an externer Beschaltung. Des weiteren bietet ein PMIC wesentlich mehr Features als für die Projektanforderungen nötig wären, weshalb diese Möglichkeit ausgeschlossen wurde.\\

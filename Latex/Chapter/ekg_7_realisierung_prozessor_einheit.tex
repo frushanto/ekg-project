@@ -147,6 +147,14 @@ Die Kurzzeit-EKG Aufnahme wird kontinuierlich durchgeführt. D.h. die ADC Werte 
 Es wird durchgehend kontrolliert, dass es nur Kurzzeit-EKG aufgenommen wird. Sollte der Benutzer während der Aufnahme versuchen auf Langzeit-EKG zu wechseln, wird eine Warnung gezeigt und der Vorgang verhindert.
 Nach der Aufnahme wird die Flag für Kurzzeit-EKG zurückgesetzt, die Datei auf der SD-Karte gespeichert, die Timer zurückgesetzt und die MCU geht in Idle Zustand. Das Display wird dementsprechend die Hauptseite anzeigen.
 
+Im Kurzzeitmodus wird zudem kontinuierlich die Herzfrequenz gemessen und an das Display gesendet. Hierfür werden über einen Schwellwert die R-Zacken des Signals detektiert und die Anzahl der Werte zwischen diesen gezählt. 
+
+$ Pulsfrequenz = \frac{Maximalanzahl der Werte in einer Minute}{Anzahl der Werte einer Signalperiode} $
+
+Der Schwellwert wird permanent durch das Maximum und Minimum der vergangenen Signalperiode angepasst, um auf Schwankungen des Signals zu reagieren.
+
+$ Schwellwert = Minimum + 0,8 * (Maximum - Minimum) $
+
 \subsubsection{Aufnahme eines Langzeit-EKG}
 
 Im Gegensatz zu Kurzzeit-EKG, werden die Daten während der Langzeit-EKG Aufnahme intern auf der MCU gespeichert und blockweise in gewissen Zeitintervallen an SD-Karte gesendet. Da das SD-Kartenmodul an 5V angeschlossen ist und im Stromsparmodus 5V Peripherie komplett abgeschaltet ist, weicht die Logik von Kurzzeit-Aufnahme ab.

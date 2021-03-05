@@ -1,40 +1,40 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.7) (preloaded format=xelatex 2021.3.5)  5 MAR 2021 15:44
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.11) (preloaded format=xelatex 2021.1.27)  5 MAR 2021 22:55
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
-LaTeX2e <2020-02-02> patch level 5
-L3 programming layer <2020-08-07>
+LaTeX2e <2020-10-01> patch level 2
+L3 programming layer <2020-10-27> xparse <2020-03-03>
 ("C:\Program Files\MiKTeX\tex/latex/base\article.cls"
-Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
 ("C:\Program Files\MiKTeX\tex/latex/base\size12.clo"
-File: size12.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+File: size12.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 )
-\c@part=\count164
-\c@section=\count165
-\c@subsection=\count166
-\c@subsubsection=\count167
-\c@paragraph=\count168
-\c@subparagraph=\count169
-\c@figure=\count170
-\c@table=\count171
+\c@part=\count171
+\c@section=\count172
+\c@subsection=\count173
+\c@subsubsection=\count174
+\c@paragraph=\count175
+\c@subparagraph=\count176
+\c@figure=\count177
+\c@table=\count178
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
-\bibindent=\dimen134
+\bibindent=\dimen138
 )
 ("C:\Program Files\MiKTeX\tex/generic/babel\babel.sty"
-Package: babel 2020/07/13 3.47 The Babel package
+Package: babel 2020/10/27 3.51 The Babel package
 
 ("C:\Program Files\MiKTeX\tex/generic/babel\babel.def"
-File: babel.def 2020/07/13 3.47 Babel common definitions
-\babel@savecnt=\count172
-\U@D=\dimen135
+File: babel.def 2020/10/27 3.51 Babel common definitions
+\babel@savecnt=\count179
+\U@D=\dimen139
 \l@babelnohyphens=\language79
 
 ("C:\Program Files\MiKTeX\tex/generic/babel\xebabel.def"
 ("C:\Program Files\MiKTeX\tex/generic/babel\txtbabel.def"))
 \bbl@readstream=\read2
 )
-\bbl@dirlevel=\count173
+\bbl@dirlevel=\count180
 
 *************************************
 * Local config file bblopts.cfg used
@@ -53,7 +53,7 @@ aphy)
 Package babel Info: Making " an active character on input line 121.
 )))
 ("C:\Program Files\MiKTeX\tex/latex/base\inputenc.sty"
-Package: inputenc 2018/08/11 v1.3c Input encoding file
+Package: inputenc 2020/08/01 v1.3d Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
 
@@ -61,7 +61,7 @@ Package: inputenc 2018/08/11 v1.3c Input encoding file
 Package inputenc Warning: inputenc package ignored with utf8 based engines.
 
 ) ("C:\Program Files\MiKTeX\tex/latex/base\fontenc.sty"
-Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
 2.
 
@@ -71,45 +71,40 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ("C:\Program Files\MiKTeX\tex/latex/fontspec\fontspec.sty"
 ("C:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse.sty"
 ("C:\Program Files\MiKTeX\tex/latex/l3kernel\expl3.sty"
-Package: expl3 2020-08-07 L3 programming layer (loader) 
+Package: expl3 2020-10-27 L3 programming layer (loader) 
 
-("C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-xdvipdfmx.def"
-File: l3backend-xdvipdfmx.def 2020-08-07 L3 backend support: xdvipdfmx
-\g__graphics_track_int=\count174
-\l__pdf_internal_box=\box45
-\g__pdf_backend_object_int=\count175
-\g__pdf_backend_annotation_int=\count176
+("C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-xetex.def"
+File: l3backend-xetex.def 2020-09-24 L3 backend support: XeTeX
+\g__graphics_track_int=\count181
+\l__pdf_internal_box=\box47
+\g__pdf_backend_object_int=\count182
+\g__pdf_backend_annotation_int=\count183
 ))
-Package: xparse 2020-05-15 L3 Experimental document command parser
+Package: xparse 2020-10-27 L3 Experimental document command parser
 
-("C:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse-generic.tex"
-\l__xparse_current_arg_int=\count177
-\g__xparse_grabber_int=\count178
-\l__xparse_m_args_int=\count179
-\l__xparse_v_nesting_int=\count180
-))
+("C:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse-generic.tex"))
 Package: fontspec 2020/02/21 v2.7i Font selection for XeLaTeX and LuaLaTeX
 
 ("C:\Program Files\MiKTeX\tex/latex/fontspec\fontspec-xetex.sty"
 Package: fontspec-xetex 2020/02/21 v2.7i Font selection for XeLaTeX and LuaLaTe
 X
-\l__fontspec_script_int=\count181
-\l__fontspec_language_int=\count182
-\l__fontspec_strnum_int=\count183
-\l__fontspec_tmp_int=\count184
-\l__fontspec_tmpa_int=\count185
-\l__fontspec_tmpb_int=\count186
-\l__fontspec_tmpc_int=\count187
-\l__fontspec_em_int=\count188
-\l__fontspec_emdef_int=\count189
-\l__fontspec_strong_int=\count190
-\l__fontspec_strongdef_int=\count191
-\l__fontspec_tmpa_dim=\dimen136
-\l__fontspec_tmpb_dim=\dimen137
-\l__fontspec_tmpc_dim=\dimen138
+\l__fontspec_script_int=\count184
+\l__fontspec_language_int=\count185
+\l__fontspec_strnum_int=\count186
+\l__fontspec_tmp_int=\count187
+\l__fontspec_tmpa_int=\count188
+\l__fontspec_tmpb_int=\count189
+\l__fontspec_tmpc_int=\count190
+\l__fontspec_em_int=\count191
+\l__fontspec_emdef_int=\count192
+\l__fontspec_strong_int=\count193
+\l__fontspec_strongdef_int=\count194
+\l__fontspec_tmpa_dim=\dimen140
+\l__fontspec_tmpb_dim=\dimen141
+\l__fontspec_tmpc_dim=\dimen142
 
 ("C:\Program Files\MiKTeX\tex/latex/base\fontenc.sty"
-Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
 )
 ("C:\Program Files\MiKTeX\tex/latex/fontspec\fontspec.cfg")))
 ("C:\Program Files\MiKTeX\tex/latex/geometry\geometry.sty"
@@ -125,17 +120,17 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 ("C:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty"
 Package: iftex 2020/03/06 v1.0d TeX engine tests
 ))
-\Gm@cnth=\count192
-\Gm@cntv=\count193
-\c@Gm@tempcnt=\count194
-\Gm@bindingoffset=\dimen139
-\Gm@wd@mp=\dimen140
-\Gm@odd@mp=\dimen141
-\Gm@even@mp=\dimen142
-\Gm@layoutwidth=\dimen143
-\Gm@layoutheight=\dimen144
-\Gm@layouthoffset=\dimen145
-\Gm@layoutvoffset=\dimen146
+\Gm@cnth=\count195
+\Gm@cntv=\count196
+\c@Gm@tempcnt=\count197
+\Gm@bindingoffset=\dimen143
+\Gm@wd@mp=\dimen144
+\Gm@odd@mp=\dimen145
+\Gm@even@mp=\dimen146
+\Gm@layoutwidth=\dimen147
+\Gm@layoutheight=\dimen148
+\Gm@layouthoffset=\dimen149
+\Gm@layoutvoffset=\dimen150
 \Gm@dimlist=\toks18
 
 ("C:\Program Files\MiKTeX\tex/xelatex/xetexconfig\geometry.cfg"))
@@ -151,59 +146,59 @@ Package: amstext 2000/06/29 v2.01 AMS text
 ("C:\Program Files\MiKTeX\tex/latex/amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks19
-\ex@=\dimen147
+\ex@=\dimen151
 ))
 ("C:\Program Files\MiKTeX\tex/latex/tools\array.sty"
 Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
-\col@sep=\dimen148
-\ar@mcellbox=\box46
-\extrarowheight=\dimen149
+\col@sep=\dimen152
+\ar@mcellbox=\box48
+\extrarowheight=\dimen153
 \NC@list=\toks20
 \extratabsurround=\skip49
 \backup@length=\skip50
-\ar@cellbox=\box47
+\ar@cellbox=\box49
 )
 ("C:\Program Files\MiKTeX\tex/latex/l3packages/l3keys2e\l3keys2e.sty"
-Package: l3keys2e 2020-05-15 LaTeX2e option processing using LaTeX3 keys
+Package: l3keys2e 2020-10-27 LaTeX2e option processing using LaTeX3 keys
 )
-\l__siunitx_tmp_box=\box48
-\l__siunitx_tmp_dim=\dimen150
-\l__siunitx_tmp_int=\count195
-\l__siunitx_number_mantissa_length_int=\count196
-\l__siunitx_number_uncert_length_int=\count197
-\l__siunitx_round_int=\count198
-\l__siunitx_process_decimal_int=\count199
-\l__siunitx_process_uncertainty_int=\count266
-\l__siunitx_process_fixed_int=\count267
-\l__siunitx_process_integer_min_int=\count268
-\l__siunitx_process_precision_int=\count269
-\l__siunitx_group_min_int=\count270
-\l__siunitx_angle_marker_box=\box49
-\l__siunitx_angle_unit_box=\box50
-\l__siunitx_angle_marker_dim=\dimen151
-\l__siunitx_angle_unit_dim=\dimen152
-\l__siunitx_unit_int=\count271
-\l__siunitx_unit_denominator_int=\count272
-\l__siunitx_unit_numerator_int=\count273
-\l__siunitx_unit_prefix_int=\count274
-\l__siunitx_unit_prefix_base_int=\count275
-\l__siunitx_unit_prefix_gram_int=\count276
-\l__siunitx_number_product_int=\count277
+\l__siunitx_tmp_box=\box50
+\l__siunitx_tmp_dim=\dimen154
+\l__siunitx_tmp_int=\count198
+\l__siunitx_number_mantissa_length_int=\count199
+\l__siunitx_number_uncert_length_int=\count266
+\l__siunitx_round_int=\count267
+\l__siunitx_process_decimal_int=\count268
+\l__siunitx_process_uncertainty_int=\count269
+\l__siunitx_process_fixed_int=\count270
+\l__siunitx_process_integer_min_int=\count271
+\l__siunitx_process_precision_int=\count272
+\l__siunitx_group_min_int=\count273
+\l__siunitx_angle_marker_box=\box51
+\l__siunitx_angle_unit_box=\box52
+\l__siunitx_angle_marker_dim=\dimen155
+\l__siunitx_angle_unit_dim=\dimen156
+\l__siunitx_unit_int=\count274
+\l__siunitx_unit_denominator_int=\count275
+\l__siunitx_unit_numerator_int=\count276
+\l__siunitx_unit_prefix_int=\count277
+\l__siunitx_unit_prefix_base_int=\count278
+\l__siunitx_unit_prefix_gram_int=\count279
+\l__siunitx_number_product_int=\count280
 \c__siunitx_one_fill_skip=\skip51
 \l__siunitx_table_unit_align_skip=\skip52
-\l__siunitx_table_exponent_dim=\dimen153
-\l__siunitx_table_integer_dim=\dimen154
-\l__siunitx_table_mantissa_dim=\dimen155
-\l__siunitx_table_marker_dim=\dimen156
-\l__siunitx_table_result_dim=\dimen157
-\l__siunitx_table_uncert_dim=\dimen158
-\l__siunitx_table_fill_pre_dim=\dimen159
-\l__siunitx_table_fill_post_dim=\dimen160
-\l__siunitx_table_fill_mid_dim=\dimen161
-\l__siunitx_table_pre_box=\box51
-\l__siunitx_table_post_box=\box52
-\l__siunitx_table_mantissa_box=\box53
-\l__siunitx_table_result_box=\box54
+\l__siunitx_table_exponent_dim=\dimen157
+\l__siunitx_table_integer_dim=\dimen158
+\l__siunitx_table_mantissa_dim=\dimen159
+\l__siunitx_table_marker_dim=\dimen160
+\l__siunitx_table_result_dim=\dimen161
+\l__siunitx_table_uncert_dim=\dimen162
+\l__siunitx_table_fill_pre_dim=\dimen163
+\l__siunitx_table_fill_post_dim=\dimen164
+\l__siunitx_table_fill_mid_dim=\dimen165
+\l__siunitx_table_pre_box=\box53
+\l__siunitx_table_post_box=\box54
+\l__siunitx_table_mantissa_box=\box55
+\l__siunitx_table_result_box=\box56
 \l__siunitx_table_number_align_skip=\skip53
 \l__siunitx_table_text_align_skip=\skip54
 
@@ -217,10 +212,10 @@ Package siunitx Warning: Version 1 option 'decimalsymbol' detected.
 File: siunitx-version-1.cfg 2017/11/26 v2.7k siunitx: Version 1 settings
 ))
 ("C:\Program Files\MiKTeX\tex/latex/graphics\graphicx.sty"
-Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
 
 ("C:\Program Files\MiKTeX\tex/latex/graphics\graphics.sty"
-Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
 
 ("C:\Program Files\MiKTeX\tex/latex/graphics\trig.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
@@ -231,16 +226,16 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 Package graphics Info: Driver file: xetex.def on input line 105.
 
 ("C:\Program Files\MiKTeX\tex/latex/graphics-def\xetex.def"
-File: xetex.def 2017/06/24 v5.0h Graphics/color driver for xetex
+File: xetex.def 2020/08/26 v5.0i Graphics/color driver for xetex
 ))
-\Gin@req@height=\dimen162
-\Gin@req@width=\dimen163
+\Gin@req@height=\dimen166
+\Gin@req@width=\dimen167
 )
 ("C:\Program Files\MiKTeX\tex/latex/wrapfig\wrapfig.sty"
-\wrapoverhang=\dimen164
-\WF@size=\dimen165
-\c@WF@wrappedlines=\count278
-\WF@box=\box55
+\wrapoverhang=\dimen168
+\WF@size=\dimen169
+\c@WF@wrappedlines=\count281
+\WF@box=\box57
 \WF@everypar=\toks21
 Package: wrapfig 2003/01/31  v 3.6
 )
@@ -375,12 +370,12 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-
+("C:\Program Files\MiKTeX\tex/latex/siunitx\siunitx-abbreviations.cfg"
+File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
+)
 ("C:\Program Files\MiKTeX\tex/latex/translator\translator-basic-dictionary-Engl
 ish.dict"
 Dictionary: translator-basic-dictionary, Language: English 
-) ("C:\Program Files\MiKTeX\tex/latex/siunitx\siunitx-abbreviations.cfg"
-File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 41.
@@ -388,7 +383,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 41.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 41.
- (Chapter/ekg_7_titelseite.tex
+ (Chapter//ekg_7_titelseite.tex
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 6.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -406,9 +401,9 @@ erten
 \openout3 = `ekg_7_projektbericht.toc'.
 
  [3]
-(Chapter/ekg_7_abkuerzungsverzeichnis.tex) [4] (Chapter/ekg_7_einleitung.tex
-[5]) [6] (Chapter/ekg_7_zielsetzung.tex [7]) [8]
-(Chapter/ekg_7_stand_der_technik.tex [9] [10]
+(Chapter//ekg_7_abkuerzungsverzeichnis.tex) [4] (Chapter//ekg_7_einleitung.tex
+[5]) [6] (Chapter//ekg_7_zielsetzung.tex [7]) [8]
+(Chapter//ekg_7_stand_der_technik.tex [9] [10]
 Underfull \hbox (badness 10000) in paragraph at lines 30--30
 []|\TU/lmr/m/n/12 Kardio-
  []
@@ -693,31 +688,31 @@ Overfull \hbox (3.84906pt too wide) in paragraph at lines 53--53
 LaTeX Warning: Citation `aristotle:physics' on page 12 undefined on input line 
 67.
 
-[12] (Chapter/ekg_7_realisierung.tex
-(Chapter/ekg_7_realisierung_konzeptfindung.tex [13]
-File: Bilder/EKG_Signal.png Graphic file (type bmp)
-<Bilder/EKG_Signal.png>
-File: Bilder/EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type b
-mp)
-<Bilder/EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
+[12] (Chapter//ekg_7_realisierung.tex
+(Chapter//ekg_7_realisierung_konzeptfindung.tex [13]
+File: Bilder//EKG_Signal.png Graphic file (type bmp)
+<Bilder//EKG_Signal.png>
+File: Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type 
+bmp)
+<Bilder//EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [14]
-File: Bilder/Filter Blockschaltbild.png Graphic file (type bmp)
-<Bilder/Filter Blockschaltbild.png>
+File: Bilder//Filter Blockschaltbild.png Graphic file (type bmp)
+<Bilder//Filter Blockschaltbild.png>
 
 Underfull \hbox (badness 10000) in paragraph at lines 56--57
 
  []
 
-[15]
+
 Underfull \hbox (badness 10000) in paragraph at lines 58--67
 
  []
 
-
+[15]
 Underfull \hbox (badness 10000) in paragraph at lines 82--83
 
  []
@@ -727,12 +722,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 84--93
 
  []
 
-[16]
+
 Underfull \hbox (badness 10000) in paragraph at lines 94--95
 
  []
 
-
+[16]
 Underfull \hbox (badness 10000) in paragraph at lines 96--97
 
  []
@@ -757,7 +752,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 105--106
 
  []
 
-[17]
+
 Underfull \hbox (badness 10000) in paragraph at lines 107--108
 
  []
@@ -767,61 +762,64 @@ Underfull \hbox (badness 10000) in paragraph at lines 109--118
 
  []
 
-
+[17]
 Underfull \hbox (badness 10000) in paragraph at lines 119--120
 
  []
 
-[18]
-File: Bilder/Blockschaltbild v1.5.png Graphic file (type bmp)
-<Bilder/Blockschaltbild v1.5.png>
+File: Bilder//Blockschaltbild v1.5.png Graphic file (type bmp)
+<Bilder//Blockschaltbild v1.5.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 
 Underfull \hbox (badness 10000) in paragraph at lines 132--137
 
  []
 
-[19]) (Chapter/ekg_7_realisierung_diskussion_der_alternativen.tex [20]
+[18] [19]) (Chapter//ekg_7_realisierung_diskussion_der_alternativen.tex
 Underfull \hbox (badness 10000) in paragraph at lines 11--12
 
  []
 
-File: Bilder/Test IIR Filter.png Graphic file (type bmp)
-<Bilder/Test IIR Filter.png>
+[20]
+File: Bilder//Test IIR Filter.png Graphic file (type bmp)
+<Bilder//Test IIR Filter.png>
 )
-Underfull \hbox (badness 10000) in paragraph at lines 25--12
+Underfull \hbox (badness 10000) in paragraph at lines 27--12
 
  []
 
-[21] (Chapter/ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
-File: Bilder/DCDC_3V_LDO_Shematic.png Graphic file (type bmp)
-<Bilder/DCDC_3V_LDO_Shematic.png>
-File: Bilder/DCDC_3V_LDO_Plot.png Graphic file (type bmp)
-<Bilder/DCDC_3V_LDO_Plot.png>
+[21] (Chapter//ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
+File: Bilder//DCDC_3V_LDO_Shematic.png Graphic file (type bmp)
+<Bilder//DCDC_3V_LDO_Shematic.png>
+File: Bilder//DCDC_3V_LDO_Plot.png Graphic file (type bmp)
+<Bilder//DCDC_3V_LDO_Plot.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[22] [23]) (Chapter/ekg_7_realisierung_display_und_ui.tex
-File: Bilder/Startseite.png Graphic file (type bmp)
-<Bilder/Startseite.png>
- [24] [25])
-(Chapter/ekg_7_realisierung_prozessor_einheit.tex
-File: Bilder/State Machine.png Graphic file (type bmp)
-<Bilder/State Machine.png>
+[22] [23]) (Chapter//ekg_7_realisierung_display_und_ui.tex
+File: Bilder//Startseite.png Graphic file (type bmp)
+<Bilder//Startseite.png>
+ [24])
+(Chapter//ekg_7_realisierung_prozessor_einheit.tex [25]
+File: Bilder//State Machine.png Graphic file (type bmp)
+<Bilder//State Machine.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [26] [27] [28] [29] [30]
-File: Bilder/Short ECG.png Graphic file (type bmp)
-<Bilder/Short ECG.png>
+File: Bilder//Short ECG.png Graphic file (type bmp)
+<Bilder//Short ECG.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [31] [32]
-File: Bilder/Idle State and Evergy Saving.png Graphic file (type bmp)
-<Bilder/Idle State and Evergy Saving.png>
+File: Bilder//Idle State and Evergy Saving.png Graphic file (type bmp)
+<Bilder//Idle State and Evergy Saving.png>
  [33]
 Overfull \hbox (7.72392pt too wide) in paragraph at lines 140--141
 \TU/lmr/m/n/12 die die aktuelle Verbind der Peripherie zum Bluetooth Modul und 
@@ -829,37 +827,37 @@ zum SD-Kartenleser
  []
 
 [34]
-File: Bilder/Langzeit EKG Energy Saving.png Graphic file (type bmp)
-<Bilder/Langzeit EKG Energy Saving.png>
- [35]) (Chapter/ekg_7_realisierung_gehäuse.tex
-File: Bilder/case_no_display.png Graphic file (type bmp)
-<Bilder/case_no_display.png>
+File: Bilder//Langzeit EKG Energy Saving.png Graphic file (type bmp)
+<Bilder//Langzeit EKG Energy Saving.png>
+ [35]) (Chapter//ekg_7_realisierung_gehäuse.tex
+File: Bilder//case_no_display.png Graphic file (type bmp)
+<Bilder//case_no_display.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-File: Bilder/case_no_display_2.png Graphic file (type bmp)
-<Bilder/case_no_display_2.png>
+File: Bilder//case_no_display_2.png Graphic file (type bmp)
+<Bilder//case_no_display_2.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-File: Bilder/case_display.png Graphic file (type bmp)
-<Bilder/case_display.png>
+File: Bilder//case_display.png Graphic file (type bmp)
+<Bilder//case_display.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-File: Bilder/case_closed.png Graphic file (type bmp)
-<Bilder/case_closed.png>
+File: Bilder//case_closed.png Graphic file (type bmp)
+<Bilder//case_closed.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[36] [37] [38]) (Chapter/ekg_7_realisierung_android_app.tex
-File: Bilder/app_activity.png Graphic file (type bmp)
-<Bilder/app_activity.png>
-File: Bilder/app_login.png Graphic file (type bmp)
-<Bilder/app_login.png>
-File: Bilder/app_register.png Graphic file (type bmp)
-<Bilder/app_register.png>
+[36] [37] [38]) (Chapter//ekg_7_realisierung_android_app.tex
+File: Bilder//app_activity.png Graphic file (type bmp)
+<Bilder//app_activity.png>
+File: Bilder//app_login.png Graphic file (type bmp)
+<Bilder//app_login.png>
+File: Bilder//app_register.png Graphic file (type bmp)
+<Bilder//app_register.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -867,80 +865,61 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [39
 
 ]
-File: Bilder/app_profile.png Graphic file (type bmp)
-<Bilder/app_profile.png>
-File: Bilder/app_scan.png Graphic file (type bmp)
-<Bilder/app_scan.png>
+File: Bilder//app_profile.png Graphic file (type bmp)
+<Bilder//app_profile.png>
+File: Bilder//app_scan.png Graphic file (type bmp)
+<Bilder//app_scan.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [40]
-File: Bilder/app_signal.png Graphic file (type bmp)
-<Bilder/app_signal.png>
+File: Bilder//app_signal.png Graphic file (type bmp)
+<Bilder//app_signal.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[41]) (Chapter/ekg_7_realisierung_analoge_filterschaltung.tex [42]
-Overfull \hbox (0.99971pt too wide) in paragraph at lines 11--12
-\TU/lmr/m/n/12 ren Funktionen erstellt. Aus der im Anschluss durchgeführten Fas
-t-Fourier-Transformation
- []
-
-File: Bilder/EKG_Signal.png Graphic file (type bmp)
-<Bilder/EKG_Signal.png>
-File: Bilder/EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type b
-mp)
-<Bilder/EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[43]
-File: Bilder/EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
-<Bilder/EKG_aktiver_Tiefpassfilter.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+[41]) (Chapter//ekg_7_realisierung_analoge_filterschaltung.tex [42] [43]
+File: Bilder//EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
+<Bilder//EKG_aktiver_Tiefpassfilter.png>
 
 [44]
-File: Bilder/EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
-<Bilder/EKG_Gesamtübertragungsfunktion.png>
+File: Bilder//EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
+<Bilder//EKG_Gesamtübertragungsfunktion.png>
+File: Bilder//EKG_virtueller_Ground.png Graphic file (type bmp)
+<Bilder//EKG_virtueller_Ground.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[45]
-File: Bilder/EKG_virtueller_Ground.png Graphic file (type bmp)
-<Bilder/EKG_virtueller_Ground.png>
+) (Chapter//ekg_7_realisierung_pcb_design.tex [45] [46]
+File: Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg Graphic file (type bmp
+)
+<Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) (Chapter/ekg_7_realisierung_pcb_design.tex [46] [47]
-File: Bilder/Schematics_EKG_2021-02-21_Power_Supply.jpg Graphic file (type bmp)
-
-<Bilder/Schematics_EKG_2021-02-21_Power_Supply.jpg>
- [48] [49])) [50]
-(Chapter/ekg_7_ergebnisse.tex
-File: Bilder/EKG_Endergebnis.png Graphic file (type bmp)
-<Bilder/EKG_Endergebnis.png>
+[47] [48])) [49] (Chapter//ekg_7_ergebnisse.tex
+File: Bilder//EKG_Endergebnis.png Graphic file (type bmp)
+<Bilder//EKG_Endergebnis.png>
 Missing character: There is no ä in font cmmi8!
- [51]
+ [50]
 Underfull \hbox (badness 10000) in paragraph at lines 32--33
 
  []
 
-) [52] (Chapter/ekg_7_zusammenfassung.tex [53]
-File: Bilder/EKG_hell.jpg Graphic file (type bmp)
-<Bilder/EKG_hell.jpg>
+) [51] (Chapter//ekg_7_zusammenfassung.tex [52]
+File: Bilder//EKG_hell.jpg Graphic file (type bmp)
+<Bilder//EKG_hell.jpg>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) [54]
+[53] [54]) [55]
 No file ekg_7_projektbericht.bbl.
-(Chapter/ekg_7_anhang.tex) [55] (ekg_7_projektbericht.aux)
+(Chapter//ekg_7_anhang.tex) [56] (ekg_7_projektbericht.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -949,12 +928,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9153 strings out of 414493
- 232571 string characters out of 2907548
- 697519 words of memory out of 3000000
- 26212 multiletter control sequences out of 15000+200000
+ 8903 strings out of 412197
+ 225388 string characters out of 2853959
+ 727510 words of memory out of 3000000
+ 28231 multiletter control sequences out of 15000+200000
  541952 words of font info for 69 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 47i,13n,71p,2209b,1170s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 78i,13n,95p,2209b,1170s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ekg_7_projektbericht.pdf (55 pages).
+Output written on ekg_7_projektbericht.pdf (56 pages).
