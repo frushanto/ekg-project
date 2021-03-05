@@ -76,6 +76,11 @@ void ADC_Akku_Average_Value(){
             uart_transmit_data_start("page0.akku.val=");
             uart_transmit_data_value(g_akku_percentage);
             uart_transmit_data_end();
+
+            if(g_akku_percentage <= 20)
+            {
+                g_buzzer_20_percent = TRUE;
+            }
         }
     }
 }

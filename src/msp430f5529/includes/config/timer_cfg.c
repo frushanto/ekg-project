@@ -94,6 +94,17 @@ void TIMER0_A0_ISR (void)
         Start_ADC();                 // use it!!!
     }
 
+    if(g_buzzer_20_percent == TRUE && g_buzzer_1kz_cnt)
+    {
+        GPIO_toggleOutputOnPin(GPIO_PORT_P6, GPIO_PIN1);
+        g_buzzer_1kz_cnt ++;
+        if(g_buzzer_1kz_cnt == 500)
+        {
+            g_buzzer_1kz_cnt = 0;
+            g_buzzer_20_percent = FALSE;
+            GPIO_setOutputLowOnPin(GPIO_PORT_P6, GPIO_PIN1);
+        }
+    }
 }
 
 

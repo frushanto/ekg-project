@@ -34,6 +34,9 @@ uint8_t g_buzzer_1sec_flag = 0;
 uint8_t g_buzzer_on_flag = 0;
 uint16_t g_buzzer_cnt = 0;
 
+bool g_buzzer_20_percent = FALSE;
+uint16_t g_buzzer_1kz_cnt = 1;
+
 uint8_t g_user_select = 0;
 
 uint16_t bt_test = 0;
