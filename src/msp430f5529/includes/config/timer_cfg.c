@@ -83,8 +83,8 @@ void TIMER0_A0_ISR (void)
     //increment endless-counter
     counter_1khz++;
 
-    //Send BT value with 200Hz
-    if ( (g_sys_state == ECG_SHORT) && (counter_1khz % 5 == 0) )
+    //Send BT value with 100Hz
+    if ( (g_sys_state == ECG_SHORT) && (counter_1khz % 10 == 0) )
         send_bt_value_dma(g_adc_result);
 
     if (counter_1khz % 1 == 0)

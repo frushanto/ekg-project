@@ -126,7 +126,7 @@ bool send_bt_value(uint16_t value)
 //Standard send function with wait - dont use
 bool send_bt_string(char *str)
 {
-    sprintf((char*) tx_buffer, "%s\r\n", str);
+    sprintf((char*) tx_buffer, "s%04d\n", str);
     for (uint8_t i = 0; i < strlen((char*) tx_buffer); i++)
     {
         //Transmit char by char
@@ -146,9 +146,9 @@ bool send_bt_value_dma(uint16_t value)
     //Check if there is already a message in Pipeline
     if (bt_busy)
         return STATUS_FAIL;
-
+    value = value / 20;
     //Build string to be send
-    sprintf((char*) tx_buffer, "s%04d\n", value);
+    sprintf((char*) tx_buffer, "s%03d\n", value);
 
     //Set dynamicly Data Size to Transfer
     DMA_setTransferSize(DMA_CHANNEL_0, (uint16_t) strlen((char*) tx_buffer));
