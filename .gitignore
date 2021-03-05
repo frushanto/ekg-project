@@ -25,8 +25,10 @@ src/
 # BibTeX
 *.bbl
 *.blg
-Latex/ekg_7_projektbericht.fls
-Latex/ekg_7_projektbericht.log
-Latex/ekg_7_projektbericht.pdf
-Latex/ekg_7_projektbericht.xdv
-Latex/ekg_7_projektbericht.fdb_latexmk
+
+
+Latex/*.fls
+Latex/*.log
+Latex/*.pdf
+Latex/*.xdv
+Latex/*.fdb_latexmk
