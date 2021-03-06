@@ -2,6 +2,8 @@
 
 \subsection{Diskussion der Alternativen}
 
+Dieses Unterkapitel führt alternative, technische Realisierungen auf, die sich jedoch nach theoretischer oder praktischer Testung für das Projekt als nicht anwendbar herausstellten.
+
 \subsubsection{Digitale Filterung}
 
 Für die digitale Filterung des Netzbrummens wurden jeweils ein FIR- (Finite-Impuls-Response) und ein IIR- (Infinite-Impuls-Response) Filter als Bandsperren mit einer Sperrfrequenz von \SI{50} {\hertz} entworfen. Hierfür wurden die Filterkoeffizienten mit Matlab erzeugt und danach in C als eigenständige Module implementiert. Die Testung erfolgte auf dem Launchpad des MSP430 mit harmonischen Schwingungen zwischen \SI{1}{\hertz} und \SI{200}{\hertz}, einem künstlichen EKG-Signal (beides mit einer Signalquelle erzeugt) und einem echtem EKG-Signal. 
