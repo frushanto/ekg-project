@@ -106,6 +106,11 @@ Die Datenspeicherung erfolgt auf einer externen SD-Karte. Das Kartenmodul das zu
 
 Zur Programmierung und Fehleranalyse der Prozessoreinheit auf der Platine, wird die JTAG-Schnittstelle (Joint Test Action Group) verwendet.\\
 
+%Konzept Display:
+Das Display und dessen User Interface (UI) wurde mithilfe von vergleichbaren Geräten anhand einer Marktrecherche und anhand der Funktionalitäten des Lastenheftes konzeptioniert. Das UI ist mit der Nextion-Editor Software entwickelt und programmiert worden. Diese Software verfügt über eine übersichtliche Benutzerumgebung und einer eigenen Programmiersprache. Die Befehle und Anweisungen der Nextion Programmiersprache sind auf der offiziellen Homepage vorzufinden. Auf der Homepage sind auch allgemeine Regeln und Praktiken im Umgang mit dem Display aufgezeigt.
+\\
+
+%Konzept MCU:
 Das Projekt EKG7 basiert auf dem Microcontroller MSP430F5529. Laut der Projektvorgaben muss der Prozessor zur MSP430-Prozessorfamilie der Firma Texas Instruments gehören. Nach der Analyse verschiedener µC fiel die Wahl auf die MSP430F5529. Dieser Mikrocontroller hat alle notwendigen Spezifikationen, um die Anforderungen im Lasten- und Pflichtenheft zu erfüllen.\\
 Das Hauptziel der Baugruppe ist eine kontinuierliche und unterbrechungsfreie Bearbeitung und Übertragung des analogen Eingangssignal an verschiedene Module mit einem möglichst niedrigen Stromverbrauch.\\
 F5529 MCU verfügt über fünf verschiedene Stromsparmodi. In diesen Modi liegt die Stromaufnahme im µA-Bereich. Der aktive Zustand des Prozessors verbraucht bei maximaler Belastung im „Worst Case“ 3,7 mA.\\
