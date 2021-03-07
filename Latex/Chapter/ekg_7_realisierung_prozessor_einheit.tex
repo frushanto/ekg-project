@@ -2,41 +2,41 @@
 
 \subsection{Prozessoreinheit}
 
-Dieses Kapitel gibt eine ausführliche Beschreibung zur Software des Projektes und dessen Entwicklung. Zuerst wird der Begriff State Machine im Allgemeinen beschrieben. Anschließend wird es auf die Implementierung der State Machine im Projekt mit der Beschreibung jedes Zustandes eingegangen, sowie auf essenzielle Module und Funktionsprinzipien.  
+Dieses Kapitel gibt eine ausführliche Beschreibung zur Software des Projektes und dessen Entwicklung. Zuerst wird der Begriff \textit{State Machine} im Allgemeinen beschrieben. Anschließend wird es auf die Implementierung der \textit{State Machine} im Projekt mit der Beschreibung jedes Zustandes eingegangen, sowie auf essenzielle Module und deren Funktionsprinzipien.  
 
 \subsubsection{State Machine}
 
-Eine State Machine ist ein sogenannter Verhaltensmodell der Software oder eines Teils der Software mit einer endlichen Anzahl der Zustände. Diese Zustände können gewechselt werden gemäß der Logik des Programms, sowie gemäß der Eingangsdaten.
+Eine \textit{State Machine} ist ein sogenannter Verhaltensmodell der Software oder eines Teils der Software mit einer endlichen Anzahl der Zustände. Diese Zustände können gemäß der Programmlogik, sowie der Eingangsdaten gewechselt werden.
 
-Eine State Machine hat in der Regel einen Initialisierungszustand, anhand dessen die Programmmodule gestartet werden. Ein weiterer Programmablauf ist von dem Initialisierungszustand abhängig. Zum Beispiel nach einer erfolgreichen Initialisierung kann das Programm einen normalen Betrieb anfangen. Sollte in diesem Zustand etwas schiefgehen, kann das Programm einen anderen Zustand nehmen und dementsprechend auf den aufgetretenen Fehler reagieren z.B. mögliche Fehlerursache zeigen oder das System komplett abschalten. Solche Funktionsweise besitzen alle anderen Zustände auch.
+Eine \textit{State Machine} hat in der Regel einen Initialisierungszustand, anhand dessen die Programmmodule gestartet werden. Ein weiterer Programmablauf ist von dem Initialisierungszustand abhängig. Zum Beispiel nach einer erfolgreichen Initialisierung kann das Programm einen normalen Betrieb anfangen. Sollte in diesem Zustand etwas schiefgehen, kann das Programm einen anderen Zustand nehmen und dementsprechend auf den aufgetretenen Fehler reagieren z.B. mögliche Fehlerursache zeigen oder das System komplett abschalten. Solche Funktionsweise besitzen alle anderen Zustände auch.
 
-\subsubsection{Zustände der State Machine}
+\subsubsection{Zustände der \textit{State Machine}}
 
-In diesem Projekt sind 6 verschiedene Zustände für das EKG Gerät entwickelt, sowie eine regelmäßige Abfrage der globalen Flags, die jede Sekunde stattfindet. Die Zustände der State Machine sind: 
+In diesem Projekt sind 6 verschiedene Zustände für das EKG Gerät entwickelt, sowie eine regelmäßige Abfrage der globalen Flags, die jede Sekunde stattfindet. Die Zustände der \textit{State Machine} sind: 
 \begin{itemize}
     \item Initialisierung – SYS\_INIT,
     \item Leerlauf – IDLE\_STATE,
     \item Aufnahme des Kurzzeit-EKG – ECG\_SHORT,
     \item Aufnahme des Langzeit-EKG – ECG\_LONG,
     \item Stromsparmodus – ENERGY\_SAVING\_MODE,
-    \item Aufweckzustand – SYS\_WAKEUP.
+    \item Wakeup Modus – SYS\_WAKEUP.
 \end{itemize} 
-Aus dem Bild ist zum Teil die Funktionsweise der State Machine zu entnehmen. Mehr detailliert wird es bei der Beschreibung einzelnen Zuständen eingegangen.
+Aus dem Bild ist die Funktionsweise der \textit{State Machine} zu entnehmen. Mehr detailliert wird es bei der Beschreibung einzelnen Zuständen eingegangen.
 \begin{figure} [!h]
     \centering
     \includegraphics[width=12cm] {State Machine.png}
-    \caption{State Machine des EKG7}
+    \caption{\textit{State Machine} des EKG7}
 \end{figure}
 
 \subsubsection{Globale Flags}
 
-Für das Anzeigen diversen Zustände sind in der Software globalen Flags implementiert. Die Flags können folgende Ereignisse widerspiegeln:
+Für das Anzeigen diversen Zustände sind in der Software globale Flags implementiert. Die Flags können folgende Ereignisse widerspiegeln:
 \begin{itemize}
     \item Auftreten eines Interrupts,
     \item Ankommen von Daten,
-    \item Aktueller Zustand der State Machine,
-    \item Toggeln von der Taste,
-    \item Zustände der Module,
+    \item Aktueller Zustand der \textit{State Machine},
+    \item Toggeln von Power-Button,
+    \item Zustände der Module (z.B. aktiv / inaktiv),
     \item Timers,
     \item Bluetooth-Verbindung,
     \item Verbindung mit SD-Karte.
@@ -100,7 +100,7 @@ Im Folgenden wird eine detaillierte Beschreibung von den zu initialisierenden Mo
 
 Direkt nach dem Initialisierungsvorgang der MCU, befindet man sich im IDLE\_STATE. 
 Als IDLE\_STATE wird der Zustand bezeichnet, in dem sich das EKG-Gerät im Leerlauf befindet. Hier wird kontinuierlich in einer while-Schleife abgefragt, ob der Benutzer/die Benutzerin ein Kurzzeit- oder Langzeit-EKG aufnehmen möchte.
-Eine erfolgreiche Abfrage wird durch den Start-Befehl des Displays in Form eines Interrupts erreicht. Sobald der Benutzer/die Benutzerin den Befehl gibt, wird eine CSV Datei auf der SD-Karte erstellt und der Case der State Machine wechselt entsprechend der gewünschten Aufnahme Methode.
+Eine erfolgreiche Abfrage wird durch den Start-Befehl des Displays in Form eines Interrupts erreicht. Sobald der Benutzer/die Benutzerin den Befehl gibt, wird eine CSV Datei auf der SD-Karte erstellt und der Case der \textit{State Machine} wechselt entsprechend der gewünschten Aufnahme Methode.
 
 \subsubsection{Kurzzeit-EKG}
 
@@ -133,7 +133,7 @@ Bei erneutem Drücken des Buttons wird wieder ein Interrupt ausgelöst, der nun 
 
 \subsubsection{Akku-, BT-, SD-Abfrage}
 
-Abgesehen von der State Machine, befindet sich noch eine if-Abfrage in der main Funktion. Dabei handelt es sich um drei Funktionen, die jede Sekunde im IDLE\_STATE oder während einer Kurz- / Langzeitaufnahme ausgeführt werden.
+Abgesehen von der \textit{State Machine}, befindet sich noch eine if-Abfrage in der main Funktion. Dabei handelt es sich um drei Funktionen, die jede Sekunde im IDLE\_STATE oder während einer Kurz- / Langzeitaufnahme ausgeführt werden.
 \begin{itemize}
     \item ADC\_Akku\_Average\_Value berechnet alle drei Sekunden den Mittelwert der ADC-Werte, welche am Akku anliegen. Anhand des Mittelwertes wird der Akku in Prozent umgerechnet. Somit ist das Ablesen des Ladestandes auf der Startseite für den Benutzer/die Benutzerin intuitiv und einfach zu verstehen.
     Der Prozentbetrag wird jede dritte Sekunde auf dem Display aktualisiert.
@@ -147,10 +147,18 @@ Die Kurzzeit-EKG Aufnahme wird kontinuierlich durchgeführt. D.h. die ADC Werte 
 Es wird durchgehend kontrolliert, dass es nur Kurzzeit-EKG aufgenommen wird. Sollte der Benutzer während der Aufnahme versuchen auf Langzeit-EKG zu wechseln, wird eine Warnung gezeigt und der Vorgang verhindert.
 Nach der Aufnahme wird die Flag für Kurzzeit-EKG zurückgesetzt, die Datei auf der SD-Karte gespeichert, die Timer zurückgesetzt und die MCU geht in Idle Zustand. Das Display wird dementsprechend die Hauptseite anzeigen.
 
+Im Kurzzeitmodus wird zudem kontinuierlich die Herzfrequenz gemessen und an das Display gesendet. Hierfür werden über einen Schwellwert die R-Zacken des Signals detektiert und die Anzahl der Werte zwischen diesen gezählt. 
+
+$ Pulsfrequenz = \frac{Maximalanzahl der Werte in einer Minute}{Anzahl der Werte einer Signalperiode} $
+
+Der Schwellwert wird permanent durch das Maximum und Minimum der vergangenen Signalperiode angepasst, um auf Schwankungen des Signals zu reagieren.
+
+$ Schwellwert = Minimum + 0,8 * (Maximum - Minimum) $
+
 \subsubsection{Aufnahme eines Langzeit-EKG}
 
 Im Gegensatz zu Kurzzeit-EKG, werden die Daten während der Langzeit-EKG Aufnahme intern auf der MCU gespeichert und blockweise in gewissen Zeitintervallen an SD-Karte gesendet. Da das SD-Kartenmodul an 5V angeschlossen ist und im Stromsparmodus 5V Peripherie komplett abgeschaltet ist, weicht die Logik von Kurzzeit-Aufnahme ab.
-Beim Wechseln auf Langzeit-EKG Modus wird als erstes die Timer- und ADC-Werte an das Display gesendet. Somit kann der Benutzer den Kurvenverlauf und Dauer der Aufnahme sehen. Weiterhin wird die Stromsparmodus-Logik aufgerufen. Diese Logik enthält eine State Machine mit drei Zuständen. Die State Machine ist mit einer switch-Anweisung realisiert. Die drei Zustände sind: normaler Zustand (MODE\_NORMAL), 5V Peripherie an (MODE\_5V\_ON) und 5V Peripherie aus (MODE\_5V\_OFF). 
+Beim Wechseln auf Langzeit-EKG Modus wird als erstes die Timer- und ADC-Werte an das Display gesendet. Somit kann der Benutzer den Kurvenverlauf und Dauer der Aufnahme sehen. Weiterhin wird die Stromsparmodus-Logik aufgerufen. Diese Logik enthält eine \textit{State Machine} mit drei Zuständen. Die State Machine ist mit einer switch-Anweisung realisiert. Die drei Zustände sind: normaler Zustand (MODE\_NORMAL), 5V Peripherie an (MODE\_5V\_ON) und 5V Peripherie aus (MODE\_5V\_OFF). 
 Die zwei Modi für 5V an und aus sind für Stromsparmodus entwickelt. Das Funktionsprinzip des Stromsparmodus ist auf dem Bild zu sehen.
 \begin{figure} [!h]
 	\centering

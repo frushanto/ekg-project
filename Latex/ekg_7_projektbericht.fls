@@ -1,8 +1,8 @@
-PWD /Users/ivan/Workspace/Projects/ekg-project/Latex
+PWD /Users/hannes/Documents/GitHub/ekg-project/Latex
 INPUT /usr/local/texlive/2020/texmf.cnf
 INPUT /usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2020/texmf-var/web2c/xetex/xelatex.fmt
-INPUT /Users/ivan/Workspace/Projects/ekg-project/Latex/ekg_7_projektbericht.tex
+INPUT /Users/hannes/Documents/GitHub/ekg-project/Latex/ekg_7_projektbericht.tex
 OUTPUT ekg_7_projektbericht.log
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/base/article.cls
@@ -75,6 +75,12 @@ INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/xetex.def
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/xetex.def
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/lipsum/lipsum.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/lipsum/lipsum.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
 INPUT ekg_7_projektbericht.aux
 INPUT ekg_7_projektbericht.aux
 OUTPUT ekg_7_projektbericht.aux
@@ -127,25 +133,29 @@ INPUT Bilder/DCDC_3V_LDO_Shematic.png
 INPUT Bilder/DCDC_3V_LDO_Plot.png
 INPUT ./Chapter/ekg_7_realisierung_display_und_ui.tex
 INPUT ./Chapter/ekg_7_realisierung_display_und_ui.tex
-INPUT Bilder/Startseite.png
+INPUT Bilder/ECG_Homescreen.png
 INPUT ./Chapter/ekg_7_realisierung_prozessor_einheit.tex
 INPUT ./Chapter/ekg_7_realisierung_prozessor_einheit.tex
 INPUT Bilder/State Machine.png
 INPUT Bilder/Short ECG.png
-INPUT Bilder/Langzeit EKG Energy Saving.png
 INPUT Bilder/Idle State and Evergy Saving.png
+INPUT Bilder/Langzeit EKG Energy Saving.png
 INPUT ./Chapter/ekg_7_realisierung_gehäuse.tex
 INPUT ./Chapter/ekg_7_realisierung_gehäuse.tex
-INPUT ./Chapter/ekg_7_realisierung_schnittstellen.tex
-INPUT ./Chapter/ekg_7_realisierung_schnittstellen.tex
+INPUT Bilder/case_no_display.png
+INPUT Bilder/case_no_display_2.png
+INPUT Bilder/case_display.png
+INPUT Bilder/case_closed.png
 INPUT ./Chapter/ekg_7_realisierung_android_app.tex
 INPUT ./Chapter/ekg_7_realisierung_android_app.tex
-INPUT ./Chapter/ekg_7_realisierung_datenspeicherung_auf_sd_karte.tex
-INPUT ./Chapter/ekg_7_realisierung_datenspeicherung_auf_sd_karte.tex
+INPUT Bilder/app_activity.png
+INPUT Bilder/app_login.png
+INPUT Bilder/app_register.png
+INPUT Bilder/app_profile.png
+INPUT Bilder/app_scan.png
+INPUT Bilder/app_signal.png
 INPUT ./Chapter/ekg_7_realisierung_analoge_filterschaltung.tex
 INPUT ./Chapter/ekg_7_realisierung_analoge_filterschaltung.tex
-INPUT Bilder/EKG_Signal.png
-INPUT Bilder/EKG_diskretes_Frequenzspektrum_Ausschnitt.png
 INPUT Bilder/EKG_aktiver_Tiefpassfilter.png
 INPUT Bilder/EKG_Gesamtübertragungsfunktion.png
 INPUT Bilder/EKG_virtueller_Ground.png
@@ -154,10 +164,12 @@ INPUT ./Chapter/ekg_7_realisierung_pcb_design.tex
 INPUT Bilder/Schematics_EKG_2021-02-21_Power_Supply.jpg
 INPUT ./Chapter/ekg_7_ergebnisse.tex
 INPUT ./Chapter/ekg_7_ergebnisse.tex
+INPUT Bilder/EKG_Endergebnis.png
 INPUT ./Chapter/ekg_7_zusammenfassung.tex
 INPUT ./Chapter/ekg_7_zusammenfassung.tex
-INPUT ./Chapter/ekg_7_ausblick.tex
-INPUT ./Chapter/ekg_7_ausblick.tex
+INPUT Bilder/EKG_hell.jpg
+INPUT ekg_7_projektbericht.bbl
+INPUT ekg_7_projektbericht.bbl
 INPUT ./Chapter/ekg_7_anhang.tex
 INPUT ./Chapter/ekg_7_anhang.tex
 INPUT ekg_7_projektbericht.aux
