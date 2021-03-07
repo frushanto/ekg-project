@@ -2,11 +2,11 @@
 
 \subsection{Prozessoreinheit}
 
-Dieses Kapitel gibt eine ausführliche Beschreibung zur Software des Projektes und dessen Entwicklung. Zuerst wird der Begriff State Machine im Allgemeinen beschrieben. Anschließend wird es auf die Implementierung der State Machine im Projekt mit der Beschreibung jedes Zustandes eingegangen, sowie auf essenzielle Module und Funktionsprinzipien.  
+Dieses Kapitel gibt eine ausführliche Beschreibung zur Software des Projektes und dessen Entwicklung. Zuerst wird der Begriff State Machine im Allgemeinen beschrieben. Anschließend wird es auf die Implementierung der State Machine im Projekt mit der Beschreibung jedes Zustandes eingegangen, sowie auf essenzielle Module und deren Funktionsprinzipien.  
 
 \subsubsection{State Machine}
 
-Eine State Machine ist ein sogenannter Verhaltensmodell der Software oder eines Teils der Software mit einer endlichen Anzahl der Zustände. Diese Zustände können gewechselt werden gemäß der Logik des Programms, sowie gemäß der Eingangsdaten.
+Eine State Machine ist ein sogenannter Verhaltensmodell der Software oder eines Teils der Software mit einer endlichen Anzahl der Zustände. Diese Zustände können gemäß der Programmlogik, sowie der Eingangsdaten gewechselt werden.
 
 Eine State Machine hat in der Regel einen Initialisierungszustand, anhand dessen die Programmmodule gestartet werden. Ein weiterer Programmablauf ist von dem Initialisierungszustand abhängig. Zum Beispiel nach einer erfolgreichen Initialisierung kann das Programm einen normalen Betrieb anfangen. Sollte in diesem Zustand etwas schiefgehen, kann das Programm einen anderen Zustand nehmen und dementsprechend auf den aufgetretenen Fehler reagieren z.B. mögliche Fehlerursache zeigen oder das System komplett abschalten. Solche Funktionsweise besitzen alle anderen Zustände auch.
 
@@ -19,9 +19,9 @@ In diesem Projekt sind 6 verschiedene Zustände für das EKG Gerät entwickelt, 
     \item Aufnahme des Kurzzeit-EKG – ECG\_SHORT,
     \item Aufnahme des Langzeit-EKG – ECG\_LONG,
     \item Stromsparmodus – ENERGY\_SAVING\_MODE,
-    \item Aufweckzustand – SYS\_WAKEUP.
+    \item Wakeup Modus – SYS\_WAKEUP.
 \end{itemize} 
-Aus dem Bild ist zum Teil die Funktionsweise der State Machine zu entnehmen. Mehr detailliert wird es bei der Beschreibung einzelnen Zuständen eingegangen.
+Aus dem Bild ist die Funktionsweise der State Machine zu entnehmen. Mehr detailliert wird es bei der Beschreibung einzelnen Zuständen eingegangen.
 \begin{figure} [!h]
     \centering
     \includegraphics[width=12cm] {State Machine.png}
@@ -30,13 +30,13 @@ Aus dem Bild ist zum Teil die Funktionsweise der State Machine zu entnehmen. Meh
 
 \subsubsection{Globale Flags}
 
-Für das Anzeigen diversen Zustände sind in der Software globalen Flags implementiert. Die Flags können folgende Ereignisse widerspiegeln:
+Für das Anzeigen diversen Zustände sind in der Software globale Flags implementiert. Die Flags können folgende Ereignisse widerspiegeln:
 \begin{itemize}
     \item Auftreten eines Interrupts,
     \item Ankommen von Daten,
     \item Aktueller Zustand der State Machine,
-    \item Toggeln von der Taste,
-    \item Zustände der Module,
+    \item Toggeln von Power-Button,
+    \item Zustände der Module (z.B. aktiv / inaktiv),
     \item Timers,
     \item Bluetooth-Verbindung,
     \item Verbindung mit SD-Karte.
