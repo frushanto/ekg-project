@@ -138,8 +138,8 @@ INPUT ./Chapter/ekg_7_realisierung_prozessor_einheit.tex
 INPUT ./Chapter/ekg_7_realisierung_prozessor_einheit.tex
 INPUT Bilder/State Machine.png
 INPUT Bilder/Short ECG.png
-INPUT Bilder/Idle State and Evergy Saving.png
 INPUT Bilder/Langzeit EKG Energy Saving.png
+INPUT Bilder/Idle State and Evergy Saving.png
 INPUT ./Chapter/ekg_7_realisierung_gehäuse.tex
 INPUT ./Chapter/ekg_7_realisierung_gehäuse.tex
 INPUT Bilder/case_no_display.png

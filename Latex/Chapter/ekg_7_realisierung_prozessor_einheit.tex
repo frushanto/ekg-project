@@ -2,26 +2,26 @@
 
 \subsection{Prozessoreinheit}
 
-Dieses Kapitel gibt eine ausführliche Beschreibung zur Software des Projektes und dessen Entwicklung. Zuerst wird der Begriff \textit{State Machine} im Allgemeinen beschrieben. Anschließend wird es auf die Implementierung der \textit{State Machine} im Projekt mit der Beschreibung jedes Zustandes eingegangen, sowie auf essenzielle Module und deren Funktionsprinzipien.  
+Dieses Kapitel gibt eine ausführliche Beschreibung zur Software des Projektes und deren Entwicklung. Zuerst wird der Begriff \textit{State Machine} im Allgemeinen beschrieben. Anschließend wird auf die Implementierung der \textit{State Machine} im Projekt mit der Beschreibung jedes Zustandes eingegangen, sowie auf essenzielle Module und Funktionsprinzipien.  
 
 \subsubsection{State Machine}
 
-Eine \textit{State Machine} ist ein sogenannter Verhaltensmodell der Software oder eines Teils der Software mit einer endlichen Anzahl der Zustände. Diese Zustände können gemäß der Programmlogik, sowie der Eingangsdaten gewechselt werden.
+Eine \textit{State Machine} ist ein Verhaltensmodell der Softwareentwicklung mit einer endlichen Anzahl von Zuständen. Zwischen diesen Zuständen kann gemäß der Programmlogik oder der Eingangsdaten gewechselt werden.
 
-Eine \textit{State Machine} hat in der Regel einen Initialisierungszustand, anhand dessen die Programmmodule gestartet werden. Ein weiterer Programmablauf ist von dem Initialisierungszustand abhängig. Zum Beispiel nach einer erfolgreichen Initialisierung kann das Programm einen normalen Betrieb anfangen. Sollte in diesem Zustand etwas schiefgehen, kann das Programm einen anderen Zustand nehmen und dementsprechend auf den aufgetretenen Fehler reagieren z.B. mögliche Fehlerursache zeigen oder das System komplett abschalten. Solche Funktionsweise besitzen alle anderen Zustände auch.
+Eine \textit{State Machine} hat in der Regel einen Initialisierungszustand, in dem die Programmmodule gestartet werden. Der folgende Programmablauf ist von dem Initialisierungszustand abhängig. Nach einer erfolgreichen Initialisierung wird beispielsweise der reguläre Programmablauf fortgeführt. Sollte es bei der Initialisierung zu Fehlern kommen, wird ein Zustand eingenommen indem z.B. mögliche Fehlerursachen angezeigt oder das komplette System abgeschaltet wird. Die Überwachung von Fehlfunktionen findet auch in allen anderen Zuständen statt.
 
 \subsubsection{Zustände der \textit{State Machine}}
 
-In diesem Projekt sind 6 verschiedene Zustände für das EKG Gerät entwickelt, sowie eine regelmäßige Abfrage der globalen Flags, die jede Sekunde stattfindet. Die Zustände der \textit{State Machine} sind: 
+In diesem Projekt sind sechs verschiedene Zustände für das EKG-Gerät entwickelt, sowie eine regelmäßige Abfrage der globalen Flags, die jede Sekunde stattfindet. Die Zustände der \textit{State Machine} sind: 
 \begin{itemize}
-    \item Initialisierung – SYS\_INIT,
-    \item Leerlauf – IDLE\_STATE,
-    \item Aufnahme des Kurzzeit-EKG – ECG\_SHORT,
-    \item Aufnahme des Langzeit-EKG – ECG\_LONG,
-    \item Stromsparmodus – ENERGY\_SAVING\_MODE,
-    \item Wakeup Modus – SYS\_WAKEUP.
+    \item Initialisierung – SYS\_INIT
+    \item Leerlauf – IDLE\_STATE
+    \item Aufnahme des Kurzzeit-EKG – ECG\_SHORT
+    \item Aufnahme des Langzeit-EKG – ECG\_LONG
+    \item Stromsparmodus – ENERGY\_SAVING\_MODE
+    \item Wakeup Modus – SYS\_WAKEUP
 \end{itemize} 
-Aus dem Bild ist die Funktionsweise der \textit{State Machine} zu entnehmen. Mehr detailliert wird es bei der Beschreibung einzelnen Zuständen eingegangen.
+Aus dem Bild ist die Funktionsweise der \textit{State Machine} zu entnehmen. Auf den genauen Ablaub wird in der Beschreibung der einzelnen Zustände eingegangen.
 \begin{figure} [!h]
     \centering
     \includegraphics[width=12cm] {State Machine.png}
@@ -30,124 +30,94 @@ Aus dem Bild ist die Funktionsweise der \textit{State Machine} zu entnehmen. Meh
 
 \subsubsection{Globale Flags}
 
-Für das Anzeigen diversen Zustände sind in der Software globale Flags implementiert. Die Flags können folgende Ereignisse widerspiegeln:
+Für das Anzeigen diverser Zustände sind in der Software globale \textit{Flags} implementiert. Die \textit{Flags} können folgende Ereignisse widerspiegeln:
 \begin{itemize}
-    \item Auftreten eines Interrupts,
-    \item Ankommen von Daten,
-    \item Aktueller Zustand der \textit{State Machine},
-    \item Toggeln von Power-Button,
-    \item Zustände der Module (z.B. aktiv / inaktiv),
-    \item Timers,
-    \item Bluetooth-Verbindung,
-    \item Verbindung mit SD-Karte.
+    \item Auftreten eines \textit{Interrupts}
+    \item Eingang von Daten
+    \item Aktueller Zustand der \textit{State Machine}
+    \item Betätigen des \textit{Power-Buttons}
+    \item Zustände der Module (z.B. aktiv / inaktiv)
+    \item \textit{Timer-Interrupt}
+    \item Zustand der Bluetooth-Verbindung
+    \item Verbindung mit SD-Karte
 \end{itemize} 
 
 \subsubsection{Interrupts}
 
-Ein Interrupt ist ein Signal an die MCU, das hardware- oder softwareseitig auftritt und eine sofortige Antwort bzw. Reaktion der MCU benötigt. Der normale Programmablauf wird dabei gestoppt und es werden Befehle im Interrupt Service Routine erst ausgeführt. Nach dem Ablauf von einem Interrupt kehr die MCU zurück zum normalen Programmablauf.
-In dem Projekt werden Interrupts für folgende Module verwendet:
+Ein Interrupt ist ein Signal an die MCU, das hardware- oder softwareseitig auftritt und eine sofortige Reaktion der MCU benötigt. Der normale Programmablauf wird dabei gestoppt und zunächst die Befehle der ISR ausgeführt. Nach dem Abarbeiten eines \textit{Interrupts} kehrt die MCU zurück zum normalen Programmablauf.
+In dem Projekt werden \textit{Interrupts} für folgende Module verwendet:
 \begin{itemize}
-    \item GPIO – beim Togglen der Gehäusetaste, Ein- und Ausschalten des Bluetooth Moduls und Einsetzen bzw. Rausnehmen der SD-Karte,
-    \item Timers – es treten zwei Interrupts auf mit jeweils 1 Hz und 250 Hz Frequenz,
-    \item UART – beim Empfangen von Befehlen vom Display,
-    \item ADC – beim Empfangen von EKG Signalen und Akkuspannung.
+    \item GPIO – beim Betätigen der Taste am Gehäuse, Ein- und Ausschalten des Bluetooth Moduls und Einsetzen bzw. Entfernen der SD-Karte
+    \item Timer – es treten drei \textit{Interrupts} mit jeweils 1 Hz, 250 Hz und 1 kHz Frequenz auf
+    \item UART – beim Empfang von Befehlen vom Display
+    \item ADC – beim Empfang von EKG-Signalen und Akkuspannung
 \end{itemize} 
 
 \subsubsection{Initialisierung}
 
-Initialisierung oder SYS\_INIT ist der Anfangszustand der MCU nach dem Einschalten. Dieser Zustand ruft Initialisierungsfunktionen aller verwendeten Modulen auf und nach dem Initialisierungsvorgang wird verlassen. Hier folgt die Reihenfolge der Module, die im Programm initialisiert werden:
-\begin{itemize}
-    \item Watchdog Timer – ist dem Totmann-Schalter ähnlich. Die MCU wird zurückgesetzt, wenn das Programm ihn nicht explizit ausschaltet;
-    \item General Purpose Input Output – sind alle programmierbare MCU I/O Pins. Sie müssen vorerst initialisiert werden, da auf deren Funktionalität weitere Module basieren können;
-    \item Clocks – Grundtaktfrequenz des Mikrocontrollers;
-    \item Timers – Interrupts, die taktfrequenzabhängig sind und in gewissen Zeitintervallen auftreten;
-    \item UART – Schnittstelle für Display- und Bluetooth-Verbindung;
-    \item ADC – Digitalisierung der analogen Signale;
-    \item SPI – Schnittstelle für Verbindung mit SD-Kartenmodul;
-    \item FAT – File Allocation Table ist die Dateizuordnungstabelle bzw. ein Dateisystem für die Datenübertragung auf SD-Karte;
-    \item UART-BT – Kommunikation der MCU mit dem Bluetooth Modul;
-    \item Median Filter – Filterung der Artefakte bei der Herzfrequenzberechnung;
-    \item Globle Interrupts – Freischalten der globalen Interrupts.
-\end{itemize}
+Initialisierung oder SYS\_INIT ist der Anfangszustand der MCU nach dem Einschalten. Dieser Zustand ruft die Initialisierungsfunktion aller verwendeten Modulen auf und wird danach verlassen. 
+
+%Hier folgt die Reihenfolge der Module, die im Programm initialisiert werden:
+%\begin{itemize}
+
+ %   \item Clocks – ;
+ %   \item Timer – 
+ %   \item UART – Schnittstelle für Display- und Bluetooth-Verbindung;
+ %   \item ADC – Digitalisierung der analogen Signale;
+ %   \item SPI – Schnittstelle für Verbindung mit SD-Kartenmodul;
+ %   \item FAT – File Allocation Table ist die Dateizuordnungstabelle bzw. ein Dateisystem für die Datenübertragung auf SD-Karte;
+ %   \item UART-BT – Kommunikation der MCU mit dem Bluetooth Modul;
+ %   \item Median Filter – Filterung der Artefakte bei der Herzfrequenzberechnung;
+ %   \item Globle Interrupts – Freischalten der globalen Interrupts.
+%\end{itemize}
 
 Im Folgenden wird eine detaillierte Beschreibung von den zu initialisierenden Modulen aufgelistet:
 \begin{enumerate}
-    \item GPIO: General Purpose Input Output ist ein Modul, das die vorhandenen Pins als Inputs oder Outputs initialisiert. Demnächst können diese Pins im Code verwendet werden. In diesem Modul werden folgende Pins initialisiert:
+    \item Watchdog Timer: Ist dem Totmann-Schalter ähnlich. Die MCU wird zurückgesetzt, wenn das Programm ihn nicht explizit ausschaltet
+    \item GPIO: General Purpose Input Output ist ein Modul, das die vorhandenen Pins als Inputs oder Outputs initialisiert. Da ihre Funktionalität in aderen Modulen verwendet wird, müssen sie als erstes initialisiert werden. Es werden folgende GPIO-Pins initialisiert:
     \begin{itemize}
-        \item LEDs auf dem PCB,
-        \item Buzzer,
-        \item 5V DC/DC,
-        \item Gehäusetaste,
-        \item Bluetooth State,
-        \item Card Detect Pin für das SD-Kartenmodul.
+        \item LEDs auf der Platine
+        \item Buzzer
+        \item 5 V-DC/DC enable
+        \item Gehäusetaste
+        \item Bluetooth-Verbindungszustand
+        \item \textit{Card Detect} Pin für das SD-Kartenmodul
     \end{itemize}
-    \item Clocks: Es werden drei Clocks initialisiert. MCLK (Main Clock) und SMCLK (Sub-main Clock) weisen eine Frequenz von 20 MHz auf. ACLK (Auxiliary Clock) ist mit einer Frequenz von 32 kHz initialisiert.
-    Main Clock wird als Taktquelle für die MCU verwendet. Sub-main Clock ist ein Hochfrequenztakt und wird für Peripheriemodule verwendet. Auxuliary Clock wird für Peripheriemodule verwendet, die einen niederfrequenten Takt benötigen.
-    \item Timers: Im Code sind zwei Timers initialisiert. Timer A1 hat ACLK als Taktgeber und wird mit einer Frequenz von 1 Hz aufgerufen. Timer A2 ist an SMCLK gebunden und weist eine Frequenz von 250 Hz auf. Die zwei Timers funktionieren unabhängig voneinander und haben ihr eigenen ISR.
-    \item UART Display: Bei der Initialisierung der UART Verbindung zum Display, werden zunächst die Input- (RX) und Output- (TX) Pins festgelegt. Die Frequenz der MCU beträgt 20 MHz. Als Baudrate wurde 115200 $s^{-1}$ gewählt. Damit eine Verbindung der beiden Module besteht, muss die Baudrate sowohl beim Display als auch bei der MCU einprogrammiert werden. 
-    Befehle vom Display an die MCU werden mittels Interrupts realisiert. Das Display sendet eine Folge zwischen vier und sieben Byte, welche im Nextion-Editor des Displays einzusehen sind. Für welche Funktionen und Buttons des Displays ein Interrupt geschickt werden soll, wird im Nextion-Editor des Displays programmiert. Sobald die MCU eine gesendete Interrupt-Folge erkennt, werden Flags gesetzt. Anhand dieser Flags werden im späteren Verlauf gewisse Funktion auf der MCU aufgerufen.
-    Bei Befehlen, die von der MCU an das Display gesendet werden, wird im Wesentlichen mit drei Funktionen gearbeitet. Bei der ersten Funktion wird ein Command mit der entsprechenden Variablen als String (z.B. „page0.akku.val“ – Bedeutung siehe Baugruppe Display und Benutzeroberfläche) an das Display gesendet. Mit der zweiten Funktion wird der dazugehörende Wert, z.B. akku\_percentage, der Integer Werte in einen String umgewandelt und anschließend an das Display sendet. Um einen Befehl auch als solchen zu, erwartet das Display drei Bytes mit dem Inhalt „0xFF“ am Ende. Diese drei Byte werden in der dritten und somit letzten UART-Funktion an das Display gesendet. Anhand dieser drei Funktionen ist die Kommunikation fertiggestellt.
-    \item UART Bluetooth-Modul: Das verwendete Bluetooth Modul HC-05 wird über UART angesprochen, wobei die Baudrate flexibel konfigurierbar ist. Zum Transfer von Daten öffnet das Modul auf dem verbundenem Smartphone oder Laptop einen virtuellen COM-Port, über welchen es alle ihm übergebenen Bytes ausgibt. Seitens der MCU wird das Hardware-Modul USCI\_A1 verwendet, welches mit Ausnahme der Basisadresse identisch zu USCI\_A0 bzw. Display initialisiert wird.
-    Um beim versenden der Nachrichten keine Verzögerung oder zusätzliche CPU Last zu verursachen, wird Direct Memory Acces (DMA) verwendet. Das DMA-Modul kann nach korrekter Initialisierung automatische Daten im Hintergrund in das TX Register des UART Moduls kopieren. Hierfür muss das Modul auf Single Transfer konfiguriert werden. Weitere benötigte Konfigurationen sind Byte-to-Byte Transfer, die Quelladresse, die Zieladresse und die Datengröße. Als Trigger um das nächste Byte zu übertragen ist das Interrupt Flag UCA1TXIFG zu wählen, welches immer dann aktiv ist, wenn das UART Modul bereit ist ein weiteres Byte zu senden. Damit ein ganzer String verschickt werden kann, ist das DMA Modul auf ein Inkrementieren der Quelladresse nach jedem versendetem Byte einzustellen. Somit wird nach Aktivierung des Moduls durch setzen des DMA-Enable-Bits ein kompletter String im Hintergrund Byte für Byte versendet, bis die vorgegebene Datengröße abgearbeitet ist und das Enable-Bit automatisch zurückgesetzt wird. Die CPU selbst wird dabei jeweils nur für zwei Takte durch das DMA Modul unterbrochen und muss nicht auf den Abschluss jedes Sendevorgangs warten.
-    \item ADC: Demnächst wird das ADC Module initialisiert. Als Referenzspannung wird 1,5 V gesetzt. Das ist ein Standardwert. Als nächstes werden zwei Pins für EKG Aufnahme und Akkubeobachtung initialisiert. Als positive Referenzspannungsquelle wird AVCC (3V) für beide ADC Kanäle eingestellt. Negative Referenzspannungsquelle ist AVSS, was dem Groundpotential auf dem PCB entspricht. Beide Kanäle werden mit ACLK betrieben. Zum Schluss wird ein Interrupt für dieses Modul und das Modul selbst aktiviert.
-    \item SPI: Die SPI Schnittstelle wird mit einem SMCLK betrieben und kann die maximale Frequenz von 20 MHz erreichen. Nach dem Konfigurieren von Grundfrequenz und gewünschter Frequenz wird das SPI Modul aktiviert, Interrupt freigeschaltet, das Signal Chip Select gesendet und TX Buffer aktiviert. Wenn TX Buffer aktiv ist, wird ein Wert „0x00“ an Slave gesendet. 
-    \item FAT: FAT ist eine SPI-basierte Schnittstelle und benutzt SPI als Kommunikationsprotokoll. FAT Modul initialisiert SD-Karte. Dafür wird in diesem Projekt eine Open Source Library FatFs der Entwickler elm-chan.org verwendet. Diese Library ist unter „Creative Commons Attribution 3.0 Unported License“ lizenziert und daher kann für nichtkommerzielle Zwecke benutzt werden. 
-    SD-Karte wird mit einem Timeout initialisiert, was nicht nur das Detektieren der Karte im Kartenmodul ermöglicht, sondern auch das Testen von den Lese- und Schreibvorgängen. Somit kann geprüft werden, ob die SD-Karte funktionsfähig ist.
-    \item Medianfilter: Um Artefakte bei der Herzfrequenzmessung herauszufiltern, dient ein Medianfilter. Bei der Initialisierung werden zwei Strukturen und ein Array der Größe 11 angelegt. Ein Medianfilter gibt immer den Wert zurück, der sich in der Mitte des Arrays befindet. Anders als bei einem Mittelwertfilter, haben größere Artefakte keinen Einfluss auf den Medianwert. Dadurch wird sichergestellt, dass die Herzfrequenzmessung auch beim Aufstehen des Patienten oder großen Störfaktoren richtig berechnet wird. Aufgerufen wird die Median-Funktion unmittelbar nach der Herzfrequenzberechnung. In dem Array werden 11 Werte gespeichert und stets der Medianwert an das Display übermittelt.
+    \item Clocks: Es werden drei \textit{Clocks}  für den Mikrocontroller initialisiert. MCLK und SMCLK weisen eine Frequenz von 20 MHz auf. ACLK ist mit einer Frequenz von 32 kHz initialisiert.
+    MCLK wird als Taktquelle für die MCU verwendet. SMCLK ist ein Hochfrequenztakt und wird für Peripheriemodule verwendet. ACLK wird für Peripheriemodule verwendet, die einen niederfrequenten Takt benötigen.
+    \item Timer: Die \textit{Timer} lösen in gewissen Zeitintervalen \textit{Interrupts} aus. Im Code sind drei \textit{Timer} initialisiert. \textit{Timer} A0 bezieht seinen Takt von SMCLK und hat eine Frequenz von 1 kHz. \textit{Timer} A1 hat ACLK als Taktgeber und wird mit einer Frequenz von 1 Hz aufgerufen. Timer A2 ist an SMCLK gebunden und weist eine Frequenz von 250 Hz auf. Die drei \textit{Timer} funktionieren unabhängig voneinander und haben ihre eigene ISR.
+    \item UART Display: Bei der Initialisierung der UART Verbindung zum Display, werden zunächst die Input- (RX) und Output- (TX) Pins festgelegt. Die Frequenz der MCU beträgt 20 MHz und als Baudrate wurde 115200 $s^{-1}$ gewählt. Damit eine Verbindung der beiden Module hergestellt werden kann, muss die Baudrate sowohl beim Display als auch bei der MCU einprogrammiert werden.\\
+    Befehle vom Display an die MCU werden mittels \textit{Interrupts} realisiert. Das Display sendet eine Folge zwischen vier und sieben Bytes. Sobald die MCU eine gesendete Byte-Folge erkennt, werden in einem \textit{Interrupt Flags} gesetzt. Anhand dieser \textit{Flags} werden im späteren Verlauf gewisse Funktion auf der MCU aufgerufen.\\
+    Bei Befehlen, die von der MCU an das Display gesendet werden, wird im Wesentlichen mit drei Funktionen gearbeitet. Bei der ersten Funktion wird ein Befehl mit der entsprechenden Variablen als \textit{String} (z.B. „page0.akku.val“) an das Display gesendet. Mit der zweiten Funktion wird der dazugehörende Wert, zum Beispiel \textit{akku\_percentage}, von einem \textit{Integer} Wert in einen \textit{String} umgewandelt und anschließend an das Display sendet. Um einen Befehl abzuschließen, erwartet das Display drei Bytes mit dem Inhalt „0xFF“ am Ende. Diese drei Bytes werden in der dritten UART-Funktion an das Display gesendet.
+    \item UART Bluetooth-Modul: Das verwendete Bluetooth Modul HC-05 wird über UART angesprochen, wobei die Baudrate 38400 $s^{-1}$ beträgt. Seitens der MCU wird das Hardware-Modul USCI\_A1 verwendet, welches mit Ausnahme der Basisadresse identisch zu USCI\_A0 bzw. Display initialisiert wird.\\
+    Um beim Versenden der Nachrichten keine Verzögerung oder zusätzliche CPU Last zu verursachen, wird \textit{Direct Memory Access} (DMA) verwendet. Das DMA-Modul kann automatische Daten im Hintergrund in das TX Register des UART Moduls kopieren. Hierfür wird nach jedem Trigger die Information byteweise übertragen. Als Trigger wird das \textit{Interrupt Flag} UCA1TXIFG gewählt, welches immer dann aktiv ist, wenn das UART Modul bereit ist ein weiteres Byte zu senden.\\
+    Damit ein ganzer \textit{String} verschickt werden kann, inktementiert das DMA Modul die Quelladresse nach jedem versendeten Byte. Somit wird nach Aktivierung des Moduls durch setzen des DMA-Enable-Bits ein kompletter String im Hintergrund Byte für Byte versendet, bis die vorgegebene Datengröße abgearbeitet ist und das Enable-Bit automatisch zurückgesetzt wird. Die CPU selbst wird dabei jeweils nur für zwei Takte durch das DMA Modul unterbrochen und muss nicht auf den Abschluss jedes Sendevorgangs warten.
+    \item ADC: Danach wird das ADC Modul initialisiert und die beiden Pins für die EKG-Aufnahme und Akkuüberwachung konfiguriert. Als positive Referenzspannungsquelle wird AVCC (3V) für beide ADC Kanäle eingestellt. Negative Referenzspannungsquelle ist AVSS, was dem Massepotential auf der Platine entspricht. Beide Kanäle werden mit ACLK betrieben. Zum Schluss wird der \textit{Interrupt} für dieses Modul aktiviert.
+    \item SPI: Die SPI Schnittstelle dient zur Kommunikation mit dem SD-Kartenmodul und wird mit der SMCLK betrieben. Nach dem die gewünschte Frequenz eingestellt wurde, werden die \textit{Interrupts} freigeschaltet, das \textit{Chip Select} Signal an den \textit{Slave} gesendet und der TX Buffer aktiviert.
+    \item FAT: Als Kommunikationsprotokoll für FAT, wird die Schnittstelle SPI verwendet. Das FAT-Modul ist für die Initialisierung der SD-Karte verantwortlich. Dafür wird in diesem Projekt eine Open Source Library verwendet.(TODO: auf FatFs der Entwickler elm-chan.org referieren ?) Diese Library ist unter „Creative Commons Attribution 3.0 Unported License“ lizenziert und kann daher für nichtkommerzielle Zwecke genutzt werden.
+    \item Medianfilter: Der Medianfilter dient dazu, Ausreiser (verursacht durch Bewegungsartefakte des Anwenders) der berechneten Herzfrequenz herauszufiltern. In der Initialisierung wird ein Array mit elf Elementen angelegt, dass als Speicher des Filters dient. Aus diesem Speicher wird nach jeder neuen Pulsberechnung der Median weiterverarbeitet. Im Gegensatz zu einem Mittelwertfilter haben vereinzelte Ausreiser keinen Einfluss auf das Ergebnis.
 \end{enumerate}
 
 \subsubsection{Idle State}
 
-Direkt nach dem Initialisierungsvorgang der MCU, befindet man sich im IDLE\_STATE. 
-Als IDLE\_STATE wird der Zustand bezeichnet, in dem sich das EKG-Gerät im Leerlauf befindet. Hier wird kontinuierlich in einer while-Schleife abgefragt, ob der Benutzer/die Benutzerin ein Kurzzeit- oder Langzeit-EKG aufnehmen möchte.
-Eine erfolgreiche Abfrage wird durch den Start-Befehl des Displays in Form eines Interrupts erreicht. Sobald der Benutzer/die Benutzerin den Befehl gibt, wird eine CSV Datei auf der SD-Karte erstellt und der Case der \textit{State Machine} wechselt entsprechend der gewünschten Aufnahme Methode.
+Direkt nach dem Initialisierungsvorgang der MCU, befindet man sich im \textit{IDLE\_STATE}. 
+Als \textit{IDLE\_STATE} wird der Zustand bezeichnet, in dem sich das EKG-Gerät im Leerlauf befindet. Hier wird kontinuierlich in einer while-Schleife abgefragt, ob der Marker für ein Kurz- oder Langzeit-EKG gesetzt ist. Der Marker wird im \textit{Interrupt} gesetzt, der ausgelöst wird nachdem der Benutzer die Aufnahme des EKG startet.
+Eine erfolgreiche Abfrage wird durch den Start-Befehl des Displays in Form eines Interrupts erreicht. Sobald der Benutzer den Befehl gibt, wird eine CSV Datei auf der SD-Karte erstellt und der Zustand der \textit{State Machine} wechselt entsprechend der gewünschten Aufnahme Methode.
 
 \subsubsection{Kurzzeit-EKG}
 
-Im Falle einer Kurzzeit-Aufnahme startet man das EKG auf dem Display im Unterpunk „Kurzzeit EKG“. Sobald dieser Befehl ausgeführt wurde, läuft die Aufnahme samt Speicherung für zwei Minuten automatisch ab. Um das EKG vorzeitig abzubrechen, kann der Stopp-Button des Displays betätigt werden. Dabei ist eine Sicherheitsabfrage vorzufinden, ob der Befehl bewusst oder unbewusst getätigt wurde. Gestoppt wird somit erst nach der Bestätigung auf „Ja“. Ansonsten läuft die Aufnahme bis Vollendung der zwei Minuten weiter.
+Im Falle einer Kurzzeit-Aufnahme startet man das EKG auf dem Display im Unterpunk „Kurzzeit EKG“. Sobald dieser Befehl ausgeführt wurde, läuft die Aufnahme samt Speicherung für zwei Minuten automatisch ab. 
+Die EKG Aufnahme wird kontinuierlich durchgeführt. Das heißt die ADC Werte werden direkt an das Display und an die SD-Karte übertragen, ohne vorher zwischengespeichert zu werden. Nachdem die MCU in den Zustand ECG\_SHORT wechselt, wird als erstes ein Timer auf dem Display gestartet. Der Timer zeigt an, seit welcher Zeit die EKG Aufnahme läuft. Zunächst wird auf eine 250 Hz Flag gewartet. Sobald die Flag ungleich Null ist, wird ein ADC Wert aufgenommen und die FlaG zurückgesetzt. Wenn ein neuer ADC Wert ankommt, wird eine weitere Flag gesetzt und dadurch wird der aufgenommene ADC Wert an das Display gesendet und demnächst auf die SD-Karte gespeichert. Die Flag wird zurückgesetzt.
+Es wird stets kontrolliert, ob während der Aufnahme ein Langzeit-EKG gestartet wird. Sollte dies geschehen, wird eine Warnung auf das Display angezeigt und der Vorgang verhindert.
+Nach der Aufnahme wird die Flag für das Kurzzeit-EKG zurückgesetzt, die Datei auf der SD-Karte gespeichert, die Timer zurückgesetzt und die MCU gelangt wieder im Idle Zustand. Um das EKG vorzeitig abzubrechen, kann der Stopp-Button des Displays betätigt werden. Dabei ist eine Sicherheitsabfrage vorzufinden, ob der Befehl bewusst oder unbewusst getätigt wurde. Gestoppt wird somit erst nach der Bestätigung auf „Ja“. Ansonsten läuft die Aufnahme bis Vollendung der zwei Minuten weiter.
+
 \begin{figure} [!h]
 	%\centering
 	\includegraphics[width=\textwidth] {Short ECG.png}
 	\caption{Display UI einer Kurzzeit-Aufnahme}
 \end{figure}
 
-\subsubsection{Langzeit-EKG}
-
-Im Gegensatz zum Kurzzeit-EKG, weist das Schema einer Langzeit-Aufnahme einige Änderungen auf. Gestartet wird ebenfalls durch einen Start-Befehl auf dem Display. Hier ist jedoch zu beachten, dass der Ladestand der Batterie beim Start mindestens 80 \% aufweist. Eine Aufnahme ist ansonsten nicht möglich, da es im Falle eines zu leeren Akkus zu Datenverlust kommen kann. Bei der Langzeit-Aufnahme läuft das EKG für 24 Stunden automatisch. Um eine Aufnahme über 24 Stunden gewähr zu leisten, muss der Nutzer/die Nutzerin den Power Button des Geräts einmalig drücken. Dadurch wird der Stromsparmodus aktiviert und das Gerät wechselt automatisch zwischen einem ON- und OFF-Modus. Im OFF-Modus ist die 5 V Peripherie (das Display und das Bluetooth-Modul) vollständig deaktiviert. Der ON-Modus hingegen, aktiviert alle vier Sekunden das SD-Kartenmodul und speichert die gesammelten Werte in der CSV Datei ab. Bei erneutem Betätigen des Power Buttons wird der Stromsparmodus verlassen und der Zugriff auf das Display wieder gewährt. Um die Aufnahme vorzeitig abzubrechen, kann der Stopp-Button auf dem Display betätigt werden. Wie auch beim Kurzzeit-EKG wird durch die Sicherheitsabfrage ein unbewusstes Drücken verhindert.
-
-\subsubsection{Energy Saving Mode und Wakeup Mode}
-
-Um ein schnelles Entladen der Batterie entgegenzuwirken und eine möglichst lange Lagerung (Shelf-Time) zu garantieren, verfügt das EKG-Gerät über einen Energiesparmodus. Die MCU befindet sich während diesem Vorgang im ENERGY\_SAVING\_MODE. Um diesen zu aktivieren, wird im IDLE\_STATE der physische Button am Gehäuse gedrückt, der die gesamte 5 V Peripherie abschaltet. Beim Betätigen des Tasters, sind drei akustische Töne eines Buzzers zu hören.
-
-Um den Energiesparmodus wieder zu verlassen, gibt es den Case SYS\_WAKEUP. Aufgerufen wird dieser, wenn während dem Energiesparmodus der Button am Gehäuse gedrückt wird. Die gesamte 5 V Peripherie schaltet sich dabei an und das akustische Signal des Buzzers ist erneut zu hören.
-
-Das EKG-Gerät verfügt über einen physischen Button, der die 5 V Peripherie steuert. Dadurch wird das Gerät in einen Energiesparmodus versetzt um eine lange Lagerung zu ermöglichen.
-Beim Drücken des Buttons, wird ein Interrupt im GPIO verursacht. Mithilfe einer Delay-Funktion wird auf das Entprellen der Taste geachtet. Im Interrupt wird eine 5V-Flag gesetzt. Diese Flag ist mit „FALSE“ initialisiert. „FALSE“ bedeutet demnach, dass die 5 V Peripherie eingeschaltet ist.
-Beim erstmaligen drücken wird die Flag auf „TRUE“ gesetzt. Dabei gelangt man in den Case ENERGY\_SAVING\_MODE. In diesem Case wird eine Funktion aufgerufen, die den 5 V DCDC abschaltet. In dieser Funktion wird zunächst die Buzzer-Funktion gestartet. Der Buzzer wird drei Mal mir einer Frequenz von 250 Hz angeregt und generiert dadurch drei akustische Töne. Nachdem der Nutzer das akustische Signal bekommen hat, wird die gesamte 5 V Peripherie abgeschaltet. Da der Pin, der den Status der SD-Karte wiedergibt mit 3 V betrieben wird, wird abgefragt ob sich die SD-Karte im Gerät befindet. Dementsprechend wird eine weitere Flag gesetzt.
-Bei erneutem Drücken des Buttons wird wieder ein Interrupt ausgelöst, der nun die 5V-Flag zurück auf „FALSE“ setzt. Dabei gelangt man in den Case SYS\_WAKEUP. In diesem Case wird die Funktion State\_sys\_Wakeup\_Mode ausgeführt. Die gesamte 5V Peripherie wird wieder angeschaltet. Nachdem der Buzzer das akustischen Signale nach dem Anschalten wiedergibt, gelangt die MCU zurück in den IDLE\_STATE. Die Flag, welche beim Ausschalten für die SD-Karte gesetzt wurde, wird nun durch Check\_SD\_Card\_Connection in der main Funktion abgefragt. Demnach wird auf dem Display die Verbindung angezeigt.
-\begin{figure} [!h]
-	\centering
-	\includegraphics[width=12cm] {Idle State and Evergy Saving.png}
-	\caption{Energy Saving Mode in Idle State}
-\end{figure}
-
-\subsubsection{Akku-, BT-, SD-Abfrage}
-
-Abgesehen von der \textit{State Machine}, befindet sich noch eine if-Abfrage in der main Funktion. Dabei handelt es sich um drei Funktionen, die jede Sekunde im IDLE\_STATE oder während einer Kurz- / Langzeitaufnahme ausgeführt werden.
-\begin{itemize}
-    \item ADC\_Akku\_Average\_Value berechnet alle drei Sekunden den Mittelwert der ADC-Werte, welche am Akku anliegen. Anhand des Mittelwertes wird der Akku in Prozent umgerechnet. Somit ist das Ablesen des Ladestandes auf der Startseite für den Benutzer/die Benutzerin intuitiv und einfach zu verstehen.
-    Der Prozentbetrag wird jede dritte Sekunde auf dem Display aktualisiert.
-    \item Check\_BT\_Connection und Check\_SD\_Card\_Connection sind zwei Funktionen, die die aktuelle Verbind der Peripherie zum Bluetooth Modul und zum SD-Kartenleser auf dem Display anzeigt. Es werden die State-Pins der Module abgefragt und ein Symbol auf das Display gesetzt. Wenn die Verbindung steht, sind die Symbole auf der Startseite blau. Bei keiner Verbindung werden die Symbole grau.
-    \item Bei der Abfrage für die SD-Karte gibt es außerdem zwei zusätzliche Funktionen. Wenn die SD-Karte herausgezogen wird, erscheint auf dem Display eine Warnmeldung. Die Speicherung bei einem Langzeit-EKG erfordert eine eingelegte SD-Karte. Beim Entfernen und wieder Anschließen einer SD-Karte, wird diese neu initialisiert und die aktuellen Daten bleiben vorhanden.
-\end{itemize}
-
-\subsubsection{Aufnahme eines Kurzzeit-EKG}
-
-Die Kurzzeit-EKG Aufnahme wird kontinuierlich durchgeführt. D.h. die ADC Werte werden direkt an das Display und SD-Karte übertragen ohne Zwischenspeichern. Nachdem die MCU auf ECG\_SHORT Zustand wechselt, wird als erstes ein Timer auf dem Display gestartet. Der Timer zählt, wie lange die EKG Aufnahme durchgeführt wird. Nach zwei Minuten wird die Aufnahme automatisch beendet und der Benutzer wird benachrichtigt. Zunächst wird es auf 250 Hz Flag gewartet und sobald die Flag ungleich Null ist, wird ein ADC Wert aufgenommen und die Flag wird zurückgesetzt. Wenn ein neuer ADC Wert ankommt, wird eine weitere Flag gesetzt und dadurch wird der aufgenommene ADC Wert an das Display gesendet und demnächst auf die SD-Karte gespeichert. Die Flag wird zurückgesetzt.
-Es wird durchgehend kontrolliert, dass es nur Kurzzeit-EKG aufgenommen wird. Sollte der Benutzer während der Aufnahme versuchen auf Langzeit-EKG zu wechseln, wird eine Warnung gezeigt und der Vorgang verhindert.
-Nach der Aufnahme wird die Flag für Kurzzeit-EKG zurückgesetzt, die Datei auf der SD-Karte gespeichert, die Timer zurückgesetzt und die MCU geht in Idle Zustand. Das Display wird dementsprechend die Hauptseite anzeigen.
-
-Im Kurzzeitmodus wird zudem kontinuierlich die Herzfrequenz gemessen und an das Display gesendet. Hierfür werden über einen Schwellwert die R-Zacken des Signals detektiert und die Anzahl der Werte zwischen diesen gezählt. 
+Im Kurzzeitmodus wird zudem kontinuierlich die Herzfrequenz gemessen und an das Display gesendet. Hierfür werden über einen Schwellwert die R-Zacken des Signals detektiert und die Anzahl der Werte zwischen diesen gezählt.
 
 $ Pulsfrequenz = \frac{Maximalanzahl der Werte in einer Minute}{Anzahl der Werte einer Signalperiode} $
 
@@ -155,20 +125,75 @@ Der Schwellwert wird permanent durch das Maximum und Minimum der vergangenen Sig
 
 $ Schwellwert = Minimum + 0,8 * (Maximum - Minimum) $
 
-\subsubsection{Aufnahme eines Langzeit-EKG}
+\subsubsection{Langzeit-EKG}
 
-Im Gegensatz zu Kurzzeit-EKG, werden die Daten während der Langzeit-EKG Aufnahme intern auf der MCU gespeichert und blockweise in gewissen Zeitintervallen an SD-Karte gesendet. Da das SD-Kartenmodul an 5V angeschlossen ist und im Stromsparmodus 5V Peripherie komplett abgeschaltet ist, weicht die Logik von Kurzzeit-Aufnahme ab.
-Beim Wechseln auf Langzeit-EKG Modus wird als erstes die Timer- und ADC-Werte an das Display gesendet. Somit kann der Benutzer den Kurvenverlauf und Dauer der Aufnahme sehen. Weiterhin wird die Stromsparmodus-Logik aufgerufen. Diese Logik enthält eine \textit{State Machine} mit drei Zuständen. Die State Machine ist mit einer switch-Anweisung realisiert. Die drei Zustände sind: normaler Zustand (MODE\_NORMAL), 5V Peripherie an (MODE\_5V\_ON) und 5V Peripherie aus (MODE\_5V\_OFF). 
-Die zwei Modi für 5V an und aus sind für Stromsparmodus entwickelt. Das Funktionsprinzip des Stromsparmodus ist auf dem Bild zu sehen.
+Im Gegensatz zum Kurzzeit-EKG, werden die Daten während der Langzeit-Aufnahme intern auf der MCU gespeichert und blockweise in gewissen Zeitintervallen an die SD-Karte gesendet. Gestartet wird ebenfalls durch einen Start-Befehl auf dem Display. Hier ist jedoch zu beachten, dass der Ladestand der Batterie beim Start mindestens 80 \% aufweist. Eine Aufnahme ist ansonsten nicht möglich, da es im Falle eines zu leeren Akkus zu Datenverlust kommen kann. Bei der Langzeit-Aufnahme läuft das EKG für 24 Stunden automatisch. Währenddessen schickt die MCU die Timer- und ADC-Werte an das Display. Somit kann der Benutzer den Kurvenverlauf und die Dauer der Aufnahme sehen. 
+
+Um eine Aufnahme über 24 Stunden gewähr zu leisten, muss der Nutzer den Taster des Gehäuses drücken. Dadurch wird ein Energiesparmodus aktiviert. Die Logik des Stromsparmodus enthält eine weitere \textit{State Machine} mit drei Zuständen. Die State Machine ist mit einer switch-Anweisung realisiert. Die drei Zustände sind: normaler Zustand \textit{(MODE\_NORMAL)}, 5V Peripherie an \textit{(MODE\_5V\_ON)} und 5V Peripherie aus \textit{(MODE\_5V\_OFF)}. Das Funktionsprinzip des Energiesparmodus ist auf dem Bild zu sehen.
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=12cm] {Langzeit EKG Energy Saving.png}
+    \caption{Energy Saving Mode während Langzeit-EKG}
+\end{figure}
+
+Im normalen Zustand bleibt die ganze 5V Peripherie angeschaltet. Das QRS Komplex ist auf dem Display zu sehen. Der einzige Unterschied ist das Schreiben auf die SD-Karte. Dieser Vorgang ist folgendermaßen realisiert. Es sind zwei Arrays mit jeweils 1000 Werten benutzt. Da der ADC am 250Hz-Timer gebunden ist, wird dieses Array innerhalb von 4 Sekunden aufgefüllt. Um sie zu unterscheiden, werden sie Main Storage und Redundant Storage genannt. Im ADC Interrupt wird jeder neue ADC-Wert in Main Storage gespeichert, und zwar so lange, bis das Array voll wird. Nachdem das Main Storage voll ist, wird das ganze Array in Redundant Storage kopiert. Somit kann Main Storage wieder überschrieben werden und währenddessen bleibt Redundant Storage unverändert. Wenn Main Storage voll ist und in Redundant Storage kopiert, wird eine Flag gesetzt und somit das Senden an die SD-Karte gestartet. Nachdem das Senden fertig ist, wird der ganze Vorgang wiederholt.
+Wenn der Taster betätigt wird, geht die MCU aus dem Zustand \textit{MODE\_NORMAL} in den \textit{MODE\_5V\_OFF}. In diesem Zustand wird die 5V Peripherie abgeschaltet. Der Zustand kann verlassen werden, wenn entweder Main Storage voll ist und die entsprechende Flag gesetzt ist, oder der Taster erneut betätigt wird.
+Wenn die Flag gesetzt wird, geht die MCU in den Zustand \textit{MODE\_5V\_ON}, in dem die 5V Peripherie wieder versorgt wird. Demnächst wird die SD-Karte initialisiert und das bereits kopierte Redundant Storage an die SD-Karte geschrieben. Danach geht die MCU in den Zustand \textit{MODE\_5V\_OFF} und der Vorgang wird wiederholt.
+Wenn der Taster betätigt wird, geht die MCU in den Zustand \textit{MODE\_NORMAL} und zeigt die Werte auf dem Display an. In diesem Zustand kann der Benutzer das Gerät wieder in den Energiesparmodus versetzen oder die Aufnahme vorzeitig beenden. Für das beenden, kann der Stopp-Button auf dem Display betätigt werden. Wie auch beim Kurzzeit-EKG wird durch die Sicherheitsabfrage ein unbewusstes Drücken verhindert. Die Aufnahme wird ansonsten nach 24 Stunden automatisch beendet. Die MCU gelangt dann zurück in den Idle Zustand.
+
+\subsubsection{Energy Saving Mode und Wakeup Mode}
+
+Um die Batterielaufzeit bei einer Lagerung zu verlängern, verfügt das EKG-Gerät über einen Energiesparmodus. Wenn das Gerät eingeschaltet ist und sich im \textit{IDLE\_STATE} befindet, kann der Taster am Gehäuse gedrückt werden. Dabei wird in den Zustand \textit{ENERGY\_SAVING\_MODE} gewechselt. Dieser schaltet den 5 V DC/DC und die damit verbundene Peripherie ab. Beim Ausschalten ist ein akustisches Signal eines Buzzers zu hören. Die Überwachung des SD-Kartenstatus läuft über 3 V. Daher ist diese selbst im \textit{ENERGY\_SAVING\_MODE} vorhanden. Sollte die SD-Karte währenddessen entfernt werden, wird eine SD-Flag im GPIO gesetzt.
+Wenn im Energiesparmodus der Taster am Gehäuse erneut betätigt wird, gelangt man in den Zustand \textit{SYS\_WAKEUP}. In diesem Zustand wird die 5 V Peripherie wieder angeschaltet und das akustische Signal des Buzzers ist zu hören. Sollte die SD-Karte während dem Energiesparmodus entfernt worden sein, wird der Benutzer auf dem Display darauf hingewiesen. Sollte die SD-Karte nun erneut eingesteckt werden, erfolgt eine Initialisierung und das SD-Karten Symbol auf dem Display wird aktualisiert.
+Das EKG-Gerät befindet sich schließlich wieder im \textit{IDLE\_STATE}.
+
+Die Logik wird Anhand der Abbildung \ref{fig. energysavingmode} verdeutlicht.
+
 \begin{figure} [!h]
 	\centering
-	\includegraphics[width=12cm] {Langzeit EKG Energy Saving.png}
-	\caption{Energy Saving Mode während Langzeit-EKG}
+	\includegraphics[width=12cm] {Idle State and Evergy Saving.png}
+	\caption{Energy Saving Mode in Idle State}
+    \label{fig. energysavingmode}
 \end{figure}
-Wenn der Benutzer 24 Stunden Aufnahme macht, ist es sinnvoll Energie zu sparen. Im Stromsparmodus wird die ganze 5V Peripherie komplett abgeschaltet, d.h. das Display, Bluetooth und SD-Karte werden nicht mehr versorgt. Das Stromsparmodus kann aktiviert werden, wobei der Benutze den Power Button auf dem Gehäuse einmal betätigt.
-Wenn der Benutzer eine Langzeit-EKG Aufnahme gestartet hat, landet das Programm in MODE\_NORMAL zuerst und bleibt in diesem Zustand solange, bis der Benutzer den Power Button betätigt. Im normalen Zustand bleibt die ganze 5V Peripherie an, das QRS Komplex ist auf dem Display zu sehen und die ADC-Werte werden via Bluetooth gesendet. Der einzige Unterschied ist das Schreiben auf SD-Karte. Dieser Vorgang ist komplett verarbeitet und ist folgendermaßen realisiert. Es sind zwei Arrays mit jeweils 1000 Werten benutzt. Dadurch, dass ADC an 250Hz Timer gebunden ist, wird dieses Array innerhalb von 4 Sekunden aufgefüllt. Um sie zu unterscheiden, werden sie Main Storage und Redundant Storage genannt. Im ADC Interrupt wird jeder neue ADC-Wert in Main Storage gespeichert, und zwar so lange, bis das Array voll wird. Nachdem das Main Storage voll ist, wird das ganze Array in Redundant Storage kopiert. Somit kann Main Storage wieder überschrieben werden und währenddessen bleibt Redundant Storage unverändert. Wenn Main Storage voll ist und in Redundant Storage kopiert, wird eine Flag gesetzt und somit das Senden an SD-Karte gestartet. Nachdem das Senden fertig ist, wird der ganze Vorgang wiederholt.
-Wenn der Power Button betätigt wird, geht die MCU aus dem MODE\_NORMAL in MODE\_5V\_OFF. In diesem Zustand wird 5V Peripherie abgeschaltet. Der Zustand kann verlassen werden, wenn entweder Main Storage voll ist und entsprechende Flag gesetzt ist, oder der Power Button nochmal betätigt wird.
-Wenn die Flag gesetzt wird, geht die MCU in MODE\_5V\_ON in dem die 5V Peripherie wieder versorgt wird. Demnächst wird die SD-Karte initialisiert und das bereits kopierte Redundant Storage an die SD-Karte geschrieben. Danach geht die MCU in MODE\_5V\_OFF und der Vorgang wird wiederholt.
-Wenn der Power Button betätigt wird, geht die MCU in MODE\_NORMAL, zeigt die Werte auf dem Display und sendet Daten via Bluetooth bei Bedarf. In diesem Zustand kann der Benutzer entweder die Aufnahme beenden oder das Gerät wieder in Energy Saving Mode senden. 
-Die Aufnahme wird nach 24 Stunden automatisch beendet und die MCU geht wieder in Idle State.
+
+\subsubsection{Akku-, BT-, SD-Abfrage}
+
+Ausßerhalb der switch-Anweisung, die die \textit{State Machine} bildet, werden jede Sekunde folgende Funktionen aufgerufen.
+\begin{itemize}
+    \item \textit{ADC\_Akku\_Average\_Value} berechnet über drei Sekunden den Mittelwert der ADC-Werte der Akkuspannung. Diese werden als Information für den Benutzer an das Display gesendet.
+    \item \textit{Check\_BT\_Connection} und \textit{Check\_SD\_Card\_Connection} sind zwei Funktionen, die die aktuelle Verbindung der Peripherie zum Bluetooth Modul und zum SD-Kartenleser ermitteln und auf dem Display anzeigen. Hierfür werden die State-Pins der Module abgefragt. Besteht eine Verbindung zum jeweiligen Modul, sind die Symbole auf dem Display blau, anderenfalls sind die grau. Der Start einer Langzeitaufnahme ist nur mit angeschlossener SD-Karte möglich.
+    Bei der Abfrage für die SD-Karte gibt es außerdem zwei zusätzliche Funktionen. Wenn die SD-Karte herausgezogen wird, erscheint auf dem Display eine Warnmeldung. Beim Entfernen und wieder Anschließen einer SD-Karte, wird diese neu initialisiert und die aktuellen Daten bleiben vorhanden.
+\end{itemize}
+
+%\subsubsection{Aufnahme eines Kurzzeit-EKG}
+
+%Die Kurzzeit-EKG Aufnahme wird kontinuierlich durchgeführt. D.h. die ADC Werte werden direkt an das Display und SD-Karte übertragen ohne Zwischenspeichern. Nachdem die MCU auf ECG\_SHORT Zustand wechselt, wird als erstes ein Timer auf dem Display gestartet. Der Timer zählt, wie lange die EKG Aufnahme durchgeführt wird. Nach zwei Minuten wird die Aufnahme automatisch beendet und der Benutzer wird benachrichtigt. Zunächst wird es auf 250 Hz Flag gewartet und sobald die Flag ungleich Null ist, wird ein ADC Wert aufgenommen und die Flag wird zurückgesetzt. Wenn ein neuer ADC Wert ankommt, wird eine weitere Flag gesetzt und dadurch wird der aufgenommene ADC Wert an das Display gesendet und demnächst auf die SD-Karte gespeichert. Die Flag wird zurückgesetzt.
+%Es wird durchgehend kontrolliert, dass es nur Kurzzeit-EKG aufgenommen wird. Sollte der Benutzer während der Aufnahme versuchen auf Langzeit-EKG zu wechseln, wird eine Warnung gezeigt und der Vorgang verhindert.
+%Nach der Aufnahme wird die Flag für Kurzzeit-EKG zurückgesetzt, die Datei auf der SD-Karte gespeichert, die Timer zurückgesetzt und die MCU geht in Idle Zustand. Das Display wird dementsprechend die Hauptseite anzeigen.
+
+%Im Kurzzeitmodus wird zudem kontinuierlich die Herzfrequenz gemessen und an das Display gesendet. Hierfür werden über einen Schwellwert die R-Zacken des Signals detektiert und die Anzahl der Werte zwischen diesen gezählt. 
+
+%$ Pulsfrequenz = \frac{Maximalanzahl der Werte in einer Minute}{Anzahl der Werte einer Signalperiode} $
+
+%Der Schwellwert wird permanent durch das Maximum und Minimum der vergangenen Signalperiode angepasst, um auf Schwankungen des Signals zu reagieren.
+
+%$ Schwellwert = Minimum + 0,8 * (Maximum - Minimum) $
+
+%\subsubsection{Aufnahme eines Langzeit-EKG}
+
+%Im Gegensatz zu Kurzzeit-EKG, werden die Daten während der Langzeit-EKG Aufnahme intern auf der MCU gespeichert und blockweise in gewissen Zeitintervallen an SD-Karte gesendet. Da das SD-Kartenmodul an 5V angeschlossen ist und im Stromsparmodus 5V Peripherie komplett abgeschaltet ist, weicht die Logik von Kurzzeit-Aufnahme ab.
+%Beim Wechseln auf Langzeit-EKG Modus wird als erstes die Timer- und ADC-Werte an das Display gesendet. Somit kann der Benutzer den Kurvenverlauf und Dauer der Aufnahme sehen. Weiterhin wird die Stromsparmodus-Logik aufgerufen. Diese Logik enthält eine \textit{State Machine} mit drei Zuständen. Die State Machine ist mit einer switch-Anweisung realisiert. Die drei Zustände sind: normaler Zustand (MODE\_NORMAL), 5V Peripherie an (MODE\_5V\_ON) und 5V Peripherie aus (MODE\_5V\_OFF). 
+%Die zwei Modi für 5V an und aus sind für Stromsparmodus entwickelt. Das Funktionsprinzip des Stromsparmodus ist auf dem Bild zu sehen.
+%\begin{figure} [!h]
+%	\centering
+%	\includegraphics[width=12cm] {Langzeit EKG Energy Saving.png}
+%	\caption{Energy Saving Mode während Langzeit-EKG}
+%\end{figure}
+%Wenn der Benutzer 24 Stunden Aufnahme macht, ist es sinnvoll Energie zu sparen. Im Stromsparmodus wird die ganze 5V Peripherie komplett abgeschaltet, d.h. das Display, Bluetooth und SD-Karte werden nicht mehr versorgt. Das Stromsparmodus kann aktiviert werden, wobei der Benutze den Power Button auf dem Gehäuse einmal betätigt.
+%Wenn der Benutzer eine Langzeit-EKG Aufnahme gestartet hat, landet das Programm in MODE\_NORMAL zuerst und bleibt in diesem Zustand solange, bis der Benutzer den Power Button betätigt. Im normalen Zustand bleibt die ganze 5V Peripherie an, das QRS Komplex ist auf dem Display zu sehen und die ADC-Werte werden via Bluetooth gesendet. Der einzige Unterschied ist das Schreiben auf SD-Karte. Dieser Vorgang ist komplett verarbeitet und ist folgendermaßen realisiert. Es sind zwei Arrays mit jeweils 1000 Werten benutzt. Dadurch, dass ADC an 250Hz Timer gebunden ist, wird dieses Array innerhalb von 4 Sekunden aufgefüllt. Um sie zu unterscheiden, werden sie Main Storage und Redundant Storage genannt. Im ADC Interrupt wird jeder neue ADC-Wert in Main Storage gespeichert, und zwar so lange, bis das Array voll wird. Nachdem das Main Storage voll ist, wird das ganze Array in Redundant Storage kopiert. Somit kann Main Storage wieder überschrieben werden und währenddessen bleibt Redundant Storage unverändert. Wenn Main Storage voll ist und in Redundant Storage kopiert, wird eine Flag gesetzt und somit das Senden an SD-Karte gestartet. Nachdem das Senden fertig ist, wird der ganze Vorgang wiederholt.
+%Wenn der Power Button betätigt wird, geht die MCU aus dem MODE\_NORMAL in MODE\_5V\_OFF. In diesem Zustand wird 5V Peripherie abgeschaltet. Der Zustand kann verlassen werden, wenn entweder Main Storage voll ist und entsprechende Flag gesetzt ist, oder der Power Button nochmal betätigt wird.
+%Wenn die Flag gesetzt wird, geht die MCU in MODE\_5V\_ON in dem die 5V Peripherie wieder versorgt wird. Demnächst wird die SD-Karte initialisiert und das bereits kopierte Redundant Storage an die SD-Karte geschrieben. Danach geht die MCU in MODE\_5V\_OFF und der Vorgang wird wiederholt.
+%Wenn der Power Button betätigt wird, geht die MCU in MODE\_NORMAL, zeigt die Werte auf dem Display und sendet Daten via Bluetooth bei Bedarf. In diesem Zustand kann der Benutzer entweder die Aufnahme beenden oder das Gerät wieder in Energy Saving Mode senden. 
+%Die Aufnahme wird nach 24 Stunden automatisch beendet und die MCU geht wieder in Idle State.
 
