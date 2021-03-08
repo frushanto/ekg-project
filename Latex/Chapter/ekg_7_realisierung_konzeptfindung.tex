@@ -115,7 +115,7 @@ Das Projekt EKG7 basiert auf dem Microcontroller MSP430F5529. Gemäß den Projek
 Das Hauptziel der Baugruppe ist eine kontinuierliche Bearbeitung und Übertragung des analogen Eingangssignals an verschiedene Module mit einem möglichst niedrigen Stromverbrauch.\\
 Die F5529 MCU verfügt über fünf verschiedene Stromsparmodi. In diesen Modi liegt die Stromaufnahme im µA-Bereich. Der aktive Zustand des Prozessors verbraucht bei maximaler Belastung 3,7 mA.\\
 Der nächste wichtige Aspekt ist eine ausreichende Taktfrequenz. Die maximale Frequenz der F5529 beträgt 25 MHz. In diesem Projekt sind die \textit{Clocks} auf eine Frequenz von 20 MHz eingestellt, was durch das UART-Modul begrenzt wird.\\
-Die MCU verfügt über 2 UART- und 4 SPI-Schnittstellen. Beide UART Schnittstellen sind für Bluetooth-Verbindung und Kommunikation mit dem Display ausgelegt. Eine SPI-Schnittstelle wird für die Datenübertragung an das Bluetooth Modul verwendet.
+Die MCU verfügt über 2 UART- und 4 SPI-Schnittstellen. Beide UART Schnittstellen sind für Bluetooth-Verbindung und Kommunikation mit dem Display ausgelegt. Eine SPI-Schnittstelle wird für die Datenübertragung an das Bluetooth-Modul verwendet.
 Die ADC Schnittstelle hat eine Auflösung von 12-bit, was es ermöglicht die Werte im Bereich von 0 bis 4095 darzustellen. Sie wird zur Aufnahme des EKG-Signals als auch der Akkuspannung verwendet.\\ 
 Ein weiterer Faktor für das Projekt ist die Anzahl der I/O Pins. Die MCU besitzt insgesamt 63 GPIO Pins von denen 16 interruptfähig sind.\\
 Die MCU besitzt 8 kB RAM. Dieser Speicher ist ausreichend, um die temporären Werte intern auf der MCU zu speichern und diverse Funktionen wie z.B. die digitale Filterung zu testen.\\
