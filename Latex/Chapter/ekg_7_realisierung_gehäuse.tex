@@ -1,40 +1,45 @@
 %EKG-7 Realisierung/Gehäuse
 \subsection{Gehäuse}
-Dieses Unterkapitel behandelt die Konstruktion des Gehäuses für das gesamte EKG Projekt. Zur Modellierung der 3D-Druck Teile wurde die Open Source Software Blender verwendet. Die Elektronik Komponenten sind dabei als externe STEP-Dateien importiert und im Gehäuse an der exakten Position platziert worden. \\
-Das Display ist mit vier Stahl-Stützen über der Platine befestigt und ermöglicht so ein besonders kompaktes Design (Abbildung \ref{case_no_display1}). Das Langloch zum Tauschen der SD-Karte wird im gefertigte Zustand durch eine Gummi-Membran ausgefüllt und schützt so die Innere Elektronik vor Spritzwasser und Staub. Die folgenden gerenderten Bilder geben einen Einblick in das Konzept und Design der Box (Abbildung \ref{case_no_display1} und \ref{case_no_display2}) sowie des Deckels (Abbildung \ref{case_closed}).
+Dieses Unterkapitel behandelt die Konstruktion des Gehäuses für das gesamte EKG Projekt. Zur Modellierung der 3D-Druck Teile wurde die Open Source Software Blender verwendet. Um bereits während des Designs die Position und Größe der verschiedenen Elektronik Komponenten zu visualisieren, wurden diese als externe STEP-Dateien importiert und im Gehäuse an der passenden Position platziert.
 
-\begin{figure} [!h]
-	%\centering
-	\includegraphics[width=\textwidth] {case_no_display.png}
-	\caption{Vorderseite Gehäuse ohne Display}
-	\label{case_no_display1} 
-\end{figure}
-
-
-
-\begin{figure} [!h]
-	%\centering
-	\includegraphics[width=\textwidth] {case_no_display_2.png}
-	\caption{Rückseite Gehäuse ohne Display}
-	\label{case_no_display2} 
-\end{figure}
-
-\begin{figure} [!h]
-	%\centering
-	\includegraphics[width=\textwidth] {case_display.png}
-	\caption{Gehäuse mit Display}
-	\label{case_display} 
-\end{figure}
-
-\begin{figure} [!h]
-	%\centering
-	\includegraphics[width=\textwidth] {case_closed.png}
-	\caption{Geschlossenes Gehäuse}
-	\label{case_closed} 
-\end{figure}
-
-Um die Bedienung des Ein/Aus-Schalters zu vereinfachen wurde ein abgesetzter Zylinder konstruiert, der zwischen Platine und Gehäuse geklemmt wird.
+\begin{table}[h]
+\centering
+\caption{Gehäuse Merkmale}
+\begin{tabular}[h]{l|l|l|l|l|l}
+		& Außenbreite & Außenlänge & Außenhöhe & Leergewicht & Produktgewicht \\
+\hline
+Maße 	& 120mm & 100mm & 25mm & X & X \\
+\end{tabular}
+\end{table}
 \clearpage
 
+Das Display ist mit vier Stahl-Stützen oberhalb der Platine befestigt und ermöglicht so ein besonders kompaktes Design (Abbildung \ref{case_display.png}) des EKG-Gerätes. Das Langloch zum Tauschen der SD-Karte wird im gefertigten Zustand durch eine Gummi-Membran ausgefüllt und schützt so die inneren Komponenten vor Spritzwasser und Staub. Der Deckel wird mit vier M3x18 Schlitzschrauben befestigt und kann somit zum Laden des Akkus abgenommen werden. \\
+Die gerenderten Bilder geben einen Einblick in das Konzept und Design der Box (Abbildung \ref{case_no_display1} und \ref{case_no_display2}) sowie des Deckels (Abbildung \ref{case_closed}).
 
+\begin{figure}
+	\begin{subfigure}[t]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{case_no_display.png}
+		\caption{Vorderseite Gehäuse ohne Display}
+		\label{case_no_display1}
+	\end{subfigure}\hfill%
+	\begin{subfigure}[t]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{case_no_display_2.png}
+		\caption{Rückseite Gehäuse ohne Display}
+		\label{case_no_display2}
+	\end{subfigure}\\[5pt]%
+	
+	\begin{subfigure}[t]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{case_display.png}
+		\caption{Gehäuse mit Display}
+		\label{case_display}
+	\end{subfigure}\hfill%
+	\begin{subfigure}[t]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{case_closed.png}
+		\caption{Geschlossenes Gehäuse}
+		\label{case_closed} 
+	\end{subfigure}\\[5pt]%
 
+\end{figure}
+
+Um die Bedienung des Ein/Aus-Schalters zu vereinfachen wurde ein abgesetzter Zylinder konstruiert, der zwischen Platine und Gehäuse geklemmt wird. Der 3.5 mm Aux Anschluss neben dem Schalter dient zum Anschluss der Elektrodenkabel (Abbildung \ref{case_no_display2}).
+\clearpage
