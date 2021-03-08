@@ -162,38 +162,6 @@ Die Logik wird Anhand der Abbildung \ref{fig. energysavingmode} verdeutlicht.
 Ausßerhalb der switch-Anweisung, die die \textit{State Machine} bildet, werden jede Sekunde folgende Funktionen aufgerufen:
 \begin{itemize}
     \item \textit{ADC\_Akku\_Average\_Value} berechnet über drei Sekunden den Mittelwert der ADC-Werte der Akkuspannung. Dieser wird als Prozentangabe an das Display gesendet.
-    \item \textit{Check\_BT\_Connection} und \textit{Check\_SD\_Card\_Connection} sind zwei Funktionen, die die aktuelle Verbindung der Peripherie zum Bluetooth-Modul und zum SD-Kartenleser ermitteln und auf dem Display anzeigen. Hierfür werden die State-Pins der Module abgefragt. Besteht eine Verbindung zum jeweiligen Modul, sind die Symbole auf dem Display blau, anderenfalls sind die grau. Der Start einer Langzeitaufnahme ist nur mit angeschlossener SD-Karte möglich.
+    \item \textit{Check\_BT\_Connection} und \textit{Check\_SD\_Card\_Connection} sind zwei Funktionen, welche die aktuelle Verbindung der Peripherie zum Bluetooth-Modul sowie zum SD-Kartenleser ermitteln und auf dem Display anzeigen. Hierfür werden die \textit{State-Pins} der Module abgefragt. Besteht eine Verbindung zum jeweiligen Modul, sind die Symbole auf dem Display blau, anderenfalls sind diese grau. Der Start einer Langzeitaufnahme ist nur mit angeschlossener SD-Karte möglich.\\
     Bei der Abfrage für die SD-Karte gibt es außerdem zwei zusätzliche Funktionen. Wenn die SD-Karte herausgezogen wird, erscheint auf dem Display eine Warnmeldung. Beim Entfernen und wieder Anschließen einer SD-Karte, wird diese neu initialisiert und die aktuellen Daten bleiben vorhanden.
 \end{itemize}
-
-%\subsubsection{Aufnahme eines Kurzzeit-EKG}
-
-%Die Kurzzeit-EKG-Aufnahme wird kontinuierlich durchgeführt. D.h. die ADC Werte werden direkt an das Display und SD-Karte übertragen ohne Zwischenspeichern. Nachdem die MCU auf ECG\_SHORT Zustand wechselt, wird als erstes ein Timer auf dem Display gestartet. Der Timer zählt, wie lange die EKG-Aufnahme durchgeführt wird. Nach zwei Minuten wird die Aufnahme automatisch beendet und der Benutzer wird benachrichtigt. Zunächst wird es auf 250 Hz \textit{Flag} gewartet und sobald die \textit{Flag} ungleich Null ist, wird ein ADC Wert aufgenommen und die \textit{Flag} wird zurückgesetzt. Wenn ein neuer ADC Wert ankommt, wird eine weitere \textit{Flag} gesetzt und dadurch wird der aufgenommene ADC Wert an das Display gesendet und demnächst auf die SD-Karte gespeichert. Die \textit{Flag} wird zurückgesetzt.
-%Es wird durchgehend kontrolliert, dass es nur Kurzzeit-EKG aufgenommen wird. Sollte der Benutzer während der Aufnahme versuchen auf Langzeit-EKG zu wechseln, wird eine Warnung gezeigt und der Vorgang verhindert.
-%Nach der Aufnahme wird die \textit{Flag} für Kurzzeit-EKG zurückgesetzt, die Datei auf der SD-Karte gespeichert, die Timer zurückgesetzt und die MCU geht in Idle Zustand. Das Display wird dementsprechend die Hauptseite anzeigen.
-
-%Im Kurzzeitmodus wird zudem kontinuierlich die Herzfrequenz gemessen und an das Display gesendet. Hierfür werden über einen Schwellwert die R-Zacken des Signals detektiert und die Anzahl der Werte zwischen diesen gezählt. 
-
-%$ Pulsfrequenz = \frac{Maximalanzahl der Werte in einer Minute}{Anzahl der Werte einer Signalperiode} $
-
-%Der Schwellwert wird permanent durch das Maximum und Minimum der vergangenen Signalperiode angepasst, um auf Schwankungen des Signals zu reagieren.
-
-%$ Schwellwert = Minimum + 0,8 * (Maximum - Minimum) $
-
-%\subsubsection{Aufnahme eines Langzeit-EKG}
-
-%Im Gegensatz zu Kurzzeit-EKG, werden die Daten während der Langzeit-EKG-Aufnahme intern auf der MCU gespeichert und blockweise in gewissen Zeitintervallen an SD-Karte gesendet. Da das SD-Kartenmodul an 5V angeschlossen ist und im Stromsparmodus 5V Peripherie komplett abgeschaltet ist, weicht die Logik von Kurzzeit-Aufnahme ab.
-%Beim Wechseln auf Langzeit-EKG Modus wird als erstes die Timer- und ADC-Werte an das Display gesendet. Somit kann der Benutzer den Kurvenverlauf und Dauer der Aufnahme sehen. Weiterhin wird die Stromsparmodus-Logik aufgerufen. Diese Logik enthält eine \textit{State Machine} mit drei Zuständen. Die State Machine ist mit einer switch-Anweisung realisiert. Die drei Zustände sind: normaler Zustand (MODE\_NORMAL), 5V Peripherie an (MODE\_5V\_ON) und 5V Peripherie aus (MODE\_5V\_OFF). 
-%Die zwei Modi für 5V an und aus sind für Stromsparmodus entwickelt. Das Funktionsprinzip des Stromsparmodus ist auf dem Bild zu sehen.
-%\begin{figure} [!h]
-%	\centering
-%	\includegraphics[width=12cm] {Langzeit EKG Energy Saving.png}
-%	\caption{Energy Saving Mode während Langzeit-EKG}
-%\end{figure}
-%Wenn der Benutzer 24 Stunden Aufnahme macht, ist es sinnvoll Energie zu sparen. Im Stromsparmodus wird die ganze 5V Peripherie komplett abgeschaltet, d.h. das Display, Bluetooth und SD-Karte werden nicht mehr versorgt. Das Stromsparmodus kann aktiviert werden, wobei der Benutze den Power Button auf dem Gehäuse einmal betätigt.
-%Wenn der Benutzer eine Langzeit-EKG-Aufnahme gestartet hat, landet das Programm in MODE\_NORMAL zuerst und bleibt in diesem Zustand solange, bis der Benutzer den Power Button betätigt. Im normalen Zustand bleibt die ganze 5V Peripherie an, das QRS Komplex ist auf dem Display zu sehen und die ADC-Werte werden via Bluetooth gesendet. Der einzige Unterschied ist das Schreiben auf SD-Karte. Dieser Vorgang ist komplett verarbeitet und ist folgendermaßen realisiert. Es sind zwei Arrays mit jeweils 1000 Werten benutzt. Dadurch, dass ADC an 250Hz Timer gebunden ist, wird dieses Array innerhalb von 4 Sekunden aufgefüllt. Um sie zu unterscheiden, werden sie Main Storage und Redundant Storage genannt. Im ADC Interrupt wird jeder neue ADC-Wert in Main Storage gespeichert, und zwar so lange, bis das Array voll wird. Nachdem das Main Storage voll ist, wird das ganze Array in Redundant Storage kopiert. Somit kann Main Storage wieder überschrieben werden und währenddessen bleibt Redundant Storage unverändert. Wenn Main Storage voll ist und in Redundant Storage kopiert, wird eine \textit{Flag} gesetzt und somit das Senden an SD-Karte gestartet. Nachdem das Senden fertig ist, wird der ganze Vorgang wiederholt.
-%Wenn der Power Button betätigt wird, geht die MCU aus dem MODE\_NORMAL in MODE\_5V\_OFF. In diesem Zustand wird 5V Peripherie abgeschaltet. Der Zustand kann verlassen werden, wenn entweder Main Storage voll ist und entsprechende \textit{Flag} gesetzt ist, oder der Power Button nochmal betätigt wird.
-%Wenn die \textit{Flag} gesetzt wird, geht die MCU in MODE\_5V\_ON in dem die 5V Peripherie wieder versorgt wird. Demnächst wird die SD-Karte initialisiert und das bereits kopierte Redundant Storage an die SD-Karte geschrieben. Danach geht die MCU in MODE\_5V\_OFF und der Vorgang wird wiederholt.
-%Wenn der Power Button betätigt wird, geht die MCU in MODE\_NORMAL, zeigt die Werte auf dem Display und sendet Daten via Bluetooth bei Bedarf. In diesem Zustand kann der Benutzer entweder die Aufnahme beenden oder das Gerät wieder in Energy Saving Mode senden. 
-%Die Aufnahme wird nach 24 Stunden automatisch beendet und die MCU geht wieder in Idle State.
-
