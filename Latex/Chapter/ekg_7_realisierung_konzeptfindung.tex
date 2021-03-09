@@ -54,7 +54,7 @@ Da das Störsignal durch Magnetfelder mit der gleichen Frequenz der Versorgungsl
 Wie aus Abbildung \ref{fig_Blockschaltbild} zu erkennen ist, werden zwei Versorgungsspannungen (\SI{3}{\volt}  und \SI{5}{\volt}) für die Module benötigt. Sie werden aus dem Spannungsbereich eines Lithium-Ionen-Akkus mithilfe eines LDO für \SI{3}{\volt} und eines Aufwärtswandlers für \SI{5}{\volt} erzeugt. Die Konzeptfindung der Spannungsversorgung wird im Folgendem erläutert.
 
 Für die Wahl des Akkumulators ist die geforderte Laufzeit von mindestens 30 Stunden sowie die Stromaufnahme der Unterbaugruppen ausschlaggebend. Letztere setzt sich wie folgt zusammen:
-\begin{table}
+\begin{table}[h]
 \center
 \begin{tabular}[h]{l|c|r}
 Komponente & Nennspannung & Stromverbrauch während Langzeitaufnahme\\
@@ -71,19 +71,19 @@ Resultierend daraus eribt sich die gesammte Leistungsaufnahme zu:
 \[ P_{sum} = 5\,\mbox{V} \cdot (10\,m \mbox{A} + 8\,m\mbox{A} + 15\,m\mbox{A}) + 3\,\mbox{V} \cdot (4\, m\mbox{A} + 3 \,m\mbox{A}) = 186\, m\mbox{W} \]
 
 Die Effizienz der noch unbekannten Spannungswandler wird vorläufig mit 80\% angenommen:
-$$ P_{Akku} = 186\,m\mbox{W} \cdot \frac{1}{0.8} = 232.5\,m\mbox{W} $$
+$$ P_{Akku} = 186\,m\mbox{W} \cdot \frac{1}{0.8} = 232,5\,m\mbox{W} $$
 
 Multipliziert man den Leistungsbedarf mit der gewünschten Laufzeit, so ergibt sich eine nötige Energiemenge von:
-$$ E_{Akku} = 232.5\,m\mbox{W} \cdot 30\,h = 6975\,m\mbox{W}h $$
+$$ E_{Akku} = 232,5\,m\mbox{W} \cdot 30\,h = 6975\,m\mbox{W}h $$
 
 Die Nennspannung dieser Zellen beträgt \SI{3,7}{\volt}. Dadurch ergibt sich eine nötige Ladungsmenge von: 
-$$ Q_{Akku} = \frac{6975\,m \mbox{W} h}{3.7\,\mbox{V}} = 2051\,m\mbox{A}h $$
+$$ Q_{Akku} = \frac{6975\,m \mbox{W} h}{3,7\,\mbox{V}} = 2051\,m\mbox{A}h $$
 
 Diese Ladungsmenge wird großflächig über die Zellgröße 18650 angeboten, welche weltweit in Massenfertigung produziert wird und somit keine finanziellen oder logistischen Probleme darstellt.
 
-Lithium-Ionen Zellen nehmen während ihrer Entladung Spannungen zwischen 4.2 V und 3.2 V abhängig vom Ladezustand an. Da sich aus diesem weiten Bereich die Komponenten des EKG-Gerätes nicht zuverlässig versorgen lassen, müssen stabile Zwischenspannungen erzeugt werden. Die erzeugten Spannungen müssen in der Lage sein den maximalen Strom für ihre Baugruppen zu liefern, welcher sich wie folgt zusammensetzt:
+Lithium-Ionen Zellen nehmen während ihrer Entladung Spannungen zwischen 4,2 V und 3,2 V abhängig vom Ladezustand an. Da sich aus diesem weiten Bereich die Komponenten des EKG-Gerätes nicht zuverlässig versorgen lassen, müssen stabile Zwischenspannungen erzeugt werden. Die erzeugten Spannungen müssen in der Lage sein den maximalen Strom für ihre Baugruppen zu liefern, welcher sich wie folgt zusammensetzt:
 
-\begin{table}
+\begin{table}[h]
 \center
 \begin{tabular}[h]{l|c|r}
 Komponente & Nennspannung & Stromverbrauch maximal\\
@@ -100,8 +100,8 @@ Dies ergibt eine Stromaufnahme von: $ I_{3\,V} = 10\,m\mbox{A}$ und $I_{5\,V} = 
 
 Für die Erzeugung von 5 V wird ein Aufwärtswandler verwendet. Hierbei handelt es sich um eine integrierte Schaltungen, welche durch zerhacken einer Gleichspannung eine DCDC Wandlung auf höhere Spannungen ermöglicht. Diese ICs sind platzsparend, da sie bereits im SOT23 Package erhältlich sind, und können problemlos Ströme im einstelligen Amperebereich bereitstellen. 
 
-Die Generierung von 3V durch einen Abwärtswandler ist möglich, allerdings weist diese Schaltungsart bauartbedingt eine Restwelligkeit auf. Da die komplette Analogschaltung zur Aufnahme des EKG-Signals mit 3V versorgt wird, soll hier jede Form von Schwankung vermieden werden.
-Deshalb fällt die Wahl für die Generierung von 3V auf einen LDO (Low-Dropout-Regler), welcher einen Spannungsabfall über einen internen MOS-FET verursacht und somit die Eingangsspannung auf eine festgelegte Ausgangsspannung herunter regelt. Da in einem LDO keine schaltenden Vorgänge stattfinden, ist die Restwelligkeit sehr gering.
+Die Generierung von 3 V durch einen Abwärtswandler ist möglich, allerdings weist diese Schaltungsart bauartbedingt eine Restwelligkeit auf. Da die komplette Analogschaltung zur Aufnahme des EKG-Signals mit 3 V versorgt wird, soll hier jede Form von Schwankung vermieden werden.
+Deshalb fällt die Wahl für die Generierung von 3 V auf einen LDO (Low-Dropout-Regler), welcher einen Spannungsabfall über einen internen MOS-FET verursacht und somit die Eingangsspannung auf eine festgelegte Ausgangsspannung herunter regelt. Da in einem LDO keine schaltenden Vorgänge stattfinden, ist die Restwelligkeit sehr gering.
 
 Die Anzeige und Steuerung erfolgt über ein 3,2 Zoll TFT Touch-Display. Es verfügt über eine serielle Schnittstelle und kommuniziert via UART mit dem Input/Ouput-Modul des Prozessors. Zur zusätzlichen Bedienung wurde ein Taster eingeplant, der zum Ein- und Ausschalten des Energiesparmodus verwendet wird. Der Buzzer dient zur akustischen Warnung bei einem niedrigen Ladestand.
 

@@ -119,11 +119,11 @@ Nach dem Ende der Aufnahme wird die \textit{Flag} für das Kurzzeit-EKG und der 
 
 Im Kurzzeitmodus wird zudem kontinuierlich die Herzfrequenz gemessen und an das Display gesendet. Hierfür werden über einen Schwellwert die R-Zacken des Signals detektiert und die Anzahl der Werte zwischen diesen gezählt.
 
-$$ Pulsfrequenz = \frac{\textit{Samples pro Minute}}{\textit{Samples zwischen zwei R-Zacken}} $$
+$$ \textit{Pulsfrequenz} = \frac{\textit{Samples pro Minute}}{\textit{Samples zwischen zwei R-Zacken}} $$
 
 Der Schwellwert wird permanent durch das Maximum und Minimum der vergangenen Signalperiode angepasst, um auf Schwankungen des Signals zu reagieren.
 
-$$ Schwellwert = Minimum + 0,8 \cdot (Maximum - Minimum) $$
+$$ \textit{Schwellwert} = \textit{Minimum} + \textit{0,8} \cdot \textit{(Maximum - Minimum)} $$
 
 \subsubsection{Langzeit-EKG}
 

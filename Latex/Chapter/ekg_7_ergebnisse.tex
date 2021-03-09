@@ -17,9 +17,9 @@ Die automatisierte Aufnahmezeit des Kurzzeit-EKG wurde mithilfe einer Stoppuhr g
 
 Gut zu erkennen sind die P- (Vorhofkontraktion) und die T-Welle (Erregungsrückbildung der Kammern). Zwischen den beiden Wellen befindet sich der QRS-Komplex. Deutlich von einander zu unterscheiden sind die negativen (Q- und S-Zacke) und positiven Anteile (R-Zacke) des Komplexes, der die Kammerkontraktion markiert. Im Signal sind keine störenden 50 Hz-Schwingungen mehr enthalten. Aus den ADC-Werten lässt sich nun die Amplitude des Eingangssignals bei der Messung an der Hautoberfläche berechnen. Die Verstärkung der Filterschaltung wurde hierbei zur Vereinfachung als maximal (\SI{67}{\decibel}) über die gesamte Bandbreite angenommen.
 
-$$  \frac{\frac{ADC-Breite}{\Delta \textit{Signalwerte}} \cdot \textit{3 V}}{\textit{Verstärkung der Filterschaltung}} $$ 
+$$  \textit{Eingangsamplitude} = \frac{\frac{\textit{ADC-Breite}}{\Delta \textit{Signalwerte}} \cdot \textit{3 V}}{\textit{Verstärkung der Filterschaltung}} $$ 
 
-Es ergibt sich eine Eingangsamplitude von \SI{2,1}{\milli\volt}, was der EKG-Amplitude eines gesunden Menschen in der Ableitung Einthoven II entspricht. Der Test der Langzeit-Aufnahme lieferte 21600000 Werte. Dies entspricht einer durchschnittlichen Abtastrate von \SI{250}{\hertz}. 
+Es ergibt sich eine Eingangsamplitude von \SI{2,1}{\milli\volt}, was der EKG-Amplitude eines gesunden Menschen in der Ableitung Einthoven II entspricht. Der Test der Langzeit-Aufnahme lieferte 21 600 000 Werte. Dies entspricht einer durchschnittlichen Abtastrate von \SI{250}{\hertz}. 
 
 Die Funktion zur Berechnung der Herzfrequenz im Kurzzeit-EKG liefert ein gleichmäßiges Ausgangssignal. Zur Überprüfung wurde der Mittelwert der Herzfrequenz über eine Minute berechnet und mit dem analog gemessenen Puls am Handgelenk verglichen, wobei beide Werte übereinstimmten. Dies gilt jedoch nur für ein Ruhe-EKG, bei dem der Anwender sich möglichst wenig bewegt und gleichmäßig atmet. Bei Störungen von mehr als \SI{6}{\sec} Dauer, führen die Bewegungsartefakte zu einer Verfälschung der Pulsrate. 
 
