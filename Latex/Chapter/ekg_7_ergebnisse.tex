@@ -19,9 +19,7 @@ Gut zu erkennen sind die P- (Vorhofkontraktion) und die T-Welle (Erregungsrückb
 
 $$  \frac{\frac{ADC-Breite}{\textit{delta Signalwerte}} \cdot \textit{3 V}}{\textit{Verstärkung der Filterschaltung}} $$ 
 
-Es ergibt sich eine Eingangsamplitude von XXX
-%\SI{XXX}{\milli\volt}
-, was der EKG-Amplitude eines gesunden Menschen in der Ableitung Einthoven 2 entspricht. Der Test der Langzeit-Aufnahme lieferte 21600000 Werte. Dies entspricht einer durchschnittlichen Abtastrate von \SI{250}{\hertz}. 
+Es ergibt sich eine Eingangsamplitude von \SI{2,1}{\milli\volt}, was der EKG-Amplitude eines gesunden Menschen in der Ableitung Einthoven 2 entspricht. Der Test der Langzeit-Aufnahme lieferte 21600000 Werte. Dies entspricht einer durchschnittlichen Abtastrate von \SI{250}{\hertz}. 
 
 Die Funktion zur Berechnung der Herzfrequenz im Kurzzeit-EKG liefert eine gleichmäßiges Ausgangssignal. Zur Überprüfung wurde der Mittelwert der Herzfrequenz über eine Minute berechnet und mit dem analog gemessenen Puls am Handgelenk verglichen, wobei beide Werte übereinstimmten. Dies gilt jedoch nur für ein Ruhe-EKG, bei dem der Anwender sich möglichst wenig bewegt und gleichmäßig atmet. Bei Störungen von mehr als \SI{6}{\sec} Dauer, führen die Bewegungsartefakte zu einer Verfälschung der Pulsrate. 
 
@@ -41,7 +39,7 @@ Für die verschiedenen Energiemodi wurde der Stromverbrauch direkt an der Batter
 \textbf{Display im Sleep-Modus} & \SI{107}{\milli\ampere} 
 \\
 \hline
-\textbf{5V-DCDC ausgeschaltet} & \SI{7,7}{\milli\ampere}
+\textbf{5 V-DCDC ausgeschaltet} & \SI{7,7}{\milli\ampere}
 \end{tabular}
 
 \caption{Stromverbrauch}
@@ -52,5 +50,5 @@ Für die verschiedenen Energiemodi wurde der Stromverbrauch direkt an der Batter
 Nach dem Test der Langzeitaufnahme (Gerät befand sich dafür fast ausschließlich im Energiesparmodus), mit einem anfangs vollen Akku, betrug die Akkuanzeige des Displays 61\%. Die Spannung der Akkuzelle gemessen mit dem Multimeter betrug \SI{3,83}{\volt}.
 
 Die maximale Akkulaufzeit im Lagerzustand (5V DCDC ausgeschaltet) bis zur Entladegrenze von 20\% berechnet sich zu
-$ \frac{2200\,mAh*0,8}{7,7\,mA} = 228,6\,h $.
+$ \frac{2200\,mAh \cdot 0,8}{7,7\,mA} = 228,6\,h $.
 %Akkustand beginnt bei 100\% und sinkt danach erwartungsgemäß bis bei einer Restladung von <20\% das akustische Warnsignal ertönt
