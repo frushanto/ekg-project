@@ -5,8 +5,8 @@ uint8_t g_timer_250Hz_flag = 0;
 uint8_t g_timer_1sec_flag = 0;
 uint8_t g_timer_uart_1sec = 0;
 uint16_t g_adc_result = 0;
-uint16_t g_adc_result_storage[LONG_ECG_STORAGE_SIZE] = {0}; // 4 sec storage (f = 250 Hz)
-uint16_t g_adc_result_storage_cpy[LONG_ECG_STORAGE_SIZE] = {0};
+uint16_t g_adc_result_storage[LONG_ECG_STORAGE_SIZE] = {0};     // 4 sec storage (f = 250 Hz)
+uint16_t g_adc_result_storage_cpy[LONG_ECG_STORAGE_SIZE] = {0}; // Copy of storage array
 uint16_t g_adc_result_cnt = 0;
 bool g_adc_result_storage_full = FALSE;
 uint8_t g_short_ECG_flag = 0;
@@ -26,22 +26,17 @@ bool g_ecg_long_5v_on = TRUE;
 bool g_ecg_long_btn_pressed = FALSE;
 bool g_sd_card_inserted = FALSE;
 bool g_bt_connected = FALSE;
-// bool g_display_sleep_flag = TRUE;
 bool g_adc_new_values = 0;
-/* BUZZER VARs*/
+uint8_t g_user_select = 0;
+uint16_t bt_test = 0;
 uint8_t g_timer_250Hz_Buzzer = 0;
 uint8_t g_buzzer_1sec_flag = 0;
 uint8_t g_buzzer_on_flag = 0;
 uint16_t g_buzzer_cnt = 0;
-
 bool g_buzzer_20_percent = FALSE;
 uint16_t g_buzzer_1kz_cnt = 1;
 
-uint8_t g_user_select = 0;
-
-uint16_t bt_test = 0;
-
-STATE_MACHINE_e g_sys_state = SYS_INIT;
+STATE_MACHINE_e g_sys_state = SYS_INIT; // Enter sys Init at beginning
 /* END GLOBAL VARs */
 
 /* Function declarations */
@@ -66,25 +61,25 @@ void main(void)
             Init_ADC();
             Init_SPI();
 
-            //Init_FAT will brick the CPU when card does not respond
-            #ifndef LAUNCHPAD
-                Init_FAT();
-            #endif
+//Init_FAT will brick the CPU when card does not respond
+#ifndef LAUNCHPAD
+            Init_FAT();
+#endif
 
             Init_UART_BT();
             Init_Median_Filter();
             EnableGlobalInterrupt();
             /* Init MSP430 END */
 
-            g_sys_state = IDLE_STATE;   // Change state
+            g_sys_state = IDLE_STATE; // Change state
             break;
 
         case IDLE_STATE:
 
             //Check if Start of short ECG is requested
-            if (g_short_ECG_flag && g_timer_uart_1sec)  // Sync timer by changing state to ECG Short
+            if (g_short_ECG_flag && g_timer_uart_1sec) // Sync timer by changing state to ECG Short
             {
-                g_timer_uart_1sec = 0;                  // Sync timer back to 0 
+                g_timer_uart_1sec = 0; // Sync timer back to 0
                 // Start create/write new .csv
                 SD_CreateNewCSV();
                 SD_WriteUserInCSV();
@@ -92,30 +87,31 @@ void main(void)
             }
 
             //Check if Start of long ECG is requested
-            if (g_long_ECG_flag && g_timer_uart_1sec    // Sync timer by changing state to ECG Long
-                    && g_sd_card_inserted)
+            if (g_long_ECG_flag && g_timer_uart_1sec // Sync timer by changing state to ECG Long
+                && g_sd_card_inserted)
             {
                 // Check Akku > 80%
                 Check_Akku_Percentage();
-                g_timer_uart_1sec = 0;                  // Sync timer back to 0 
+                g_timer_uart_1sec = 0; // Sync timer back to 0
                 // Start create/write new .csv
                 SD_CreateNewCSV();
                 SD_WriteUserInCSV();
                 SD_StopWriting();
                 g_sys_state = ECG_LONG;
-            }else if(!g_sd_card_inserted)               // Don't set Long_ECG Flag if SD not inserted
+            }
+            else if (!g_sd_card_inserted) // Don't set Long_ECG Flag if SD not inserted
             {
                 g_long_ECG_flag = 0;
             }
 
-            //Testcode for work with Launchpad
-            #ifdef LAUNCHPAD
+//Testcode for work with Launchpad
+#ifdef LAUNCHPAD
 
             //Sende Wert einmal pro Sekunde und toggel LED
             if (get_1hz_flag_bt())
             {
                 //Toggel LED2 auf Launchpad
-                GPIO_toggleOutputOnPin(GPIO_PORT_P4,GPIO_PIN7);
+                GPIO_toggleOutputOnPin(GPIO_PORT_P4, GPIO_PIN7);
 
                 //Startet Senden mit DMA
                 send_bt_value_dma(bt_test++);
@@ -125,7 +121,7 @@ void main(void)
                     bt_test = 0;
             }
 
-            #endif
+#endif
 
             break;
 
@@ -180,9 +176,7 @@ void main(void)
 
             //Update Time for ECG
             ECG_Timer_LT();
-
             LT_ECG();
-
             SD_Energy_Saving_Long_ECG();
 
             //Check if switch to short ECG requested
@@ -262,9 +256,8 @@ void delay(uint16_t delay_time)
     uint32_t start_time = get_ms();
 
     //Until time is passed do nothing
-    while(get_ms() < start_time + delay_time)
+    while (get_ms() < start_time + delay_time)
     {
         __no_operation();
     }
-
 }

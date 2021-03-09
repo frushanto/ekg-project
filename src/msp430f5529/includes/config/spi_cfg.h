@@ -1,10 +1,3 @@
-/*
- * spi_cfg.h
- *
- *  Created on: 9 Dec 2020
- *      Author: ivan
- */
-
 #ifndef INCLUDES_CONFIG_SPI_CFG_H_
 #define INCLUDES_CONFIG_SPI_CFG_H_
 

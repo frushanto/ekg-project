@@ -7,16 +7,14 @@
 #include <includes/config/uart_cfg.h>
 #include "main.h"
 #include "includes/config/sd-card-cfg/ff.h"
-//#include <stdio.h>
-//#include <string.h>
 
-FIL file;                   /* Opened file object */
-FATFS fatfs;                /* File system object */
-DIRS dir;                   /* Directory object   */
-FRESULT errCode;            /* Error code object  */
-FRESULT res;                /* Result object      */
-UINT bytesRead;             /* Bytes read object  */
-UINT read;                  /* Read bytes object  */
+FIL file;        /* Opened file object */
+FATFS fatfs;     /* File system object */
+DIRS dir;        /* Directory object   */
+FRESULT errCode; /* Error code object  */
+FRESULT res;     /* Result object      */
+UINT bytesRead;  /* Bytes read object  */
+UINT read;       /* Read bytes object  */
 
 typedef enum
 {
@@ -29,7 +27,7 @@ extern LONG_ECG_STATE_MACHINE_e g_long_ecg_state;
 extern bool display_sleep_mode;
 
 /* Function declarations */
-FRESULT WriteFile(char*, char*, WORD);
+FRESULT WriteFile(char *, char *, WORD);
 void Init_FAT(void);
 void SD_CreateNewCSV(void);
 void SD_WriteInExistingCSV(void);

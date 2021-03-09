@@ -1,10 +1,3 @@
-/*
- * gpio_cfg.h
- *
- *  Created on: 8 Nov 2020
- *      Author: ivan
- */
-
 #ifndef INCLUDES_CONFIG_GPIO_CFG_H_
 #define INCLUDES_CONFIG_GPIO_CFG_H_
 

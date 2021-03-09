@@ -1,10 +1,3 @@
-/*
- * uart_cfg.h
- *
- *  Created on: 8 Nov 2020
- *      Author: ivan
- */
-
 #ifndef INCLUDES_CONFIG_UART_CFG_H_
 #define INCLUDES_CONFIG_UART_CFG_H_
 
@@ -20,13 +13,7 @@
 void Init_UART(void);
 void uart_transmit_data_start(char nextion_command[]);
 void uart_transmit_data_value(uint16_t transmit_value);
-void uart_transmit_data_end();
-void uart_receive_data_end();
-
-/***** GLOBALE VARS *****/
-// extern uint8_t g_kz_start_stop;
-// extern uint8_t g_lz_start_stop;
-
-// extern STATE_MACHINE_e g_sys_state;
+void uart_transmit_data_end(void);
+void uart_receive_data_end(void);
 
 #endif /* INCLUDES_CONFIG_UART_CFG_H_ */

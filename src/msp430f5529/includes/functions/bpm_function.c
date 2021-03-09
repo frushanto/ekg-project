@@ -1,11 +1,4 @@
-/*
- * bpm_function.c
- *
- *  Created on: 16.01.2021
- *      Author: hannes
- */
 #include "includes/functions/bpm_function.h"
-
 
 uint8_t bpm = 0;
 static uint16_t bpm_cnt = 0;
@@ -18,18 +11,18 @@ static uint8_t brady_cnt = 0;
 
 void calculate_bpm_ST()
 {
-    watchdog_ecg ++;    // 250Hz 
+    watchdog_ecg++; // 250Hz
     bpm_cnt++;
 
     if ((g_adc_result > threshold_ecg_value) && bpm_cnt > 100)
     {
-        bpm = (uint16_t) ((G_SAMPLE_RATE*60) / bpm_cnt);
+        bpm = (uint16_t)((G_SAMPLE_RATE * 60) / bpm_cnt);
 
         // Calculate BPM Median Value
         int medianValue = MEDIANFILTER_Insert(&medianFilter, bpm);
 
-        /*Abfrage auf Tachykardie oder Bradykardie*/
-        if (medianValue < brady_threshold)      // BPM
+        /* Check Tachykardie or Bradykardie */
+        if (medianValue < brady_threshold)
         {
             brady_cnt = brady_cnt + 1;
             if (brady_cnt >= tachy_brady_cnt_threshold)
@@ -39,7 +32,7 @@ void calculate_bpm_ST()
                 brady_cnt = 0;
             }
         }
-        else if (medianValue > tachy_threshold) // BPM
+        else if (medianValue > tachy_threshold)
         {
             tachy_cnt = tachy_cnt + 1;
             if (tachy_cnt >= tachy_brady_cnt_threshold)
@@ -54,11 +47,10 @@ void calculate_bpm_ST()
             brady_cnt = 0;
             tachy_cnt = 0;
         }
-        /*Ende der Abfrage*/
 
         // Send BPM to Display
         uart_transmit_data_start("page2.puls.val=");
-        uart_transmit_data_value (medianValue);
+        uart_transmit_data_value(medianValue);
         uart_transmit_data_end();
 
         threshold_ecg_value = maximum_ecg_value - 0.2 * (maximum_ecg_value - minimum_ecg_value);
@@ -90,20 +82,19 @@ void calculate_bpm_ST()
 
 void calculate_bpm_LT()
 {
-    watchdog_ecg ++;    // 250Hz
-    // if (g_adc_result <= threshold_ecg_value)
-    // {
-        bpm_cnt++;
-    // }else 
+    watchdog_ecg++; // 250Hz
+
+    bpm_cnt++;
+
     if ((g_adc_result > threshold_ecg_value) && bpm_cnt > 100)
     {
-        bpm = (uint16_t) ((G_SAMPLE_RATE*60) / bpm_cnt);
+        bpm = (uint16_t)((G_SAMPLE_RATE * 60) / bpm_cnt);
 
         int medianValue = MEDIANFILTER_Insert(&medianFilter, bpm);
 
         // Send BPM to Display
         uart_transmit_data_start("page3.puls.val=");
-        uart_transmit_data_value (medianValue);
+        uart_transmit_data_value(medianValue);
         uart_transmit_data_end();
 
         threshold_ecg_value = maximum_ecg_value - 0.2 * (maximum_ecg_value - minimum_ecg_value);

@@ -68,7 +68,7 @@ void Init_ADC()
      * Disable Multiple Sampling
      */
     ADC12_A_setupSamplingTimer(ADC12_A_BASE,
-                               ADC12_A_CYCLEHOLD_4_CYCLES, //default 4 // 16
+                               ADC12_A_CYCLEHOLD_4_CYCLES,
                                ADC12_A_CYCLEHOLD_4_CYCLES,
                                ADC12_A_MULTIPLESAMPLESENABLE); // multisampling enabled
 
@@ -95,11 +95,6 @@ void Start_ADC()
      * Start the conversion into memory buffer 0
      * Use the single-channel, single-conversion mode
      */
-
-    //    ADC12_A_startConversion(
-    //            ADC12_A_BASE,
-    //            ADC12_A_MEMORY_0,
-    //            ADC12_A_SINGLECHANNEL);
 
     ADC12_A_startConversion( // Conversion with two channels
         ADC12_A_BASE,
@@ -128,8 +123,6 @@ __interrupt void ADC12_A_ISR(void)
         //Get ECG Value
         g_adc_result = ADC12_A_getResults(ADC12_A_BASE, ADC12_A_MEMORY_0);
 
-//        timer_cnt ++;
-
         if (g_sys_state == ECG_LONG)
         {
             g_adc_result_storage[g_adc_result_cnt] = g_adc_result;
@@ -138,8 +131,6 @@ __interrupt void ADC12_A_ISR(void)
             if (g_adc_result_cnt < (LONG_ECG_STORAGE_SIZE - 1))
             {
                 g_adc_result_cnt++;
-                // Flag -> storage will be filled
-//                g_adc_result_storage_full = FALSE;
             }
             else
             {

@@ -1,10 +1,3 @@
-/*
- * main.h
- *
- *  Created on: 8 Nov 2020
- *      Author: ivan
- */
-
 #ifndef MAIN_H_
 #define MAIN_H_
 
@@ -37,13 +30,11 @@
 #define G_SAMPLE_RATE 250
 #define LONG_ECG_STORAGE_SIZE 1000
 
-//Define this when testing on Launchpad, otherwise comment it out
-// #define LAUNCHPAD
+// #define LAUNCHPAD    /*Define this when testing on Launchpad, otherwise comment it out*/
 
 typedef enum
 {
     SYS_INIT,
-    SYS_NO_ACTION,  // "Leerlauf" - ohne Funktion
     ECG_SHORT,
     ECG_LONG,
     ENERGY_SAVING_MODE,
@@ -77,21 +68,17 @@ extern uint16_t g_cnt_msec_long;
 extern uint8_t g_cnt_sec_long;
 extern uint8_t g_cnt_min_long;
 extern uint8_t g_cnt_hour_long;
-
 extern bool g_sd_card_inserted;
 extern bool g_bt_connected;
 extern bool g_adc_new_values;
-// extern bool g_display_sleep_flag;
-
 extern uint8_t g_timer_250Hz_Buzzer;
 extern uint8_t g_buzzer_1sec_flag;
 extern uint8_t g_buzzer_on_flag;
 extern uint16_t g_buzzer_cnt;
-
 extern bool g_buzzer_20_percent;
 extern uint16_t g_buzzer_1kz_cnt;
-
 extern uint8_t g_user_select;
+
 /*** Prototypes ***/
 void delay(uint16_t delay_time);
 

@@ -1,10 +1,3 @@
-/*
- * bpm_function.h
- *
- *  Created on: 16.01.2021
- *      Author: hannes
- */
-
 #ifndef INCLUDES_FUNCTIONS_BPM_FUNCTION_H_
 #define INCLUDES_FUNCTIONS_BPM_FUNCTION_H_
 
@@ -20,7 +13,7 @@
 #define brady_threshold 60
 
 /* Function declarations */
-void calculate_bpm_ST();
-void calculate_bpm_LT();
+void calculate_bpm_ST(void);
+void calculate_bpm_LT(void);
 
 #endif /* INCLUDES_FUNCTIONS_BPM_FUNCTION_H_ */

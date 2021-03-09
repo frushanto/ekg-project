@@ -1,15 +1,12 @@
 /*****************************************\
-Author: Erik Thüry    Date: 05.12.2020
-Für den FIR-Filter wurden mit Matlab 201 Koeffizienten berechnet
-Die Nyquistfrequenz beträgt 500Hz (Samplingfrequenz 1000Hz / 2)
+Author: Erik Thuery    Date: 05.12.2020
+Fuer den FIR-Filter wurden mit Matlab 201 Koeffizienten berechnet
+Die Nyquistfrequenz betraegt 500Hz (Samplingfrequenz 1000Hz / 2)
 Die untere Grenzfrequenz des Stopbandes liegt bei 0,085*Nyquistfrequenz (42,5Hz)
 Die obere Grenzfrequenz liegt bei 0,115*Nyquistfrequenz (57,5Hz)
 \*****************************************/
 
 #include <fir_filter.h>
-
-//#define filter_coef 101
-//#define nc (filter_coef * 2) - 1
 
 #define filter_coef 201
 
@@ -123,44 +120,19 @@ void fir_filter_init()
     b[99] = -0.0285026685235791;
     b[100] = 0.969591976884882;
 
-    for(i = 0; i < 100; i++)
+    for (i = 0; i < 100; i++)
     {
         b[200 - i] = b[i];
     }
 
-
     // circular buffer stores the last 201 ADC values
     // at the beginning of the measurement the buffer has to be initialised with 0
 
-    for(i = 0; i < filter_coef; i++)    //   (i = nc; i >= 0; i--)
+    for (i = 0; i < filter_coef; i++) //   (i = nc; i >= 0; i--)
     {
         circular_buffer[i] = 0;
     }
 }
-
-// Nach jedem neuen Wert vom ADC wird die Funktion fir_filter aufgerufen
-// Im circular_buffer stehen die letzten 201 Samplewerte, diese werden mit
-// den Filterkoeffizienten multipliziert und aufsummiert und ergeben den neuen gefilterten Signalwert
-
-//double fir_filter(int new_sample)
-//{
-//    static int index = 0;
-//    double output = 0;
-//    int i;
-//
-//    circular_buffer[index] = new_sample;
-//
-//    for (i = 0; i < filter_coef - 1; i++)
-//    {
-//        output += b[i] * (circular_buffer[(index + i) % nc] + circular_buffer[(index + nc - i - 1) % nc]);
-//    }
-//    output += b[100] * circular_buffer[(100 + index) % nc];
-//
-//    index = (++index) % nc;  // index läuft von 0 bis 200 // index überlauf einfacher gestalten
-//
-//    return output;  // keine impliziten Umwandlungen
-//}
-
 
 uint16_t fir_filter(uint16_t new_sample)
 {
@@ -172,38 +144,14 @@ uint16_t fir_filter(uint16_t new_sample)
 
     index = (index + 1) % filter_coef;
 
-    for(i = 0; i < filter_coef; i++)
+    for (i = 0; i < filter_coef; i++)
     {
         sum += b[i] * circular_buffer[(index + i) % filter_coef];
     }
 
-    if(index == 200)
+    if (index == 200)
     {
         index = 200;
     }
     return (uint16_t)sum;
 }
-
-
-
-
-
-
-/*
- * int fir_filter(int new_sample)
-{​​​​
-static int index = 0;
-static uint8_t first_run = 1;
-double y = 0;
-if (first_run)
-fir_filter_init(), first_run = 0;
-circular_buffer[index] = (double) new_sample;
-index++;
-if (index >= nc)
-index = 0;
-for (int i = 0; i < nc; i++)
-{​​​​
-y += b[i] * circular_buffer[(index + i) % nc];
-}​​​​
-return (int)y;
-}*/
