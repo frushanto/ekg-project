@@ -16,13 +16,13 @@ Der Benutzer hat außerdem die Möglichkeit ein Profilbild im .png Format hochzu
 \label{app_Activity}
 \end{wrapfigure}
 
-Jede \textit{Activity}-Klasse \cite{Activity_Overview} stellt einen Bildschirm (Login Seite, Register Seite oder Profil Seite) der App dar, mit welcher der Benutzer interagieren und somit Befehle an das Betriebssystem weitergeben kann. Beim Start einer neuen Aktivität wird eine Instanz der zugrunde liegenden Java Klasse erzeugt und der zugehörige Lebenszyklus (Abbildung \ref{app_Activity} \cite{Activity_Lifecycle}) gestartet.
+Jede \textit{Activity}-Klasse \cite{Activity_Overview} stellt einen Bildschirm (Login Seite, Register Seite oder Profil Seite) der App dar, mit welcher der Benutzer interagieren und somit Befehle an das Betriebssystem weitergeben kann. Beim Start einer neuen Aktivität wird eine Instanz der zugrunde liegenden Java Klasse erzeugt und der zugehörige Lebenszyklus (Abbildung \ref{app_Activity}) gestartet. \cite{Activity_Lifecycle}
 Um zwischen den drei Hauptzuständen
 
 \begin{itemize}
-\item[•] Aktivität läuft im Vordergrund und hat Fokus
-\item[•] Aktivität läuft im Hintergrund
-\item[•] Aktivität wurde gestoppt
+	\item[•] Aktivität läuft im Vordergrund und hat Fokus
+	\item[•] Aktivität läuft im Hintergrund
+	\item[•] Aktivität wurde gestoppt
 \end{itemize}
 
 zu wechseln, bietet die \textit{Activity} Klasse außerdem einen Satz von sechs \textit{Callback} an, die bei Übergängen von verschiedenen Phasen des Lebenszyklus aufgerufen werden. Durch Verwendung der \textit{onCreate()} Methode können so zum Beispiel Buttons oder Textfelder initialisiert werden.
