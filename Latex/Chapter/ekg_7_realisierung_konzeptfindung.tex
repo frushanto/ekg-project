@@ -154,7 +154,7 @@ Als Grundstruktur des Codes wird eine \textit{State Machine} implementiert. Dies
 \begin{enumerate}
 	\item LaunchPad: Das LaunchPad MSP-EXP430F5529LP ist für das Testen des entwickelten Codes verwendet. Das LaunchPad verfügt über die MCU MSP430F5529. \cite{DevKit} \cite{Texas_Instruments:DevKit} Die Schnittstellen, die dieser µC besitzt, sind auf der LaunchPad-Platine verteilt und mit Pinleisten vorgesehen. Somit lässt sich die Peripherie mithilfe von Kabeln und Jumpers anschließen und testen. Anhand dieser Tests wurde die Funktionalität diverser Schaltungen geprüft. Das LaunchPad verfügt über eine interne Debugger-Einheit, sodass die MCU sich via USB Verbindung mit einem Rechner  flashen und debuggen lässt.
 	\item Debugger: Für das Flashen und Debuggen ist eine JTAG-Schnittstelle auf dem PCB vorgesehen. Da das PCB für die Massenfertigung entwickelt ist, ist die Debugger-Einheit wegen Kostenersparnis nicht mehr vorhanden. Die MCU wird direkt via eine JTAG-Schnittstelle durch eine externe Debugger-Einheit angesprochen.
-	\item Adruino Nano: Bei der Codeentwicklung kam Arduino Nano als Slave-Einheit zum Einsatz. Damit wurde die SPI Verbindung zum µC F5529 getestet.
+	\item Adruino Nano: Bei der Codeentwicklung kam der Arduino Nano als Slave-Einheit zum Einsatz. Damit wurde die SPI Verbindung zum Mikrocontroller F5529 getestet.
 	\item Oszilloskop: Darstellung und Beobachtung der UART- und SPI-Signale.
 	\item Signalgenerator: Generieren eines künstlichen EKG-Signals für das Testen von Software.
 \end{enumerate}
