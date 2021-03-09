@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.2.11)  9 MAR 2021 16:03
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2021.2.11)  9 MAR 2021 16:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -361,25 +361,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 6.
 ) [1
 
-]
-No file ekg_7_projektbericht.toc.
+] (./ekg_7_projektbericht.toc [2])
 \tf@toc=\write3
 \openout3 = `ekg_7_projektbericht.toc'.
 
-[2] (./Chapter/ekg_7_abkuerzungsverzeichnis.tex)
-
-LaTeX Warning: Citation `aristotle:physics' on page 3 undefined on input line 56.
-
-
-LaTeX Warning: Citation `Webpage' on page 3 undefined on input line 57.
-
-
-LaTeX Warning: Citation `Datenblatt' on page 3 undefined on input line 58.
-
-
-LaTeX Warning: Citation `These' on page 3 undefined on input line 59.
-
-[3] (./Chapter/ekg_7_einleitung.tex) [4] [5] (./Chapter/ekg_7_zielsetzung.tex [6]) [7] (./Chapter/ekg_7_stand_der_technik.tex [8] [9]
+ [3] (./Chapter/ekg_7_abkuerzungsverzeichnis.tex) [4] (./Chapter/ekg_7_einleitung.tex) [5] [6] (./Chapter/ekg_7_zielsetzung.tex [7]) [8] (./Chapter/ekg_7_stand_der_technik.tex [9] [10]
 Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []|\TU/lmr/m/n/12 Kardio-
  []
@@ -659,52 +645,29 @@ Overfull \hbox (3.84906pt too wide) in paragraph at lines 51--51
 []|\TU/lmr/bx/n/12 Abtastrate
  []
 
-[10]
-
-LaTeX Warning: Reference `tab:Marktrecherche' on page 11 undefined on input line 65.
-
-) [11] (./Chapter/ekg_7_realisierung.tex (./Chapter/ekg_7_realisierung_konzeptfindung.tex [12]
-
-LaTeX Warning: Reference `fig_Matlab EKG-Signal' on page 13 undefined on input line 28.
-
-
-LaTeX Warning: Reference `fig_Matlab Frequenzspektrum' on page 13 undefined on input line 28.
-
+[11]) [12] (./Chapter/ekg_7_realisierung.tex (./Chapter/ekg_7_realisierung_konzeptfindung.tex [13]
 File: Bilder/EKG_Signal.png Graphic file (type bmp)
 <Bilder/EKG_Signal.png>
 File: Bilder/EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type bmp)
 <Bilder/EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
 
+
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-LaTeX Warning: Reference `fig_Blockschaltbild Filter' on page 13 undefined on input line 44.
-
-[13]
+[14]
 File: Bilder/Filter Blockschaltbild.png Graphic file (type bmp)
 <Bilder/Filter Blockschaltbild.png>
-
-
-LaTeX Warning: Reference `fig_Blockschaltbild' on page 14 undefined on input line 54.
-
-[14]
+ [15]
 Underfull \hbox (badness 10000) in paragraph at lines 101--102
 
  []
 
-[15]
-
-LaTeX Warning: Citation `MSP430F5529' on page 16 undefined on input line 120.
-
-
-LaTeX Warning: Citation `Datenblatt_MSP430F5529' on page 16 undefined on input line 122.
-
-
-Overfull \hbox (9.71568pt too wide) in paragraph at lines 120--128
-\TU/lmr/m/n/12 ments gehören. Nach der Analyse verschiedener Modelle fiel die Wahl auf den MSP430F5529.
+[16]
+Overfull \hbox (0.37575pt too wide) in paragraph at lines 120--128
+[]\TU/lmr/m/n/12 Das Projekt EKG7 basiert auf dem Microcontroller MSP430F5529. [[]] Gemäß den Projekt-
  []
 
-[16]
+[17]
 File: Bilder/Blockschaltbild v1.5.png Graphic file (type bmp)
 <Bilder/Blockschaltbild v1.5.png>
 
@@ -712,31 +675,11 @@ File: Bilder/Blockschaltbild v1.5.png Graphic file (type bmp)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-LaTeX Warning: Citation `Nextion_Editor' on page 17 undefined on input line 143.
-
-
-LaTeX Warning: Citation `GIMP' on page 17 undefined on input line 143.
-
-
-LaTeX Warning: Citation `CCS' on page 17 undefined on input line 144.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 142--148
 
  []
 
-[17]
-
-LaTeX Warning: Citation `DevKit' on page 18 undefined on input line 151.
-
-
-LaTeX Warning: Citation `Texas_Instruments:DevKit' on page 18 undefined on input line 151.
-
-) (./Chapter/ekg_7_realisierung_diskussion_der_alternativen.tex [18]
-
-LaTeX Warning: Reference `fig_Test_IIR_Filter' on page 19 undefined on input line 13.
-
-
+[18]) (./Chapter/ekg_7_realisierung_diskussion_der_alternativen.tex [19]
 Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
  []
@@ -751,85 +694,44 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--2
 
  []
 
-[19] [20]
-
-LaTeX Warning: Reference `fig_DCDC_3V_plot' on page 21 undefined on input line 12.
-
+[20] [21]
 File: Bilder/DCDC_3V_LDO_Shematic.png Graphic file (type bmp)
 <Bilder/DCDC_3V_LDO_Shematic.png>
 File: Bilder/DCDC_3V_LDO_Plot.png Graphic file (type bmp)
 <Bilder/DCDC_3V_LDO_Plot.png>
-[21]) (./Chapter/ekg_7_realisierung_analoge_filterschaltung.tex [22]
+ [22]) (./Chapter/ekg_7_realisierung_analoge_filterschaltung.tex [23]
 Overfull \hbox (9.68579pt too wide) in paragraph at lines 23--24
 \TU/lmr/m/n/12 Messleitungen eingekoppelt werden. Seine Verstärkung wird mittels eines [][]-Widerstandes
  []
 
-[23]
+[24]
 File: Bilder/EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
 <Bilder/EKG_aktiver_Tiefpassfilter.png>
-
-
-LaTeX Warning: Reference `aktiver Tiefpass' on page 24 undefined on input line 40.
-
-[24]
+ [25]
 File: Bilder/EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
 <Bilder/EKG_Gesamtübertragungsfunktion.png>
-
-
-LaTeX Warning: Reference `Bodediagramm Filterschaltung' on page 25 undefined on input line 55.
-
 File: Bilder/EKG_virtueller_Ground.png Graphic file (type bmp)
 <Bilder/EKG_virtueller_Ground.png>
-[25]
-
-LaTeX Warning: Reference `Virtueller GND' on page 26 undefined on input line 66.
-
-) (./Chapter/ekg_7_realisierung_pcb_design.tex [26]
-
-LaTeX Warning: Reference `fig:sch_ps' on page 27 undefined on input line 35.
-
+ [26]) (./Chapter/ekg_7_realisierung_pcb_design.tex [27]
 File: Bilder/Schematics_EKG_2021-02-21_Power_Supply.jpg Graphic file (type bmp)
 <Bilder/Schematics_EKG_2021-02-21_Power_Supply.jpg>
 
+
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[27] [28]) (./Chapter/ekg_7_realisierung_prozessor_einheit.tex [29]
-
-LaTeX Warning: Citation `State_Machine' on page 30 undefined on input line 9.
-
-[30]
+[28] [29]) (./Chapter/ekg_7_realisierung_prozessor_einheit.tex [30] [31]
 File: Bilder/State Machine.png Graphic file (type bmp)
 <Bilder/State Machine.png>
-
-
-LaTeX Warning: Citation `Interrupt1' on page 31 undefined on input line 47.
-
-
-LaTeX Warning: Citation `Interrupt2' on page 31 undefined on input line 47.
-
-[31]
-
-LaTeX Warning: Citation `Watchdog_Timer' on page 32 undefined on input line 76.
-
-[32] [33]
-
-LaTeX Warning: Citation `FatFs_Lib' on page 34 undefined on input line 97.
-
-
-LaTeX Warning: Citation `FatFs_Entwickler' on page 34 undefined on input line 97.
-
-[34]
+ [32] [33] [34] [35]
 File: Bilder/Short ECG.png Graphic file (type bmp)
 <Bilder/Short ECG.png>
- [35]
+ [36]
 File: Bilder/Langzeit EKG Energy Saving.png Graphic file (type bmp)
 <Bilder/Langzeit EKG Energy Saving.png>
- [36]
-
-LaTeX Warning: Reference `fig. energysavingmode' on page 37 undefined on input line 151.
-
+ [37]
 File: Bilder/Idle State and Evergy Saving.png Graphic file (type bmp)
 <Bilder/Idle State and Evergy Saving.png>
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -838,40 +740,21 @@ Overfull \hbox (2.58792pt too wide) in paragraph at lines 164--165
 []\TU/lmr/m/it/12 ADC_Akku_Average_Value \TU/lmr/m/n/12 berechnet über drei Sekunden den Mittelwert der ADC-
  []
 
-[37]) (./Chapter/ekg_7_realisierung_display_und_ui.tex
-
-LaTeX Warning: Citation `Datenblatt_Nextion' on page 38 undefined on input line 8.
-
-
-LaTeX Warning: Citation `Nextion_Anweisungen' on page 38 undefined on input line 11.
-
-[38]
-
-LaTeX Warning: Reference `fig. EKG-Startseite' on page 39 undefined on input line 23.
-
+[38]) (./Chapter/ekg_7_realisierung_display_und_ui.tex [39]
 File: Bilder/ECG_Homescreen.png Graphic file (type bmp)
 <Bilder/ECG_Homescreen.png>
-[39]) (./Chapter/ekg_7_realisierung_android_app.tex [40]
+ [40]) (./Chapter/ekg_7_realisierung_android_app.tex [41]
 File: Bilder/app_Activity.png Graphic file (type bmp)
 <Bilder/app_Activity.png>
-
-
-LaTeX Warning: Reference `app_Activity' on page 41 undefined on input line 19.
-
 File: Bilder/app_login.png Graphic file (type bmp)
 <Bilder/app_login.png>
 File: Bilder/app_register.png Graphic file (type bmp)
 <Bilder/app_register.png>
 
+
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-LaTeX Warning: Reference `app_login_reg' on page 41 undefined on input line 42.
-
-
-LaTeX Warning: Reference `app_login_reg' on page 41 undefined on input line 45.
-
-[41]
+[42]
 File: Bilder/app_profile.png Graphic file (type bmp)
 <Bilder/app_profile.png>
 File: Bilder/app_scan.png Graphic file (type bmp)
@@ -880,36 +763,14 @@ File: Bilder/app_scan.png Graphic file (type bmp)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-LaTeX Warning: Reference `app_profile_scan' on page 42 undefined on input line 58.
-
-[42]
+[43]
 File: Bilder/app_signal.png Graphic file (type bmp)
 <Bilder/app_signal.png>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-LaTeX Warning: Reference `app_signal' on page 43 undefined on input line 72.
-
-
-LaTeX Warning: Reference `app_profile_scan' on page 43 undefined on input line 72.
-
-) (./Chapter/ekg_7_realisierung_gehäuse.tex [43]
-
-LaTeX Warning: Reference `case_display' on page 44 undefined on input line 15.
-
-
-LaTeX Warning: Reference `case_no_display1' on page 44 undefined on input line 16.
-
-
-LaTeX Warning: Reference `case_no_display2' on page 44 undefined on input line 16.
-
-
-LaTeX Warning: Reference `case_closed' on page 44 undefined on input line 16.
-
-[44]
+) (./Chapter/ekg_7_realisierung_gehäuse.tex [44] [45]
 File: Bilder/case_no_display.png Graphic file (type bmp)
 <Bilder/case_no_display.png>
 File: Bilder/case_no_display_2.png Graphic file (type bmp)
@@ -928,44 +789,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--40
 
  []
 
-
-LaTeX Warning: Reference `case_no_display2' on page 45 undefined on input line 43.
-
-)) [45] (./Chapter/ekg_7_ergebnisse.tex
+)) [46] (./Chapter/ekg_7_ergebnisse.tex
 File: Bilder/EKG_Endergebnis.png Graphic file (type bmp)
 <Bilder/EKG_Endergebnis.png>
 Missing character: There is no ä in font cmmi12!
- [46]
+ [47]
 Underfull \hbox (badness 10000) in paragraph at lines 32--33
 
  []
 
-) [47] (./Chapter/ekg_7_zusammenfassung.tex [48]
-
-LaTeX Warning: Reference `fig_EKG-Gerät' on page 49 undefined on input line 23.
-
+) [48] (./Chapter/ekg_7_zusammenfassung.tex [49]
 File: Bilder/EKG_hell.jpg Graphic file (type bmp)
 <Bilder/EKG_hell.jpg>
 
+
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[49] [50]) [51]
-No file ekg_7_projektbericht.bbl.
-(./Chapter/ekg_7_anhang.tex) [52] (./ekg_7_projektbericht.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[50] [51]) [52] (./ekg_7_projektbericht.bbl) (./Chapter/ekg_7_anhang.tex) [53] (./ekg_7_projektbericht.aux) ) 
 Here is how much of TeX's memory you used:
- 10227 strings out of 479418
- 256006 string characters out of 5884585
+ 10250 strings out of 479418
+ 256376 string characters out of 5884585
  686916 words of memory out of 5000000
- 27556 multiletter control sequences out of 15000+600000
+ 27575 multiletter control sequences out of 15000+600000
  539234 words of font info for 68 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  50i,13n,71p,2254b,1221s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ekg_7_projektbericht.xdv (52 pages, 852692 bytes).
+Output written on ekg_7_projektbericht.xdv (53 pages, 906956 bytes).
