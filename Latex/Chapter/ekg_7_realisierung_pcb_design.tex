@@ -4,9 +4,7 @@
 
 \subsection{Platinendesign}
 
-Für das Zeichnen von Schaltplänen sowie dem Layouten der Platine wird das Programm Altium Designer verwendet. Es beinhaltet eine übersichtliche Benutzeroberfläche und zahlreiche Features wie PCB-Design in nativem 3D, interaktives Routing, hierarchische Designs, einheitliche Bibliothekenverwaltung, integrierte SPICE Simulationen und zahlreiche Export-Möglichkeiten in einem Tool. 
-
-%TODO Abkürzungen ins Abkürzungsverzeichnis schreiben
+Für das Zeichnen von Schaltplänen sowie dem Layouten der Platine wird das Programm Altium Designer verwendet. Es beinhaltet eine übersichtliche Benutzeroberfläche und zahlreiche Features wie PCB-Design in nativem 3D, interaktives Routing, hierarchische Designs, einheitliche Bibliothekenverwaltung, integrierte SPICE Simulationen und zahlreiche Export-Möglichkeiten in einem Tool \cite{Altium_Homepage}. 
 
 \subsubsection{Erstellung von Bibliotheken}
 Da in der integrierten Datenbank von Altium Designer nicht alle benötigten Bauteile enthalten sind, müssen diese zunächst von Hand angelegt werden. Dieser Prozess gliedert sich in drei Schritte:
@@ -16,7 +14,7 @@ Da in der integrierten Datenbank von Altium Designer nicht alle benötigten Baut
 
 \item Erstellung des Footprints: Für jeden Pin des Bauteils muss ein Pad auf dem PCB erstellt werden, auf welchem das Beinchen später aufliegt und verlötet wird. Dabei ist auf eine ausreichende Größe des Pads zu achten, um eine sichere Lötstelle zu gewährleisten. Es empfiehlt sich, die Pads länger als nötig zu gestalten, wenn im Nachgang noch Bauteile per Hand verlötet werden sollen. Idealerweise verwendet das Bauteil einen Standard-Footprint, welchen es bereits als Vorlage gibt. 
 
-\item Hinzufügen eines 3D Modells: Um die Platine später in 3D zu bearbeiten und vollständig zu exportieren, werden jedem Bauteil dreidimensionale Modelle hinzugefügt. Dies ist in Altium durch das Einfügen einer .step Datei möglich. Diese muss im Anschluss noch genau auf dem Footprint ausgerichtet werden.
+\item Hinzufügen eines 3D Modells: Um die Platine später in 3D zu bearbeiten und vollständig zu exportieren, werden jedem Bauteil dreidimensionale Modelle hinzugefügt. Dies ist in Altium durch das Einfügen einer .step Datei möglich. Diese muss im Anschluss noch genau auf dem Footprint ausgerichtet werden \cite{Altium_PCB_Footprint}.
 \end{enumerate}
 
 \subsubsection{Zeichnen des Schaltplans}
@@ -51,15 +49,22 @@ Die Absicherung der Spannungsversorgung ist in unmittelbarer Nähe zum Anschluss
 
 
 \subsubsection{Routing}
-Zum Routen wird das interaktive Routing Tool von Altium Designer verwendet. Dort werden zunächst die Design-Rules anhand der Vorgaben des Platinenfertiger Multi Circuit Boards angepasst.
+Zum Routen wird das interaktive Routing Tool von Altium Designer verwendet. Dort werden zunächst die \textit{Design-Rules} anhand der Vorgaben des Platinenfertiger Multi Circuit Boards angepasst \cite{MCB_Rules}.
 
-Als Leiterbahnbreite werden 0,3 mm festgelegt, was ausreichend ist um selbst die höchsten zu erwartenden Ströme dauerhaft ohne gefährliche Temperaturerhöhung zu tragen. Diese Breite wird ebenso für unbelastete Signalleitungen verwendet, um bei eventuellen Lötarbeiten mehr Stabilität zu bieten. Als Größe für die Vias kommt einheitlich ein Standardvia (Lochdurchmesser 0,3 mm, Ringdurchmesser 0,65 mm) zum Einsatz. Das verringert die Werkzeugkosten des Herstellers. %TODO Quelle https://www.4pcb.com/trace-width-calculator.html
+Als Leiterbahnbreite werden 0,3 mm festgelegt, was ausreichend ist um selbst die höchsten zu erwartenden Ströme dauerhaft ohne gefährliche Temperaturerhöhung zu tragen \cite{Trace_Calculator}. Diese Breite wird ebenso für unbelastete Signalleitungen verwendet, um bei eventuellen Lötarbeiten mehr Stabilität zu bieten. Als Größe für die Vias kommt einheitlich ein Standardvia (Lochdurchmesser 0,3 mm, Ringdurchmesser 0,65 mm) zum Einsatz. Das verringert die Werkzeugkosten des Herstellers. 
 
 Um höchstmögliche Präzision und Störfreiheit für die Analogmessung zu ermöglichen, wird für deren Versorgung ein Sternpunkt festgelegt, welcher mit Konfigurationswiderständen vom Rest der Schaltung trennbar ist. Von diesem Sternpunkt aus wird auch die Vergleichsspannung des ADCs der MCU bedient. Auf den Leiterbahnen ist somit kein Spannungsfall oder Rauschen durch Ströme anderer Baugruppen, welche die Messung beeinflussen könnten. 
 
 Abschließend werden Massepolygone auf das Top- und Bottom-Layer gelegt, um die Stabilität der Platine zu erhöhen und für eine verbesserte Ground-Anbindung zu sorgen. Um den Sternpunkt damit nicht zu verändern, wird für den Analogbereich ein separates Polygon verwendet.
 
-%TODO Bild von Platine einfügen
+Eine 3D Ansicht der Platine ist in Abbildung \ref{fig_PCB_Rendering} zu sehen.
+
+\begin{figure} [!h]
+	%\centering
+	\includegraphics[width=\textwidth] {Platine_rendering.png}
+	\caption{Rendering Platine}
+	\label{fig_PCB_Rendering} 
+\end{figure}
 
 
 \subsubsection{Fertigung und Bestückung}

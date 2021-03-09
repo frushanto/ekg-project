@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.9)  9 MAR 2021 21:35
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.9)  9 MAR 2021 22:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -938,7 +938,11 @@ File: Bilder//State Machine.png Graphic file (type bmp)
 [33] [34] [35]
 File: Bilder//Short ECG.png Graphic file (type bmp)
 <Bilder//Short ECG.png>
- [36]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[36]
 File: Bilder//Langzeit EKG Energy Saving.png Graphic file (type bmp)
 <Bilder//Langzeit EKG Energy Saving.png>
  [37]
@@ -1015,62 +1019,78 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--8
 ] [][][][][][][][][][][][][][][][][][][][][][] []
  []
 
-! Misplaced alignment tab character &.
-l.12 \newblock Urban &
-                       Fischer, 2011.
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--63
-[]$[][][][][] [] [] [] [][][] [] [][][][][][] [] [][][] [] [][][][][] [] [][] [
-] [][][][][][][][][][][][][][][][][][][][][][][][] [] [][][][][][][][][][][][] 
+Underfull \hbox (badness 10000) in paragraph at lines 53--58
+[]$[][][][][] [] [] [] [][][] [] [][][][][][] [] [][] [] [][][][][][][][][][][]
+[][] [] [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 65--69
-[]$[][][][][] [] [] [] [][][] [] [][][][][][] [] [][][] [] [][][][][] [] [][] [
-] [][][][][][][][][][][][][][][][][][][][][][][][] [] [][][][][][][][][][][][] 
+Underfull \hbox (badness 10000) in paragraph at lines 66--71
+[]$[][][][][] [] [] [] [][][] [] [][] [] [][][] [] [][][] [] [][] [] [][][][][]
+[][] [] [][][][][][] [] [][][] [] [][] [] [][][][][][][][][][][][][] [] [][][] 
 []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--71
+[][][] [] [][][][][] [] [][][][] [] [][][][] [] [][][][][][][] [] [][] [] [][][
+] [] [][][][][][][][][] [] [][][][][][] [] [][][][][][] [] [][][][][] []
  []
 
 [54]
-Underfull \hbox (badness 10000) in paragraph at lines 81--85
+Underfull \hbox (badness 10000) in paragraph at lines 73--77
+[]$[][][][][] [] [] [] [][][] [] [][][][][][] [] [][][] [] [][][][][] [] [][] [
+] [][][][][][][][][][][][][][][][][][][][][][][][] [] [][][][][][][][][][][][] 
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--88
+[]$[][][][][] [] [] [] [][][] [] [][][][][][] [] [][][] [] [][][][][] [] [][] [
+] [][][][][][][][][][][][][][][][][][][][][][][][] [] [][][][][][][][][][][][] 
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--101
+[]$[][][][][] [] [] [] [][][] [] [][][][][][] [] [][][] [] [][][][][][][][][][]
+[][][] [] [][][][][][][][][][][][][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--112
 []$[][][][][] [] [] [] [][][] [] [][][][][][][] [] [][][] [] [][] [] [][] [] []
 [][][][][][] [] [][][][][][][][][][][][][][][][] []
  []
 
 [55]
-Underfull \hbox (badness 10000) in paragraph at lines 132--136
+Underfull \hbox (badness 10000) in paragraph at lines 159--163
 []$[][][][][] [] [] [] [][][][][][][][][] [] [][][][][][][] [] [][][] [] [][][]
 [][] [] [][][][][][][][][][] [] [][][][][][][][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--142
+Underfull \hbox (badness 10000) in paragraph at lines 165--169
 []$[][][][][] [] [] [] [][][][][][][][][] [] [][][][][][][] [] [][][] [] [][][]
 [][] [] [][][][][][][][][][] [] [][][][][][] [] [][][][][][][][] []
  []
 
-) (./Chapter/ekg_7_anhang.tex) [56] (./ekg_7_projektbericht.aux)
+[56]) (./Chapter/ekg_7_anhang.tex) [57] (./ekg_7_projektbericht.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `ekg_7_projektbericht.out' has not changed.
-(rerunfilecheck)             Checksum: DA036610F5C7DC2ABB4C518EFD50F218;9243.
+(rerunfilecheck)             Checksum: 21E745508432C4C18DB940B7349C1F1C;9051.
  ) 
 Here is how much of TeX's memory you used:
- 16856 strings out of 476939
- 352342 string characters out of 5826133
+ 16860 strings out of 476939
+ 352412 string characters out of 5826133
  853279 words of memory out of 5000000
- 36519 multiletter control sequences out of 15000+600000
+ 36523 multiletter control sequences out of 15000+600000
  410686 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  81i,13n,102p,2213b,1234s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ekg_7_projektbericht.pdf (56 pages).
+Output written on ekg_7_projektbericht.pdf (57 pages).
