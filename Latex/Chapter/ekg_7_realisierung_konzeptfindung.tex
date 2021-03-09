@@ -112,7 +112,7 @@ Für die Erzeugung von 5 V wird ein Aufwärtswandler verwendet. Hierbei handelt 
 Die Generierung von 3V durch einen Abwärtswandler ist möglich, allerdings weist diese Schaltungsart bauartbedingt eine Restwelligkeit auf. Da die komplette Analogschaltung zur Aufnahme des EKG-Signals mit 3V versorgt wird, soll hier jede Form von Schwankung vermieden werden.
 Deshalb fällt die Wahl für die Generierung von 3V auf einen LDO (Low-Dropout-Regler), welcher einen Spannungsabfall über einen internen MOS-FET verursacht und somit die Eingangsspannung auf eine festgelegte Ausgangsspannung herunter regelt. Da in einem LDO keine schaltenden Vorgänge stattfinden, ist die Restwelligkeit sehr gering.
 
-Die Anzeige und Steuerung erfolgt über ein 3,2 Zoll TFT Touch Display. Es verfügt über eine serielle Schnittstelle und kommuniziert via UART mit dem Input/Ouput-Modul des Prozessors. Zur zusätzlichen Bedienung wurde ein Taster eingeplant, der zum Ein- und Ausschalten des Energiesparmodus verwendet wird. Der Buzzer dient zur akustischen Warnung bei einem niedrigen Ladestand.
+Die Anzeige und Steuerung erfolgt über ein 3,2 Zoll TFT Touch-Display. Es verfügt über eine serielle Schnittstelle und kommuniziert via UART mit dem Input/Ouput-Modul des Prozessors. Zur zusätzlichen Bedienung wurde ein Taster eingeplant, der zum Ein- und Ausschalten des Energiesparmodus verwendet wird. Der Buzzer dient zur akustischen Warnung bei einem niedrigen Ladestand.
 
 Die zweite UART-Schnittstelle (Universal Asynchronous Receiver Transmitter) der CPU wird verwendet um Daten an das Bluetooth-Modul zu senden. Dieses kommuniziert dann via Bluetooth mit dem Smartphone des Benutzers, um die EKG-Daten in der App anzuzeigen.
 
@@ -124,7 +124,7 @@ Zur Programmierung und Fehleranalyse der Prozessoreinheit auf der Platine, wird 
 Das Display und dessen User Interface (UI) wurde mithilfe von vergleichbaren Geräten anhand einer Marktrecherche und anhand der Funktionalitäten des Lastenheftes konzeptioniert. Das UI ist mit der Nextion-Editor Software entwickelt und programmiert worden.
 
 %Konzept MCU:
-Das Projekt EKG7 basiert auf dem Microcontroller MSP430F5529. \cite{MSP430F5529} Gemäß den Projektvorgaben muss der Prozessor zur MSP430-Prozessorfamilie der Firma Texas Instruments gehören. Nach der Analyse verschiedener Modelle fiel die Wahl auf den MSP430F5529. Dieser Mikrocontroller hat alle notwendigen Spezifikationen, um die Anforderungen im Lasten- und Pflichtenheft zu erfüllen.\\
+Das Projekt EKG7 basiert auf dem Mikrocontroller MSP430F5529. \cite{MSP430F5529} Gemäß den Projektvorgaben muss der Prozessor zur MSP430-Prozessorfamilie der Firma Texas Instruments gehören. Nach der Analyse verschiedener Modelle fiel die Wahl auf den MSP430F5529. Dieser Mikrocontroller hat alle notwendigen Spezifikationen, um die Anforderungen im Lasten- und Pflichtenheft zu erfüllen.\\
 Das Hauptziel der Baugruppe ist eine kontinuierliche Bearbeitung und Übertragung des analogen Eingangssignals an verschiedene Module mit einem möglichst niedrigen Stromverbrauch.\\
 Die F5529 MCU verfügt über fünf verschiedene Stromsparmodi. In diesen Modi liegt die Stromaufnahme im µA-Bereich. Der aktive Zustand des Prozessors verbraucht bei maximaler Belastung 3,7 mA. \cite{Datenblatt_MSP430F5529}\\
 Der nächste wichtige Aspekt ist eine ausreichende Taktfrequenz. Die maximale Frequenz der F5529 beträgt 25 MHz. In diesem Projekt sind die \textit{Clocks} auf eine Frequenz von 20 MHz eingestellt, was durch das UART-Modul begrenzt wird.\\
