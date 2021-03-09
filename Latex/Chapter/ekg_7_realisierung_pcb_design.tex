@@ -12,14 +12,11 @@ Für das Zeichnen von Schaltplänen sowie dem Layouten der Platine wird das Prog
 Da in der integrierten Datenbank von Altium Designer nicht alle benötigten Bauteile enthalten sind, müssen diese zunächst von Hand angelegt werden. Dieser Prozess gliedert sich in drei Schritte:
 
 \begin{enumerate}
-\item Erstellung des Schaltzeichens:\\
-Hierbei wird mithilfe von geometrischen Formen ein Symbol des Bauteils erstellt, welches schematisch seine Funktion widerspiegelt. Idealerweise dient dafür ein Symbol des Herstellers als Vorlage. Hierbei müssen bereits die Ein- und Ausgangspins des Bauteils festgelegt werden, da nur dort später Leitungen angeschlossen werden können. Den Pins wird eine Nummer zugewiesen, welche später einem Pad des Footprints entspricht.
+\item Erstellung des Schaltzeichens: Hierbei wird mithilfe von geometrischen Formen ein Symbol des Bauteils erstellt, welches schematisch seine Funktion widerspiegelt. Idealerweise dient dafür ein Symbol des Herstellers als Vorlage. Hierbei müssen bereits die Ein- und Ausgangspins des Bauteils festgelegt werden, da nur dort später Leitungen angeschlossen werden können. Den Pins wird eine Nummer zugewiesen, welche später einem Pad des Footprints entspricht.
 
-\item Erstellung des Footprints: \\
-Für jeden Pin des Bauteils muss ein Pad auf dem PCB erstellt werden, auf welchem das Beinchen später aufliegt und verlötet wird. Dabei ist auf eine ausreichende Größe des Pads zu achten, um eine sichere Lötstelle zu gewährleisten. Es empfiehlt sich, die Pads länger als nötig zu gestalten, wenn im Nachgang noch Bauteile per Hand verlötet werden sollen. Idealerweise verwendet das Bauteil einen Standard-Footprint, welchen es bereits als Vorlage gibt. 
+\item Erstellung des Footprints: Für jeden Pin des Bauteils muss ein Pad auf dem PCB erstellt werden, auf welchem das Beinchen später aufliegt und verlötet wird. Dabei ist auf eine ausreichende Größe des Pads zu achten, um eine sichere Lötstelle zu gewährleisten. Es empfiehlt sich, die Pads länger als nötig zu gestalten, wenn im Nachgang noch Bauteile per Hand verlötet werden sollen. Idealerweise verwendet das Bauteil einen Standard-Footprint, welchen es bereits als Vorlage gibt. 
 
-\item Hinzufügen eines 3D Modells: \\
-Um die Platine später in 3D zu bearbeiten und vollständig zu exportieren, werden jedem Bauteil dreidimensionale Modelle hinzugefügt. Dies ist in Altium durch das Einfügen einer .step Datei möglich. Diese muss im Anschluss noch genau auf dem Footprint ausgerichtet werden.
+\item Hinzufügen eines 3D Modells: Um die Platine später in 3D zu bearbeiten und vollständig zu exportieren, werden jedem Bauteil dreidimensionale Modelle hinzugefügt. Dies ist in Altium durch das Einfügen einer .step Datei möglich. Diese muss im Anschluss noch genau auf dem Footprint ausgerichtet werden.
 \end{enumerate}
 
 \subsubsection{Zeichnen des Schaltplans}
