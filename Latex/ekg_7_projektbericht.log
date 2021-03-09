@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.7) (preloaded format=xelatex 2021.3.5)  9 MAR 2021 19:16
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.7) (preloaded format=xelatex 2021.3.5)  9 MAR 2021 19:41
 entering extended mode
 **./ekg_7_projektbericht.tex
 (ekg_7_projektbericht.tex
@@ -447,12 +447,10 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 43.
 LaTeX Info: Redefining \pageref on input line 43.
 LaTeX Info: Redefining \nameref on input line 43.
+
+(ekg_7_projektbericht.out) (ekg_7_projektbericht.out)
 \@outlinefile=\write3
 \openout3 = `ekg_7_projektbericht.out'.
-
-
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
 
 
 Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid
@@ -511,6 +509,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 43.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 43.
+
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
@@ -571,15 +570,13 @@ File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
 ) [1
 
 ]
-
-Package hyperref Warning: old toc file detected, not used; run LaTeX again.
-
+(ekg_7_projektbericht.toc [2])
 \tf@toc=\write4
 \openout4 = `ekg_7_projektbericht.toc'.
 
-[2] (Chapter/ekg_7_abkuerzungsverzeichnis.tex) [3]
-(Chapter/ekg_7_einleitung.tex) [4] [5] (Chapter/ekg_7_zielsetzung.tex [6])
-[7] (Chapter/ekg_7_stand_der_technik.tex [8] [9]
+ [3] (Chapter/ekg_7_abkuerzungsverzeichnis.tex)
+[4] (Chapter/ekg_7_einleitung.tex) [5] [6] (Chapter/ekg_7_zielsetzung.tex
+[7]) [8] (Chapter/ekg_7_stand_der_technik.tex [9] [10]
 Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []|\TU/lmr/m/n/12 Kardio-
  []
@@ -859,123 +856,62 @@ Overfull \hbox (3.84906pt too wide) in paragraph at lines 51--51
 []|\TU/lmr/bx/n/12 Abtastrate
  []
 
-[10]
-Runaway argument?
-{\@firstoffive }\fi  zu erkennen ist bieten alle Modelle die Möglich\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.66 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
-) [11] (Chapter/ekg_7_realisierung.tex
-(Chapter/ekg_7_realisierung_konzeptfindung.tex [12]
-Runaway argument?
-{\@firstoffive }\fi ) mithilfe von Matlab gewählt. Das EKG-Signal wu\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.29 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
+[11]) [12] (Chapter/ekg_7_realisierung.tex
+(Chapter/ekg_7_realisierung_konzeptfindung.tex [13]
 File: Bilder/EKG_Signal.png Graphic file (type bmp)
 <Bilder/EKG_Signal.png>
 File: Bilder/EKG_diskretes_Frequenzspektrum_Ausschnitt.png Graphic file (type b
 mp)
 <Bilder/EKG_diskretes_Frequenzspektrum_Ausschnitt.png>
 
+
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-Runaway argument?
-{\@firstoffive }\fi  zeigt die einzelnen Stufen der Filterung schemat\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.45 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
+[14]
 File: Bilder/Filter Blockschaltbild.png Graphic file (type bmp)
 <Bilder/Filter Blockschaltbild.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-Runaway argument?
-{\@firstoffive }\fi  zu erkennen ist, werden zwei Versorgungsspannung\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.55 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
-[13] [14]
-Underfull \hbox (badness 10000) in paragraph at lines 101--102
-
- []
-
-[15]
-
-LaTeX Warning: Citation `MSP430F5529' on page 16 undefined on input line 120.
-
-
-LaTeX Warning: Citation `Datenblatt_MSP430F5529' on page 16 undefined on input 
-line 122.
-
-
-Overfull \hbox (9.71568pt too wide) in paragraph at lines 120--128
-\TU/lmr/m/n/12 ments gehören. Nach der Analyse verschiedener Modelle fiel die W
-ahl auf den MSP430F5529.
- []
-
-[16]
 File: Bilder/Blockschaltbild v1.5.png Graphic file (type bmp)
 <Bilder/Blockschaltbild v1.5.png>
 
 
-LaTeX Warning: Citation `Nextion_Editor' on page 17 undefined on input line 143
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[15] [16] [17]
+
+LaTeX Warning: Citation `MSP430F5529' on page 18 undefined on input line 127.
+
+
+LaTeX Warning: Citation `Datenblatt_MSP430F5529' on page 18 undefined on input 
+line 129.
+
+
+Overfull \hbox (9.71568pt too wide) in paragraph at lines 127--135
+\TU/lmr/m/n/12 ments gehören. Nach der Analyse verschiedener Modelle fiel die W
+ahl auf den MSP430F5529.
+ []
+
+[18]
+
+LaTeX Warning: Citation `Nextion_Editor' on page 19 undefined on input line 145
 .
 
 
-LaTeX Warning: Citation `GIMP' on page 17 undefined on input line 143.
+LaTeX Warning: Citation `GIMP' on page 19 undefined on input line 146.
 
 
-LaTeX Warning: Citation `CCS' on page 17 undefined on input line 144.
+LaTeX Warning: Citation `CCS' on page 19 undefined on input line 147.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--148
+LaTeX Warning: Citation `DevKit' on page 19 undefined on input line 155.
+
+
+LaTeX Warning: Citation `Texas_Instruments:DevKit' on page 19 undefined on inpu
+t line 155.
+
+[19]) (Chapter/ekg_7_realisierung_diskussion_der_alternativen.tex [20]
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
  []
-
-[17]
-
-LaTeX Warning: Citation `DevKit' on page 18 undefined on input line 151.
-
-
-LaTeX Warning: Citation `Texas_Instruments:DevKit' on page 18 undefined on inpu
-t line 151.
-
-) (Chapter/ekg_7_realisierung_diskussion_der_alternativen.tex [18]
-Runaway argument?
-{\@firstoffive }\fi  zu erkennen ist. \\ 
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.14 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
 
 File: Bilder/Test IIR Filter.png Graphic file (type bmp)
 <Bilder/Test IIR Filter.png>
@@ -984,20 +920,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--2
 
  []
 
-[19]
-Runaway argument?
-{\@firstoffive }\fi  verdeutlicht. Deshalb wurde für das EKG-Gerät \ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.13 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
+[21]
 File: Bilder/DCDC_3V_LDO_Shematic.png Graphic file (type bmp)
 <Bilder/DCDC_3V_LDO_Shematic.png>
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -1006,118 +932,62 @@ File: Bilder/DCDC_3V_LDO_Plot.png Graphic file (type bmp)
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[20] [21]) (Chapter/ekg_7_realisierung_analoge_filterschaltung.tex
+[22] [23]) (Chapter/ekg_7_realisierung_analoge_filterschaltung.tex
 Overfull \hbox (9.68579pt too wide) in paragraph at lines 23--24
 \TU/lmr/m/n/12 Messleitungen eingekoppelt werden. Seine Verstärkung wird mittel
 s eines [][]-Widerstandes
  []
 
-[22]
+[24]
 File: Bilder/EKG_aktiver_Tiefpassfilter.png Graphic file (type bmp)
 <Bilder/EKG_aktiver_Tiefpassfilter.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-Runaway argument?
-{\@firstoffive }\fi  ist der verwendete aktive Tiefpass, realisiert d\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.41 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
-[23]
+ [25]
 File: Bilder/EKG_Gesamtübertragungsfunktion.png Graphic file (type bmp)
 <Bilder/EKG_Gesamtübertragungsfunktion.png>
-
-Runaway argument?
-{\@firstoffive }\fi  ist die simulierte Gesamtübertragungsfunktion d\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.56 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
-[24]
+ [26]
 File: Bilder/EKG_virtueller_Ground.png Graphic file (type bmp)
 <Bilder/EKG_virtueller_Ground.png>
-
-Runaway argument?
-{\@firstoffive }\fi ). Bei dem Operationsverstärker handelt es sich \ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.67 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
-) (Chapter/ekg_7_realisierung_pcb_design.tex [25]
-Runaway argument?
-{\@firstoffive }\fi ). 
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.36 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
+) (Chapter/ekg_7_realisierung_pcb_design.tex [27] [28]
 File: Bilder/Schematics_EKG_2021-02-21_Power_Supply.jpg Graphic file (type bmp)
 
 <Bilder/Schematics_EKG_2021-02-21_Power_Supply.jpg>
+ [29]
+[30]) (Chapter/ekg_7_realisierung_prozessor_einheit.tex
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: Citation `State_Machine' on page 31 undefined on input line 9.
 
-[26] [27]) (Chapter/ekg_7_realisierung_prozessor_einheit.tex [28]
-
-LaTeX Warning: Citation `State_Machine' on page 29 undefined on input line 9.
-
-[29]
+[31]
 File: Bilder/State Machine.png Graphic file (type bmp)
 <Bilder/State Machine.png>
+ [32]
+
+LaTeX Warning: Citation `Interrupt1' on page 33 undefined on input line 47.
 
 
-LaTeX Warning: Citation `Interrupt1' on page 30 undefined on input line 47.
+LaTeX Warning: Citation `Interrupt2' on page 33 undefined on input line 47.
 
 
-LaTeX Warning: Citation `Interrupt2' on page 30 undefined on input line 47.
-
-[30]
-
-LaTeX Warning: Citation `Watchdog_Timer' on page 31 undefined on input line 76.
+LaTeX Warning: Citation `Watchdog_Timer' on page 33 undefined on input line 76.
 
 
-[31] [32]
+[33] [34]
 
-LaTeX Warning: Citation `FatFs_Lib' on page 33 undefined on input line 97.
+LaTeX Warning: Citation `FatFs_Lib' on page 35 undefined on input line 97.
 
 
-LaTeX Warning: Citation `FatFs_Entwickler' on page 33 undefined on input line 9
+LaTeX Warning: Citation `FatFs_Entwickler' on page 35 undefined on input line 9
 7.
 
-[33]
+[35]
 File: Bilder/Short ECG.png Graphic file (type bmp)
 <Bilder/Short ECG.png>
- [34]
+ [36]
 File: Bilder/Langzeit EKG Energy Saving.png Graphic file (type bmp)
 <Bilder/Langzeit EKG Energy Saving.png>
- [35]
-
-LaTeX Warning: Reference `fig. energysavingmode' on page 36 undefined on input 
-line 151.
-
+ [37]
 File: Bilder/Idle State and Evergy Saving.png Graphic file (type bmp)
 <Bilder/Idle State and Evergy Saving.png>
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -1127,101 +997,68 @@ Overfull \hbox (2.58792pt too wide) in paragraph at lines 164--165
 unden den Mittelwert der ADC-
  []
 
-[36]) (Chapter/ekg_7_realisierung_display_und_ui.tex
+[38]) (Chapter/ekg_7_realisierung_display_und_ui.tex
 
-LaTeX Warning: Citation `Datenblatt_Nextion' on page 37 undefined on input line
+LaTeX Warning: Citation `Datenblatt_Nextion' on page 39 undefined on input line
  8.
 
 
-LaTeX Warning: Citation `Nextion_Anweisungen' on page 37 undefined on input lin
+LaTeX Warning: Citation `Nextion_Anweisungen' on page 39 undefined on input lin
 e 11.
 
-[37]
-Runaway argument?
-{\@firstoffive }\fi ). Hier ist in der oberen rechten Ecke die Periph\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.30 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
+[39]
+File: Bilder/ECG_Homescreen.png Graphic file (type bmp)
+<Bilder/ECG_Homescreen.png>
+ [40]) (Chapter/ekg_7_realisierung_android_app.tex
 
-) (Chapter/ekg_7_realisierung_android_app.tex [38]
+LaTeX Warning: Citation `Firebase' on page 41 undefined on input line 6.
+
+
+LaTeX Warning: Citation `Android_Studio' on page 41 undefined on input line 6.
+
+
+LaTeX Warning: Citation `Google_Analytics' on page 41 undefined on input line 8
+.
+
+[41]
 File: Bilder/app_Activity.png Graphic file (type bmp)
 <Bilder/app_Activity.png>
 
 
-LaTeX Warning: Reference `app_Activity' on page 39 undefined on input line 19.
+LaTeX Warning: Citation `Activity_Overview' on page 42 undefined on input line 
+19.
+
+
+LaTeX Warning: Citation `Activity_Lifecycle' on page 42 undefined on input line
+ 19.
 
 File: Bilder/app_login.png Graphic file (type bmp)
 <Bilder/app_login.png>
 File: Bilder/app_register.png Graphic file (type bmp)
 <Bilder/app_register.png>
-[39]
-Runaway argument?
-{\@firstoffive }\fi  links) stellt den Einstieg des Benutzers in die \ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.46 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
 
+Overfull \hbox (4.57991pt too wide) in paragraph at lines 32--45
+\TU/lmr/m/n/12 Durch einen Klick auf \TU/lmr/m/it/12 Register Now \TU/lmr/m/n/1
+2 oder Plus wird eine neue Registrierungs-Aktivität
+ []
+
+[42]
 File: Bilder/app_profile.png Graphic file (type bmp)
 <Bilder/app_profile.png>
 File: Bilder/app_scan.png Graphic file (type bmp)
 <Bilder/app_scan.png>
+ [43]
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-Runaway argument?
-{\@firstoffive }\fi  links) stellt dem Benutzer eine Schnittstelle zu\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.62 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
+LaTeX Warning: Citation `Graph_View_Libary' on page 44 undefined on input line 
+63.
 
 File: Bilder/app_signal.png Graphic file (type bmp)
 <Bilder/app_signal.png>
+[44]) (Chapter/ekg_7_realisierung_gehäuse.tex
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: Citation `Blender' on page 45 undefined on input line 3.
 
-)
-Runaway argument?
-{\@firstoffive }\fi ) stellt die Hauptfunktionalität der App, das An\ETC.
-! File ended while scanning use of \Hy@setref@link.
-<inserted text> 
-                \par 
-l.23 \input{ekg_7_realisierung_android_app}
-                                           
-I suspect you have forgotten a `}', causing me
-to read past where you wanted me to stop.
-I'll try to recover; but if the error is serious,
-you'd better type `E' or `X' now and fix your file.
-
-(Chapter/ekg_7_realisierung_gehäuse.tex
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-Runaway argument?
-{\@firstoffive }\fi ) des EKG-Gerätes. Das Langloch zum Tauschen der\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.17 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
+[45]
 File: Bilder/case_no_display.png Graphic file (type bmp)
 <Bilder/case_no_display.png>
 File: Bilder/case_no_display_2.png Graphic file (type bmp)
@@ -1240,100 +1077,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--40
 
  []
 
-)
-Runaway argument?
-{\@firstoffive }\fi ). 
-! File ended while scanning use of \Hy@setref@link.
-<inserted text> 
-                \par 
-l.25 \input{ekg_7_realisierung_gehäuse}
-                                       
-I suspect you have forgotten a `}', causing me
-to read past where you wanted me to stop.
-I'll try to recover; but if the error is serious,
-you'd better type `E' or `X' now and fix your file.
-
-) [40] [41] (Chapter/ekg_7_ergebnisse.tex
+)) [46] (Chapter/ekg_7_ergebnisse.tex
 File: Bilder/EKG_Endergebnis.png Graphic file (type bmp)
 <Bilder/EKG_Endergebnis.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[42]
-Missing character: There is no ä in font cmmi12!
-
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
-
- []
-
-) [43] [44] (Chapter/ekg_7_zusammenfassung.tex [45]
-Runaway argument?
-{\@firstoffive }\fi  ist das fertige EKG-Gerät mit Elektrodenkabel a\ETC.
-! Paragraph ended before \Hy@setref@link was complete.
-<to be read again> 
-                   \par 
-l.24 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
+ [47]) [48]
+(Chapter/ekg_7_zusammenfassung.tex [49]
 File: Bilder/EKG_hell.jpg Graphic file (type bmp)
 <Bilder/EKG_hell.jpg>
 
+
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[46] [47]) [48]
+[50] [51]) [52]
 No file ekg_7_projektbericht.bbl.
 (Chapter/ekg_7_anhang.tex)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 87.
- [49]
+ [53]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 87.
  (ekg_7_projektbericht.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 87.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 87.
+Package rerunfilecheck Info: File `ekg_7_projektbericht.out' has not changed.
+(rerunfilecheck)             Checksum: 6465E6F14FD9B344992628F7FE53F731;5747.
 
-
-Package rerunfilecheck Warning: File `ekg_7_projektbericht.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `ekg_7_projektbericht.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  57F158D8460E6DDDC8873B5EEEF766B6;5747.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 87.
- )
-(\end occurred when \ifx on line 23 was incomplete)
-(\end occurred when \ifx on line 43 was incomplete)
-(\end occurred when \ifx on line 15 was incomplete)
-(\end occurred when \ifx on line 72 was incomplete)
-(\end occurred when \ifx on line 58 was incomplete)
-(\end occurred when \ifx on line 42 was incomplete)
-(\end occurred when \ifx on line 23 was incomplete)
-(\end occurred when \ifx on line 35 was incomplete)
-(\end occurred when \ifx on line 66 was incomplete)
-(\end occurred when \ifx on line 55 was incomplete)
-(\end occurred when \ifx on line 40 was incomplete)
-(\end occurred when \ifx on line 12 was incomplete)
-(\end occurred when \ifx on line 13 was incomplete)
-(\end occurred when \ifx on line 54 was incomplete)
-(\end occurred when \ifx on line 44 was incomplete)
-(\end occurred when \ifx on line 28 was incomplete)
-(\end occurred when \ifx on line 65 was incomplete) 
+ ) 
 Here is how much of TeX's memory you used:
- 17555 strings out of 414493
- 358814 string characters out of 2907548
+ 17580 strings out of 414493
+ 359280 string characters out of 2907548
  805457 words of memory out of 3000000
- 34518 multiletter control sequences out of 15000+200000
+ 34536 multiletter control sequences out of 15000+200000
  542344 words of font info for 74 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  47i,13n,71p,2207b,1232s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ekg_7_projektbericht.pdf (49 pages).
+Output written on ekg_7_projektbericht.pdf (53 pages).
