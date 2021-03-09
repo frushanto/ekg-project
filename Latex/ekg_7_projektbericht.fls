@@ -81,6 +81,12 @@ INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/lipsum/lipsum.sty
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/lipsum/lipsum.sty
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
 INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption3.sty
+INPUT /usr/local/texlive/2020/texmf-dist/tex/latex/caption/caption3.sty
 INPUT ekg_7_projektbericht.aux
 INPUT ekg_7_projektbericht.aux
 OUTPUT ekg_7_projektbericht.aux
@@ -105,8 +111,6 @@ INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 OUTPUT ekg_7_projektbericht.xdv
-INPUT ekg_7_projektbericht.toc
-INPUT ekg_7_projektbericht.toc
 OUTPUT ekg_7_projektbericht.toc
 INPUT ./Chapter/ekg_7_abkuerzungsverzeichnis.tex
 INPUT ./Chapter/ekg_7_abkuerzungsverzeichnis.tex
@@ -131,29 +135,6 @@ INPUT ./Chapter/ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
 INPUT ./Chapter/ekg_7_realisierung_akkumanagement_und_versorgungsspannungen.tex
 INPUT Bilder/DCDC_3V_LDO_Shematic.png
 INPUT Bilder/DCDC_3V_LDO_Plot.png
-INPUT ./Chapter/ekg_7_realisierung_display_und_ui.tex
-INPUT ./Chapter/ekg_7_realisierung_display_und_ui.tex
-INPUT Bilder/ECG_Homescreen.png
-INPUT ./Chapter/ekg_7_realisierung_prozessor_einheit.tex
-INPUT ./Chapter/ekg_7_realisierung_prozessor_einheit.tex
-INPUT Bilder/State Machine.png
-INPUT Bilder/Short ECG.png
-INPUT Bilder/Langzeit EKG Energy Saving.png
-INPUT Bilder/Idle State and Evergy Saving.png
-INPUT ./Chapter/ekg_7_realisierung_gehäuse.tex
-INPUT ./Chapter/ekg_7_realisierung_gehäuse.tex
-INPUT Bilder/case_no_display.png
-INPUT Bilder/case_no_display_2.png
-INPUT Bilder/case_display.png
-INPUT Bilder/case_closed.png
-INPUT ./Chapter/ekg_7_realisierung_android_app.tex
-INPUT ./Chapter/ekg_7_realisierung_android_app.tex
-INPUT Bilder/app_activity.png
-INPUT Bilder/app_login.png
-INPUT Bilder/app_register.png
-INPUT Bilder/app_profile.png
-INPUT Bilder/app_scan.png
-INPUT Bilder/app_signal.png
 INPUT ./Chapter/ekg_7_realisierung_analoge_filterschaltung.tex
 INPUT ./Chapter/ekg_7_realisierung_analoge_filterschaltung.tex
 INPUT Bilder/EKG_aktiver_Tiefpassfilter.png
@@ -162,14 +143,35 @@ INPUT Bilder/EKG_virtueller_Ground.png
 INPUT ./Chapter/ekg_7_realisierung_pcb_design.tex
 INPUT ./Chapter/ekg_7_realisierung_pcb_design.tex
 INPUT Bilder/Schematics_EKG_2021-02-21_Power_Supply.jpg
+INPUT ./Chapter/ekg_7_realisierung_prozessor_einheit.tex
+INPUT ./Chapter/ekg_7_realisierung_prozessor_einheit.tex
+INPUT Bilder/State Machine.png
+INPUT Bilder/Short ECG.png
+INPUT Bilder/Langzeit EKG Energy Saving.png
+INPUT Bilder/Idle State and Evergy Saving.png
+INPUT ./Chapter/ekg_7_realisierung_display_und_ui.tex
+INPUT ./Chapter/ekg_7_realisierung_display_und_ui.tex
+INPUT Bilder/ECG_Homescreen.png
+INPUT ./Chapter/ekg_7_realisierung_android_app.tex
+INPUT ./Chapter/ekg_7_realisierung_android_app.tex
+INPUT Bilder/app_Activity.png
+INPUT Bilder/app_login.png
+INPUT Bilder/app_register.png
+INPUT Bilder/app_profile.png
+INPUT Bilder/app_scan.png
+INPUT Bilder/app_signal.png
+INPUT ./Chapter/ekg_7_realisierung_gehäuse.tex
+INPUT ./Chapter/ekg_7_realisierung_gehäuse.tex
+INPUT Bilder/case_no_display.png
+INPUT Bilder/case_no_display_2.png
+INPUT Bilder/case_display.png
+INPUT Bilder/case_closed.png
 INPUT ./Chapter/ekg_7_ergebnisse.tex
 INPUT ./Chapter/ekg_7_ergebnisse.tex
 INPUT Bilder/EKG_Endergebnis.png
 INPUT ./Chapter/ekg_7_zusammenfassung.tex
 INPUT ./Chapter/ekg_7_zusammenfassung.tex
 INPUT Bilder/EKG_hell.jpg
-INPUT ekg_7_projektbericht.bbl
-INPUT ekg_7_projektbericht.bbl
 INPUT ./Chapter/ekg_7_anhang.tex
 INPUT ./Chapter/ekg_7_anhang.tex
 INPUT ekg_7_projektbericht.aux

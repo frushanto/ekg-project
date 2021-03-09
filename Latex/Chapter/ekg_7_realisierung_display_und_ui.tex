@@ -5,10 +5,10 @@
 Dieses Unterkapitel behandelt die Auswahl des Displays und die Programmierung der Benutzeroberfläche.
 
 \subsubsection{Auswahl des Displays}
-Gesteuert wird das EKG-Gerät durch das NX4024T032. Dabei handelt es sich um ein TFT Touch-Display der Firma Nextion. Das Display ist 3,2 Zoll groß und weist eine Auflösung von 400x240 Pixel auf. Betrieben wird das Display mit 5 V und verbraucht bei maximaler Helligkeit 85 mA. Verbunden wird das Display via UART mit einer Baudrate von 115200 $s^{-1}$.
+Gesteuert wird das EKG-Gerät durch das NX4024T032. Dabei handelt es sich um ein TFT Touch-Display der Firma Nextion. Das Display ist 3,2 Zoll groß und weist eine Auflösung von 400x240 Pixel auf. Betrieben wird das Display mit 5 V und verbraucht bei maximaler Helligkeit 85 mA. Verbunden wird das Display via UART mit einer Baudrate von 115200 $s^{-1}$. \cite{Datenblatt_Nextion}
 
 \subsubsection{Programmierung der Benutzeroberfläche}
-Der erste Schritt der Displayprogrammierung ist die Initialisierung. In diesem Schritt wird die Baudrate von 115200 $s^{-1}$ und die \textit{„Tap-to-wake“} Funktion integriert. Das Display schaltet sich je nachdem, auf welcher Seite man sich befindet, nach 30 bis 180 Sekunden in den Schlafmodus. Durch einmaliges Antippen auf das Display wird es wieder aufgeweckt.
+Der erste Schritt der Displayprogrammierung ist die Initialisierung. In diesem Schritt wird die Baudrate von 115200 $s^{-1}$ und die \textit{„Tap-to-wake“} Funktion integriert. Das Display schaltet sich je nachdem, auf welcher Seite man sich befindet, nach 30 bis 180 Sekunden in den Schlafmodus. Durch einmaliges Antippen auf das Display wird es wieder aufgeweckt. \cite{Nextion_Anweisungen}
 
 Der Nextion-Editor verfügt über ein weites Spektrum an Werkzeugen von denen folgende im Projekt verwendet werden:
 \begin{itemize}

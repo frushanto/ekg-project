@@ -6,7 +6,7 @@ Dieses Kapitel gibt eine ausführliche Beschreibung zur Software des Projektes u
 
 \subsubsection{State Machine}
 
-Eine \textit{State Machine} ist ein Verhaltensmodell der Softwareentwicklung mit einer endlichen Anzahl von Zuständen. Zwischen diesen Zuständen kann gemäß der Programmlogik oder der Eingangsdaten gewechselt werden.
+Eine \textit{State Machine} ist ein Verhaltensmodell der Softwareentwicklung mit einer endlichen Anzahl von Zuständen. Zwischen diesen Zuständen kann gemäß der Programmlogik oder der Eingangsdaten gewechselt werden. \cite{State_Machine}
 
 Eine \textit{State Machine} hat in der Regel einen Initialisierungszustand, in dem die Programmmodule gestartet werden. Der folgende Programmablauf ist von dem Initialisierungszustand abhängig. Nach einer erfolgreichen Initialisierung wird beispielsweise der reguläre Programmablauf fortgeführt. Sollte es bei der Initialisierung zu Fehlern kommen, wird ein Zustand eingenommen indem z.B. mögliche Fehlerursachen angezeigt oder das komplette System abgeschaltet wird. Die Überwachung von Fehlfunktionen findet auch in allen anderen Zuständen statt.
 
@@ -44,7 +44,7 @@ Für das Anzeigen diverser Zustände sind in der Software globale \textit{Flags}
 
 \subsubsection{Interrupts}
 
-Ein Interrupt ist ein Signal an die MCU, das hardware- oder softwareseitig auftritt und eine sofortige Reaktion der MCU benötigt. Der normale Programmablauf wird dabei gestoppt und zunächst die Befehle der ISR ausgeführt. Nach dem Abarbeiten eines \textit{Interrupts} kehrt die MCU zurück zum normalen Programmablauf.
+Ein Interrupt ist ein Signal an die MCU, das hardware- oder softwareseitig auftritt und eine sofortige Reaktion der MCU benötigt. Der normale Programmablauf wird dabei gestoppt und zunächst die Befehle der ISR ausgeführt. Nach dem Abarbeiten eines \textit{Interrupts} kehrt die MCU zurück zum normalen Programmablauf. \cite{Interrupt1} \cite{Interrupt2} 
 In dem Projekt werden \textit{Interrupts} für folgende Module verwendet:
 \begin{itemize}
     \item GPIO – beim Betätigen der Taste am Gehäuse, Ein- und Ausschalten des Bluetooth Moduls und Einsetzen bzw. Entfernen der SD-Karte
@@ -73,7 +73,7 @@ Initialisierung oder SYS\_INIT ist der Anfangszustand der MCU nach dem Einschalt
 
 Im Folgenden wird eine detaillierte Beschreibung von den zu initialisierenden Modulen aufgelistet:
 \begin{enumerate}
-    \item Watchdog Timer: Ist dem Totmann-Schalter ähnlich. Die MCU wird zurückgesetzt, wenn das Programm ihn nicht explizit ausschaltet
+    \item Watchdog Timer: Ist dem Totmann-Schalter ähnlich. Die MCU wird zurückgesetzt, wenn das Programm ihn nicht explizit ausschaltet \cite{Watchdog_Timer}
     \item GPIO: General Purpose Input Output ist ein Modul, das die vorhandenen Pins als Inputs oder Outputs initialisiert. Da ihre Funktionalität in aderen Modulen verwendet wird, müssen sie als erstes initialisiert werden. Es werden folgende GPIO-Pins initialisiert:
     \begin{itemize}
         \item LEDs auf der Platine
@@ -94,7 +94,7 @@ Im Folgenden wird eine detaillierte Beschreibung von den zu initialisierenden Mo
     Damit ein ganzer \textit{String} verschickt werden kann, inktementiert das DMA Modul die Quelladresse nach jedem versendeten Byte. Somit wird nach Aktivierung des Moduls durch setzen des DMA-Enable-Bits ein kompletter String im Hintergrund Byte für Byte versendet, bis die vorgegebene Datengröße abgearbeitet ist und das Enable-Bit automatisch zurückgesetzt wird. Die CPU selbst wird dabei jeweils nur für zwei Takte durch das DMA Modul unterbrochen und muss nicht auf den Abschluss jedes Sendevorgangs warten.
     \item ADC: Danach wird das ADC Modul initialisiert und die beiden Pins für die EKG-Aufnahme und Akkuüberwachung konfiguriert. Als positive Referenzspannungsquelle wird AVCC (3V) für beide ADC Kanäle eingestellt. Negative Referenzspannungsquelle ist AVSS, was dem Massepotential auf der Platine entspricht. Beide Kanäle werden mit ACLK betrieben. Zum Schluss wird der \textit{Interrupt} für dieses Modul aktiviert.
     \item SPI: Die SPI Schnittstelle dient zur Kommunikation mit dem SD-Kartenmodul und wird mit der SMCLK betrieben. Nach dem die gewünschte Frequenz eingestellt wurde, werden die \textit{Interrupts} freigeschaltet, das \textit{Chip Select} Signal an den \textit{Slave} gesendet und der TX Buffer aktiviert.
-    \item FAT: Als Kommunikationsprotokoll für FAT, wird die Schnittstelle SPI verwendet. Das FAT-Modul ist für die Initialisierung der SD-Karte verantwortlich. Dafür wird in diesem Projekt eine \textit{Open Source Library} verwendet.
+    \item FAT: Als Kommunikationsprotokoll für FAT, wird die Schnittstelle SPI verwendet. Das FAT-Modul ist für die Initialisierung der SD-Karte verantwortlich. Dafür wird in diesem Projekt eine \textit{Open Source Library} verwendet. \cite{FatFs_Lib} \cite{FatFs_Entwickler} 
     \item Medianfilter: Der Medianfilter dient dazu, Ausreißer (verursacht durch Bewegungsartefakte des Anwenders) der berechneten Herzfrequenz herauszufiltern. In der Initialisierung wird ein Array mit elf Elementen angelegt, dass als Speicher des Filters dient. Aus diesem Speicher wird nach jeder neuen Pulsberechnung der Median gebildet und ans Display gesendet. Im Gegensatz zu einem Mittelwertfilter haben vereinzelte Ausreißer keinen Einfluss auf das Ergebnis.
 \end{enumerate}
 
