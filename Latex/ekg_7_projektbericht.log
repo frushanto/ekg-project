@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.9)  9 MAR 2021 22:10
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2021.3.9)  9 MAR 2021 22:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -881,9 +881,9 @@ File: Bilder//Blockschaltbild v1.5.png Graphic file (type bmp)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [15] [16] [17]
-Overfull \hbox (0.37575pt too wide) in paragraph at lines 127--135
-[]\TU/lmr/m/n/12 Das Projekt EKG7 basiert auf dem Microcontroller MSP430F5529. 
-[[]] Gemäß den Projekt-
+Overfull \hbox (9.71568pt too wide) in paragraph at lines 125--133
+\TU/lmr/m/n/12 ments gehören. Nach der Analyse verschiedener Modelle fiel die W
+ahl auf den MSP430F5529.
  []
 
 [18] [19]) (./Chapter//ekg_7_realisierung_diskussion_der_alternativen.tex
@@ -931,59 +931,124 @@ File: Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg Graphic file (type bmp
 )
 <Bilder//Schematics_EKG_2021-02-21_Power_Supply.jpg>
 
-[29] [30]) (./Chapter//ekg_7_realisierung_prozessor_einheit.tex [31]
+[29]
+File: Bilder//Platine_rendering.png Graphic file (type bmp)
+<Bilder//Platine_rendering.png>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[30]) (./Chapter//ekg_7_realisierung_prozessor_einheit.tex [31]
 File: Bilder//State Machine.png Graphic file (type bmp)
 <Bilder//State Machine.png>
- [32]
-[33] [34] [35]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[32] [33] [34] [35] [36]
 File: Bilder//Short ECG.png Graphic file (type bmp)
 <Bilder//Short ECG.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[36]
+ [37]
 File: Bilder//Langzeit EKG Energy Saving.png Graphic file (type bmp)
 <Bilder//Langzeit EKG Energy Saving.png>
- [37]
+ [38]
 File: Bilder//Idle State and Evergy Saving.png Graphic file (type bmp)
 <Bilder//Idle State and Evergy Saving.png>
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 
 Overfull \hbox (2.58792pt too wide) in paragraph at lines 164--165
 []\TU/lmr/m/it/12 ADC_Akku_Average_Value \TU/lmr/m/n/12 berechnet über drei Sek
 unden den Mittelwert der ADC-
  []
 
-[38]) (./Chapter//ekg_7_realisierung_display_und_ui.tex [39]
+[39]) (./Chapter//ekg_7_realisierung_display_und_ui.tex
 File: Bilder//ECG_Homescreen.png Graphic file (type bmp)
 <Bilder//ECG_Homescreen.png>
  [40])
 (./Chapter//ekg_7_realisierung_android_app.tex [41]
+
+LaTeX Warning: Citation `Firebase' on page 42 undefined on input line 6.
+
+
+LaTeX Warning: Citation `Android_Studio' on page 42 undefined on input line 6.
+
+
+LaTeX Warning: Citation `Google_Analytics' on page 42 undefined on input line 8
+.
+
 File: Bilder//app_Activity.png Graphic file (type bmp)
 <Bilder//app_Activity.png>
+
+LaTeX Warning: Citation `Activity_Overview' on page 42 undefined on input line 
+19.
+
+
+LaTeX Warning: Citation `Activity_Lifecycle' on page 42 undefined on input line
+ 19.
+
+[42]
 File: Bilder//app_login.png Graphic file (type bmp)
 <Bilder//app_login.png>
 File: Bilder//app_register.png Graphic file (type bmp)
 <Bilder//app_register.png>
 
-Overfull \hbox (4.57991pt too wide) in paragraph at lines 32--45
-\TU/lmr/m/n/12 Durch einen Klick auf \TU/lmr/m/it/12 Register Now \TU/lmr/m/n/1
-2 oder Plus wird eine neue Registrierungs-Aktivität
- []
 
-[42]
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 File: Bilder//app_profile.png Graphic file (type bmp)
 <Bilder//app_profile.png>
 File: Bilder//app_scan.png Graphic file (type bmp)
 <Bilder//app_scan.png>
- [43]
+
+Overfull \hbox (4.74278pt too wide) in paragraph at lines 46--59
+\TU/lmr/m/n/12 dung []20[] links) stellt dem Benutzer eine Schnitt-
+ []
+
+
+Overfull \hbox (0.92276pt too wide) in paragraph at lines 46--59
+\TU/lmr/m/n/12 Durch einen implementierten \TU/lmr/m/it/12 onDataChange()
+ []
+
+
+Overfull \hbox (3.18275pt too wide) in paragraph at lines 46--59
+\TU/lmr/m/n/12 Listener werden serverseitige Änderungen auch
+ []
+
+
+Overfull \hbox (3.61609pt too wide) in paragraph at lines 46--59
+\TU/lmr/m/n/12 generiert, der die auf dem Smartphone als stan-
+ []
+
+
+Overfull \hbox (4.03479pt too wide) in paragraph at lines 46--59
+\TU/lmr/m/n/12 das neue Profilbild angezeigt und lokal im Spei-
+ []
+
+
+Overfull \hbox (5.78809pt too wide) in paragraph at lines 46--59
+\TU/lmr/m/n/12 cher hinterlegt, um den Internetdatenverbrauch
+ []
+
+
+Overfull \hbox (10.96255pt too wide) in paragraph at lines 46--59
+\TU/lmr/m/n/12 rückgesetzt wird. Der Button „Connect to EKG“
+ []
+
+[43] [44]
+
+LaTeX Warning: Citation `Graph_View_Libary' on page 45 undefined on input line 
+63.
+
 File: Bilder//app_signal.png Graphic file (type bmp)
 <Bilder//app_signal.png>
- [44]) (./Chapter//ekg_7_realisierung_gehäuse.tex [45]
+[45]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (./Chapter//ekg_7_realisierung_gehäuse.tex
+
+LaTeX Warning: Citation `Blender' on page 46 undefined on input line 3.
+
+[46]
 File: Bilder//case_no_display.png Graphic file (type bmp)
 <Bilder//case_no_display.png>
 File: Bilder//case_no_display_2.png Graphic file (type bmp)
@@ -1002,95 +1067,102 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--40
 
  []
 
-)) [46] [47] (./Chapter/ekg_7_ergebnisse.tex
+)) [47] (./Chapter/ekg_7_ergebnisse.tex
 File: Bilder//EKG_Endergebnis.png Graphic file (type bmp)
 <Bilder//EKG_Endergebnis.png>
- [48]) [49]
-(./Chapter/ekg_7_zusammenfassung.tex [50]
-File: Bilder//EKG_hell.jpg Graphic file (type bmp)
-<Bilder//EKG_hell.jpg>
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[51] [52]) [53] (./ekg_7_projektbericht.bbl
+[48]) [49] [50] (./Chapter/ekg_7_zusammenfassung.tex [51]
+File: Bilder//EKG_hell.jpg Graphic file (type bmp)
+<Bilder//EKG_hell.jpg>
+ [52]) [53]
+(./ekg_7_projektbericht.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 4--8
 []$[][][][][] [] [] [] [][][] [] [][][][][][][][][][][][][][][][][][] [] [][] [
 ] [][][][][][][][][][][][][][][][][][][][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 53--58
+Underfull \hbox (badness 10000) in paragraph at lines 26--30
+[]$[][][][][] [] [] [] [][][][][][][][][][] [] [][][][][][][][] [] [][][] [] []
+[][][][][][][][] [] [][][] []
+ []
+
+[54]
+Underfull \hbox (badness 10000) in paragraph at lines 70--75
 []$[][][][][] [] [] [] [][][] [] [][][][][][] [] [][] [] [][][][][][][][][][][]
 [][] [] [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 66--71
+Underfull \hbox (badness 10000) in paragraph at lines 83--88
 []$[][][][][] [] [] [] [][][] [] [][] [] [][][] [] [][][] [] [][] [] [][][][][]
 [][] [] [][][][][][] [] [][][] [] [][] [] [][][][][][][][][][][][][] [] [][][] 
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 66--71
+Underfull \hbox (badness 10000) in paragraph at lines 83--88
 [][][] [] [][][][][] [] [][][][] [] [][][][] [] [][][][][][][] [] [][] [] [][][
 ] [] [][][][][][][][][] [] [][][][][][] [] [][][][][][] [] [][][][][] []
  []
 
-[54]
-Underfull \hbox (badness 10000) in paragraph at lines 73--77
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--94
 []$[][][][][] [] [] [] [][][] [] [][][][][][] [] [][][] [] [][][][][] [] [][] [
 ] [][][][][][][][][][][][][][][][][][][][][][][][] [] [][][][][][][][][][][][] 
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--88
+Underfull \hbox (badness 10000) in paragraph at lines 101--105
 []$[][][][][] [] [] [] [][][] [] [][][][][][] [] [][][] [] [][][][][] [] [][] [
 ] [][][][][][][][][][][][][][][][][][][][][][][][] [] [][][][][][][][][][][][] 
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 96--101
+Underfull \hbox (badness 10000) in paragraph at lines 113--118
 []$[][][][][] [] [] [] [][][] [] [][][][][][] [] [][][] [] [][][][][][][][][][]
 [][][] [] [][][][][][][][][][][][][][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 108--112
+Underfull \hbox (badness 10000) in paragraph at lines 120--125
+[]$[][][][][] [] [] [] [][][] [] [][][][][][][][][][][][][][][][][][][][][][] [
+] [][] [] [][][][][][][][][] [] [][][][] [] [][][][][][] [] [][][][][][][][][] 
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 120--125
+[][][][][][][][][][][][][] [] [][][][][][][][][][][][][] [] [][][][][][][][][][
+][][][][][][][][][][][][][][] [] [][][][][][][][][][][][][][][][][][][][] []
+ []
+
+[55]
+Underfull \hbox (badness 10000) in paragraph at lines 138--142
 []$[][][][][] [] [] [] [][][] [] [][][][][][][] [] [][][] [] [][] [] [][] [] []
 [][][][][][] [] [][][][][][][][][][][][][][][][] []
  []
 
-[55]
-Underfull \hbox (badness 10000) in paragraph at lines 159--163
-[]$[][][][][] [] [] [] [][][][][][][][][] [] [][][][][][][] [] [][][] [] [][][]
-[][] [] [][][][][][][][][][] [] [][][][][][][][][][] []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 165--169
-[]$[][][][][] [] [] [] [][][][][][][][][] [] [][][][][][][] [] [][][] [] [][][]
-[][] [] [][][][][][][][][][] [] [][][][][][] [] [][][][][][][][] []
- []
-
-[56]) (./Chapter/ekg_7_anhang.tex) [57] (./ekg_7_projektbericht.aux)
+) (./Chapter/ekg_7_anhang.tex) [56] (./ekg_7_projektbericht.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `ekg_7_projektbericht.out' has not changed.
-(rerunfilecheck)             Checksum: 21E745508432C4C18DB940B7349C1F1C;9051.
+(rerunfilecheck)             Checksum: 7DA61489620B31E7C6F238C8D512081A;9147.
  ) 
 Here is how much of TeX's memory you used:
- 16860 strings out of 476939
- 352412 string characters out of 5826133
- 853279 words of memory out of 5000000
- 36523 multiletter control sequences out of 15000+600000
+ 16864 strings out of 476939
+ 352555 string characters out of 5826133
+ 854279 words of memory out of 5000000
+ 36526 multiletter control sequences out of 15000+600000
  410686 words of font info for 72 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  81i,13n,102p,2213b,1234s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ekg_7_projektbericht.pdf (57 pages).
+Output written on ekg_7_projektbericht.pdf (56 pages).
