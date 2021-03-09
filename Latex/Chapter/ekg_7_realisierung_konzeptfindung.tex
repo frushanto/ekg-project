@@ -53,13 +53,6 @@ Da das Störsignal durch Magnetfelder mit der gleichen Frequenz der Versorgungsl
 %Konzept Versorgung:
 Wie aus Abbildung \ref{fig_Blockschaltbild} zu erkennen ist, werden zwei Versorgungsspannungen (\SI{3}{\volt}  und \SI{5}{\volt}) für die Module benötigt. Sie werden aus dem Spannungsbereich eines Lithium-Ionen-Akkus mithilfe eines LDO für \SI{3}{\volt} und eines Aufwärtswandlers für \SI{5}{\volt} erzeugt. Die Konzeptfindung der Spannungsversorgung wird im Folgendem erläutert.
 
-\begin{figure} [h]
-	%\centering
-	\includegraphics[width=\textwidth] {Blockschaltbild v1.5.png}
-	\caption{Blockschaltbild des EKG-Geräts}
-	\label{fig_Blockschaltbild} 
-\end{figure}
-
 Für die Wahl des Akkumulators ist die geforderte Laufzeit von mindestens 30 Stunden sowie die Stromaufnahme der Unterbaugruppen ausschlaggebend. Letztere setzt sich wie folgt zusammen:
 \begin{table}
 \center
@@ -133,7 +126,12 @@ Die MCU besitzt 8 kB RAM. Dieser Speicher ist ausreichend, um die temporären We
 
 Als Grundstruktur des Codes wird eine \textit{State Machine} implementiert. Diese besteht aus verschiedenen Zuständen. Jeder Zustand kann als Modul separat programmiert und getestet werden. Dies vereinfacht die Programmentwicklung und erschafft Übersichtlichkeit. In einer \textit{State Machine} ist es immer möglich festzustellen, in welchem Zustand das Programm sich befindet.
 
-%TODO PROJEKTGRUPPE: Konzeptionierung der jeweiligen Baugruppe; Gründe warum die jeweiligen Bauteile verwendet wurden noch hinzufügen
+\begin{figure} [h]
+	%\centering
+	\includegraphics[width=\textwidth] {Blockschaltbild v1.5.png}
+	\caption{Blockschaltbild des EKG-Geräts}
+	\label{fig_Blockschaltbild} 
+\end{figure}
 
 \subsubsection{Verwendete Software}
 \begin{enumerate}
