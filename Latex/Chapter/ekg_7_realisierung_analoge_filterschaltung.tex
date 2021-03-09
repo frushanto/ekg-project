@@ -24,7 +24,7 @@ Zur Differenzbildung der beiden Kanäle wird ein Instrumentenverstärker von Ana
 
 \subsubsection{Kerbfilter}
 
-Da der Körper eines Menschen aus leitendem Material besteht, können elektromagnetische Störfelder eine Spannung in ihm induzieren. Diese Wechselspannung mit einer Amplitude von bis zu \SI{100}{\milli\volt} und einer Frequenz von \SI{50}{\hertz} überlagert das EKG-Signal des Herzens. Um diese Netzschwingung zu unterdrücken, wird ein Doppel-T-Filter verwendet. Bei idealen Bauteilen erreicht diese aktive Bandsperre eine Güte von annähernd 0,5 und eine Dämpfung von \SI{76}{\decibel}. Da jedoch die verwendeten SMD-Widerstände und Kondensatoren nur mit unvermeidbaren Toleranzen erhältlich sind, fällt die effektive Dämpfung auf \SI{20}{\decibel} bis \SI{30}{\decibel}. Dies wäre für die Anwendung nicht ausreichend, daher werden in der Schaltung zwei dieser Bandsperren in Reihe geschaltet. Die im Schaltplan vorgesehenen Parallelschaltungen der Widerstände dienen dazu die Widerstandswerte flexibel einzustellen, um auch noch im Nachhinein auf die Toleranzen der Kondensatoren reagieren zu können. 
+Da der Körper eines Menschen aus leitendem Material besteht, können elektromagnetische Störfelder eine Spannung in ihm induzieren. Diese Wechselspannung mit einer Amplitude von bis zu \SI{100}{\milli\volt} und einer Frequenz von \SI{50}{\hertz} überlagert das EKG-Signal des Herzens. Um diese Netzschwingung zu unterdrücken, wird ein Doppel-T-Filter verwendet. Bei idealen Bauteilen erreicht diese aktive Bandsperre eine Güte von annähernd 0,5 und eine Dämpfung von \SI{76}{\decibel}. Da jedoch die verwendeten SMD-Widerstände und Kondensatoren nur mit unvermeidbaren Toleranzen erhältlich sind, fällt die effektive Dämpfung auf \SI{20}{\decibel} bis \SI{30}{\decibel}. Dies wäre für die Anwendung nicht ausreichend, daher werden in der Schaltung zwei dieser Bandsperren in Reihe geschaltet. Die im Schaltplan vorgesehenen Parallelschaltungen der Widerstände dienen dazu die Widerstandswerte flexibel einzustellen, um auch noch im Nachhinein auf die Toleranzen der Kondensatoren reagieren zu können. \cite[S. 881ff.]{Tietze_Schenk}
 
 \subsubsection{Tiefpassfilterung}
 
@@ -37,7 +37,7 @@ Bei den benötigten Operationsverstärkern wurde ein Vierfach-OPV von Analog Dev
 	\label{aktiver Tiefpass} 
 \end{figure}
 
-In Abbildung \ref{aktiver Tiefpass} ist der verwendete aktive Tiefpass, realisiert durch eine Sallen-Key-Schaltung, abgebildet. Davor und danach befinden sich einfache passive Tiefpässe. Die zwei verbleibenden passiven Tiefpassfilter-Stufen befinden sich in der Eingangsstufe und zwischen den beiden \SI{50}{\hertz}-Filtern. Insgesamt ergibt sich damit eine Tiefpassfilterung sechster Ordnung, also eine Dämpfung von \SI{120}{\decibel} pro Dekade, über die Schaltung. \cite{Tietze_Schenk}
+In Abbildung \ref{aktiver Tiefpass} ist der verwendete aktive Tiefpass, realisiert durch eine Sallen-Key-Schaltung, abgebildet. Davor und danach befinden sich einfache passive Tiefpässe. Die zwei verbleibenden passiven Tiefpassfilter-Stufen befinden sich in der Eingangsstufe und zwischen den beiden \SI{50}{\hertz}-Filtern. Insgesamt ergibt sich damit eine Tiefpassfilterung sechster Ordnung, also eine Dämpfung von \SI{120}{\decibel} pro Dekade, über die Schaltung. \cite[S. 863ff.]{Tietze_Schenk}
 
 \subsubsection{Nachverstärkung}
 

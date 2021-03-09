@@ -4,7 +4,7 @@
 
 Dieses Kapitel führt die Funktionen des EKG-Gerätes auf die umgesetzt wurden. 
 
-\subsection{aufgenommene Signale}
+\subsection{Aufgenommene Signale}
 
 Die automatisierte Aufnahmezeit des Kurzzeit-EKG wurde mithilfe einer Stoppuhr gemessen und beträgt \SI{120}{\sec}. In dieser Zeit wurden 29895 Werte auf der SD-Karte, mit Zeitpunkt und Benutzerkennung gespeichert. Daraus ergibt sich eine durchschnittliche Abtastrate von \SI{249}{\hertz} (= $ \frac{29895\,Werte}{120\,sec}$). Die gespeicherten ADC-Werte des EKG-Signals wurden mithilfe von MS Excel in einem Zeitdiagramm visualisiert (siehe Abbildung \ref{Endergebnis EKG-Signal}).
 
@@ -49,6 +49,10 @@ Für die verschiedenen Energiemodi wurde der Stromverbrauch direkt an der Batter
 
 Nach dem Test der Langzeitaufnahme (Gerät befand sich dafür fast ausschließlich im Energiesparmodus), mit einem anfangs vollen Akku, betrug die Akkuanzeige des Displays 61\%. Die Spannung der Akkuzelle gemessen mit dem Multimeter betrug \SI{3,83}{\volt}.
 
-Die maximale Akkulaufzeit im Lagerzustand (5V DCDC ausgeschaltet) bis zur Entladegrenze von 20\% berechnet sich zu
+Die maximale Akkulaufzeit im Lagerzustand (5 V-DCDC ausgeschaltet) bis zur Entladegrenze von 20\% berechnet sich zu
 $ \frac{2200\,mAh \cdot 0,8}{7,7\,mA} = 228,6\,h $.
 %Akkustand beginnt bei 100\% und sinkt danach erwartungsgemäß bis bei einer Restladung von <20\% das akustische Warnsignal ertönt
+
+\subsection{Budget}
+
+Nach der Bilanzierung aller Kosten für Material und Herstellung in der Großproduktion, ergibt sich ein Gesamtpreis von 81,66 €. Die Herstellungskosten liegen somit 68,34 € unter dem gewünschten Budget. Kosten für Entwicklungsarbeit wurden noch nicht berücksichtigt. (siehe Dokumentation/Kostenplanung)
